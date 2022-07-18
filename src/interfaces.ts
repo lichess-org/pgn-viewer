@@ -21,5 +21,5 @@ export interface Opts {
   showMoves?: boolean;
   initialPly?: number | 'last';
   translate?: Translate;
-  scrollToMove: boolean;
+  scrollToMove?: boolean;
 }

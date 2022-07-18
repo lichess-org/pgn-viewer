@@ -2455,7 +2455,7 @@ var LichessPgnViewer = (function () {
             }
             else
                 pos.play(move);
-            nodes.push(Object.assign(Object.assign({}, toNode(pos)), { san: n.san, uci: makeUci(move) }));
+            nodes.push({ ...toNode(pos), san: n.san, uci: makeUci(move) });
         }
         return nodes;
     }
@@ -2582,7 +2582,13 @@ var LichessPgnViewer = (function () {
                 this.menu = false;
                 this.redraw();
             };
-            this.cgConfig = () => (Object.assign(Object.assign({}, (this.opts.chessground || {})), { fen: this.node().fen, orientation: this.orientation(), check: this.node().check, lastMove: uciToMove(this.node().uci) }));
+            this.cgConfig = () => ({
+                ...(this.opts.chessground || {}),
+                fen: this.node().fen,
+                orientation: this.orientation(),
+                check: this.node().check,
+                lastMove: uciToMove(this.node().uci),
+            });
             this.analysisUrl = () => `https://lichess.org/analysis/${this.node().fen.replace(' ', '_')}?color=${this.orientation}`;
             this.practiceUrl = () => `${this.analysisUrl()}#practice`;
             this.setGround = () => this.withGround(g => g.set(this.cgConfig()));
@@ -5110,20 +5116,20 @@ var LichessPgnViewer = (function () {
     }
 
     function view(ctrl) {
-        return ctrl.menu ? renderMenu(ctrl) : h('div.lpv', [renderBoard(ctrl), renderControls(ctrl)]);
+        return ctrl.menu ? renderMenu(ctrl) : h('div.lpv.lpv--board', [renderBoard(ctrl), renderControls(ctrl)]);
     }
     const renderMenu = (ctrl) => h('div.lpv.lpv--menu', [
         h('div.lpv__menu', h('div.lpv__menu__inner', [
-            h('button.lpv__menu__entry.lp__menu__flip.fbt', {
+            h('button.lpv__menu__entry.lpv__menu__flip.lpv__fbt', {
                 hook: bind('click', ctrl.flip),
             }, ctrl.translate('flipTheBoard')),
-            h('a.lpv__menu__entry.lp__menu__analysis.fbt', {
+            h('a.lpv__menu__entry.lpv__menu__analysis.lpv__fbt', {
                 attrs: {
                     href: ctrl.analysisUrl(),
                     target: '_blank',
                 },
             }, ctrl.translate('analysisBoard')),
-            h('a.lpv__menu__entry.lp__menu__practice.fbt', {
+            h('a.lpv__menu__entry.lpv__menu__practice.lpv__fbt', {
                 attrs: {
                     href: ctrl.practiceUrl(),
                     target: '_blank',
@@ -5134,13 +5140,13 @@ var LichessPgnViewer = (function () {
     ]);
     const renderControls = (ctrl) => h('div.lpv__controls', [
         dirButton('backward', ctrl.index < 1, ctrl.backward),
-        h('button.fbt.lpv__controls__menu', {
+        h('button.lpv__fbt.lpv__controls__menu', {
             class: { active: ctrl.menu },
             hook: bind('click', ctrl.toggleMenu),
         }, '⋮'),
         dirButton('forward', ctrl.index > ctrl.nodes.length - 2, ctrl.forward),
     ]);
-    const dirButton = (name, disabled, action) => h(`button.lpv__controls__${name}.fbt`, {
+    const dirButton = (name, disabled, action) => h(`button.lpv__controls__${name}.lpv__fbt`, {
         class: { disabled },
         hook: onInsert(el => bindMobileMousedown(el, e => eventRepeater(action, e))),
     });
@@ -5160,10 +5166,15 @@ var LichessPgnViewer = (function () {
             else if (e.deltaY < 0 && scroll)
                 ctrl.backward();
         }));
-    const makeConfig = (ctrl) => (Object.assign({ viewOnly: true, addDimensionsCssVars: true, drawable: {
+    const makeConfig = (ctrl) => ({
+        viewOnly: true,
+        addDimensionsCssVars: true,
+        drawable: {
             enabled: false,
             visible: false,
-        } }, ctrl.cgConfig()));
+        },
+        ...ctrl.cgConfig(),
+    });
 
     function start(element, opts) {
         const patch = init([classModule, attributesModule]);

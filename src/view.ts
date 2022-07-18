@@ -5,7 +5,7 @@ import { h, VNode } from 'snabbdom';
 import { bind, bindMobileMousedown, bindNonPassive, eventRepeater, onInsert, stepwiseScroll } from './util';
 
 export default function view(ctrl: Ctrl) {
-  return ctrl.menu ? renderMenu(ctrl) : h('div.lpv', [renderBoard(ctrl), renderControls(ctrl)]);
+  return ctrl.menu ? renderMenu(ctrl) : h('div.lpv.lpv--board', [renderBoard(ctrl), renderControls(ctrl)]);
 }
 
 const renderMenu = (ctrl: Ctrl) =>
@@ -14,14 +14,14 @@ const renderMenu = (ctrl: Ctrl) =>
       'div.lpv__menu',
       h('div.lpv__menu__inner', [
         h(
-          'button.lpv__menu__entry.lp__menu__flip.fbt',
+          'button.lpv__menu__entry.lpv__menu__flip.lpv__fbt',
           {
             hook: bind('click', ctrl.flip),
           },
           ctrl.translate('flipTheBoard')
         ),
         h(
-          'a.lpv__menu__entry.lp__menu__analysis.fbt',
+          'a.lpv__menu__entry.lpv__menu__analysis.lpv__fbt',
           {
             attrs: {
               href: ctrl.analysisUrl(),
@@ -31,7 +31,7 @@ const renderMenu = (ctrl: Ctrl) =>
           ctrl.translate('analysisBoard')
         ),
         h(
-          'a.lpv__menu__entry.lp__menu__practice.fbt',
+          'a.lpv__menu__entry.lpv__menu__practice.lpv__fbt',
           {
             attrs: {
               href: ctrl.practiceUrl(),
@@ -49,7 +49,7 @@ const renderControls = (ctrl: Ctrl) =>
   h('div.lpv__controls', [
     dirButton('backward', ctrl.index < 1, ctrl.backward),
     h(
-      'button.fbt.lpv__controls__menu',
+      'button.lpv__fbt.lpv__controls__menu',
       {
         class: { active: ctrl.menu },
         hook: bind('click', ctrl.toggleMenu),
@@ -60,7 +60,7 @@ const renderControls = (ctrl: Ctrl) =>
   ]);
 
 const dirButton = (name: string, disabled: boolean, action: () => void) =>
-  h(`button.lpv__controls__${name}.fbt`, {
+  h(`button.lpv__controls__${name}.lpv__fbt`, {
     class: { disabled },
     hook: onInsert(el => bindMobileMousedown(el, e => eventRepeater(action, e))),
   });

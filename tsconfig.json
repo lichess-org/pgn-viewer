@@ -3,9 +3,15 @@
     "strict": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
+    "noImplicitAny": true,
     "moduleResolution": "node",
-    "target": "ES2017",
+    "esModuleInterop": true,
+    "declaration": true,
+    "declarationDir": "./dist",
+    "outDir": "./dist",
+    "target": "ES2018",
     "module": "esnext",
-    "lib": ["DOM", "ES2019"]
-  }
+    "lib": ["DOM", "ES2018"]
+  },
+  "include": ["src"]
 }

@@ -1,5 +1,7 @@
 body {
   background: #161512;
+  font-family: 'Noto Sans';
+  --board-color: #886f46;
 }
 
 .viewers {

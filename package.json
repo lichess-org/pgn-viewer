@@ -1,6 +1,18 @@
 {
   "name": "lichess-pgn-viewer",
   "license": "GPL-3.0-or-later",
+  "version": "0.0.1",
+  "keywords": [
+    "chess",
+    "lichess",
+    "game",
+    "pgn",
+    "viewer",
+    "typescript"
+  ],
+  "type": "module",
+  "module": "dist/main.js",
+  "types": "dist/main.d.ts",
   "dependencies": {
     "@bity/oauth2-auth-code-pkce": "^2",
     "chessground": "^8",
@@ -21,9 +33,10 @@
     "typescript": "^4"
   },
   "scripts": {
-    "build": "rollup --config",
-    "watch": "rollup --config --watch",
-    "prod": "rollup --config --config-prod",
-    "serve": "http-server demo"
+    "compile": "tsc --incremental --declaration --inlineSourceMap",
+    "dev": "$npm_execpath run compile && rollup --config --watch",
+    "watch": "$npm_execpath run compile && rollup --config",
+    "prod": "$npm_execpath run compile && rollup --config --config-prod",
+    "demo": "http-server demo"
   }
 }

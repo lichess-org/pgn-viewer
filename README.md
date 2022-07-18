@@ -34,8 +34,8 @@ For these features, use an [analysis board](https://lichess.org/analysis) or [Li
 
 ```
 npm install
-npm run build
-npm run serve
+npm run dev
+npm run demo
 ```
 
 Then run the demos in your browser.
