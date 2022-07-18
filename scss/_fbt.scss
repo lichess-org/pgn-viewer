@@ -1,0 +1,35 @@
+%button-none {
+  background: none;
+  border: none;
+  outline: none;
+  color: $c-font;
+  align-items: normal;
+}
+
+.fbt {
+  @extend %button-none;
+
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 1em;
+  line-height: 1.5;
+  text-decoration: none;
+
+  @media (hover: hover) {
+    &:hover:not(.disabled):not([disabled]) {
+      background: mix($c-accent, $c-bg, 75%);
+      color: #fff;
+    }
+  }
+
+  &.active {
+    background: $c-accent !important;
+    color: #fff;
+  }
+
+  &.disabled,
+  &[disabled] {
+    opacity: 0.4;
+    cursor: default;
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "lichess-pgn-viewer",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "@bity/oauth2-auth-code-pkce": "^2",
+    "chessground": "^8",
+    "chessops": "^0.12",
+    "snabbdom": "^3"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^21",
+    "@rollup/plugin-node-resolve": "^13",
+    "@rollup/plugin-typescript": "^8",
+    "http-server": "^14",
+    "prettier": "^2",
+    "rollup": "^2",
+    "rollup-plugin-scss": "^3",
+    "rollup-plugin-terser": "^7",
+    "sass": "^1",
+    "tslib": "^2",
+    "typescript": "^4"
+  },
+  "scripts": {
+    "build": "rollup --config",
+    "watch": "rollup --config --watch",
+    "prod": "rollup --config --config-prod",
+    "serve": "http-server demo"
+  }
+}

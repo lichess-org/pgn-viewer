@@ -1,0 +1,89 @@
+$c-site-hue: 37;
+$c-bg: hsl($c-site-hue, 5%, 18%);
+$c-font: #999;
+$c-border: hsl(0, 0%, 25%);
+$c-accent: hsl(88, 62%, 37%);
+$c-accent-over: white;
+
+@import './chessground.base';
+@import './chessground.transp';
+@import './chessground.cburnett';
+@import './fbt';
+
+body {
+  --board-color: #886f46;
+  font-family: 'Noto Sans';
+}
+
+.lpv {
+  border-radius: 5px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  background: $c-bg;
+
+  &__board,
+  &__menu {
+    position: relative;
+    display: block;
+    height: 0;
+    padding-bottom: 100%;
+    width: 100%;
+  }
+  &__board {
+  }
+
+  &__controls {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+
+    .fbt {
+      flex: 1 1 auto;
+      padding: 0.4em 0.7em;
+      border-left: 1px solid $c-border;
+      &:first-child {
+        border: none;
+      }
+    }
+
+    &__menu.fbt {
+      flex: 0 1 auto;
+      padding: 0.4em 1em;
+    }
+    &__backward::before {
+      content: '←';
+    }
+    &__forward::before {
+      content: '→';
+    }
+    &__backward,
+    &__forward {
+      padding: 0.4rem 0.7rem;
+      &::before {
+        font-size: 3em;
+        line-height: 0.5em;
+      }
+    }
+  }
+
+  &__menu {
+    outline: 1px solid $c-border;
+    &__inner {
+      display: flex;
+      flex-flow: column;
+      padding-top: 2em;
+    }
+    &__entry.fbt {
+      text-align: left;
+      padding: 0.8em 2.5em;
+      transition: none;
+      &::before {
+        color: $c-accent;
+        font-size: 2em;
+      }
+      &:hover::before {
+        color: $c-accent-over;
+      }
+    }
+  }
+}

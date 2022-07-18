@@ -1,0 +1,13 @@
+body {
+  background: #161512;
+}
+
+.viewers {
+  margin: 1em;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2em;
+}
+
+.viewers > div {
+}
