@@ -6,7 +6,11 @@ import { Node } from './interfaces';
 
 export function makeNodes(game: Game<PgnNodeData>): Node[] {
   const pos = startingPosition(game.headers).unwrap();
-  const toNode = (pos: Position) => ({ fen: makeFen(pos.toSetup()), check: pos.isCheck() });
+  const toNode = (pos: Position) => {
+    const setup = pos.toSetup();
+    const ply = setup.fullmoves / 2 + (pos.turn === 'white' ? 0 : 1);
+    return { fen: makeFen(pos.toSetup()), check: pos.isCheck(), ply };
+  };
   const nodes: Node[] = [toNode(pos)];
   for (const n of game.moves.mainline()) {
     const move = parseSan(pos, n.san);

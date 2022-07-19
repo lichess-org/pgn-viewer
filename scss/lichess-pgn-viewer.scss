@@ -16,7 +16,7 @@ $c-accent-over: white;
   overflow: hidden;
   background: $c-bg;
 
-  &__board,
+  &__replay,
   &__menu {
     position: relative;
     display: block;
@@ -24,7 +24,10 @@ $c-accent-over: white;
     padding-bottom: 100%;
     width: 100%;
   }
-  &__board {
+  &__replay {
+  }
+
+  &__moves {
   }
 
   &__controls {

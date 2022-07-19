@@ -2558,16 +2558,14 @@ var LichessPgnViewer = (function () {
             this.index = 0;
             this.menu = false;
             this.node = () => this.nodes[this.index];
-            this.backward = () => {
-                this.index = Math.max(0, this.index - 1);
+            this.onward = (dir) => () => {
+                this.index = Math.min(this.nodes.length - 1, Math.max(0, this.index + dir));
+                this.menu = false;
                 this.setGround();
                 this.redraw();
             };
-            this.forward = () => {
-                this.index = Math.min(this.nodes.length - 1, this.index + 1);
-                this.setGround();
-                this.redraw();
-            };
+            this.backward = this.onward(-1);
+            this.forward = this.onward(1);
             this.toggleMenu = () => {
                 this.menu = !this.menu;
                 console.log(this.menu);

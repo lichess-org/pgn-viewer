@@ -1,5 +1,5 @@
 import Ctrl from './ctrl';
-import view from './view';
+import view from './view/main';
 import { init, attributesModule, classModule } from 'snabbdom';
 import { Opts } from './interfaces';
 

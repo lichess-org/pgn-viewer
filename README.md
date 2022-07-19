@@ -16,6 +16,8 @@ Please read more about GPL for JavaScript on [greendrake.info](https://greendrak
 
 - load and render very fast
 - browse through a game
+- variation tree
+- PGN comments
 - mobile support
 - translatable and customisable
 - client-side only
@@ -24,7 +26,6 @@ Please read more about GPL for JavaScript on [greendrake.info](https://greendrak
 ### Non Goals
 
 - custom user moves
-- variation tree
 - engine support
 - opening explorer
 

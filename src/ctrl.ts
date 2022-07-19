@@ -25,20 +25,15 @@ export default class Ctrl {
 
   node = () => this.nodes[this.index];
 
-  backward = () => {
-    this.index = Math.max(0, this.index - 1);
-    this.setGround();
-    this.redraw();
-  };
-  forward = () => {
-    this.index = Math.min(this.nodes.length - 1, this.index + 1);
+  onward = (dir: -1 | 1) => {
+    this.index = Math.min(this.nodes.length - 1, Math.max(0, this.index + dir));
+    this.menu = false;
     this.setGround();
     this.redraw();
   };
 
   toggleMenu = () => {
     this.menu = !this.menu;
-    console.log(this.menu);
     this.redraw();
   };
 
