@@ -1,4 +1,6 @@
 node_modules/
 dist/tsconfig.tsbuildinfo
-*.js
+/*.js
+src/**/*.js
+dist/**/*.js
 *.d.ts
