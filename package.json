@@ -15,7 +15,7 @@
   "types": "dist/main.d.ts",
   "dependencies": {
     "@bity/oauth2-auth-code-pkce": "^2",
-    "chessground": "^8",
+    "chessground": "^8.3",
     "chessops": "^0.12",
     "snabbdom": "^3"
   },
@@ -26,7 +26,6 @@
     "http-server": "^14",
     "prettier": "^2",
     "rollup": "^2",
-    "rollup-plugin-scss": "^3",
     "rollup-plugin-terser": "^7",
     "sass": "^1",
     "tslib": "^2",
@@ -34,9 +33,11 @@
   },
   "scripts": {
     "compile": "tsc --incremental --declaration --inlineSourceMap",
-    "dev": "$npm_execpath run compile && rollup --config --watch",
-    "watch": "$npm_execpath run compile && rollup --config",
+    "dev": "$npm_execpath run compile && rollup --config",
+    "watch": "$npm_execpath run compile && rollup --config --watch",
     "prod": "$npm_execpath run compile && rollup --config --config-prod",
-    "demo": "http-server demo"
+    "demo": "http-server demo",
+    "sass-dev": "sass --watch --update --style=expanded scss:demo",
+    "sass-prod": "sass --no-source-map --style=compressed scss:dist"
   }
 }

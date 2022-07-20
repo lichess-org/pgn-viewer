@@ -272,15 +272,12 @@ cg-board square.current-premove {
   background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0NSIgaGVpZ2h0PSI0NSI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0yMi41IDExLjYzVjYiIHN0cm9rZS1saW5lam9pbj0ibWl0ZXIiLz48cGF0aCBkPSJNMjIuNSAyNXM0LjUtNy41IDMtMTAuNWMwIDAtMS0yLjUtMy0yLjVzLTMgMi41LTMgMi41Yy0xLjUgMyAzIDEwLjUgMyAxMC41IiBmaWxsPSIjMDAwIiBzdHJva2UtbGluZWNhcD0iYnV0dCIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIvPjxwYXRoIGQ9Ik0xMS41IDM3YzUuNSAzLjUgMTUuNSAzLjUgMjEgMHYtN3M5LTQuNSA2LTEwLjVjLTQtNi41LTEzLjUtMy41LTE2IDRWMjd2LTMuNWMtMy41LTcuNS0xMy0xMC41LTE2LTQtMyA2IDUgMTAgNSAxMFYzN3oiIGZpbGw9IiMwMDAiLz48cGF0aCBkPSJNMjAgOGg1IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIi8+PHBhdGggZD0iTTMyIDI5LjVzOC41LTQgNi4wMy05LjY1QzM0LjE1IDE0IDI1IDE4IDIyLjUgMjQuNWwuMDEgMi4xLS4wMS0yLjFDMjAgMTggOS45MDYgMTQgNi45OTcgMTkuODVjLTIuNDk3IDUuNjUgNC44NTMgOSA0Ljg1MyA5IiBzdHJva2U9IiNlY2VjZWMiLz48cGF0aCBkPSJNMTEuNSAzMGM1LjUtMyAxNS41LTMgMjEgMG0tMjEgMy41YzUuNS0zIDE1LjUtMyAyMSAwbS0yMSAzLjVjNS41LTMgMTUuNS0zIDIxIDAiIHN0cm9rZT0iI2VjZWNlYyIvPjwvZz48L3N2Zz4=");
 }
 
-.fbt {
+.lpv__fbt {
   background: none;
   border: none;
   outline: none;
   color: #999;
   align-items: normal;
-}
-
-.fbt {
   cursor: pointer;
   text-transform: uppercase;
   font-size: 1em;
@@ -288,23 +285,26 @@ cg-board square.current-premove {
   text-decoration: none;
 }
 @media (hover: hover) {
-  .fbt:hover:not(.disabled):not([disabled]) {
+  .lpv__fbt:hover:not(.disabled):not([disabled]) {
     background: #567e26;
     color: #fff;
   }
 }
-.fbt.active {
+.lpv__fbt.active {
   background: hsl(88deg, 62%, 37%) !important;
   color: #fff;
 }
-.fbt.disabled, .fbt[disabled] {
+.lpv__fbt.disabled, .lpv__fbt[disabled] {
   opacity: 0.4;
   cursor: default;
 }
 
-body {
-  --board-color: #886f46;
-  font-family: "Noto Sans";
+.lpv__board .cg-wrap {
+  position: relative;
+  display: block;
+  height: 0;
+  padding-bottom: 100%;
+  width: 100%;
 }
 
 .lpv {
@@ -312,28 +312,60 @@ body {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   overflow: hidden;
   background: hsl(37deg, 5%, 18%);
+  display: grid;
+  overflow: hidden;
+  grid-template-areas: "board      moves" "controls   moves";
+  grid-template-columns: auto fit-content(24ch);
+  grid-template-rows: auto 3rem;
+  grid-row-gap: 0;
 }
-.lpv__board, .lpv__menu {
+.lpv__board {
+  grid-area: board;
+}
+.lpv__board cg-board {
+  box-shadow: none;
+}
+.lpv__moves {
+  grid-area: moves;
+  overflow-y: auto;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
   position: relative;
-  display: block;
-  height: 0;
-  padding-bottom: 100%;
-  width: 100%;
+  overflow-y: auto;
+  align-content: flex-start;
+  will-change: scroll-position;
+  user-select: none;
+  line-height: 1.7;
+  font-size: 1.1em;
+}
+.lpv__moves index {
+  flex: 0 0 16.666%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background: #302e2c;
+}
+.lpv__moves move {
+  flex: 0 0 41.666%;
+  padding-left: 0.7em;
+  cursor: pointer;
 }
 .lpv__controls {
+  grid-area: controls;
   display: flex;
   flex-flow: row nowrap;
   align-items: stretch;
 }
-.lpv__controls .fbt {
+.lpv__controls .lpv__fbt {
   flex: 1 1 auto;
   padding: 0.4em 0.7em;
   border-left: 1px solid hsl(0deg, 0%, 25%);
 }
-.lpv__controls .fbt:first-child {
+.lpv__controls .lpv__fbt:first-child {
   border: none;
 }
-.lpv__controls__menu.fbt {
+.lpv__controls__menu.lpv__fbt {
   flex: 0 1 auto;
   padding: 0.4em 1em;
 }
@@ -351,22 +383,24 @@ body {
   line-height: 0.5em;
 }
 .lpv__menu {
-  outline: 1px solid hsl(0deg, 0%, 25%);
-}
-.lpv__menu__inner {
+  grid-area: 1/1/2/2;
+  outline: 2px solid hsl(88deg, 62%, 37%);
+  background: #383e2b;
   display: flex;
   flex-flow: column;
   padding-top: 2em;
 }
-.lpv__menu__entry.fbt {
+.lpv__menu__entry.lpv__fbt {
   text-align: left;
   padding: 0.8em 2.5em;
   transition: none;
 }
-.lpv__menu__entry.fbt::before {
+.lpv__menu__entry.lpv__fbt::before {
   color: hsl(88deg, 62%, 37%);
   font-size: 2em;
 }
-.lpv__menu__entry.fbt:hover::before {
+.lpv__menu__entry.lpv__fbt:hover::before {
   color: white;
 }
+
+/*# sourceMappingURL=lichess-pgn-viewer.css.map */

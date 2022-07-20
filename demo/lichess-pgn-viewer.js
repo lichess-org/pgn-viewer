@@ -2445,7 +2445,11 @@ var LichessPgnViewer = (function () {
 
     function makeNodes(game) {
         const pos = startingPosition(game.headers).unwrap();
-        const toNode = (pos) => ({ fen: makeFen(pos.toSetup()), check: pos.isCheck() });
+        const toNode = (pos) => {
+            const setup = pos.toSetup();
+            const ply = setup.fullmoves / 2 + (pos.turn === 'white' ? 0 : 1);
+            return { fen: makeFen(pos.toSetup()), check: pos.isCheck(), ply };
+        };
         const nodes = [toNode(pos)];
         for (const n of game.moves.mainline()) {
             const move = parseSan(pos, n.san);
@@ -2558,17 +2562,14 @@ var LichessPgnViewer = (function () {
             this.index = 0;
             this.menu = false;
             this.node = () => this.nodes[this.index];
-            this.onward = (dir) => () => {
+            this.onward = (dir) => {
                 this.index = Math.min(this.nodes.length - 1, Math.max(0, this.index + dir));
                 this.menu = false;
                 this.setGround();
                 this.redraw();
             };
-            this.backward = this.onward(-1);
-            this.forward = this.onward(1);
             this.toggleMenu = () => {
                 this.menu = !this.menu;
-                console.log(this.menu);
                 this.redraw();
             };
             this.orientation = () => {
@@ -3617,7 +3618,6 @@ var LichessPgnViewer = (function () {
             viewOnly: false,
             disableContextMenu: false,
             addPieceZIndex: false,
-            addDimensionsCssVars: false,
             blockTouchScroll: false,
             pieceKey: false,
             highlight: {
@@ -4247,6 +4247,7 @@ var LichessPgnViewer = (function () {
         }
     }
     function updateBounds(s) {
+        var _a, _b;
         const bounds = s.dom.elements.wrap.getBoundingClientRect();
         const container = s.dom.elements.container;
         const ratio = bounds.height / bounds.width;
@@ -4255,10 +4256,8 @@ var LichessPgnViewer = (function () {
         container.style.width = width + 'px';
         container.style.height = height + 'px';
         s.dom.bounds.clear();
-        if (s.addDimensionsCssVars) {
-            document.documentElement.style.setProperty('--cg-width', width + 'px');
-            document.documentElement.style.setProperty('--cg-height', height + 'px');
-        }
+        (_a = s.addDimensionsCssVarsTo) === null || _a === void 0 ? void 0 : _a.style.setProperty('--cg-width', width + 'px');
+        (_b = s.addDimensionsCssVarsTo) === null || _b === void 0 ? void 0 : _b.style.setProperty('--cg-height', height + 'px');
     }
     function isPieceNode(el) {
         return el.tagName === 'PIECE';
@@ -5064,25 +5063,15 @@ var LichessPgnViewer = (function () {
     }
     const classModule = { create: updateClass, update: updateClass };
 
-    function bindMobileMousedown(el, f, redraw) {
-        for (const mousedownEvent of ['touchstart', 'mousedown']) {
-            el.addEventListener(mousedownEvent, e => {
-                f(e);
-                e.preventDefault();
-                if (redraw)
-                    redraw();
-            }, { passive: false });
-        }
-    }
-    const bindNonPassive = (eventName, f, redraw) => bind(eventName, f, redraw, false);
-    const bind = (eventName, f, redraw, passive = true) => onInsert(el => el.addEventListener(eventName, e => {
+    const bindNonPassive = (eventName, f, redraw) => bind$1(eventName, f, redraw, false);
+    const bind$1 = (eventName, f, redraw, passive = true) => onInsert$1(el => el.addEventListener(eventName, e => {
         const res = f(e);
         if (res === false)
             e.preventDefault();
         redraw === null || redraw === void 0 ? void 0 : redraw();
         return res;
     }, { passive }));
-    function onInsert(f) {
+    function onInsert$1(f) {
         return {
             insert: vnode => f(vnode.elm),
         };
@@ -5100,6 +5089,29 @@ var LichessPgnViewer = (function () {
             }
         };
     }
+
+    function bindMobileMousedown(el, f, redraw) {
+        for (const mousedownEvent of ['touchstart', 'mousedown']) {
+            el.addEventListener(mousedownEvent, e => {
+                f(e);
+                e.preventDefault();
+                if (redraw)
+                    redraw();
+            }, { passive: false });
+        }
+    }
+    const bind = (eventName, f, redraw, passive = true) => onInsert(el => el.addEventListener(eventName, e => {
+        const res = f(e);
+        if (res === false)
+            e.preventDefault();
+        redraw === null || redraw === void 0 ? void 0 : redraw();
+        return res;
+    }, { passive }));
+    function onInsert(f) {
+        return {
+            insert: vnode => f(vnode.elm),
+        };
+    }
     function eventRepeater(action, e) {
         const repeat = () => {
             action();
@@ -5113,60 +5125,99 @@ var LichessPgnViewer = (function () {
         document.addEventListener(eventName, () => clearTimeout(timeout), { once: true });
     }
 
-    function view(ctrl) {
-        return ctrl.menu ? renderMenu(ctrl) : h('div.lpv.lpv--board', [renderBoard(ctrl), renderControls(ctrl)]);
-    }
-    const renderMenu = (ctrl) => h('div.lpv.lpv--menu', [
-        h('div.lpv__menu', h('div.lpv__menu__inner', [
-            h('button.lpv__menu__entry.lpv__menu__flip.lpv__fbt', {
-                hook: bind('click', ctrl.flip),
-            }, ctrl.translate('flipTheBoard')),
-            h('a.lpv__menu__entry.lpv__menu__analysis.lpv__fbt', {
-                attrs: {
-                    href: ctrl.analysisUrl(),
-                    target: '_blank',
-                },
-            }, ctrl.translate('analysisBoard')),
-            h('a.lpv__menu__entry.lpv__menu__practice.lpv__fbt', {
-                attrs: {
-                    href: ctrl.practiceUrl(),
-                    target: '_blank',
-                },
-            }, ctrl.translate('practiceWithComputer')),
-        ])),
-        renderControls(ctrl),
+    const renderMenu = (ctrl) => h('div.lpv__menu', [
+        h('button.lpv__menu__entry.lpv__menu__flip.lpv__fbt', {
+            hook: bind('click', ctrl.flip),
+        }, ctrl.translate('flipTheBoard')),
+        h('a.lpv__menu__entry.lpv__menu__analysis.lpv__fbt', {
+            attrs: {
+                href: ctrl.analysisUrl(),
+                target: '_blank',
+            },
+        }, ctrl.translate('analysisBoard')),
+        h('a.lpv__menu__entry.lpv__menu__practice.lpv__fbt', {
+            attrs: {
+                href: ctrl.practiceUrl(),
+                target: '_blank',
+            },
+        }, ctrl.translate('practiceWithComputer')),
     ]);
     const renderControls = (ctrl) => h('div.lpv__controls', [
-        dirButton('backward', ctrl.index < 1, ctrl.backward),
+        dirButton('backward', ctrl, -1),
         h('button.lpv__fbt.lpv__controls__menu', {
             class: { active: ctrl.menu },
             hook: bind('click', ctrl.toggleMenu),
         }, '⋮'),
-        dirButton('forward', ctrl.index > ctrl.nodes.length - 2, ctrl.forward),
+        dirButton('forward', ctrl, 1),
     ]);
-    const dirButton = (name, disabled, action) => h(`button.lpv__controls__${name}.lpv__fbt`, {
-        class: { disabled },
-        hook: onInsert(el => bindMobileMousedown(el, e => eventRepeater(action, e))),
+    const dirButton = (name, ctrl, dir) => h(`button.lpv__controls__${name}.lpv__fbt`, {
+        class: { disabled: !ctrl.menu && (ctrl.index + dir < 0 || ctrl.index + dir >= ctrl.nodes.length) },
+        hook: onInsert(el => bindMobileMousedown(el, e => eventRepeater(() => ctrl.onward(dir), e))),
     });
+
+    const renderMoves = (ctrl) => h('div.lpv__moves', makeMoveNodes(ctrl));
+    const makeMoveNodes = (ctrl) => {
+        var _a, _b;
+        const nodes = ctrl.nodes;
+        const pairs = [];
+        const indexOffset = Math.trunc(nodes[0].ply / 2) + 1;
+        let startAt = 1;
+        if (((_a = nodes[0]) === null || _a === void 0 ? void 0 : _a.ply) % 2 === 1) {
+            pairs.push([null, nodes[1]]);
+            startAt = 2;
+        }
+        for (let i = startAt; i < nodes.length; i += 2)
+            pairs.push([nodes[i], nodes[i + 1]]);
+        const els = [], curPly = (_b = ctrl.node()) === null || _b === void 0 ? void 0 : _b.ply;
+        for (let i = 0; i < pairs.length; i++) {
+            const pair = pairs[i];
+            els.push(h('index', i + indexOffset + ''));
+            els.push(renderMove(pair[0], curPly, true));
+            els.push(renderMove(pair[1], curPly, false));
+        }
+        return els;
+    };
+    const renderMove = (node, curPly, orEmpty) => node
+        ? h('move', {
+            class: {
+                cur: node.ply === curPly,
+            },
+        }, node.san && node.san[0] === 'P' ? node.san.slice(1) : node.san)
+        : orEmpty
+            ? h('move', '…')
+            : undefined;
+
+    function view(ctrl) {
+        return h('div.lpv', {
+            class: {
+                'lpv--menu': ctrl.menu,
+                'lpv--moves': !!ctrl.opts.showMoves,
+            },
+            hook: onInsert$1(el => {
+                ctrl.ground = Chessground(el.querySelector('.cg-wrap'), makeConfig(ctrl, el));
+            }),
+        }, [
+            renderBoard(ctrl),
+            renderControls(ctrl),
+            ctrl.opts.showMoves ? renderMoves(ctrl) : undefined,
+            ctrl.menu ? renderMenu(ctrl) : undefined,
+        ]);
+    }
     const renderBoard = (ctrl) => h('div.lpv__board', {
         hook: wheelScroll(ctrl),
-    }, h('div.cg-wrap', {
-        hook: {
-            insert: vnode => (ctrl.ground = Chessground(vnode.elm, makeConfig(ctrl))),
-        },
-    }));
+    }, h('div.cg-wrap'));
     const wheelScroll = (ctrl) => 'ontouchstart' in window || !ctrl.opts.scrollToMove
         ? undefined
         : bindNonPassive('wheel', stepwiseScroll((e, scroll) => {
             e.preventDefault();
             if (e.deltaY > 0 && scroll)
-                ctrl.forward();
+                ctrl.onward(1);
             else if (e.deltaY < 0 && scroll)
-                ctrl.backward();
+                ctrl.onward(-1);
         }));
-    const makeConfig = (ctrl) => ({
+    const makeConfig = (ctrl, rootEl) => ({
         viewOnly: true,
-        addDimensionsCssVars: true,
+        addDimensionsCssVarsTo: rootEl,
         drawable: {
             enabled: false,
             visible: false,
@@ -5174,6 +5225,7 @@ var LichessPgnViewer = (function () {
         ...ctrl.cgConfig(),
     });
 
+    // import '../scss/lichess-pgn-viewer.scss';
     function start(element, opts) {
         const patch = init([classModule, attributesModule]);
         const ctrl = new Ctrl(opts, redraw);

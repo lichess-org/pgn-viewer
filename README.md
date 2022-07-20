@@ -35,6 +35,7 @@ For these features, use an [analysis board](https://lichess.org/analysis) or [Li
 
 ```
 npm install
+npm run sass-dev
 npm run dev
 npm run demo
 ```
@@ -50,6 +51,7 @@ npm run watch
 ### Build minified artificats
 
 ```
+npm run sass-prod
 npm run prod
 ```
 

@@ -2,20 +2,30 @@ import Ctrl from '../ctrl';
 import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
 import { h, VNode } from 'snabbdom';
-import { bindNonPassive, stepwiseScroll } from '../util';
+import { bindNonPassive, onInsert, stepwiseScroll } from './util';
 import { renderMenu, renderControls } from './menu';
 import { renderMoves } from './side';
 
 export default function view(ctrl: Ctrl) {
-  return ctrl.menu ? renderMenu(ctrl) : renderReplay(ctrl);
+  return h(
+    'div.lpv',
+    {
+      class: {
+        'lpv--menu': ctrl.menu,
+        'lpv--moves': !!ctrl.opts.showMoves,
+      },
+      hook: onInsert(el => {
+        ctrl.ground = Chessground(el.querySelector('.cg-wrap') as HTMLElement, makeConfig(ctrl, el));
+      }),
+    },
+    [
+      renderBoard(ctrl),
+      renderControls(ctrl),
+      ctrl.opts.showMoves ? renderMoves(ctrl) : undefined,
+      ctrl.menu ? renderMenu(ctrl) : undefined,
+    ]
+  );
 }
-
-const renderReplay = (ctrl: Ctrl): VNode =>
-  h('div.lpv.lpv--replay', [
-    renderBoard(ctrl),
-    renderControls(ctrl),
-    ctrl.opts.showMoves ? renderMoves(ctrl) : undefined,
-  ]);
 
 const renderBoard = (ctrl: Ctrl): VNode =>
   h(
@@ -23,11 +33,7 @@ const renderBoard = (ctrl: Ctrl): VNode =>
     {
       hook: wheelScroll(ctrl),
     },
-    h('div.cg-wrap', {
-      hook: {
-        insert: vnode => (ctrl.ground = Chessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
-      },
-    })
+    h('div.cg-wrap')
   );
 
 const wheelScroll = (ctrl: Ctrl) =>
@@ -42,9 +48,9 @@ const wheelScroll = (ctrl: Ctrl) =>
         })
       );
 
-export const makeConfig = (ctrl: Ctrl): CgConfig => ({
+export const makeConfig = (ctrl: Ctrl, rootEl: HTMLElement): CgConfig => ({
   viewOnly: true,
-  addDimensionsCssVars: true,
+  addDimensionsCssVarsTo: rootEl,
   drawable: {
     enabled: false,
     visible: false,
