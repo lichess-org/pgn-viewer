@@ -1,15 +1,15 @@
 import { Api as CgApi } from 'chessground/api';
 import { opposite } from 'chessops';
-import { Game, parsePgn, PgnNodeData } from 'chessops/pgn';
+import { Game, parsePgn } from 'chessops/pgn';
 import translator from './translation';
-import { makeNodes } from './pgn';
-import { Opts, Node, Translate } from './interfaces';
+import { makeGame } from './pgn';
+import { FullGame, Opts, Translate } from './interfaces';
 import { uciToMove } from 'chessground/util';
 import { Config as CgConfig } from 'chessground/config';
 
 export default class Ctrl {
   flipped: boolean = false;
-  game: Game<PgnNodeData>;
+  game: FullGame;
   nodes: Node[] = [];
   index = 0;
   translate: Translate;
@@ -18,8 +18,7 @@ export default class Ctrl {
 
   constructor(readonly opts: Opts, readonly redraw: () => void) {
     this.translate = translator(opts.translate);
-    this.game = parsePgn(opts.pgn)[0];
-    this.nodes = makeNodes(this.game);
+    this.game = makeGame(opts.pgn);
     this.index = opts.initialPly == 'last' ? this.nodes.length - 1 : opts.initialPly || 0;
   }
 
