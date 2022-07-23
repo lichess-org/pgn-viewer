@@ -23,13 +23,16 @@
     "@rollup/plugin-commonjs": "^21",
     "@rollup/plugin-node-resolve": "^13",
     "@rollup/plugin-typescript": "^8",
+    "@types/jest": "^28.1.6",
     "http-server": "^14",
+    "jest": "^28.1.3",
     "prettier": "^2",
     "rollup": "^2",
     "rollup-plugin-terser": "^7",
     "sass": "^1",
+    "ts-jest": "^28.0.7",
     "tslib": "^2",
-    "typescript": "^4"
+    "typescript": "^4.7.4"
   },
   "scripts": {
     "compile": "tsc --incremental --declaration --inlineSourceMap",
@@ -38,6 +41,8 @@
     "prod": "$npm_execpath run compile && rollup --config --config-prod",
     "demo": "http-server demo",
     "sass-dev": "sass --watch --update --style=expanded scss:demo",
-    "sass-prod": "sass --no-source-map --style=compressed scss:dist"
+    "sass-prod": "sass --no-source-map --style=compressed scss:dist",
+    "test2": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test": "jest"
   }
 }
