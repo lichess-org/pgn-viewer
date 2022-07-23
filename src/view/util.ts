@@ -1,4 +1,5 @@
 import { Hooks } from 'snabbdom';
+import { BaseNode, MoveNode } from '../interfaces';
 
 export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => unknown, redraw?: () => void): void {
   for (const mousedownEvent of ['touchstart', 'mousedown']) {
@@ -67,3 +68,5 @@ export function eventRepeater(action: () => void, e: Event) {
   const eventName = e.type == 'touchstart' ? 'touchend' : 'mouseup';
   document.addEventListener(eventName, () => clearTimeout(timeout), { once: true });
 }
+
+export const isMoveNode = (n: BaseNode): n is MoveNode => 'uci' in n;

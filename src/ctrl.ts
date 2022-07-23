@@ -22,7 +22,8 @@ export default class Ctrl {
     this.index = opts.initialPly == 'last' ? this.nodes.length - 1 : opts.initialPly || 0;
   }
 
-  node = () => this.nodes[this.index];
+  // node = () => this.nodes[this.index];
+  node = () => this.game.root;
 
   onward = (dir: -1 | 1) => {
     this.index = Math.min(this.nodes.length - 1, Math.max(0, this.index + dir));
@@ -52,7 +53,7 @@ export default class Ctrl {
     fen: this.node().fen,
     orientation: this.orientation(),
     check: this.node().check,
-    lastMove: uciToMove(this.node().uci),
+    // lastMove: uciToMove(this.node().uci),
   });
 
   analysisUrl = () => `https://lichess.org/analysis/${this.node().fen.replace(' ', '_')}?color=${this.orientation}`;

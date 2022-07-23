@@ -1,4 +1,4 @@
-import { Color } from 'chessops';
+import { Color, Move } from 'chessops';
 import { Config as CgConfig } from 'chessground/config';
 import { Game } from 'chessops/pgn';
 import { FEN } from 'chessground/types';
@@ -28,6 +28,7 @@ export interface RootNode extends BaseNode {
 }
 
 export interface MoveNode extends BaseNode {
+  move: Move;
   san: San;
   uci: Uci;
   startingComments?: string[];
