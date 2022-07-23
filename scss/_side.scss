@@ -26,7 +26,6 @@
       align-items: flex-end;
     }
     move {
-      flex: 0 0 40%;
       padding-left: 3%;
       cursor: pointer;
       font-size: 1.1em;
@@ -42,9 +41,14 @@
         color: $c-accent-over;
       }
     }
+    > move {
+      flex: 0 0 40%;
+    }
     > variation {
-      font-size: 0.8em;
       flex: 1 1 100%;
+      display: flex;
+      flex-flow: row wrap;
+      font-size: 0.8em;
       background: $c-bg2;
       padding: 0.2em 0.6em;
       index:not(:first-child) {

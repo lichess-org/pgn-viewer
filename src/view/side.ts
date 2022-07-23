@@ -44,23 +44,20 @@ const makeMoveNodes = (ctrl: Ctrl): Array<VNode | undefined> => {
 
 const makeMainVariation = (moveDom: MoveToDom, node: MoveNode) => h('variation', makeVariationMoves(moveDom, node));
 
+// const makeSubVariation = (moveDom: MoveToDom, node: MoveNode) => h('variation', makeVariationMoves(moveDom, node));
+
 const makeVariationMoves = (moveDom: MoveToDom, node: MoveNode) => {
-  const elms: VNode[] = [];
-  // let node: MoveNode,
-  //   variations: MoveNode[] = node.children.slice(1);
+  let elms: VNode[] = [];
+  let variations: MoveNode[] = [];
   if (node.data.ply % 2 == 0) elms.push(h('index', [moveTurn(node.data), '...']));
   do {
     const move = node.data;
     if (move.ply % 2 == 1) elms.push(h('index', moveTurn(move)));
     elms.push(moveDom(move));
-    // if (variations.length) {
-    //   if (move.ply % 2 == 1) elms.push(h('move.empty', '...'));
-    //   variations.forEach(variation => elms.push(makeMainVariation(variation)));
-    //   if (move.ply % 2 == 1) {
-    //     elms.push(h('index', (move.ply - 1) / 2 + 1));
-    //     elms.push(h('move.empty', '...'));
-    //   }
-    // }
+    variations.forEach(variation => {
+      elms = [...elms, ...[h('span', '('), ...makeVariationMoves(moveDom, variation), h('span', ')')]];
+    });
+    variations = node.children.slice(1);
     node = node.children[0];
   } while (node);
   return elms;
