@@ -3,19 +3,21 @@ import { scalachessCharPair } from 'chessops/compat';
 import { makeFen } from 'chessops/fen';
 import { parsePgn, PgnNodeData, startingPosition, transform } from 'chessops/pgn';
 import { parseSan } from 'chessops/san';
-import { MoveNode, RootNode, FullGame, Id } from './interfaces';
+import { Game } from './game';
+import { MoveNode, RootNode } from './interfaces';
+import { Path } from './path';
 
 class State {
-  constructor(readonly pos: Position, public path: Id) {}
+  constructor(readonly pos: Position, public path: Path) {}
   clone = () => new State(this.pos.clone(), this.path);
 }
 
-export function makeGame(pgn: string): FullGame | undefined {
+export function makeGame(pgn: string): Game | undefined {
   const game = parsePgn(pgn)[0];
   if (!game) return undefined;
   const start = startingPosition(game.headers).unwrap();
   const root: RootNode = {
-    path: '',
+    path: Path.root,
     fen: makeFen(start.toSetup()),
     check: start.isCheck(),
     ply: 0,
@@ -27,7 +29,7 @@ export function makeGame(pgn: string): FullGame | undefined {
       const move = parseSan(state.pos, node.san);
       if (!move) return undefined;
       const moveId = scalachessCharPair(move);
-      const path = state.path + moveId;
+      const path = state.path.append(moveId);
       state.pos.play(move);
       state.path = path;
       const setup = state.pos.toSetup();
@@ -43,11 +45,10 @@ export function makeGame(pgn: string): FullGame | undefined {
       return moveNode;
     }
   );
-  return {
+  return new Game(
     root,
-    game: {
-      ...game,
-      moves: moves,
-    },
-  };
+    moves,
+    game.headers,
+    game.comments
+  );
 }

@@ -1,7 +1,7 @@
 import { Color, Move } from 'chessops';
 import { Config as CgConfig } from 'chessground/config';
-import { Game } from 'chessops/pgn';
 import { FEN } from 'chessground/types';
+import { Path } from './path';
 
 export type Id = string;
 export type San = string;
@@ -10,20 +10,15 @@ export type Ply = number;
 
 export type Translate = (key: string) => string;
 
-export interface FullGame {
-  root: RootNode;
-  game: Game<MoveNode>;
-}
-
 export interface BaseNode {
-  id: Id;
+  path: Path;
   ply: number;
   fen: FEN;
   check: boolean;
 }
 
 export interface RootNode extends BaseNode {
-  id: '';
+  path: Path;
   ply: 0;
 }
 

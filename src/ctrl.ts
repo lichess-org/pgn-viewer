@@ -1,17 +1,16 @@
 import { Api as CgApi } from 'chessground/api';
 import { opposite } from 'chessops';
-import { Game, parsePgn } from 'chessops/pgn';
 import translator from './translation';
 import { makeGame } from './pgn';
-import { FullGame, Opts, Translate } from './interfaces';
-import { uciToMove } from 'chessground/util';
+import { BaseNode, MoveNode, Opts, Translate } from './interfaces';
 import { Config as CgConfig } from 'chessground/config';
+import { Path } from './path';
+import { Game } from './game';
 
 export default class Ctrl {
   flipped: boolean = false;
-  game: FullGame;
-  nodes: Node[] = [];
-  index = 0;
+  game: Game;
+  path: Path;
   translate: Translate;
   ground?: CgApi;
   menu = false;
@@ -19,14 +18,16 @@ export default class Ctrl {
   constructor(readonly opts: Opts, readonly redraw: () => void) {
     this.translate = translator(opts.translate);
     this.game = makeGame(opts.pgn);
-    this.index = opts.initialPly == 'last' ? this.nodes.length - 1 : opts.initialPly || 0;
+    this.path = opts.initialPly
+      ? this.game.mainline[opts.initialPly == 'last' ? this.game.mainline.length - 1 : opts.initialPly].path
+      : this.game.root.path;
   }
 
   // node = () => this.nodes[this.index];
-  node = () => this.game.root;
+  node = (): BaseNode => this.game.find(this.path) || this.game.root;
 
   onward = (dir: -1 | 1) => {
-    this.index = Math.min(this.nodes.length - 1, Math.max(0, this.index + dir));
+    // this.path = Math.min(this.nodes.length - 1, Math.max(0, this.path + dir));
     this.menu = false;
     this.setGround();
     this.redraw();
