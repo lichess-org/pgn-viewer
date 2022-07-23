@@ -6,14 +6,17 @@ import { bind } from './util';
 
 export const renderMoves = (ctrl: Ctrl) =>
   h(
-    'div.lpv__moves',
-    {
-      hook: bind<MouseEvent>('mousedown', e => {
-        const path = (e.target as HTMLElement).getAttribute('p');
-        if (path) ctrl.toPath(new Path(path));
-      }),
-    },
-    makeMoveNodes(ctrl)
+    'div.lpv__side',
+    h(
+      'div.lpv__moves',
+      {
+        hook: bind<MouseEvent>('mousedown', e => {
+          const path = (e.target as HTMLElement).getAttribute('p');
+          if (path) ctrl.toPath(new Path(path));
+        }),
+      },
+      makeMoveNodes(ctrl)
+    )
   );
 
 const makeMoveNodes = (ctrl: Ctrl): Array<VNode | undefined> => {
@@ -31,7 +34,7 @@ const renderMove = (ctrl: Ctrl) => (move: MoveData) =>
     'move',
     {
       class: {
-        cur: move.path === ctrl.path,
+        current: move.path.equals(ctrl.path),
       },
       attrs: {
         p: move.path.path,

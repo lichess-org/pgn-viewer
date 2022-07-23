@@ -22,5 +22,7 @@ export class Path {
 
   append = (id: Id) => new Path(this.path + id);
 
+  equals = (other: Path) => this.path == other.path;
+
   static root = new Path('');
 }
