@@ -6,8 +6,8 @@ import { parseSan } from 'chessops/san';
 import { MoveNode, RootNode, FullGame, Id } from './interfaces';
 
 class State {
-  constructor(readonly pos: Position, public lastId: Id) {}
-  clone = () => new State(this.pos.clone(), this.lastId);
+  constructor(readonly pos: Position, public path: Id) {}
+  clone = () => new State(this.pos.clone(), this.path);
 }
 
 export function makeGame(pgn: string): FullGame | undefined {
@@ -15,27 +15,28 @@ export function makeGame(pgn: string): FullGame | undefined {
   if (!game) return undefined;
   const start = startingPosition(game.headers).unwrap();
   const root: RootNode = {
-    id: '',
+    path: '',
     fen: makeFen(start.toSetup()),
     check: start.isCheck(),
     ply: 0,
   };
   const moves = transform<PgnNodeData, MoveNode, State>(
     game.moves,
-    new State(start, root.id),
+    new State(start, root.path),
     (state, node, _index) => {
       const move = parseSan(state.pos, node.san);
       if (!move) return undefined;
+      const moveId = scalachessCharPair(move);
+      const path = state.path + moveId;
       state.pos.play(move);
-      const uci = makeUci(move);
+      state.path = path;
       const setup = state.pos.toSetup();
-      const ply = (setup.fullmoves - 1) * 2 + (state.pos.turn === 'white' ? 0 : 1);
       const moveNode: MoveNode = {
-        id: scalachessCharPair(move),
-        ply,
+        path,
+        ply: (setup.fullmoves - 1) * 2 + (state.pos.turn === 'white' ? 0 : 1),
         move,
         san: node.san,
-        uci,
+        uci: makeUci(move),
         fen: makeFen(state.pos.toSetup()),
         check: state.pos.isCheck(),
       };
