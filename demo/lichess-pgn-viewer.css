@@ -345,6 +345,9 @@ cg-board square.current-premove {
   min-width: 20ch;
 }
 .lpv__moves index {
+  color: #7a7978;
+}
+.lpv__moves > index {
   flex: 0 0 13%;
   display: flex;
   justify-content: center;
@@ -356,13 +359,25 @@ cg-board square.current-premove {
   cursor: pointer;
   font-size: 1.1em;
 }
-.lpv__moves move:hover {
+.lpv__moves move.empty {
+  color: #656463;
+}
+.lpv__moves move:not(.empty):hover {
   background: #3f4e2a;
 }
 .lpv__moves move.current {
   font-weight: bold;
   background: #537926;
   color: white;
+}
+.lpv__moves > variation {
+  font-size: 0.8em;
+  flex: 1 1 100%;
+  background: hsl(37deg, 5%, 21%);
+  padding: 0.2em 0.6em;
+}
+.lpv__moves > variation index:not(:first-child) {
+  margin-left: 0.5em;
 }
 .lpv__controls {
   grid-area: controls;

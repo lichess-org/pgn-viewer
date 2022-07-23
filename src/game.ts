@@ -3,8 +3,8 @@ import { Node, ChildNode, Game as ChessopsGame } from 'chessops/pgn';
 import { Id, Initial, MoveData } from './interfaces';
 import { Path } from './path';
 
-type AnyNode = Node<MoveData>;
-type MoveNode = ChildNode<MoveData>;
+export type AnyNode = Node<MoveData>;
+export type MoveNode = ChildNode<MoveData>;
 
 // immutable
 export class Game implements ChessopsGame<MoveData> {
