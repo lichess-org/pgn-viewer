@@ -397,11 +397,12 @@ cg-board square.current-premove {
 }
 .lpv__menu {
   grid-area: 1/1/2/2;
-  outline: 2px solid hsl(88deg, 62%, 37%);
+  z-index: 2;
+  border-bottom: 2px solid hsl(88deg, 62%, 37%);
   background: #383e2b;
   display: flex;
   flex-flow: column;
-  padding-top: 2em;
+  justify-content: center;
 }
 .lpv__menu__entry.lpv__fbt {
   text-align: left;

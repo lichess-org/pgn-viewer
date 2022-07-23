@@ -52,6 +52,7 @@ export default class Ctrl {
   flip = () => {
     this.flipped = true;
     this.menu = false;
+    this.setGround();
     this.redraw();
   };
 

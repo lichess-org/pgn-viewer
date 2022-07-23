@@ -113,11 +113,12 @@ $c-accent-over: white;
 
   &__menu {
     grid-area: 1 / 1 / 2 / 2;
-    outline: 2px solid $c-accent;
+    z-index: 2;
+    border-bottom: 2px solid $c-accent;
     background: mix($c-accent, $c-bg, 15%);
     display: flex;
     flex-flow: column;
-    padding-top: 2em;
+    justify-content: center;
     &__entry.lpv__fbt {
       text-align: left;
       padding: 0.8em 2.5em;
