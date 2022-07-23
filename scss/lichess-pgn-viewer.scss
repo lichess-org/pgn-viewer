@@ -11,6 +11,9 @@ $c-accent-over: white;
 @import './chessground.cburnett';
 @import './fbt';
 @import './util';
+@import './side';
+@import './menu';
+@import './controls';
 
 .lpv {
   border-radius: 5px;
@@ -35,117 +38,6 @@ $c-accent-over: white;
     }
     cg-board {
       box-shadow: none;
-    }
-  }
-
-  &__side {
-    grid-area: side;
-    overflow: hidden;
-    display: flex;
-    flex-flow: column;
-  }
-  &__moves {
-    flex: 1 1 0;
-    overflow-y: auto;
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    align-content: flex-start;
-    will-change: scroll-position;
-    user-select: none;
-    line-height: 1.7;
-    min-width: 20ch;
-    index {
-      color: mix($c-font, $c-bg, 70%);
-    }
-    > index {
-      flex: 0 0 13%;
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-    }
-    move {
-      flex: 0 0 40%;
-      padding-left: 3%;
-      cursor: pointer;
-      font-size: 1.1em;
-      &.empty {
-        color: mix($c-font, $c-bg, 50%);
-      }
-      &:not(.empty):hover {
-        background: mix($c-accent, $c-bg, 30%);
-      }
-      &.current {
-        font-weight: bold;
-        background: mix($c-accent, $c-bg, 70%);
-        color: $c-accent-over;
-      }
-    }
-    > variation {
-      font-size: 0.8em;
-      flex: 1 1 100%;
-      background: $c-bg2;
-      padding: 0.2em 0.6em;
-      index:not(:first-child) {
-        margin-left: 0.5em;
-      }
-    }
-  }
-
-  &__controls {
-    grid-area: controls;
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: stretch;
-
-    .lpv__fbt {
-      flex: 1 1 auto;
-      padding: 0.4em 0.7em;
-      border-left: 1px solid $c-border;
-      &:first-child {
-        border: none;
-      }
-    }
-
-    &__menu.lpv__fbt {
-      flex: 0 1 auto;
-      padding: 0.4em 1em;
-    }
-    &__backward::before {
-      content: '←';
-    }
-    &__forward::before {
-      content: '→';
-    }
-    &__backward,
-    &__forward {
-      padding: 0.4rem 0.7rem;
-      &::before {
-        font-size: 3em;
-        line-height: 0.5em;
-      }
-    }
-  }
-
-  &__menu {
-    grid-area: 1 / 1 / 2 / 2;
-    z-index: 2;
-    border-bottom: 2px solid $c-accent;
-    background: mix($c-accent, $c-bg, 15%);
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    &__entry.lpv__fbt {
-      text-align: left;
-      padding: 0.8em 2.5em;
-      transition: none;
-      &::before {
-        color: $c-accent;
-        font-size: 2em;
-      }
-      &:hover::before {
-        color: $c-accent-over;
-      }
     }
   }
 }

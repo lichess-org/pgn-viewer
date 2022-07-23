@@ -1,0 +1,36 @@
+.lpv {
+  &__controls {
+    grid-area: controls;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+
+    .lpv__fbt {
+      flex: 1 1 auto;
+      padding: 0.4em 0.7em;
+      border-left: 1px solid $c-border;
+      &:first-child {
+        border: none;
+      }
+    }
+
+    &__menu.lpv__fbt {
+      flex: 0 1 auto;
+      padding: 0.4em 1em;
+    }
+    &__backward::before {
+      content: '←';
+    }
+    &__forward::before {
+      content: '→';
+    }
+    &__backward,
+    &__forward {
+      padding: 0.4rem 0.7rem;
+      &::before {
+        font-size: 3em;
+        line-height: 0.5em;
+      }
+    }
+  }
+}
