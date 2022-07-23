@@ -49,6 +49,6 @@ export const renderControls = (ctrl: Ctrl) =>
 
 const dirButton = (name: string, ctrl: Ctrl, dir: -1 | 1) =>
   h(`button.lpv__controls__${name}.lpv__fbt`, {
-    class: { disabled: !ctrl.menu && (ctrl.index + dir < 0 || ctrl.index + dir >= ctrl.nodes.length) },
+    class: { disabled: !ctrl.menu && !ctrl.canOnward(dir) },
     hook: onInsert(el => bindMobileMousedown(el, e => eventRepeater(() => ctrl.onward(dir), e))),
   });

@@ -1,4 +1,4 @@
-import { Color, Move } from 'chessops';
+import { Color, Move, Position } from 'chessops';
 import { Config as CgConfig } from 'chessground/config';
 import { FEN } from 'chessground/types';
 import { Path } from './path';
@@ -10,19 +10,17 @@ export type Ply = number;
 
 export type Translate = (key: string) => string;
 
-export interface BaseNode {
-  path: Path;
-  ply: number;
+export interface Initial {
+  pos: Position;
   fen: FEN;
   check: boolean;
 }
 
-export interface RootNode extends BaseNode {
+export interface MoveData {
   path: Path;
-  ply: 0;
-}
-
-export interface MoveNode extends BaseNode {
+  ply: number;
+  fen: FEN;
+  check: boolean;
   move: Move;
   san: San;
   uci: Uci;

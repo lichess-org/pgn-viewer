@@ -2,10 +2,11 @@ import { Api as CgApi } from 'chessground/api';
 import { opposite } from 'chessops';
 import translator from './translation';
 import { makeGame } from './pgn';
-import { BaseNode, MoveNode, Opts, Translate } from './interfaces';
+import { Opts, Translate } from './interfaces';
 import { Config as CgConfig } from 'chessground/config';
+import { uciToMove } from 'chessground/util';
 import { Path } from './path';
-import { Game } from './game';
+import { Game, isMoveData } from './game';
 
 export default class Ctrl {
   flipped: boolean = false;
@@ -20,14 +21,19 @@ export default class Ctrl {
     this.game = makeGame(opts.pgn);
     this.path = opts.initialPly
       ? this.game.mainline[opts.initialPly == 'last' ? this.game.mainline.length - 1 : opts.initialPly].path
-      : this.game.root.path;
+      : Path.root;
   }
 
-  // node = () => this.nodes[this.index];
-  node = (): BaseNode => this.game.find(this.path) || this.game.root;
+  curNode = () => this.game.nodeAt(this.path) || this.game.moves;
+  curData = () => this.game.dataAt(this.path) || this.game.initial;
 
-  onward = (dir: -1 | 1) => {
-    // this.path = Math.min(this.nodes.length - 1, Math.max(0, this.path + dir));
+  onward = (dir: -1 | 1) =>
+    this.toPath(dir == -1 ? this.path.init() : this.game.nodeAt(this.path).children[0]?.data.path || this.path);
+
+  canOnward = (dir: -1 | 1) => (dir == -1 && !this.path.empty()) || !!this.curNode().children[0];
+
+  toPath = (path: Path) => {
+    this.path = path;
     this.menu = false;
     this.setGround();
     this.redraw();
@@ -49,15 +55,19 @@ export default class Ctrl {
     this.redraw();
   };
 
-  cgConfig = (): CgConfig => ({
-    ...(this.opts.chessground || {}),
-    fen: this.node().fen,
-    orientation: this.orientation(),
-    check: this.node().check,
-    // lastMove: uciToMove(this.node().uci),
-  });
+  cgConfig = (): CgConfig => {
+    const data = this.curData();
+    const lastMove = isMoveData(data) && uciToMove(data.uci);
+    return {
+      ...(this.opts.chessground || {}),
+      fen: this.curData().fen,
+      orientation: this.orientation(),
+      check: this.curData().check,
+      lastMove,
+    };
+  };
 
-  analysisUrl = () => `https://lichess.org/analysis/${this.node().fen.replace(' ', '_')}?color=${this.orientation}`;
+  analysisUrl = () => `https://lichess.org/analysis/${this.curData().fen.replace(' ', '_')}?color=${this.orientation}`;
   practiceUrl = () => `${this.analysisUrl()}#practice`;
 
   private setGround = () => this.withGround(g => g.set(this.cgConfig()));

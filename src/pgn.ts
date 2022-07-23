@@ -4,7 +4,7 @@ import { makeFen } from 'chessops/fen';
 import { parsePgn, PgnNodeData, startingPosition, transform } from 'chessops/pgn';
 import { parseSan } from 'chessops/san';
 import { Game } from './game';
-import { MoveNode, RootNode } from './interfaces';
+import { MoveData, Initial } from './interfaces';
 import { Path } from './path';
 
 class State {
@@ -16,15 +16,14 @@ export function makeGame(pgn: string): Game | undefined {
   const game = parsePgn(pgn)[0];
   if (!game) return undefined;
   const start = startingPosition(game.headers).unwrap();
-  const root: RootNode = {
-    path: Path.root,
+  const initial: Initial = {
     fen: makeFen(start.toSetup()),
     check: start.isCheck(),
-    ply: 0,
+    pos: start,
   };
-  const moves = transform<PgnNodeData, MoveNode, State>(
+  const moves = transform<PgnNodeData, MoveData, State>(
     game.moves,
-    new State(start, root.path),
+    new State(start, Path.root),
     (state, node, _index) => {
       const move = parseSan(state.pos, node.san);
       if (!move) return undefined;
@@ -33,7 +32,7 @@ export function makeGame(pgn: string): Game | undefined {
       state.pos.play(move);
       state.path = path;
       const setup = state.pos.toSetup();
-      const moveNode: MoveNode = {
+      const moveNode: MoveData = {
         path,
         ply: (setup.fullmoves - 1) * 2 + (state.pos.turn === 'white' ? 0 : 1),
         move,
@@ -45,10 +44,5 @@ export function makeGame(pgn: string): Game | undefined {
       return moveNode;
     }
   );
-  return new Game(
-    root,
-    moves,
-    game.headers,
-    game.comments
-  );
+  return new Game(initial, moves, game.headers, game.comments);
 }
