@@ -16,7 +16,7 @@ export const renderMoves = (ctrl: Ctrl) =>
           if (path) ctrl.toPath(new Path(path));
         }),
       },
-      makeMoveNodes(ctrl)
+      [...ctrl.game.initial.comments.map(makeComment), ...makeMoveNodes(ctrl)]
     )
   );
 
