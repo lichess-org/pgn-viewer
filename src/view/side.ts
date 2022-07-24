@@ -73,7 +73,7 @@ const makeVariationMoves = (moveDom: MoveToDom, node: MoveNode) => {
     elms.push(moveDom(move));
     move.comments.forEach(comment => elms.push(makeComment(comment)));
     variations.forEach(variation => {
-      elms = [...elms, ...[parenOpen(), ...makeVariationMoves(moveDom, variation), parenClose()]];
+      elms = [...elms, parenOpen(), ...makeVariationMoves(moveDom, variation), parenClose()];
     });
     variations = node.children.slice(1);
     node = node.children[0];
