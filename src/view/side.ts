@@ -45,7 +45,8 @@ const makeMoveNodes = (ctrl: Ctrl): Array<VNode | undefined> => {
 
 const makeComment = (comment: string) => h('comment', comment);
 
-const makeMainVariation = (moveDom: MoveToDom, node: MoveNode) => h('variation', makeVariationMoves(moveDom, node));
+const makeMainVariation = (moveDom: MoveToDom, node: MoveNode) =>
+  h('variation', [...node.data.startingComments.map(makeComment), ...makeVariationMoves(moveDom, node)]);
 
 const makeVariationMoves = (moveDom: MoveToDom, node: MoveNode) => {
   let elms: VNode[] = [];

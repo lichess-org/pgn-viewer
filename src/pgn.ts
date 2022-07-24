@@ -35,7 +35,9 @@ export const makeGame = (pgn: string): Game => {
       state.pos.play(move);
       state.path = path;
       const setup = state.pos.toSetup();
-      const [comments, shapes] = parseComments(node.comments || []);
+      const [comments, shapes1] = parseComments(node.comments || []);
+      const [startingComments, shapes2] = parseComments(node.startingComments || []);
+      const shapes = [...shapes1, ...shapes2];
       const moveNode: MoveData = {
         path,
         ply: (setup.fullmoves - 1) * 2 + (state.pos.turn === 'white' ? 0 : 1),
@@ -45,6 +47,7 @@ export const makeGame = (pgn: string): Game => {
         fen: makeFen(state.pos.toSetup()),
         check: state.pos.isCheck(),
         comments,
+        startingComments,
         nags: node.nags || [],
         shapes,
       };

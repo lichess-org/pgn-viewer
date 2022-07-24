@@ -28,7 +28,7 @@ export interface MoveData extends InitialOrMove {
   move: Move;
   san: San;
   uci: Uci;
-  startingComments?: string[];
+  startingComments: string[];
   nags: number[];
 }
 
