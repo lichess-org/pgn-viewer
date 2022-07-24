@@ -1,7 +1,7 @@
 {
   "name": "lichess-pgn-viewer",
   "license": "GPL-3.0-or-later",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "keywords": [
     "chess",
     "lichess",
@@ -35,6 +35,7 @@
     "typescript": "^4.7.4"
   },
   "scripts": {
+    "prepare": "tsc --outDir . --sourceMap --declaration",
     "compile": "tsc --incremental --declaration --inlineSourceMap",
     "dev": "$npm_execpath run compile && rollup --config",
     "watch": "$npm_execpath run compile && rollup --config --watch",
