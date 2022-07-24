@@ -1,7 +1,7 @@
 {
   "name": "lichess-pgn-viewer",
   "license": "GPL-3.0-or-later",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "keywords": [
     "chess",
     "lichess",
@@ -40,7 +40,7 @@
     "watch": "$npm_execpath run compile && rollup --config --watch",
     "prod": "$npm_execpath run compile && rollup --config --config-prod",
     "demo": "http-server demo",
-    "sass-dev": "sass --watch --update --style=expanded scss:demo",
+    "sass-dev": "sass --no-source-map --watch --update --style=expanded scss:demo",
     "sass-prod": "sass --no-source-map --style=compressed scss:dist",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   }
