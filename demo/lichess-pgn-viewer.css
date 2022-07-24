@@ -276,7 +276,7 @@ cg-board square.current-premove {
   background: none;
   border: none;
   outline: none;
-  color: #999;
+  color: #aaa;
   align-items: normal;
   cursor: pointer;
   text-transform: uppercase;
@@ -307,25 +307,6 @@ cg-board square.current-premove {
   width: 100%;
 }
 
-.lpv {
-  border-radius: 5px;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  overflow: hidden;
-  background: hsl(37deg, 5%, 18%);
-  color: #999;
-  display: grid;
-  overflow: hidden;
-  grid-template-areas: "board      side" "controls   side";
-  grid-template-columns: auto fit-content(24ch);
-  grid-template-rows: auto;
-  grid-row-gap: 0;
-}
-.lpv__board {
-  grid-area: board;
-}
-.lpv__board cg-board {
-  box-shadow: none;
-}
 .lpv__side {
   grid-area: side;
   overflow: hidden;
@@ -345,45 +326,124 @@ cg-board square.current-premove {
   min-width: 20ch;
 }
 .lpv__moves index {
-  color: #7a7978;
+  color: #6d6c6b;
 }
 .lpv__moves > index {
-  flex: 0 0 13%;
+  flex: 0 0 15%;
+  margin-right: 3%;
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  justify-content: flex-end;
 }
 .lpv__moves move {
-  flex: 0 0 40%;
   padding-left: 3%;
-  cursor: pointer;
-  font-size: 1.1em;
+  font-weight: bold;
+  white-space: nowrap;
 }
 .lpv__moves move.empty {
-  color: #656463;
+  color: #6d6c6b;
 }
 .lpv__moves move:not(.empty):hover {
   background: #3f4e2a;
+  color: white;
+  cursor: pointer;
+}
+.lpv__moves move.ancestor {
+  color: #b1cc92;
 }
 .lpv__moves move.current {
-  font-weight: bold;
-  background: #537926;
+  background: #537926 !important;
   color: white;
 }
-.lpv__moves > variation {
-  font-size: 0.8em;
+.lpv__moves > move {
+  flex: 0 0 38%;
+}
+.lpv__moves comment {
+  font-size: 0.7rem;
+}
+.lpv__moves > comment {
   flex: 1 1 100%;
-  background: hsl(37deg, 5%, 21%);
-  padding: 0.2em 0.6em;
+  background: hsl(37deg, 5%, 15%);
+  border: 1px solid hsl(37deg, 5%, 13%);
+  border-width: 1px 0;
+  padding: 0.4em 1em;
+  user-select: text;
+  line-height: 1.4;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
-.lpv__moves > variation index:not(:first-child) {
-  margin-left: 0.5em;
+.lpv__moves > comment + variation,
+.lpv__moves > comment + comment {
+  border-top: none;
 }
+.lpv__moves > variation {
+  flex: 1 1 100%;
+  display: block;
+  overflow: hidden;
+  font-size: 0.8em;
+  background: hsl(37deg, 5%, 15%);
+  border: 1px solid hsl(37deg, 5%, 13%);
+  border-width: 1px 0;
+  padding: 0em 0.6em;
+}
+.lpv__moves > variation + variation {
+  border-top: none;
+}
+.lpv__moves > variation move {
+  display: inline-block;
+  padding: 0.1em 0.2em;
+}
+.lpv__moves > variation move + index {
+  margin-left: 0.2em;
+}
+.lpv__moves > variation index {
+  margin: 0;
+  padding: 0.1em 0;
+}
+.lpv__moves > variation index + move {
+  margin-left: 0.1em;
+}
+.lpv__moves > variation comment {
+  align-self: center;
+  margin: 0 0.3em;
+}
+.lpv__moves > variation paren {
+  color: #6d6c6b;
+}
+.lpv__moves > variation paren.open {
+  margin: 0 0.1em 0 0.2em;
+}
+.lpv__moves > variation paren.close {
+  margin: 0 0.2em 0 0.1em;
+}
+
+.lpv__menu {
+  grid-area: 1/1/2/2;
+  z-index: 2;
+  border-bottom: 2px solid hsl(88deg, 62%, 37%);
+  background: #383e2b;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+.lpv__menu__entry.lpv__fbt {
+  text-align: left;
+  padding: 0.8em 2.5em;
+  transition: none;
+}
+.lpv__menu__entry.lpv__fbt::before {
+  color: hsl(88deg, 62%, 37%);
+  font-size: 2em;
+}
+.lpv__menu__entry.lpv__fbt:hover::before {
+  color: white;
+}
+
 .lpv__controls {
   grid-area: controls;
   display: flex;
   flex-flow: row nowrap;
   align-items: stretch;
+  user-select: none;
 }
 .lpv__controls .lpv__fbt {
   flex: 1 1 auto;
@@ -410,26 +470,42 @@ cg-board square.current-premove {
   font-size: 3em;
   line-height: 0.5em;
 }
-.lpv__menu {
-  grid-area: 1/1/2/2;
-  z-index: 2;
-  border-bottom: 2px solid hsl(88deg, 62%, 37%);
-  background: #383e2b;
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
+
+body ::-webkit-scrollbar,
+body ::-webkit-scrollbar-corner {
+  width: 0.5rem;
+  background: hsl(37deg, 5%, 18%);
 }
-.lpv__menu__entry.lpv__fbt {
-  text-align: left;
-  padding: 0.8em 2.5em;
-  transition: none;
+
+body ::-webkit-scrollbar-thumb {
+  background: #484745;
 }
-.lpv__menu__entry.lpv__fbt::before {
-  color: hsl(88deg, 62%, 37%);
-  font-size: 2em;
+
+body ::-webkit-scrollbar-thumb:hover,
+body ::-webkit-scrollbar-thumb:active {
+  background: #6d6c6b;
 }
-.lpv__menu__entry.lpv__fbt:hover::before {
-  color: white;
+
+.lpv {
+  border-radius: 5px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  background: hsl(37deg, 5%, 18%);
+  color: #aaa;
+  box-sizing: border-box;
+  display: grid;
+  overflow: hidden;
+  grid-template-areas: "board      side" "controls   side";
+  grid-template-columns: auto fit-content(24ch);
+  grid-template-rows: auto;
+  grid-row-gap: 0;
+}
+.lpv__board {
+  user-select: none;
+  grid-area: board;
+}
+.lpv__board cg-board {
+  box-shadow: none;
 }
 
 /*# sourceMappingURL=lichess-pgn-viewer.css.map */

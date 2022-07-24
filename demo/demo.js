@@ -1,5 +1,5 @@
 const pgns = {
-  bad: ``,
+  empty: ``,
   mammoth1: `
 [Event "4th Match, 16th game, London 1834"]
 [Site "https://lichess.org/study/EV81yS0v/EDqFMrdj"]
@@ -45,4 +45,14 @@ You can find the book here for an absurdly low price: https://www.amazon.com/Mam
     showMoves: true,
     scrollToMove: true,
   },
-].forEach((cfg, i) => LichessPgnViewer(document.querySelector(`.viewers > div:nth-child(${i + 1})`), cfg));
+  {
+    pgn: pgns.commentMin1,
+    showMoves: true,
+    scrollToMove: true,
+  },
+  {
+    pgn: pgns.mammoth1,
+    showMoves: false,
+    scrollToMove: true,
+  },
+].forEach((cfg, i) => LichessPgnViewer(document.querySelector(`.viewers > div:nth-child(${i + 1}) > div`), cfg));

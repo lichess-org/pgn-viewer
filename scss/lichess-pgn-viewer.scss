@@ -37,6 +37,7 @@ $c-border: hsl(0, 0%, 25%);
   grid-row-gap: 0;
 
   &__board {
+    user-select: none;
     grid-area: board;
     .cg-wrap {
       @extend %square;
