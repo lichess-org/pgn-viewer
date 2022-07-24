@@ -23,7 +23,7 @@ export const renderMoves = (ctrl: Ctrl) =>
 const makeMoveNodes = (ctrl: Ctrl): Array<VNode | undefined> => {
   const moveDom = renderMove(ctrl);
   const elms: VNode[] = [];
-  let node: MoveNode,
+  let node: MoveNode | undefined,
     variations: MoveNode[] = ctrl.game.moves.children.slice(1);
   while ((node = (node ? node : ctrl.game.moves).children[0])) {
     const move = node.data;

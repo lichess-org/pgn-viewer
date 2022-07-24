@@ -1,4 +1,3 @@
-import { Position } from 'chessops';
 import { Node, ChildNode, Game as ChessopsGame } from 'chessops/pgn';
 import { Id, Initial, MoveData } from './interfaces';
 import { Path } from './path';

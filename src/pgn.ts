@@ -13,9 +13,8 @@ class State {
   clone = () => new State(this.pos.clone(), this.path);
 }
 
-export function makeGame(pgn: string): Game | undefined {
-  const game = parsePgn(pgn)[0];
-  if (!game) return undefined;
+export const makeGame = (pgn: string): Game => {
+  const game = parsePgn(pgn)[0] || parsePgn('*')[0];
   const start = startingPosition(game.headers).unwrap();
   const [comments, shapes] = parseComments(game.comments || []);
   const initial: Initial = {
@@ -53,4 +52,4 @@ export function makeGame(pgn: string): Game | undefined {
     }
   );
   return new Game(initial, moves, game.headers);
-}
+};

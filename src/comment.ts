@@ -2,9 +2,10 @@ import { DrawShape } from 'chessground/draw';
 import { Key } from 'chessground/types';
 
 type CommentAndShapes = [string, DrawShape[]];
+type CommentsAndShapes = [string[], DrawShape[]];
 
-export const parseComments = (comments: string[]): [string[], DrawShape[]] =>
-  comments.reduce(
+export const parseComments = (comments: string[]): CommentsAndShapes =>
+  comments.reduce<CommentsAndShapes>(
     ([strs, shapes], comment) => {
       const [str, sps] = parseComment(comment);
       return [[...strs, ...(str ? [str] : [])], shapes.concat(sps)];

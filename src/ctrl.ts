@@ -1,24 +1,24 @@
 import { Api as CgApi } from 'chessground/api';
 import { opposite } from 'chessops';
 import translator from './translation';
-import { makeGame } from './pgn';
 import { Opts, Translate } from './interfaces';
 import { Config as CgConfig } from 'chessground/config';
 import { uciToMove } from 'chessground/util';
 import { Path } from './path';
 import { Game, isMoveData } from './game';
+import { makeGame } from './pgn';
 
 export default class Ctrl {
-  flipped: boolean = false;
   game: Game;
   path: Path;
   translate: Translate;
   ground?: CgApi;
+  flipped: boolean = false;
   menu = false;
 
   constructor(readonly opts: Opts, readonly redraw: () => void) {
-    this.translate = translator(opts.translate);
     this.game = makeGame(opts.pgn);
+    this.translate = translator(opts.translate);
     this.path = opts.initialPly
       ? this.game.mainline[opts.initialPly == 'last' ? this.game.mainline.length - 1 : opts.initialPly].path
       : Path.root;
@@ -28,7 +28,7 @@ export default class Ctrl {
   curData = () => this.game.dataAt(this.path) || this.game.initial;
 
   onward = (dir: -1 | 1) =>
-    this.toPath(dir == -1 ? this.path.init() : this.game.nodeAt(this.path).children[0]?.data.path || this.path);
+    this.toPath(dir == -1 ? this.path.init() : this.game.nodeAt(this.path)?.children[0]?.data.path || this.path);
 
   canOnward = (dir: -1 | 1) => (dir == -1 && !this.path.empty()) || !!this.curNode().children[0];
 
@@ -58,7 +58,7 @@ export default class Ctrl {
 
   cgConfig = (): CgConfig => {
     const data = this.curData();
-    const lastMove = isMoveData(data) && uciToMove(data.uci);
+    const lastMove = isMoveData(data) ? uciToMove(data.uci) : undefined;
     return {
       ...(this.opts.chessground || {}),
       fen: this.curData().fen,
