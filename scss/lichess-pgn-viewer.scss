@@ -1,10 +1,13 @@
 $c-site-hue: 37;
 $c-bg: hsl($c-site-hue, 5%, 18%);
-$c-bg2: hsl($c-site-hue, 5%, 21%);
-$c-font: #999;
-$c-border: hsl(0, 0%, 25%);
+$c-bg2: hsl($c-site-hue, 5%, 22%);
+$c-bg3: hsl($c-site-hue, 5%, 15%);
 $c-accent: hsl(88, 62%, 37%);
 $c-accent-over: white;
+$c-font: #aaa;
+$c-font-shy: mix($c-font, $c-bg, 50%);
+$c-font-accent: mix($c-accent, #fff, 50%);
+$c-border: hsl(0, 0%, 25%);
 
 @import './chessground.base';
 @import './chessground.transp';
@@ -14,6 +17,7 @@ $c-accent-over: white;
 @import './side';
 @import './menu';
 @import './controls';
+@import './scrollbar';
 
 .lpv {
   border-radius: 5px;

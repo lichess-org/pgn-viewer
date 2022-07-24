@@ -27,13 +27,13 @@ const makeMoveNodes = (ctrl: Ctrl): Array<VNode | undefined> => {
     variations: MoveNode[] = ctrl.game.moves.children.slice(1);
   while ((node = (node ? node : ctrl.game.moves).children[0])) {
     const move = node.data;
-    if (move.ply % 2 == 1) elms.push(h('index', moveTurn(move)));
+    if (move.ply % 2 == 1) elms.push(h('index', [moveTurn(move), '.']));
     elms.push(moveDom(move));
     if (variations.length) {
       if (move.ply % 2 == 1) elms.push(h('move.empty', '...'));
       variations.forEach(variation => elms.push(makeMainVariation(moveDom, variation)));
       if (move.ply % 2 == 1) {
-        elms.push(h('index', (move.ply - 1) / 2 + 1));
+        elms.push(h('index', [moveTurn(move), '.']));
         elms.push(h('move.empty', '...'));
       }
     }
@@ -52,10 +52,10 @@ const makeVariationMoves = (moveDom: MoveToDom, node: MoveNode) => {
   if (node.data.ply % 2 == 0) elms.push(h('index', [moveTurn(node.data), '...']));
   do {
     const move = node.data;
-    if (move.ply % 2 == 1) elms.push(h('index', moveTurn(move)));
+    if (move.ply % 2 == 1) elms.push(h('index', [moveTurn(move), '.']));
     elms.push(moveDom(move));
     variations.forEach(variation => {
-      elms = [...elms, ...[h('span', '('), ...makeVariationMoves(moveDom, variation), h('span', ')')]];
+      elms = [...elms, ...[h('paren', '('), ...makeVariationMoves(moveDom, variation), h('paren', ')')]];
     });
     variations = node.children.slice(1);
     node = node.children[0];
@@ -72,7 +72,8 @@ const renderMove = (ctrl: Ctrl) => (move: MoveData) =>
     'move',
     {
       class: {
-        current: move.path.equals(ctrl.path),
+        current: ctrl.path.equals(move.path),
+        ancestor: ctrl.path.contains(move.path),
       },
       attrs: {
         p: move.path.path,

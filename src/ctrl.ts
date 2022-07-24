@@ -65,6 +65,7 @@ export default class Ctrl {
       orientation: this.orientation(),
       check: this.curData().check,
       lastMove,
+      turnColor: data.fen.includes(' w ') ? 'white' : 'black',
     };
   };
 
