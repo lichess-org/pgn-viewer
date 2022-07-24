@@ -2,9 +2,6 @@ import { expect, test } from '@jest/globals';
 import { isNormal, parseSquare } from 'chessops';
 import { makeGame } from './pgn';
 
-test('empty pgn', () => {
-  expect(makeGame('')).toBe(undefined);
-});
 test('single move pgn', () => {
   const lastMove = makeGame('e4')!.moves.children[0].data;
   expect(lastMove.ply).toBe(1);
