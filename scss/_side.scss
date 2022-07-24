@@ -6,6 +6,7 @@
     flex-flow: column;
   }
   &__moves {
+    position: relative; // required for autoscroll
     flex: 1 1 0;
     overflow-y: auto;
     display: flex;

@@ -11,10 +11,27 @@ export const renderMoves = (ctrl: Ctrl) =>
     h(
       'div.lpv__moves',
       {
-        hook: bind<MouseEvent>('mousedown', e => {
-          const path = (e.target as HTMLElement).getAttribute('p');
-          if (path) ctrl.toPath(new Path(path));
-        }),
+        hook: {
+          ...bind<MouseEvent>('mousedown', e => {}),
+          insert: vnode => {
+            const el = vnode.elm as HTMLElement;
+            if (!ctrl.path.empty()) autoScroll(ctrl, el);
+            el.addEventListener(
+              'mousedown',
+              e => {
+                const path = (e.target as HTMLElement).getAttribute('p');
+                if (path) ctrl.toPath(new Path(path));
+              },
+              { passive: true }
+            );
+          },
+          postpatch: (_, vnode) => {
+            if (ctrl.autoScrollRequested) {
+              autoScroll(ctrl, vnode.elm as HTMLElement);
+              ctrl.autoScrollRequested = false;
+            }
+          },
+        },
       },
       [...ctrl.game.initial.comments.map(makeComment), ...makeMoveNodes(ctrl)]
     )
@@ -87,3 +104,12 @@ const renderMove = (ctrl: Ctrl) => (move: MoveData) =>
     },
     move.san
   );
+
+const autoScroll = (ctrl: Ctrl, cont: HTMLElement) => {
+  const target = cont.querySelector<HTMLElement>('.current');
+  if (!target) {
+    cont.scrollTop = ctrl.path ? 99999 : 0;
+    return;
+  }
+  cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
+};

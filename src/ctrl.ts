@@ -13,8 +13,9 @@ export default class Ctrl {
   path: Path;
   translate: Translate;
   ground?: CgApi;
-  flipped: boolean = false;
+  flipped = false;
   menu = false;
+  autoScrollRequested = false;
 
   constructor(readonly opts: Opts, readonly redraw: () => void) {
     this.game = makeGame(opts.pgn);
@@ -35,6 +36,7 @@ export default class Ctrl {
   toPath = (path: Path) => {
     this.path = path;
     this.menu = false;
+    this.autoScrollRequested = true;
     this.redrawGround();
     this.redraw();
   };
