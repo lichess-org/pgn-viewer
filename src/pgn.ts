@@ -40,6 +40,8 @@ export function makeGame(pgn: string): Game | undefined {
         uci: makeUci(move),
         fen: makeFen(state.pos.toSetup()),
         check: state.pos.isCheck(),
+        comments: node.comments || [],
+        nags: node.nags || [],
       };
       return moveNode;
     }

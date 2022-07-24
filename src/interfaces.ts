@@ -25,8 +25,8 @@ export interface MoveData {
   san: San;
   uci: Uci;
   startingComments?: string[];
-  comments?: string[];
-  nags?: number[];
+  comments: string[];
+  nags: number[];
 }
 
 export interface Opts {

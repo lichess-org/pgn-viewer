@@ -26,25 +26,27 @@ const makeMoveNodes = (ctrl: Ctrl): Array<VNode | undefined> => {
   let node: MoveNode,
     variations: MoveNode[] = ctrl.game.moves.children.slice(1);
   while ((node = (node ? node : ctrl.game.moves).children[0])) {
+    console.log(node);
     const move = node.data;
-    if (move.ply % 2 == 1) elms.push(h('index', [moveTurn(move), '.']));
+    const oddMove = move.ply % 2 == 1;
+    if (oddMove) elms.push(h('index', [moveTurn(move), '.']));
     elms.push(moveDom(move));
-    if (variations.length) {
+    if (oddMove && (variations.length || move.comments.length))
       if (move.ply % 2 == 1) elms.push(h('move.empty', '...'));
-      variations.forEach(variation => elms.push(makeMainVariation(moveDom, variation)));
-      if (move.ply % 2 == 1) {
-        elms.push(h('index', [moveTurn(move), '.']));
-        elms.push(h('move.empty', '...'));
-      }
+    move.comments.forEach(comment => elms.push(makeComment(comment)));
+    variations.forEach(variation => elms.push(makeMainVariation(moveDom, variation)));
+    if (oddMove && (variations.length || move.comments.length)) {
+      elms.push(h('index', [moveTurn(move), '.']));
+      elms.push(h('move.empty', '...'));
     }
     variations = node.children.slice(1);
   }
   return elms;
 };
 
-const makeMainVariation = (moveDom: MoveToDom, node: MoveNode) => h('variation', makeVariationMoves(moveDom, node));
+const makeComment = (comment: string) => h('comment', comment);
 
-// const makeSubVariation = (moveDom: MoveToDom, node: MoveNode) => h('variation', makeVariationMoves(moveDom, node));
+const makeMainVariation = (moveDom: MoveToDom, node: MoveNode) => h('variation', makeVariationMoves(moveDom, node));
 
 const makeVariationMoves = (moveDom: MoveToDom, node: MoveNode) => {
   let elms: VNode[] = [];
@@ -54,14 +56,18 @@ const makeVariationMoves = (moveDom: MoveToDom, node: MoveNode) => {
     const move = node.data;
     if (move.ply % 2 == 1) elms.push(h('index', [moveTurn(move), '.']));
     elms.push(moveDom(move));
+    move.comments.forEach(comment => elms.push(makeComment(comment)));
     variations.forEach(variation => {
-      elms = [...elms, ...[h('paren', '('), ...makeVariationMoves(moveDom, variation), h('paren', ')')]];
+      elms = [...elms, ...[parenOpen(), ...makeVariationMoves(moveDom, variation), parenClose()]];
     });
     variations = node.children.slice(1);
     node = node.children[0];
   } while (node);
   return elms;
 };
+
+const parenOpen = () => h('paren.open', '(');
+const parenClose = () => h('paren.close', ')');
 
 type MoveToDom = (move: MoveData) => VNode;
 

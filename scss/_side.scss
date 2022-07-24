@@ -47,6 +47,24 @@
     > move {
       flex: 0 0 38%;
     }
+    comment {
+      font-size: 0.7rem;
+    }
+    > comment {
+      flex: 1 1 100%;
+      background: $c-bg3;
+      border: 1px solid hsl(37deg, 5%, 13%);
+      border-width: 1px 0;
+      padding: 0.4em 1em;
+      user-select: text;
+      line-height: 1.4;
+      overflow-wrap: break-word;
+      word-break: break-word;
+      + variation,
+      + comment {
+        border-top: none;
+      }
+    }
     > variation {
       flex: 1 1 100%;
       display: flex;
@@ -61,8 +79,8 @@
       }
       move {
         padding: 0.1em 0.2em;
-        + move {
-          margin-right: 0.2em;
+        + index {
+          margin-left: 0.2em;
         }
       }
       index {
@@ -72,9 +90,18 @@
           margin-left: 0.1em;
         }
       }
+      comment {
+        align-self: center;
+        margin: 0 0.3em;
+      }
       paren {
         color: $c-font-shy;
-        margin: 0 0.1em;
+        &.open {
+          margin: 0 0.1em 0 0.2em;
+        }
+        &.close {
+          margin: 0 0.2em 0 0.1em;
+        }
       }
     }
   }
