@@ -25,6 +25,7 @@ $c-border: hsl(0, 0%, 25%);
   overflow: hidden;
   background: $c-bg;
   color: $c-font;
+  box-sizing: border-box;
 
   display: grid;
   overflow: hidden;

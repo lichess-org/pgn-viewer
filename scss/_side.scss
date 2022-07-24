@@ -28,6 +28,7 @@
     move {
       padding-left: 3%;
       font-weight: bold;
+      white-space: nowrap;
       &.empty {
         color: mix($c-font, $c-bg, 50%);
       }
@@ -67,8 +68,8 @@
     }
     > variation {
       flex: 1 1 100%;
-      display: flex;
-      flex-flow: row wrap;
+      display: block;
+      overflow: hidden;
       font-size: 0.8em;
       background: $c-bg3;
       border: 1px solid hsl(37deg, 5%, 13%);
@@ -78,6 +79,7 @@
         border-top: none;
       }
       move {
+        display: inline-block;
         padding: 0.1em 0.2em;
         + index {
           margin-left: 0.2em;
