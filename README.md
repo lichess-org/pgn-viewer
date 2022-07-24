@@ -4,6 +4,8 @@ Minimalistic PGN viewer widget, designed to be embedded in content pages.
 
 This won't replace a fully featured [analysis board](https://lichess.org/analysis).
 
+![board with move variation tree](https://raw.githubusercontent.com/lichess-org/pgn-viewer/master/screenshot/tree-comment.png)
+
 ## License
 
 Lichess PGN Viewer is distributed under the **GPL-3.0 license** (or any later version, at your option).
