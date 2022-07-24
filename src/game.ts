@@ -18,11 +18,7 @@ export class Game {
     this.mainline = Array.from(this.moves.mainline());
   }
 
-  nodeAt = (path: Path): AnyNode | undefined => {
-    if (path.empty()) return this.moves;
-    const tree = this.moves.children.find(c => c.data.path.path == path.head());
-    return tree && nodeAtPathFrom(tree, path.tail());
-  };
+  nodeAt = (path: Path): AnyNode | undefined => nodeAtPathFrom(this.moves, path)
 
   dataAt = (path: Path): MoveData | Initial | undefined => {
     const node = this.nodeAt(path);
@@ -45,12 +41,12 @@ export class Game {
   hasPlayerName = () => !!(this.players.white?.name || this.players.black?.name);
 }
 
-const childById = (node: MoveNode, id: Id) => node.children.find(c => c.data.path.last() == id);
+const childById = (node: AnyNode, id: Id): MoveNode | undefined => node.children.find(c => c.data.path.last() == id);
 
-const nodeAtPathFrom = (node: MoveNode, path: Path): Node<MoveData> => {
+const nodeAtPathFrom = (node: AnyNode, path: Path): AnyNode | undefined => {
   if (path.empty()) return node;
   const child = childById(node, path.head());
-  return child ? nodeAtPathFrom(child, path.tail()) : node;
+  return child ? nodeAtPathFrom(child, path.tail()) : undefined;
 };
 
 export const isMoveNode = (n: AnyNode): n is MoveNode => 'data' in n;
