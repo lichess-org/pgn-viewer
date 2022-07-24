@@ -3,6 +3,7 @@ import { scalachessCharPair } from 'chessops/compat';
 import { makeFen } from 'chessops/fen';
 import { parsePgn, PgnNodeData, startingPosition, transform } from 'chessops/pgn';
 import { parseSan } from 'chessops/san';
+import { parseComments } from './comment';
 import { Game } from './game';
 import { MoveData, Initial } from './interfaces';
 import { Path } from './path';
@@ -16,10 +17,13 @@ export function makeGame(pgn: string): Game | undefined {
   const game = parsePgn(pgn)[0];
   if (!game) return undefined;
   const start = startingPosition(game.headers).unwrap();
+  const [comments, shapes] = parseComments(game.comments || []);
   const initial: Initial = {
     fen: makeFen(start.toSetup()),
     check: start.isCheck(),
     pos: start,
+    comments,
+    shapes,
   };
   const moves = transform<PgnNodeData, MoveData, State>(
     game.moves,
@@ -32,6 +36,7 @@ export function makeGame(pgn: string): Game | undefined {
       state.pos.play(move);
       state.path = path;
       const setup = state.pos.toSetup();
+      const [comments, shapes] = parseComments(node.comments || []);
       const moveNode: MoveData = {
         path,
         ply: (setup.fullmoves - 1) * 2 + (state.pos.turn === 'white' ? 0 : 1),
@@ -40,11 +45,12 @@ export function makeGame(pgn: string): Game | undefined {
         uci: makeUci(move),
         fen: makeFen(state.pos.toSetup()),
         check: state.pos.isCheck(),
-        comments: node.comments || [],
+        comments,
         nags: node.nags || [],
+        shapes,
       };
       return moveNode;
     }
   );
-  return new Game(initial, moves, game.headers, game.comments);
+  return new Game(initial, moves, game.headers);
 }

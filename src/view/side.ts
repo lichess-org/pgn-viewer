@@ -26,7 +26,6 @@ const makeMoveNodes = (ctrl: Ctrl): Array<VNode | undefined> => {
   let node: MoveNode,
     variations: MoveNode[] = ctrl.game.moves.children.slice(1);
   while ((node = (node ? node : ctrl.game.moves).children[0])) {
-    console.log(node);
     const move = node.data;
     const oddMove = move.ply % 2 == 1;
     if (oddMove) elms.push(h('index', [moveTurn(move), '.']));

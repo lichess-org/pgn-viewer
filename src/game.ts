@@ -10,12 +10,7 @@ export type MoveNode = ChildNode<MoveData>;
 export class Game implements ChessopsGame<MoveData> {
   mainline: MoveData[];
 
-  constructor(
-    readonly initial: Initial,
-    readonly moves: AnyNode,
-    readonly headers: Map<string, string>,
-    readonly comments?: string[]
-  ) {
+  constructor(readonly initial: Initial, readonly moves: AnyNode, readonly headers: Map<string, string>) {
     this.mainline = Array.from(this.moves.mainline());
   }
 

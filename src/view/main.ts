@@ -14,9 +14,9 @@ export default function view(ctrl: Ctrl) {
         'lpv--menu': ctrl.menu,
         'lpv--moves': !!ctrl.opts.showMoves,
       },
-      hook: onInsert(el => {
-        ctrl.ground = Chessground(el.querySelector('.cg-wrap') as HTMLElement, makeConfig(ctrl, el));
-      }),
+      hook: onInsert(el =>
+        ctrl.setGround(Chessground(el.querySelector('.cg-wrap') as HTMLElement, makeConfig(ctrl, el)))
+      ),
     },
     [
       renderBoard(ctrl),
@@ -51,9 +51,12 @@ const wheelScroll = (ctrl: Ctrl) =>
 export const makeConfig = (ctrl: Ctrl, rootEl: HTMLElement): CgConfig => ({
   viewOnly: true,
   addDimensionsCssVarsTo: rootEl,
+  draggable: {
+    showGhost: false,
+  },
   drawable: {
     enabled: false,
-    visible: false,
+    visible: true,
   },
   ...ctrl.cgConfig(),
 });

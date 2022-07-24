@@ -2,6 +2,7 @@ import { Color, Move, Position } from 'chessops';
 import { Config as CgConfig } from 'chessground/config';
 import { FEN } from 'chessground/types';
 import { Path } from './path';
+import { DrawShape } from 'chessground/draw';
 
 export type Id = string;
 export type San = string;
@@ -10,22 +11,24 @@ export type Ply = number;
 
 export type Translate = (key: string) => string;
 
-export interface Initial {
-  pos: Position;
+interface InitialOrMove {
   fen: FEN;
   check: boolean;
+  comments: string[];
+  shapes: DrawShape[];
 }
 
-export interface MoveData {
+export interface Initial extends InitialOrMove {
+  pos: Position;
+}
+
+export interface MoveData extends InitialOrMove {
   path: Path;
   ply: number;
-  fen: FEN;
-  check: boolean;
   move: Move;
   san: San;
   uci: Uci;
   startingComments?: string[];
-  comments: string[];
   nags: number[];
 }
 

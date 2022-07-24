@@ -15,7 +15,7 @@
   "types": "dist/main.d.ts",
   "dependencies": {
     "@bity/oauth2-auth-code-pkce": "^2",
-    "chessground": "^8.3",
+    "chessground": "^8.3.3",
     "chessops": "^0.12",
     "snabbdom": "^3"
   },

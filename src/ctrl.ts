@@ -35,7 +35,7 @@ export default class Ctrl {
   toPath = (path: Path) => {
     this.path = path;
     this.menu = false;
-    this.setGround();
+    this.redrawGround();
     this.redraw();
   };
 
@@ -50,9 +50,9 @@ export default class Ctrl {
   };
 
   flip = () => {
-    this.flipped = true;
+    this.flipped = !this.flipped;
     this.menu = false;
-    this.setGround();
+    this.redrawGround();
     this.redraw();
   };
 
@@ -72,7 +72,15 @@ export default class Ctrl {
   analysisUrl = () => `https://lichess.org/analysis/${this.curData().fen.replace(' ', '_')}?color=${this.orientation}`;
   practiceUrl = () => `${this.analysisUrl()}#practice`;
 
-  private setGround = () => this.withGround(g => g.set(this.cgConfig()));
+  setGround = (cg: CgApi) => {
+    this.ground = cg;
+    this.ground.setShapes(this.curData().shapes);
+  };
 
+  private redrawGround = () =>
+    this.withGround(g => {
+      g.set(this.cgConfig());
+      g.setShapes(this.curData().shapes);
+    });
   private withGround = (f: (cg: CgApi) => void) => this.ground && f(this.ground);
 }
