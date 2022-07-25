@@ -39,6 +39,7 @@
   },
   "scripts": {
     "prepack": "tsc",
+    "compile": "tsc --incremental --declaration --outDir dist/",
     "dev": "$npm_execpath run compile && rollup --config",
     "watch": "$npm_execpath run compile && rollup --config --watch",
     "prod": "$npm_execpath run compile && rollup --config --config-prod",
