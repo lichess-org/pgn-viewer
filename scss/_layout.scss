@@ -1,0 +1,28 @@
+.lpv {
+  display: grid;
+  overflow: hidden;
+  grid-template-areas:
+    'player-top side'
+    'board      side'
+    'player-bot side'
+    'controls   side';
+  grid-template-columns: auto fit-content(24ch);
+  grid-template-rows: 2em auto 2em;
+  grid-row-gap: 0;
+
+  &__board {
+    grid-area: board;
+  }
+  &__side {
+    grid-area: side;
+  }
+  &__player--top {
+    grid-area: player-top;
+  }
+  &__player--bottom {
+    grid-area: player-bot;
+  }
+  &__controls {
+    grid-area: controls;
+  }
+}

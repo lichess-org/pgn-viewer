@@ -5,6 +5,7 @@ import { h, VNode } from 'snabbdom';
 import { bindNonPassive, onInsert, stepwiseScroll } from './util';
 import { renderMenu, renderControls } from './menu';
 import { renderMoves } from './side';
+import renderPlayer from './player';
 
 export default function view(ctrl: Ctrl) {
   return h(
@@ -19,7 +20,9 @@ export default function view(ctrl: Ctrl) {
       ),
     },
     [
+      ctrl.opts.showPlayers ? renderPlayer(ctrl, 'top') : undefined,
       renderBoard(ctrl),
+      ctrl.opts.showPlayers ? renderPlayer(ctrl, 'bottom') : undefined,
       renderControls(ctrl),
       ctrl.opts.showMoves ? renderMoves(ctrl) : undefined,
       ctrl.menu ? renderMenu(ctrl) : undefined,

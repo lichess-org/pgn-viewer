@@ -1,0 +1,23 @@
+.lpv {
+  &__player {
+    font-size: 0.8em;
+    background: $c-bg-player;
+    display: flex;
+    flex-flow: row nowrap;
+    // justify-content: stretch;
+    &--bottom {
+      border-bottom: 1px solid $c-border;
+    }
+    &__person {
+      flex: 1 1 auto;
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      gap: 1ch;
+      padding-left: 1em;
+    }
+    &__title {
+      font-weight: bold;
+    }
+  }
+}

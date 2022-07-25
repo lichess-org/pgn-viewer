@@ -12,7 +12,6 @@ export const renderMoves = (ctrl: Ctrl) =>
       'div.lpv__moves',
       {
         hook: {
-          ...bind<MouseEvent>('mousedown', e => {}),
           insert: vnode => {
             const el = vnode.elm as HTMLElement;
             if (!ctrl.path.empty()) autoScroll(ctrl, el);

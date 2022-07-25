@@ -32,6 +32,16 @@ export interface MoveData extends InitialOrMove {
   nags: number[];
 }
 
+export interface Player {
+  name?: string;
+  title?: string;
+  rating?: number;
+}
+export interface Players {
+  white: Player;
+  black: Player;
+}
+
 export interface Opts {
   pgn: string;
   chessground: CgConfig;

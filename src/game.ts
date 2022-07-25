@@ -1,15 +1,15 @@
-import { Node, ChildNode, Game as ChessopsGame } from 'chessops/pgn';
-import { Id, Initial, MoveData } from './interfaces';
+import { Node, ChildNode } from 'chessops/pgn';
+import { Id, Initial, MoveData, Players } from './interfaces';
 import { Path } from './path';
 
 export type AnyNode = Node<MoveData>;
 export type MoveNode = ChildNode<MoveData>;
 
 // immutable
-export class Game implements ChessopsGame<MoveData> {
+export class Game {
   mainline: MoveData[];
 
-  constructor(readonly initial: Initial, readonly moves: AnyNode, readonly headers: Map<string, string>) {
+  constructor(readonly initial: Initial, readonly moves: AnyNode, readonly players: Players) {
     this.mainline = Array.from(this.moves.mainline());
   }
 

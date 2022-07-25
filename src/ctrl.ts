@@ -21,7 +21,6 @@ export default class Ctrl {
     this.game = makeGame(opts.pgn);
     this.translate = translator(opts.translate);
     this.path = this.game.mainline[opts.initialPly == 'last' ? this.game.mainline.length - 1 : opts.initialPly].path;
-    debugger;
   }
 
   curNode = () => this.game.nodeAt(this.path) || this.game.moves;
