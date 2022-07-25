@@ -1,9 +1,12 @@
 $c-site-hue: 37 !default;
-$c-bg: hsl($c-site-hue, 5%, 18%) !default;
-$c-bg2: hsl($c-site-hue, 5%, 22%) !default;
-$c-bg3: hsl($c-site-hue, 5%, 15%) !default;
 $c-accent: hsl(88, 62%, 37%) !default;
 $c-accent-over: white !default;
+$c-bg: hsl($c-site-hue, 5%, 18%) !default;
+$c-bg-player: $c-bg !default;
+$c-bg-controls: $c-bg !default;
+$c-bg-movelist: $c-bg !default;
+$c-bg-variation: hsl($c-site-hue, 5%, 15%) !default;
+$c-bg-pane: mix($c-accent, $c-bg, 15%);
 $c-font: #aaa !default;
 $c-font-shy: mix($c-font, $c-bg, 50%) !default;
 $c-font-accent: mix($c-accent, #fff, 50%) !default;
@@ -14,8 +17,10 @@ $c-border: hsl(0, 0%, 25%) !default;
 @import './chessground.cburnett';
 @import './fbt';
 @import './util';
+@import './layout';
 @import './side';
-@import './menu';
+@import './player';
+@import './pane';
 @import './controls';
 @import './scrollbar';
 
@@ -27,18 +32,8 @@ $c-border: hsl(0, 0%, 25%) !default;
   color: $c-font;
   box-sizing: border-box;
 
-  display: grid;
-  overflow: hidden;
-  grid-template-areas:
-    'board      side'
-    'controls   side';
-  grid-template-columns: auto fit-content(24ch);
-  grid-template-rows: auto;
-  grid-row-gap: 0;
-
   &__board {
     user-select: none;
-    grid-area: board;
     .cg-wrap {
       @extend %square;
     }

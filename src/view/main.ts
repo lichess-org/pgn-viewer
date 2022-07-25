@@ -12,7 +12,7 @@ export default function view(ctrl: Ctrl) {
     'div.lpv',
     {
       class: {
-        'lpv--menu': ctrl.menu,
+        'lpv--menu': ctrl.pane != 'board',
         'lpv--moves': !!ctrl.opts.showMoves,
       },
       hook: onInsert(el =>
@@ -25,7 +25,7 @@ export default function view(ctrl: Ctrl) {
       ctrl.opts.showPlayers ? renderPlayer(ctrl, 'bottom') : undefined,
       renderControls(ctrl),
       ctrl.opts.showMoves ? renderMoves(ctrl) : undefined,
-      ctrl.menu ? renderMenu(ctrl) : undefined,
+      ctrl.pane == 'menu' ? renderMenu(ctrl) : ctrl.pane == 'pgn' ? renderPgnPane(ctrl) : undefined,
     ]
   );
 }
@@ -38,6 +38,23 @@ const renderBoard = (ctrl: Ctrl): VNode =>
     },
     h('div.cg-wrap')
   );
+
+const renderPgnPane = (ctrl: Ctrl): VNode => {
+  const blob = new Blob([ctrl.opts.pgn], { type: 'text/plain' });
+  return h('div.lpv__pgn.lpv__pane', [
+    h(
+      'a.lpv__pgn__download.lpv__fbt',
+      {
+        attrs: {
+          href: window.URL.createObjectURL(blob),
+          download: `${ctrl.game.title()}.pgn`,
+        },
+      },
+      ctrl.translate('download')
+    ),
+    h('textarea.lpv__pgn__text', ctrl.opts.pgn),
+  ]);
+};
 
 const wheelScroll = (ctrl: Ctrl) =>
   'ontouchstart' in window || !ctrl.opts.scrollToMove

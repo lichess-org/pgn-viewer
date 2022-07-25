@@ -25,4 +25,8 @@
   &__controls {
     grid-area: controls;
   }
+  &__menu,
+  &__pgn {
+    grid-area: 1 / 1 / 4 / 2;
+  }
 }

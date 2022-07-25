@@ -14,7 +14,7 @@ export default class Ctrl {
   translate: Translate;
   ground?: CgApi;
   flipped = false;
-  menu = false;
+  pane = 'board';
   autoScrollRequested = false;
 
   constructor(readonly opts: Opts, readonly redraw: () => void) {
@@ -33,14 +33,18 @@ export default class Ctrl {
 
   toPath = (path: Path) => {
     this.path = path;
-    this.menu = false;
+    this.pane = 'board';
     this.autoScrollRequested = true;
     this.redrawGround();
     this.redraw();
   };
 
   toggleMenu = () => {
-    this.menu = !this.menu;
+    this.pane = this.pane == 'board' ? 'menu' : 'board';
+    this.redraw();
+  };
+  togglePgn = () => {
+    this.pane = this.pane == 'pgn' ? 'board' : 'pgn';
     this.redraw();
   };
 
@@ -51,7 +55,7 @@ export default class Ctrl {
 
   flip = () => {
     this.flipped = !this.flipped;
-    this.menu = false;
+    this.pane = 'board';
     this.redrawGround();
     this.redraw();
   };

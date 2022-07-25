@@ -42,6 +42,8 @@ export interface Players {
   black: Player;
 }
 
+export type Pane = 'board' | 'menu' | 'pgn';
+
 export interface Opts {
   pgn: string;
   chessground: CgConfig;

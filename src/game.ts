@@ -23,6 +23,12 @@ export class Game {
     const node = this.nodeAt(path);
     return node ? (isMoveNode(node) ? node.data : this.initial) : undefined;
   };
+
+  title = () =>
+    [this.players.white.title, this.players.white.name, 'vs', this.players.black.title, this.players.black.name]
+      .filter(x => x && !!x.trim())
+      .join('_')
+      .replace(' ', '-');
 }
 
 const childById = (node: MoveNode, id: Id) => node.children.find(c => c.data.path.last() == id);

@@ -1,13 +1,12 @@
 .lpv {
-  &__menu {
-    grid-area: 1 / 1 / 2 / 2;
+  &__pane {
     z-index: 2;
     border-bottom: 2px solid $c-accent;
-    background: mix($c-accent, $c-bg, 15%);
+    background: $c-bg-pane;
     display: flex;
     flex-flow: column;
     justify-content: center;
-    &__entry.lpv__fbt {
+    .lpv__fbt {
       text-align: left;
       padding: 0.8em 2.5em;
       transition: none;
@@ -18,6 +17,15 @@
       &:hover::before {
         color: $c-accent-over;
       }
+    }
+  }
+
+  &__pgn {
+    &__text {
+      flex: 1 1 auto;
+      background: mix($c-bg-pane, $c-bg, 30%);
+      color: $c-font;
+      padding: 0.8em 1.3em;
     }
   }
 }
