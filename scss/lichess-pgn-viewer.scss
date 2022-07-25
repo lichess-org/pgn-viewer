@@ -1,13 +1,13 @@
-$c-site-hue: 37;
-$c-bg: hsl($c-site-hue, 5%, 18%);
-$c-bg2: hsl($c-site-hue, 5%, 22%);
-$c-bg3: hsl($c-site-hue, 5%, 15%);
-$c-accent: hsl(88, 62%, 37%);
-$c-accent-over: white;
-$c-font: #aaa;
-$c-font-shy: mix($c-font, $c-bg, 50%);
-$c-font-accent: mix($c-accent, #fff, 50%);
-$c-border: hsl(0, 0%, 25%);
+$c-site-hue: 37 !default;
+$c-bg: hsl($c-site-hue, 5%, 18%) !default;
+$c-bg2: hsl($c-site-hue, 5%, 22%) !default;
+$c-bg3: hsl($c-site-hue, 5%, 15%) !default;
+$c-accent: hsl(88, 62%, 37%) !default;
+$c-accent-over: white !default;
+$c-font: #aaa !default;
+$c-font-shy: mix($c-font, $c-bg, 50%) !default;
+$c-font-accent: mix($c-accent, #fff, 50%) !default;
+$c-border: hsl(0, 0%, 25%) !default;
 
 @import './chessground.base';
 @import './chessground.transp';
