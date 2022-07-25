@@ -16,7 +16,12 @@ export const parseComments = (comments: string[]): CommentsAndShapes =>
 export const parseComment = (comment: string): CommentAndShapes => {
   const [s1, circles] = parseCircles(comment.trim());
   const [s2, arrows] = parseArrows(s1.trim());
-  return [s2.trim().replace(/\s{2,}/g, ' '), [...circles, ...arrows]];
+  const s3 = s2
+    .replace(clockRemoveRegex, '')
+    .replace(tcecClockRemoveRegex, '')
+    .trim()
+    .replace(/\s{2,}/g, ' ');
+  return [s3, [...circles, ...arrows]];
 };
 
 const parseCircles = (comment: string): CommentAndShapes => {
@@ -48,5 +53,7 @@ const circlesRegex = /\[\%csl[\s\r\n]+((?:\w{3}[,\s]*)+)\]/g;
 const circlesRemoveRegex = /\[\%csl[\s\r\n]+((?:\w{3}[,\s]*)+)\]/g;
 const arrowsRegex = /\[\%cal[\s\r\n]+((?:\w{5}[,\s]*)+)\]/g;
 const arrowsRemoveRegex = /\[\%cal[\s\r\n]+((?:\w{5}[,\s]*)+)\]/g;
+const clockRemoveRegex = /\[\%clk[\s\r\n]+[\d:\.]+\]/g;
+const tcecClockRemoveRegex = /tl=[\d:\.]+/g;
 
 const brushOf = (c: string) => (c == 'G' ? 'green' : c == 'R' ? 'red' : c == 'Y' ? 'yellow' : 'blue');
