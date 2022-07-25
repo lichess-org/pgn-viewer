@@ -3,8 +3,19 @@ import view from './view/main';
 import { init, attributesModule, classModule } from 'snabbdom';
 import { Opts } from './interfaces';
 
-export default function start(element: HTMLElement, opts: Opts) {
+export default function start(element: HTMLElement, cfg: Partial<Opts>) {
   const patch = init([classModule, attributesModule]);
+
+  const opts: Opts = {
+    pgn: '*',
+    showPlayers: true,
+    showMoves: true,
+    scrollToMove: true,
+    orientation: 'white',
+    initialPly: 0,
+    chessground: {},
+    ...cfg,
+  };
 
   const ctrl = new Ctrl(opts, redraw);
 

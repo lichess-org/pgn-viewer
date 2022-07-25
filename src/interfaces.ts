@@ -34,10 +34,11 @@ export interface MoveData extends InitialOrMove {
 
 export interface Opts {
   pgn: string;
-  chessground?: CgConfig;
-  orientation?: Color;
-  showMoves?: boolean;
-  initialPly?: number | 'last';
+  chessground: CgConfig;
+  orientation: Color;
+  showPlayers: boolean;
+  showMoves: boolean;
+  initialPly: number | 'last';
+  scrollToMove: boolean;
   translate?: Translate;
-  scrollToMove?: boolean;
 }
