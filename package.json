@@ -1,7 +1,10 @@
 {
   "name": "lichess-pgn-viewer",
   "license": "GPL-3.0-or-later",
-  "version": "0.1.3",
+  "version": "0.1.4",
+  "repository": "github:lichess-org/pgn-viewer",
+  "author": "Thibault Duplessis <contact@lichess.org>",
+  "funding": "https://lichess.org/patron",
   "keywords": [
     "chess",
     "lichess",
@@ -11,8 +14,8 @@
     "typescript"
   ],
   "type": "module",
-  "module": "dist/main.js",
-  "types": "dist/main.d.ts",
+  "module": "main.js",
+  "types": "main.d.ts",
   "dependencies": {
     "@bity/oauth2-auth-code-pkce": "^2",
     "chessground": "^8.3.3",
@@ -35,8 +38,7 @@
     "typescript": "^4.7.4"
   },
   "scripts": {
-    "prepare": "tsc --outDir . --sourceMap --declaration",
-    "compile": "tsc --incremental --declaration --inlineSourceMap",
+    "prepack": "tsc",
     "dev": "$npm_execpath run compile && rollup --config",
     "watch": "$npm_execpath run compile && rollup --config --watch",
     "prod": "$npm_execpath run compile && rollup --config --config-prod",
@@ -44,5 +46,14 @@
     "sass-dev": "sass --no-source-map --watch --update --style=expanded scss:demo",
     "sass-prod": "sass --no-source-map --style=compressed scss:dist",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
-  }
+  },
+  "files": [
+    "*.js",
+    "*.js.map",
+    "*.d.ts",
+    "view/*",
+    "scss/*",
+    "src/*",
+    "src/**/*"
+  ]
 }

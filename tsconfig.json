@@ -7,8 +7,9 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "declaration": true,
-    "declarationDir": "./dist",
-    "outDir": "./dist",
+    "declarationDir": "",
+    "sourceMap": true,
+    "outDir": "",
     "target": "ES2018",
     "module": "esnext",
     "lib": ["DOM", "ES2018"]
