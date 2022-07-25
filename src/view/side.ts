@@ -108,7 +108,7 @@ const renderMove = (ctrl: Ctrl) => (move: MoveData) =>
 const autoScroll = (ctrl: Ctrl, cont: HTMLElement) => {
   const target = cont.querySelector<HTMLElement>('.current');
   if (!target) {
-    cont.scrollTop = ctrl.path ? 99999 : 0;
+    cont.scrollTop = ctrl.path.empty() ? 0 : 99999;
     return;
   }
   cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
