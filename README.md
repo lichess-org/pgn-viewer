@@ -50,22 +50,19 @@ Then run the demos in your browser.
 npm run watch
 ```
 
-### Build minified artificats
-
-```
-npm run sass-prod
-npm run prod
-```
-
 ## Installation
 
 ### As an NPM package
 
-_Not yet published_
+```
+npm i lichess-pgn-viewer
+```
 
 ## Usage
 
 ```js
+import LichessPgnViewer from 'lichess-pgn-viewer';
+
 LichessPgnViewer(domElement, {
   pgn: 'e4 c5 Nf3 d6 e5 Nc6 exd6 Qxd6 Nc3 Nf6',
 });
@@ -79,7 +76,12 @@ LichessPgnViewer(domElement, {
   initialPly: 'last',
   chessground: {
     // any chessground option
+    // https://github.com/lichess-org/chessground/blob/master/src/config.ts
   },
+  showPlayers: true,
+  showMoves: true,
+  scrollToMove: true,
+  orientation: 'white',
 });
 ```
 

@@ -37,22 +37,51 @@ You can find the book here for an absurdly low price: https://www.amazon.com/Mam
 { [%csl Gd4,Gf5] }
 1. d4 {before [%cal Re2e4] between [%csl Ye5] after} d5 { and some more! } 2. Nc3 Nf6 3. Bf4 { The Rapport-Jobava system. If you do not yet know what this is, I recommend checking out https://lichess.org/@/continuum12/blog/introducingthe-rapport-jobava-system/R6iFupKK. } 3... c5 4. e4!? { Gambit2Mate's idea; it is not original (has been played before) but Gambit2Mate and others are analyzing this line more extensively and adding a lot of novelties. } 4... Nxe4 { See "other lines" for other lines. However, Nxe4 is the mainline and then best line for Black. } 5. Nb5 $146 { Casabianka suggested this surprisingly practical choice that the computer dislikes at first but then realizes it is fine: } 5... Na6 6. f3 Nf6 7. dxc5 g6! { Only way to develop the bishop for Black. } (7... e6? 8. Nd6+ { Runs into this annoying Nd6 idea }) 8. Be5 Bg7 9. Nc3 { [%csl Rd5][%cal Gc3d5,Gd1d5,Ge5h8] } 9... O-O (9... Nxc5!? { The top engine line that leads to something I cannot yet fully comprehend: } 10. Nxd5 O-O { wow! } 11. Nc7 Ncd7 { Exchange sac: } 12. Nxa8 Nxe5 13. Qxd8 Rxd8 14. Nc7 Bf5 15. c3 Rd7 16. Nb5 Bd3 { Black's activity allows more than enough compensation according to the engine. }) 10. Bxa6 (10. Bxf6? Bxf6 11. Nxd5 Bxb2 12. Rb1 Bg7 13. c4?! { For example } 13... Nxc5 $19 { Is just not good for White! White's weakened king and lack of development causes way too much prblems } { [%cal Ga8c8,Gc8f5,Gd8a5] }) 10... bxa6 11. Nge2 e6 12. Qd4 Nh5 13. O-O-O { Casabianka - continuum12, 1-0, -, lichess.org/Syv5DHdg7U3p } { [%cal Gg2g4,Gh2h4] } *
 `,
+  croatia: `[Event "SuperUnited Rapid & Blitz Croatia"]
+[Site "Zagreb, Croatia"]
+[Date "2022.07.24"]
+[Round "19.1"]
+[White "Saric, Ivan"]
+[Black "Vachier-Lagrave, Maxime"]
+[Result "0-1"]
+[WhiteTitle "GM"]
+[WhiteElo "2680"]
+[BlackElo "2760"]
+[UTCDate "2022.07.24"]
+[UTCTime "11:30:10"]
+[Variant "Standard"]
+[ECO "B90"]
+[Opening "Sicilian Defense: Najdorf Variation"]
+[Annotator "https://lichess.org/@/Yeltcki"]
+
+1. e4 { [%clk 0:05:03] } 1... c5 { [%clk 0:05:03] } 2. Nf3 { [%clk 0:05:04] } 2... d6 { [%clk 0:05:04] } 3. d4 { [%clk 0:05:05] } 3... cxd4 { [%clk 0:05:05] } 4. Nxd4 { [%clk 0:05:06] } 4... Nf6 { [%clk 0:05:06] } 5. Nc3 { [%clk 0:05:07] } 5... a6 { [%clk 0:05:08] } 6. f3 { [%clk 0:05:02] } 6... e5 { [%clk 0:05:07] } 7. Nb3 { [%clk 0:05:03] } 7... Be6 { [%clk 0:05:08] } 8. Be3 { [%clk 0:05:04] } 8... h5 { [%clk 0:05:07] } 9. Nd5 { [%clk 0:05:03] } 9... Bxd5 { [%clk 0:05:08] } 10. exd5 { [%clk 0:05:04] } 10... Nbd7 { [%clk 0:05:07] } 11. Qd2 { [%clk 0:04:58] } 11... g6 { [%clk 0:05:08] } 12. O-O-O { [%clk 0:04:31] } 12... Bg7 { [%clk 0:05:09] } 13. Kb1 { [%clk 0:04:29] } 13... Rc8 { [%clk 0:05:09] } 14. Be2 { [%clk 0:04:19] } 14... O-O { [%clk 0:04:48] } 15. g4 { [%clk 0:04:14] } 15... Nb6 { [%clk 0:04:10] } 16. Bg5 { [%clk 0:03:26] } 16... hxg4 { [%clk 0:04:09] } 17. fxg4 { [%clk 0:03:16] } 17... Qd7 { [%clk 0:03:00] } 18. Bxf6 { [%clk 0:03:16] } 18... Bxf6 { [%clk 0:03:01] } 19. h4 { [%clk 0:03:15] } 19... e4 { [%clk 0:02:57] } 20. g5 { [%clk 0:03:11] } 20... Be5 { [%clk 0:02:34] } 21. h5 { [%clk 0:02:55] } 21... Nc4 { [%clk 0:02:35] } 22. Bxc4 { [%clk 0:02:55] } 22... Rxc4 { [%clk 0:02:36] } 23. Qe2 { [%clk 0:02:34] } 23... b5 { [%clk 0:02:16] } 24. c3 { [%clk 0:02:10] } 24... e3 { [%clk 0:01:24] } 25. Qxe3 { [%clk 0:02:03] } 25... b4 { [%clk 0:01:25] } 26. Na5 { [%clk 0:01:48] } 26... Rg4 { [%clk 0:01:09] } 27. Nc6 { [%clk 0:01:44] } 27... bxc3 { [%clk 0:01:08] } 28. Nxe5 { [%clk 0:01:40] } 28... dxe5 { [%clk 0:01:01] } 29. Qxc3 { [%clk 0:01:36] } 29... Qf5+ { [%clk 0:00:58] } 30. Ka1 { [%clk 0:01:35] } 30... Rc8 { [%clk 0:00:57] } 31. Qb3 { [%clk 0:01:25] } 31... gxh5 { [%clk 0:00:39] } 32. d6 { [%clk 0:01:09] } 32... Rd4 { [%clk 0:00:34] } 33. Rdf1 { [%clk 0:00:38] } 33... Qe6 { [%clk 0:00:24] } 34. Qf3 { [%clk 0:00:28] } 34... h4 { [%clk 0:00:20] } 35. Qh5 { [%clk 0:00:20] } 35... Ra4 { [%clk 0:00:15] } 36. a3 Rc3 { [%clk 0:00:10] } 37. Qxf7+ { [%clk 0:00:09] } 37... Qxf7 { [%clk 0:00:11] } 38. Rxf7 { [%clk 0:00:11] } 38... Rcxa3+ { [%clk 0:00:08] } 39. bxa3 { [%clk 0:00:11] } 39... Kxf7 { [%clk 0:00:09] } 40. Kb2 { [%clk 0:00:04] } 40... Rg4 { [%clk 0:00:09] } 41. Kc3 { [%clk 0:00:05] } 41... Ke6 { [%clk 0:00:10] } 42. g6 { [%clk 0:00:04] } 42... Kxd6 { [%clk 0:00:11] } 43. g7 { [%clk 0:00:06] } 43... Rxg7 { [%clk 0:00:08] } 44. Rxh4 { [%clk 0:00:07] } 44... Kd5 { [%clk 0:00:08] } 45. Ra4 { [%clk 0:00:08] } 45... Rg3+ { [%clk 0:00:09] } 46. Kd2 { [%clk 0:00:09] } 46... Rg6 { [%clk 0:00:09] } 47. Ke3 { [%clk 0:00:10] } 47... Re6 { [%clk 0:00:08] } 48. Ra5+ { [%clk 0:00:11] } 48... Kc4 { [%clk 0:00:08] } 49. Ke4 { [%clk 0:00:12] } 49... Kb3 { [%clk 0:00:10] } 50. Kd5 { [%clk 0:00:09] } 50... Rb6 { [%clk 0:00:11] } 51. Ke4 { [%clk 0:00:06] } 51... Rh6 { [%clk 0:00:06] } 52. Rxe5 { [%clk 0:00:05] } 52... Kxa3 { [%clk 0:00:07] } 53. Kd3 { [%clk 0:00:05] } 53... Kb3 { [%clk 0:00:08] } 54. Kd2 { [%clk 0:00:04] } 54... Kb2 { [%clk 0:00:09] } 55. Rd5 { [%clk 0:00:04] } 55... Rb6 { [%clk 0:00:08] } 56. Kd3 { [%clk 0:00:03] } 56... Rb5 { [%clk 0:00:09] } 57. Rd6 { [%clk 0:00:04] } 57... a5 { [%clk 0:00:10] } 58. Kc4 { [%clk 0:00:04] } 58... Rb4+ { [%clk 0:00:11] } 59. Kd3 { [%clk 0:00:05] } 59... a4 { [%clk 0:00:11] } 60. Rg6 { [%clk 0:00:05] } 60... a3 { [%clk 0:00:12] } 61. Rg2+ { [%clk 0:00:07] } 61... Kb3 { [%clk 0:00:13] } 62. Rg1 { [%clk 0:00:03] } 62... a2 { [%clk 0:00:14] } 63. Kd4 0-1`,
+  lichess: `[Event "Rated Bullet game"]
+[Site "https://lichess.org/PeeVghKM"]
+[Date "2022.07.25"]
+[White "Ch1llax"]
+[Black "Infinity-Stones"]
+[Result "0-1"]
+[UTCDate "2022.07.25"]
+[UTCTime "12:42:38"]
+[WhiteElo "2897"]
+[BlackElo "2874"]
+[WhiteRatingDiff "-6"]
+[BlackRatingDiff "+6"]
+[WhiteTitle "IM"]
+[BlackTitle "GM"]
+[Variant "Standard"]
+[TimeControl "60+0"]
+[ECO "C44"]
+[Opening "Ponziani Opening: Neumann Gambit"]
+[Termination "Normal"]
+[Annotator "lichess.org"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Nf6 4. c3? { (0.18 → -0.98) Mistake. d3 was best. } { C44 Ponziani Opening: Neumann Gambit } (4. d3 Bc5 5. O-O d6 6. Re1 O-O 7. c3 a5 8. h3 h6) 4... Nxe4 5. Bd5?! { (-0.82 → -1.45) Inaccuracy. O-O was best. } (5. O-O d5 6. Bb5 Bd6 7. Re1 O-O 8. d3 Nf6 9. Bxc6 bxc6) 5... Nf6 6. Bxc6 dxc6 7. Nxe5 Bd6?! { (-1.13 → -0.52) Inaccuracy. Nd7 was best. } (7... Nd7 8. Nxd7 Qe7+ 9. Qe2 Bxd7 10. d4 O-O-O 11. Qxe7 Bxe7 12. b4) 8. d4 Bxe5 9. dxe5?! { (-0.71 → -1.75) Inaccuracy. Qe2 was best. } (9. Qe2 O-O 10. dxe5 Re8 11. O-O Bf5 12. Re1 Nd7 13. Bf4 Nc5 14. Rd1 Qh4 15. Bg3 Qe4) 9... Qxd1+ 10. Kxd1 Ng4 11. Rf1?? { (-1.84 → -4.46) Blunder. Ke2 was best. } (11. Ke2 Nxe5 12. Bf4 O-O 13. Re1 Bg4+ 14. f3 Rfe8 15. Kf1 Nd3 16. Rxe8+ Rxe8 17. Bg3 Bc8) 11... Nxh2?? { (-4.46 → 0.00) Blunder. Bf5 was best. } (11... Bf5 12. Be3 O-O-O+ 13. Nd2 Nxe5 14. b4 f6 15. Re1 Nd3 16. Rg1 Rhe8 17. a4 g5 18. g4) 12. Re1 Ng4 13. f3 Nh6 14. Bxh6 gxh6 15. Nd2 Bf5 16. Ke2 O-O-O 17. Rad1? { (0.13 → -1.31) Mistake. g4 was best. } (17. g4 Be6 18. Rh1 Rhg8 19. Ne4 h5 20. Nf6 hxg4 21. Nxg8 gxf3+ 22. Kxf3 Bd5+ 23. Ke3 Bxh1) 17... Bd3+? { (-1.31 → 0.05) Mistake. Rd5 was best. } (17... Rd5 18. Nc4 Rc5 19. Rd4 b5 20. Na5 Rxe5+ 21. Kd2 Rxe1 22. Kxe1 Re8+ 23. Kf2 Re6 24. b4) 18. Kf2?? { (0.05 → -5.75) Blunder. Ke3 was best. } (18. Ke3 Rhg8) 18... Bc2 19. Ke3 Bxd1 20. Rxd1 Rhe8?! { (-5.99 → -4.39) Inaccuracy. Rd5 was best. } (20... Rd5 21. f4 Rhd8 22. g4 Rd3+ 23. Ke2 h5 24. gxh5 Rh3 25. Rg1 Rh2+ 26. Ke3 Rdxd2 27. Rg7) 21. f4 f5?? { (-4.43 → -1.79) Blunder. f6 was best. } (21... f6) 22. Rh1 Rg8 23. Nf3 Rxg2 24. Rxh6?! { (-1.80 → -2.90) Inaccuracy. Nd4 was best. } (24. Nd4) 24... Rxb2 25. Rxh7?? { (-2.26 → -5.25) Blunder. Nd4 was best. } (25. Nd4 Rxa2 26. Nxf5 Ra1 27. Ne7+ Kb8 28. f5 a5 29. f6 a4 30. Rh2 Re1+ 31. Kf4 Rf1+) 25... Rc2 26. Ng5?! { (-5.41 → -7.07) Inaccuracy. e6 was best. } (26. e6 Rxc3+ 27. Kf2 Rc2+ 28. Kg3 Re8 29. Ne5 Rxa2 30. Rf7 Rd2 31. e7 Rd7 32. Nxd7 Kxd7) 26... Rxc3+ 27. Ke2 Rc4 28. Ne6 Re8 29. Nxc7 Rg8 30. Ne6 Rg2+ 31. Kf3 Rxa2 32. Rc7+ Kb8 33. Rd7?? { (-6.83 → Mate in 2) Checkmate is now unavoidable. Ke3 was best. } (33. Ke3 a5) 33... Ra3+?? { (Mate in 2 → -6.05) Lost forced checkmate sequence. Rc3+ was best. } (33... Rc3+ 34. Rd3 Rxd3#) 34. Ke2 a6 35. Nd4 Rb4 36. e6?! { (-6.70 → -17.82) Inaccuracy. Rd8+ was best. } (36. Rd8+ Kc7) 36... Rb2+ 37. Nc2 Rxc2+ 38. Kd1?! { (-15.06 → Mate in 11) Checkmate is now unavoidable. Ke1 was best. } (38. Ke1 Kc8 39. Rd2 Rxd2 40. Kxd2 Kc7 41. Kc2 Rh3 42. Kd1 Kd6 43. Ke1 Kxe6 44. Kf2 Ra3) 38... Rh2 { White resigns. } 0-1`,
 };
 
 [
-  {
-    pgn: pgns.e4idea1,
-    showMoves: true,
-    scrollToMove: true,
-  },
-  {
-    pgn: pgns.commentMin1,
-    showMoves: true,
-    scrollToMove: true,
-  },
-  {
-    pgn: pgns.mammoth1,
-    showMoves: false,
-    scrollToMove: true,
-  },
+  { pgn: pgns.croatia },
+  { pgn: pgns.lichess },
+  // { pgn: pgns.commentMin1, },
+  // { pgn: pgns.mammoth1 },
 ].forEach((cfg, i) => LichessPgnViewer(document.querySelector(`.viewers > div:nth-child(${i + 1}) > div`), cfg));

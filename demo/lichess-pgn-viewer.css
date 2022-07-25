@@ -307,17 +307,45 @@ cg-board square.current-premove {
   width: 100%;
 }
 
+.lpv {
+  display: grid;
+  overflow: hidden;
+  grid-template-areas: "player-top side" "board      side" "player-bot side" "controls   side";
+  grid-template-columns: auto fit-content(24ch);
+  grid-template-rows: 2em auto 2em;
+  grid-row-gap: 0;
+}
+.lpv__board {
+  grid-area: board;
+}
 .lpv__side {
   grid-area: side;
+}
+.lpv__player--top {
+  grid-area: player-top;
+}
+.lpv__player--bottom {
+  grid-area: player-bot;
+}
+.lpv__controls {
+  grid-area: controls;
+}
+.lpv__menu, .lpv__pgn {
+  grid-area: 1/1/4/2;
+}
+
+.lpv__side {
   overflow: hidden;
   display: flex;
   flex-flow: column;
 }
 .lpv__moves {
+  position: relative;
   flex: 1 1 0;
-  overflow-y: auto;
   display: flex;
   flex-flow: row wrap;
+  overflow-y: auto;
+  background: hsl(37deg, 5%, 18%);
   align-items: center;
   align-content: flex-start;
   will-change: scroll-position;
@@ -358,6 +386,7 @@ cg-board square.current-premove {
   flex: 0 0 38%;
 }
 .lpv__moves comment {
+  user-select: text;
   font-size: 0.7rem;
 }
 .lpv__moves > comment {
@@ -366,7 +395,6 @@ cg-board square.current-premove {
   border: 1px solid hsl(37deg, 5%, 13%);
   border-width: 1px 0;
   padding: 0.4em 1em;
-  user-select: text;
   line-height: 1.4;
   overflow-wrap: break-word;
   word-break: break-word;
@@ -416,8 +444,28 @@ cg-board square.current-premove {
   margin: 0 0.2em 0 0.1em;
 }
 
-.lpv__menu {
-  grid-area: 1/1/2/2;
+.lpv__player {
+  font-size: 0.8em;
+  background: hsl(37deg, 5%, 18%);
+  display: flex;
+  flex-flow: row nowrap;
+}
+.lpv__player--bottom {
+  border-bottom: 1px solid hsl(0deg, 0%, 25%);
+}
+.lpv__player__person {
+  flex: 1 1 auto;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 1ch;
+  padding-left: 1em;
+}
+.lpv__player__title {
+  font-weight: bold;
+}
+
+.lpv__pane {
   z-index: 2;
   border-bottom: 2px solid hsl(88deg, 62%, 37%);
   background: #383e2b;
@@ -425,25 +473,31 @@ cg-board square.current-premove {
   flex-flow: column;
   justify-content: center;
 }
-.lpv__menu__entry.lpv__fbt {
+.lpv__pane .lpv__fbt {
   text-align: left;
   padding: 0.8em 2.5em;
   transition: none;
 }
-.lpv__menu__entry.lpv__fbt::before {
+.lpv__pane .lpv__fbt::before {
   color: hsl(88deg, 62%, 37%);
   font-size: 2em;
 }
-.lpv__menu__entry.lpv__fbt:hover::before {
+.lpv__pane .lpv__fbt:hover::before {
   color: white;
+}
+.lpv__pgn__text {
+  flex: 1 1 auto;
+  background: #32332c;
+  color: #aaa;
+  padding: 0.8em 1.3em;
 }
 
 .lpv__controls {
-  grid-area: controls;
   display: flex;
   flex-flow: row nowrap;
   align-items: stretch;
   user-select: none;
+  background: hsl(37deg, 5%, 18%);
 }
 .lpv__controls .lpv__fbt {
   flex: 1 1 auto;
@@ -455,6 +509,7 @@ cg-board square.current-premove {
 }
 .lpv__controls__menu.lpv__fbt {
   flex: 0 1 auto;
+  width: 3em;
   padding: 0.4em 1em;
 }
 .lpv__controls__backward::before {
@@ -493,19 +548,10 @@ body ::-webkit-scrollbar-thumb:active {
   background: hsl(37deg, 5%, 18%);
   color: #aaa;
   box-sizing: border-box;
-  display: grid;
-  overflow: hidden;
-  grid-template-areas: "board      side" "controls   side";
-  grid-template-columns: auto fit-content(24ch);
-  grid-template-rows: auto;
-  grid-row-gap: 0;
 }
 .lpv__board {
   user-select: none;
-  grid-area: board;
 }
 .lpv__board cg-board {
   box-shadow: none;
 }
-
-/*# sourceMappingURL=lichess-pgn-viewer.css.map */

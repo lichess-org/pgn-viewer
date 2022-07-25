@@ -2475,6 +2475,8 @@ var LichessPgnViewer = (function () {
         flipTheBoard: 'Flip the board',
         analysisBoard: 'Analysis board',
         practiceWithComputer: 'Practice with computer',
+        viewDownloadPgn: 'View/Download PGN',
+        download: 'Download',
     };
 
     const colors = ['white', 'black'];
@@ -2566,30 +2568,12 @@ var LichessPgnViewer = (function () {
         ];
     }
 
-    class Path {
-        constructor(path) {
-            this.path = path;
-            this.size = () => this.path.length / 2;
-            this.head = () => this.path.slice(0, 2);
-            // returns an invalid path doesn't starting from root
-            this.tail = () => new Path(this.path.slice(2));
-            this.init = () => new Path(this.path.slice(0, -2));
-            this.last = () => this.path.slice(-2);
-            this.empty = () => this.path == '';
-            this.contains = (other) => this.path.startsWith(other.path);
-            this.isChildOf = (parent) => this.init() === parent;
-            this.append = (id) => new Path(this.path + id);
-            this.equals = (other) => this.path == other.path;
-        }
-    }
-    Path.root = new Path('');
-
     // immutable
     class Game {
-        constructor(initial, moves, headers) {
+        constructor(initial, moves, players) {
             this.initial = initial;
             this.moves = moves;
-            this.headers = headers;
+            this.players = players;
             this.nodeAt = (path) => {
                 if (path.empty())
                     return this.moves;
@@ -2600,6 +2584,10 @@ var LichessPgnViewer = (function () {
                 const node = this.nodeAt(path);
                 return node ? (isMoveNode(node) ? node.data : this.initial) : undefined;
             };
+            this.title = () => [this.players.white.title, this.players.white.name, 'vs', this.players.black.title, this.players.black.name]
+                .filter(x => x && !!x.trim())
+                .join('_')
+                .replace(' ', '-');
             this.mainline = Array.from(this.moves.mainline());
         }
     }
@@ -2620,7 +2608,12 @@ var LichessPgnViewer = (function () {
     const parseComment = (comment) => {
         const [s1, circles] = parseCircles(comment.trim());
         const [s2, arrows] = parseArrows(s1.trim());
-        return [s2.trim().replace(/\s{2,}/g, ' '), [...circles, ...arrows]];
+        const s3 = s2
+            .replace(clockRemoveRegex, '')
+            .replace(tcecClockRemoveRegex, '')
+            .trim()
+            .replace(/\s{2,}/g, ' ');
+        return [s3, [...circles, ...arrows]];
     };
     const parseCircles = (comment) => {
         const circles = Array.from(comment.matchAll(circlesRegex))
@@ -2649,7 +2642,27 @@ var LichessPgnViewer = (function () {
     const circlesRemoveRegex = /\[\%csl[\s\r\n]+((?:\w{3}[,\s]*)+)\]/g;
     const arrowsRegex = /\[\%cal[\s\r\n]+((?:\w{5}[,\s]*)+)\]/g;
     const arrowsRemoveRegex = /\[\%cal[\s\r\n]+((?:\w{5}[,\s]*)+)\]/g;
+    const clockRemoveRegex = /\[\%clk[\s\r\n]+[\d:\.]+\]/g;
+    const tcecClockRemoveRegex = /tl=[\d:\.]+/g;
     const brushOf = (c) => (c == 'G' ? 'green' : c == 'R' ? 'red' : c == 'Y' ? 'yellow' : 'blue');
+
+    class Path {
+        constructor(path) {
+            this.path = path;
+            this.size = () => this.path.length / 2;
+            this.head = () => this.path.slice(0, 2);
+            // returns an invalid path doesn't starting from root
+            this.tail = () => new Path(this.path.slice(2));
+            this.init = () => new Path(this.path.slice(0, -2));
+            this.last = () => this.path.slice(-2);
+            this.empty = () => this.path == '';
+            this.contains = (other) => this.path.startsWith(other.path);
+            this.isChildOf = (parent) => this.init() === parent;
+            this.append = (id) => new Path(this.path + id);
+            this.equals = (other) => this.path == other.path;
+        }
+    }
+    Path.root = new Path('');
 
     class State {
         constructor(pos, path) {
@@ -2661,59 +2674,78 @@ var LichessPgnViewer = (function () {
     const makeGame = (pgn) => {
         const game = parsePgn(pgn)[0] || parsePgn('*')[0];
         const start = startingPosition(game.headers).unwrap();
+        const fen = makeFen(start.toSetup());
         const [comments, shapes] = parseComments(game.comments || []);
-        const initial = {
-            fen: makeFen(start.toSetup()),
-            check: start.isCheck(),
-            pos: start,
+        const initial = { fen, check: start.isCheck(), pos: start, comments, shapes };
+        const moves = makeMoves(start, game.moves);
+        const players = makePlayers(game.headers);
+        return new Game(initial, moves, players);
+    };
+    const makeMoves = (start, moves) => transform(moves, new State(start, Path.root), (state, node, _index) => {
+        const move = parseSan(state.pos, node.san);
+        if (!move)
+            return undefined;
+        const moveId = scalachessCharPair(move);
+        const path = state.path.append(moveId);
+        state.pos.play(move);
+        state.path = path;
+        const setup = state.pos.toSetup();
+        const [comments, shapes1] = parseComments(node.comments || []);
+        const [startingComments, shapes2] = parseComments(node.startingComments || []);
+        const shapes = [...shapes1, ...shapes2];
+        const moveNode = {
+            path,
+            ply: (setup.fullmoves - 1) * 2 + (state.pos.turn === 'white' ? 0 : 1),
+            move,
+            san: node.san,
+            uci: makeUci(move),
+            fen: makeFen(state.pos.toSetup()),
+            check: state.pos.isCheck(),
             comments,
+            startingComments,
+            nags: node.nags || [],
             shapes,
         };
-        const moves = transform(game.moves, new State(start, Path.root), (state, node, _index) => {
-            const move = parseSan(state.pos, node.san);
-            if (!move)
-                return undefined;
-            const moveId = scalachessCharPair(move);
-            const path = state.path.append(moveId);
-            state.pos.play(move);
-            state.path = path;
-            const setup = state.pos.toSetup();
-            const [comments, shapes] = parseComments(node.comments || []);
-            const moveNode = {
-                path,
-                ply: (setup.fullmoves - 1) * 2 + (state.pos.turn === 'white' ? 0 : 1),
-                move,
-                san: node.san,
-                uci: makeUci(move),
-                fen: makeFen(state.pos.toSetup()),
-                check: state.pos.isCheck(),
-                comments,
-                nags: node.nags || [],
-                shapes,
-            };
-            return moveNode;
+        return moveNode;
+    });
+    function makePlayers(headers) {
+        const lower = new Map(Array.from(headers, ([key, value]) => [key.toLowerCase(), value]));
+        const get = (color, field) => lower.get(`${color}${field}`);
+        const makePlayer = (color) => ({
+            name: get(color, ''),
+            title: get(color, 'title'),
+            rating: parseInt(get(color, 'elo') || '') || undefined,
         });
-        return new Game(initial, moves, game.headers);
-    };
+        return {
+            white: makePlayer('white'),
+            black: makePlayer('black'),
+        };
+    }
 
     class Ctrl {
         constructor(opts, redraw) {
             this.opts = opts;
             this.redraw = redraw;
             this.flipped = false;
-            this.menu = false;
+            this.pane = 'board';
+            this.autoScrollRequested = false;
             this.curNode = () => this.game.nodeAt(this.path) || this.game.moves;
             this.curData = () => this.game.dataAt(this.path) || this.game.initial;
             this.onward = (dir) => { var _a, _b; return this.toPath(dir == -1 ? this.path.init() : ((_b = (_a = this.game.nodeAt(this.path)) === null || _a === void 0 ? void 0 : _a.children[0]) === null || _b === void 0 ? void 0 : _b.data.path) || this.path); };
             this.canOnward = (dir) => (dir == -1 && !this.path.empty()) || !!this.curNode().children[0];
             this.toPath = (path) => {
                 this.path = path;
-                this.menu = false;
+                this.pane = 'board';
+                this.autoScrollRequested = true;
                 this.redrawGround();
                 this.redraw();
             };
             this.toggleMenu = () => {
-                this.menu = !this.menu;
+                this.pane = this.pane == 'board' ? 'menu' : 'board';
+                this.redraw();
+            };
+            this.togglePgn = () => {
+                this.pane = this.pane == 'pgn' ? 'board' : 'pgn';
                 this.redraw();
             };
             this.orientation = () => {
@@ -2722,7 +2754,7 @@ var LichessPgnViewer = (function () {
             };
             this.flip = () => {
                 this.flipped = !this.flipped;
-                this.menu = false;
+                this.pane = 'board';
                 this.redrawGround();
                 this.redraw();
             };
@@ -2751,9 +2783,7 @@ var LichessPgnViewer = (function () {
             this.withGround = (f) => this.ground && f(this.ground);
             this.game = makeGame(opts.pgn);
             this.translate = translate$1(opts.translate);
-            this.path = opts.initialPly
-                ? this.game.mainline[opts.initialPly == 'last' ? this.game.mainline.length - 1 : opts.initialPly].path
-                : Path.root;
+            this.path = this.game.mainline[opts.initialPly == 'last' ? this.game.mainline.length - 1 : opts.initialPly].path;
         }
     }
 
@@ -5273,7 +5303,7 @@ var LichessPgnViewer = (function () {
         document.addEventListener(eventName, () => clearTimeout(timeout), { once: true });
     }
 
-    const renderMenu = (ctrl) => h('div.lpv__menu', [
+    const renderMenu = (ctrl) => h('div.lpv__menu.lpv__pane', [
         h('button.lpv__menu__entry.lpv__menu__flip.lpv__fbt', {
             hook: bind('click', ctrl.flip),
         }, ctrl.translate('flipTheBoard')),
@@ -5289,27 +5319,43 @@ var LichessPgnViewer = (function () {
                 target: '_blank',
             },
         }, ctrl.translate('practiceWithComputer')),
+        h('button.lpv__menu__entry.lpv__menu__pgn.lpv__fbt', {
+            hook: bind('click', ctrl.togglePgn),
+        }, ctrl.translate('viewDownloadPgn')),
     ]);
     const renderControls = (ctrl) => h('div.lpv__controls', [
         dirButton('backward', ctrl, -1),
         h('button.lpv__fbt.lpv__controls__menu', {
-            class: { active: ctrl.menu },
+            class: { active: ctrl.pane != 'board' },
             hook: bind('click', ctrl.toggleMenu),
-        }, '⋮'),
+        }, ctrl.pane == 'board' ? '⋮' : 'X'),
         dirButton('forward', ctrl, 1),
     ]);
     const dirButton = (name, ctrl, dir) => h(`button.lpv__controls__${name}.lpv__fbt`, {
-        class: { disabled: !ctrl.menu && !ctrl.canOnward(dir) },
+        class: { disabled: ctrl.pane == 'board' && !ctrl.canOnward(dir) },
         hook: onInsert(el => bindMobileMousedown(el, e => eventRepeater(() => ctrl.onward(dir), e))),
     });
 
     const renderMoves = (ctrl) => h('div.lpv__side', h('div.lpv__moves', {
-        hook: bind('mousedown', e => {
-            const path = e.target.getAttribute('p');
-            if (path)
-                ctrl.toPath(new Path(path));
-        }),
-    }, makeMoveNodes(ctrl)));
+        hook: {
+            insert: vnode => {
+                const el = vnode.elm;
+                if (!ctrl.path.empty())
+                    autoScroll(ctrl, el);
+                el.addEventListener('mousedown', e => {
+                    const path = e.target.getAttribute('p');
+                    if (path)
+                        ctrl.toPath(new Path(path));
+                }, { passive: true });
+            },
+            postpatch: (_, vnode) => {
+                if (ctrl.autoScrollRequested) {
+                    autoScroll(ctrl, vnode.elm);
+                    ctrl.autoScrollRequested = false;
+                }
+            },
+        },
+    }, [...ctrl.game.initial.comments.map(makeComment), ...makeMoveNodes(ctrl)]));
     const makeMoveNodes = (ctrl) => {
         const moveDom = renderMove(ctrl);
         const elms = [];
@@ -5320,12 +5366,12 @@ var LichessPgnViewer = (function () {
             if (oddMove)
                 elms.push(h('index', [moveTurn(move), '.']));
             elms.push(moveDom(move));
-            if (oddMove && (variations.length || move.comments.length))
-                if (move.ply % 2 == 1)
-                    elms.push(h('move.empty', '...'));
+            const addEmptyMove = oddMove && (variations.length || move.comments.length) && node.children.length;
+            if (addEmptyMove)
+                elms.push(h('move.empty', '...'));
             move.comments.forEach(comment => elms.push(makeComment(comment)));
             variations.forEach(variation => elms.push(makeMainVariation(moveDom, variation)));
-            if (oddMove && (variations.length || move.comments.length)) {
+            if (addEmptyMove) {
                 elms.push(h('index', [moveTurn(move), '.']));
                 elms.push(h('move.empty', '...'));
             }
@@ -5334,7 +5380,7 @@ var LichessPgnViewer = (function () {
         return elms;
     };
     const makeComment = (comment) => h('comment', comment);
-    const makeMainVariation = (moveDom, node) => h('variation', makeVariationMoves(moveDom, node));
+    const makeMainVariation = (moveDom, node) => h('variation', [...node.data.startingComments.map(makeComment), ...makeVariationMoves(moveDom, node)]);
     const makeVariationMoves = (moveDom, node) => {
         let elms = [];
         let variations = [];
@@ -5366,24 +5412,58 @@ var LichessPgnViewer = (function () {
             p: move.path.path,
         },
     }, move.san);
+    const autoScroll = (ctrl, cont) => {
+        const target = cont.querySelector('.current');
+        if (!target) {
+            cont.scrollTop = ctrl.path.empty() ? 0 : 99999;
+            return;
+        }
+        cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
+    };
+
+    function renderPlayer(ctrl, side) {
+        const color = side == 'bottom' ? ctrl.orientation() : opposite$1(ctrl.orientation());
+        const player = ctrl.game.players[color];
+        return h(`div.lpv__player.lpv__player--${side}`, [
+            h('div.lpv__player__person', [
+                player.title ? h('div.lpv__player__title', player.title) : undefined,
+                h('div.lpv__player__name', player.name),
+                player.rating ? h('div.lpv__player__rating', ['(', player.rating, ')']) : undefined,
+            ]),
+        ]);
+    }
 
     function view(ctrl) {
         return h('div.lpv', {
             class: {
-                'lpv--menu': ctrl.menu,
+                'lpv--menu': ctrl.pane != 'board',
                 'lpv--moves': !!ctrl.opts.showMoves,
             },
             hook: onInsert(el => ctrl.setGround(Chessground(el.querySelector('.cg-wrap'), makeConfig(ctrl, el)))),
         }, [
+            ctrl.opts.showPlayers ? renderPlayer(ctrl, 'top') : undefined,
             renderBoard(ctrl),
+            ctrl.opts.showPlayers ? renderPlayer(ctrl, 'bottom') : undefined,
             renderControls(ctrl),
             ctrl.opts.showMoves ? renderMoves(ctrl) : undefined,
-            ctrl.menu ? renderMenu(ctrl) : undefined,
+            ctrl.pane == 'menu' ? renderMenu(ctrl) : ctrl.pane == 'pgn' ? renderPgnPane(ctrl) : undefined,
         ]);
     }
     const renderBoard = (ctrl) => h('div.lpv__board', {
         hook: wheelScroll(ctrl),
     }, h('div.cg-wrap'));
+    const renderPgnPane = (ctrl) => {
+        const blob = new Blob([ctrl.opts.pgn], { type: 'text/plain' });
+        return h('div.lpv__pgn.lpv__pane', [
+            h('a.lpv__pgn__download.lpv__fbt', {
+                attrs: {
+                    href: window.URL.createObjectURL(blob),
+                    download: `${ctrl.game.title()}.pgn`,
+                },
+            }, ctrl.translate('download')),
+            h('textarea.lpv__pgn__text', ctrl.opts.pgn),
+        ]);
+    };
     const wheelScroll = (ctrl) => 'ontouchstart' in window || !ctrl.opts.scrollToMove
         ? undefined
         : bindNonPassive('wheel', stepwiseScroll((e, scroll) => {
@@ -5406,8 +5486,18 @@ var LichessPgnViewer = (function () {
         ...ctrl.cgConfig(),
     });
 
-    function start(element, opts) {
+    function start(element, cfg) {
         const patch = init([classModule, attributesModule]);
+        const opts = {
+            pgn: '*',
+            showPlayers: true,
+            showMoves: true,
+            scrollToMove: true,
+            orientation: 'white',
+            initialPly: 0,
+            chessground: {},
+            ...cfg,
+        };
         const ctrl = new Ctrl(opts, redraw);
         const blueprint = view(ctrl);
         element.innerHTML = '';
