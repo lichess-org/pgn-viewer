@@ -47,11 +47,11 @@ const makeMoveNodes = (ctrl: Ctrl): Array<VNode | undefined> => {
     const oddMove = move.ply % 2 == 1;
     if (oddMove) elms.push(h('index', [moveTurn(move), '.']));
     elms.push(moveDom(move));
-    if (oddMove && (variations.length || move.comments.length))
-      if (move.ply % 2 == 1) elms.push(h('move.empty', '...'));
+    const addEmptyMove = oddMove && (variations.length || move.comments.length) && node.children.length;
+    if (addEmptyMove) elms.push(h('move.empty', '...'));
     move.comments.forEach(comment => elms.push(makeComment(comment)));
     variations.forEach(variation => elms.push(makeMainVariation(moveDom, variation)));
-    if (oddMove && (variations.length || move.comments.length)) {
+    if (addEmptyMove) {
       elms.push(h('index', [moveTurn(move), '.']));
       elms.push(h('move.empty', '...'));
     }
