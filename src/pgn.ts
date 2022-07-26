@@ -33,7 +33,10 @@ export const makeGame = (pgn: string): Game => {
     pos: start,
     comments: comments.texts,
     shapes: comments.shapes,
-    clock: comments.clock,
+    clocks: {
+      white: comments.clock,
+      black: comments.clock,
+    },
   };
   const moves = makeMoves(start, game.moves);
   const players = makePlayers(game.headers);
@@ -64,7 +67,10 @@ const makeMoves = (start: Position, moves: Node<PgnNodeData>) =>
       startingComments: startingComments.texts,
       nags: node.nags || [],
       shapes,
-      clock: comments.clock,
+      clocks: {
+        white: comments.clock,
+        black: comments.clock,
+      },
       emt: comments.emt,
     };
     return moveNode;

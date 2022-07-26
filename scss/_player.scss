@@ -4,6 +4,7 @@
     background: $c-bg-player;
     display: flex;
     flex-flow: row nowrap;
+    padding: 0 1em;
     // justify-content: stretch;
     &--bottom {
       border-bottom: 1px solid $c-border;
@@ -14,10 +15,16 @@
       flex-flow: row nowrap;
       align-items: center;
       gap: 1ch;
-      padding-left: 1em;
     }
     &__title {
       font-weight: bold;
+    }
+    &__clock {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      font-family: monospace;
+      font-size: 1.4em;
     }
   }
 }

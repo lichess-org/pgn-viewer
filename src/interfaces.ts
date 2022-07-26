@@ -12,12 +12,17 @@ export type Ply = number;
 
 export type Translate = (key: string) => string;
 
+export type Clocks = {
+  white?: number;
+  black?: number;
+};
+
 interface InitialOrMove {
   fen: FEN;
   check: boolean;
   comments: string[];
   shapes: CommentShape[];
-  clock?: number;
+  clocks: Clocks;
 }
 
 export interface Initial extends InitialOrMove {
@@ -60,6 +65,7 @@ export interface Opts {
   orientation: Color;
   showPlayers: boolean;
   showMoves: boolean;
+  showClocks: boolean;
   initialPly: number | 'last';
   scrollToMove: boolean;
   translate?: Translate;
