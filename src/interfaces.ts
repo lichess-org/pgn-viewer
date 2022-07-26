@@ -3,6 +3,7 @@ import { Config as CgConfig } from 'chessground/config';
 import { FEN } from 'chessground/types';
 import { Path } from './path';
 import { DrawShape } from 'chessground/draw';
+import { CommentShape } from 'chessops/pgn';
 
 export type Id = string;
 export type San = string;
@@ -15,7 +16,8 @@ interface InitialOrMove {
   fen: FEN;
   check: boolean;
   comments: string[];
-  shapes: DrawShape[];
+  shapes: CommentShape[];
+  clock?: number;
 }
 
 export interface Initial extends InitialOrMove {
@@ -30,6 +32,7 @@ export interface MoveData extends InitialOrMove {
   uci: Uci;
   startingComments: string[];
   nags: number[];
+  emt?: number;
 }
 
 export interface Player {
@@ -43,6 +46,13 @@ export interface Players {
 }
 
 export type Pane = 'board' | 'menu' | 'pgn';
+
+export interface Comments {
+  texts: string[];
+  shapes: CommentShape[];
+  clock?: number;
+  emt?: number;
+}
 
 export interface Opts {
   pgn: string;

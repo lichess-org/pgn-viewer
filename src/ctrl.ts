@@ -1,5 +1,5 @@
 import { Api as CgApi } from 'chessground/api';
-import { opposite } from 'chessops';
+import { makeSquare, opposite } from 'chessops';
 import translator from './translation';
 import { Opts, Translate } from './interfaces';
 import { Config as CgConfig } from 'chessground/config';
@@ -78,13 +78,19 @@ export default class Ctrl {
 
   setGround = (cg: CgApi) => {
     this.ground = cg;
-    this.ground.setShapes(this.curData().shapes);
+    this.redrawGround();
   };
 
   private redrawGround = () =>
     this.withGround(g => {
       g.set(this.cgConfig());
-      g.setShapes(this.curData().shapes);
+      g.setShapes(
+        this.curData().shapes.map(s => ({
+          orig: makeSquare(s.from),
+          dest: makeSquare(s.to),
+          brush: s.color,
+        }))
+      );
     });
   private withGround = (f: (cg: CgApi) => void) => this.ground && f(this.ground);
 }

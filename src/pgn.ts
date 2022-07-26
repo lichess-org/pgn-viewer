@@ -1,11 +1,10 @@
 import { Color, makeUci, Position } from 'chessops';
 import { scalachessCharPair } from 'chessops/compat';
 import { makeFen } from 'chessops/fen';
-import { parsePgn, PgnNodeData, startingPosition, transform, Node } from 'chessops/pgn';
+import { parsePgn, parseComment, PgnNodeData, startingPosition, transform, Node, Comment } from 'chessops/pgn';
 import { parseSan } from 'chessops/san';
-import { parseComments } from './comment';
 import { Game } from './game';
-import { MoveData, Initial, Players, Player } from './interfaces';
+import { MoveData, Initial, Players, Player, Comments } from './interfaces';
 import { Path } from './path';
 
 class State {
@@ -13,12 +12,29 @@ class State {
   clone = () => new State(this.pos.clone(), this.path);
 }
 
+export const parseComments = (strings: string[]): Comments => {
+  const comments = strings.map(parseComment);
+  return {
+    texts: comments.map(c => c.text).filter(t => !!t),
+    shapes: comments.flatMap(c => c.shapes),
+    clock: comments.reduce<number | undefined>((clk, com) => com.clock || clk, undefined),
+    emt: comments.reduce<number | undefined>((emt, com) => com.emt || emt, undefined),
+  };
+};
+
 export const makeGame = (pgn: string): Game => {
   const game = parsePgn(pgn)[0] || parsePgn('*')[0];
   const start = startingPosition(game.headers).unwrap();
   const fen = makeFen(start.toSetup());
-  const [comments, shapes] = parseComments(game.comments || []);
-  const initial: Initial = { fen, check: start.isCheck(), pos: start, comments, shapes };
+  const comments = parseComments(game.comments || []);
+  const initial: Initial = {
+    fen,
+    check: start.isCheck(),
+    pos: start,
+    comments: comments.texts,
+    shapes: comments.shapes,
+    clock: comments.clock,
+  };
   const moves = makeMoves(start, game.moves);
   const players = makePlayers(game.headers);
   return new Game(initial, moves, players);
@@ -33,9 +49,9 @@ const makeMoves = (start: Position, moves: Node<PgnNodeData>) =>
     state.pos.play(move);
     state.path = path;
     const setup = state.pos.toSetup();
-    const [comments, shapes1] = parseComments(node.comments || []);
-    const [startingComments, shapes2] = parseComments(node.startingComments || []);
-    const shapes = [...shapes1, ...shapes2];
+    const comments = parseComments(node.comments || []);
+    const startingComments = parseComments(node.startingComments || []);
+    const shapes = [...comments.shapes, ...startingComments.shapes];
     const moveNode: MoveData = {
       path,
       ply: (setup.fullmoves - 1) * 2 + (state.pos.turn === 'white' ? 0 : 1),
@@ -44,10 +60,12 @@ const makeMoves = (start: Position, moves: Node<PgnNodeData>) =>
       uci: makeUci(move),
       fen: makeFen(state.pos.toSetup()),
       check: state.pos.isCheck(),
-      comments,
-      startingComments,
+      comments: comments.texts,
+      startingComments: startingComments.texts,
       nags: node.nags || [],
       shapes,
+      clock: comments.clock,
+      emt: comments.emt,
     };
     return moveNode;
   });
