@@ -104,7 +104,9 @@ You can find the book here for an absurdly low price: https://www.amazon.com/Mam
 [
   { pgn: pgns.croatia },
   // { pgn: pgns.clockMin, initialPly: 0 },
-  { pgn: pgns.lichess, initialPly: 30 },
+  { pgn: pgns.lichess, initialPly: 30, showPlayers: false },
+  { pgn: pgns.lichess, initialPly: 30, showMoves: false },
+  { pgn: pgns.lichess, initialPly: 30, showMoves: false, showPlayers: false },
   // { pgn: pgns.commentMin1, },
   { pgn: pgns.mammoth1 },
 ].forEach((cfg, i) => LichessPgnViewer(document.querySelector(`.viewers > div:nth-child(${i + 1}) > div`), cfg));

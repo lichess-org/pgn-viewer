@@ -310,10 +310,13 @@ cg-board square.current-premove {
 .lpv {
   display: grid;
   overflow: hidden;
-  grid-template-areas: "player-top side" "board      side" "player-bot side" "controls   side";
   grid-template-columns: auto fit-content(24ch);
-  grid-template-rows: 2em auto 2em;
   grid-row-gap: 0;
+  grid-template-areas: "board      side" "controls   side";
+}
+.lpv--players {
+  grid-template-areas: "player-top side" "board      side" "player-bot side" "controls   side";
+  grid-template-rows: 2em auto 2em;
 }
 .lpv__board {
   grid-area: board;
@@ -331,6 +334,9 @@ cg-board square.current-premove {
   grid-area: controls;
 }
 .lpv__menu, .lpv__pgn {
+  grid-area: 1/1/2/2;
+}
+.lpv--players .lpv__menu, .lpv--players .lpv__pgn {
   grid-area: 1/1/4/2;
 }
 

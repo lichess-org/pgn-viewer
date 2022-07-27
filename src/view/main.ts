@@ -14,6 +14,7 @@ export default function view(ctrl: Ctrl) {
       class: {
         'lpv--menu': ctrl.pane != 'board',
         'lpv--moves': !!ctrl.opts.showMoves,
+        'lpv--players': !!ctrl.opts.showPlayers,
       },
       hook: onInsert(el =>
         ctrl.setGround(Chessground(el.querySelector('.cg-wrap') as HTMLElement, makeConfig(ctrl, el)))
