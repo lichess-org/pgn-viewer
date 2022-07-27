@@ -17,7 +17,7 @@ const defaults: Opts = {
   },
 };
 
-export default function (cfg: Opts) {
+export default function (cfg: Partial<Opts>) {
   const opts = { ...defaults };
   deepMerge(opts, cfg);
   return opts;

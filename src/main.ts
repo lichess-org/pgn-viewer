@@ -4,7 +4,7 @@ import { init, attributesModule, classModule } from 'snabbdom';
 import { Opts } from './interfaces';
 import config from './config';
 
-export default function start(element: HTMLElement, cfg: Opts) {
+export default function start(element: HTMLElement, cfg: Partial<Opts>) {
   const patch = init([classModule, attributesModule]);
 
   const opts = config(cfg);
