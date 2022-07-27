@@ -1,5 +1,5 @@
 import { Node, ChildNode } from 'chessops/pgn';
-import { Id, Initial, Metadata, MoveData, Players, Ply } from './interfaces';
+import { Id, Initial, InitialOrMove, Metadata, MoveData, Players, Ply } from './interfaces';
 import { Path } from './path';
 
 export type AnyNode = Node<MoveData>;
@@ -36,7 +36,7 @@ export class Game {
       .replace(' ', '-');
 
   pathAtMainlinePly = (ply: Ply | 'last') =>
-    ply == 0 ? Path.root : this.mainline[ply == 'last' ? this.mainline.length - 1 : ply].path;
+    this.mainline[Math.max(0, Math.min(this.mainline.length - 1, ply == 'last' ? 9999 : ply))].path;
 }
 
 const childById = (node: MoveNode, id: Id) => node.children.find(c => c.data.path.last() == id);
@@ -48,4 +48,4 @@ const nodeAtPathFrom = (node: MoveNode, path: Path): Node<MoveData> => {
 };
 
 export const isMoveNode = (n: AnyNode): n is MoveNode => 'data' in n;
-export const isMoveData = (d: MoveData | Initial): d is MoveData => 'uci' in d;
+export const isMoveData = (d: InitialOrMove): d is MoveData => 'uci' in d;

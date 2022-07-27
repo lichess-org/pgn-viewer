@@ -1,11 +1,11 @@
 import { Api as CgApi } from 'chessground/api';
 import { makeSquare, opposite } from 'chessops';
 import translator from './translation';
-import { GoTo, Opts, Translate } from './interfaces';
+import { GoTo, InitialOrMove, Opts, Translate } from './interfaces';
 import { Config as CgConfig } from 'chessground/config';
 import { uciToMove } from 'chessground/util';
 import { Path } from './path';
-import { Game, isMoveData } from './game';
+import { AnyNode, Game, isMoveData } from './game';
 import { makeGame } from './pgn';
 
 export default class Ctrl {
@@ -23,8 +23,8 @@ export default class Ctrl {
     this.path = this.game.pathAtMainlinePly(opts.initialPly);
   }
 
-  curNode = () => this.game.nodeAt(this.path) || this.game.moves;
-  curData = () => this.game.dataAt(this.path) || this.game.initial;
+  curNode = (): AnyNode => this.game.nodeAt(this.path) || this.game.moves;
+  curData = (): InitialOrMove => this.game.dataAt(this.path) || this.game.initial;
 
   goTo = (to: GoTo) => {
     const path =
@@ -78,7 +78,7 @@ export default class Ctrl {
       orientation: this.orientation(),
       check: this.curData().check,
       lastMove,
-      turnColor: data.fen.includes(' w ') ? 'white' : 'black',
+      turnColor: data.turn,
     };
   };
 

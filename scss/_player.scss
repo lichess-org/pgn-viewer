@@ -25,6 +25,10 @@
       align-items: center;
       font-family: monospace;
       font-size: 1.4em;
+      font-weight: bold;
+      &.active {
+        color: $c-accent;
+      }
     }
   }
 }

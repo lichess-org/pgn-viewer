@@ -17,8 +17,9 @@ export type Clocks = {
   black?: number;
 };
 
-interface InitialOrMove {
+export interface InitialOrMove {
   fen: FEN;
+  turn: Color;
   check: boolean;
   comments: string[];
   shapes: CommentShape[];
