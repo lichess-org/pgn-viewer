@@ -10,6 +10,8 @@ const defaultTranslations: { [key: string]: string } = {
   flipTheBoard: 'Flip the board',
   analysisBoard: 'Analysis board',
   practiceWithComputer: 'Practice with computer',
-  viewDownloadPgn: 'View/Download PGN',
+  getPgn: 'Get PGN',
   download: 'Download',
+  viewOnLichess: 'View on Lichess',
+  viewOnSite: 'View on site',
 };

@@ -1,5 +1,5 @@
 import { Node, ChildNode } from 'chessops/pgn';
-import { Id, Initial, MoveData, Players } from './interfaces';
+import { Id, Initial, Metadata, MoveData, Players } from './interfaces';
 import { Path } from './path';
 
 export type AnyNode = Node<MoveData>;
@@ -9,7 +9,12 @@ export type MoveNode = ChildNode<MoveData>;
 export class Game {
   mainline: MoveData[];
 
-  constructor(readonly initial: Initial, readonly moves: AnyNode, readonly players: Players) {
+  constructor(
+    readonly initial: Initial,
+    readonly moves: AnyNode,
+    readonly players: Players,
+    readonly metadata: Metadata
+  ) {
     this.mainline = Array.from(this.moves.mainline());
   }
 

@@ -36,9 +36,27 @@ export const renderMenu = (ctrl: Ctrl) =>
       {
         hook: bind('click', ctrl.togglePgn),
       },
-      ctrl.translate('viewDownloadPgn')
+      ctrl.translate('getPgn')
     ),
+    renderExternalLink(ctrl),
   ]);
+
+const renderExternalLink = (ctrl: Ctrl) => {
+  const link = ctrl.game.metadata.externalLink;
+  return (
+    link &&
+    h(
+      'a.lpv__menu__entry.lpv__fbt',
+      {
+        attrs: {
+          href: link,
+          target: '_blank',
+        },
+      },
+      ctrl.translate(ctrl.game.metadata.isLichess ? 'viewOnLichess' : 'viewOnSite')
+    )
+  );
+};
 
 export const renderControls = (ctrl: Ctrl) =>
   h('div.lpv__controls', [

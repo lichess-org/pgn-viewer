@@ -4,7 +4,7 @@ import { makeFen } from 'chessops/fen';
 import { parsePgn, parseComment, PgnNodeData, startingPosition, transform, Node, Comment } from 'chessops/pgn';
 import { parseSan } from 'chessops/san';
 import { Game } from './game';
-import { MoveData, Initial, Players, Player, Comments } from './interfaces';
+import { MoveData, Initial, Players, Player, Comments, Metadata } from './interfaces';
 import { Path } from './path';
 
 class State {
@@ -39,8 +39,10 @@ export const makeGame = (pgn: string): Game => {
     },
   };
   const moves = makeMoves(start, game.moves);
-  const players = makePlayers(game.headers);
-  return new Game(initial, moves, players);
+  const headers = new Map(Array.from(game.headers, ([key, value]) => [key.toLowerCase(), value]));
+  const players = makePlayers(headers);
+  const metadata = makeMetadata(headers);
+  return new Game(initial, moves, players, metadata);
 };
 
 const makeMoves = (start: Position, moves: Node<PgnNodeData>) =>
@@ -79,8 +81,7 @@ const makeMoves = (start: Position, moves: Node<PgnNodeData>) =>
 type Headers = Map<string, string>;
 
 function makePlayers(headers: Headers): Players {
-  const lower = new Map(Array.from(headers, ([key, value]) => [key.toLowerCase(), value]));
-  const get = (color: Color, field: string) => lower.get(`${color}${field}`);
+  const get = (color: Color, field: string) => headers.get(`${color}${field}`);
   const makePlayer = (color: Color): Player => ({
     name: get(color, ''),
     title: get(color, 'title'),
@@ -89,5 +90,13 @@ function makePlayers(headers: Headers): Players {
   return {
     white: makePlayer('white'),
     black: makePlayer('black'),
+  };
+}
+
+function makeMetadata(headers: Headers): Metadata {
+  const site = headers.get('site');
+  return {
+    externalLink: site && site.startsWith('https://') ? site : undefined,
+    isLichess: !!site && site.startsWith('https://lichess.org/'),
   };
 }

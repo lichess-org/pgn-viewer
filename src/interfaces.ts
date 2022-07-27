@@ -40,6 +40,11 @@ export interface MoveData extends InitialOrMove {
   emt?: number;
 }
 
+export interface Metadata {
+  externalLink?: string;
+  isLichess: boolean;
+}
+
 export interface Player {
   name?: string;
   title?: string;
