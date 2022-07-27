@@ -44,6 +44,10 @@ export interface MoveData extends InitialOrMove {
 export interface Metadata {
   externalLink?: string;
   isLichess: boolean;
+  timeControl?: {
+    initial: number;
+    increment: number;
+  };
 }
 
 export interface Player {

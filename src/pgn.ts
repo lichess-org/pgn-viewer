@@ -29,6 +29,8 @@ export const makeGame = (pgn: string): Game => {
   const start = startingPosition(game.headers).unwrap();
   const fen = makeFen(start.toSetup());
   const comments = parseComments(game.comments || []);
+  const headers = new Map(Array.from(game.headers, ([key, value]) => [key.toLowerCase(), value]));
+  const metadata = makeMetadata(headers);
   const initial: Initial = {
     fen,
     turn: start.turn,
@@ -37,18 +39,16 @@ export const makeGame = (pgn: string): Game => {
     comments: comments.texts,
     shapes: comments.shapes,
     clocks: {
-      white: comments.clock,
-      black: comments.clock,
+      white: metadata.timeControl?.initial || comments.clock,
+      black: metadata.timeControl?.initial || comments.clock,
     },
   };
-  const moves = makeMoves(start, game.moves);
-  const headers = new Map(Array.from(game.headers, ([key, value]) => [key.toLowerCase(), value]));
+  const moves = makeMoves(start, game.moves, metadata);
   const players = makePlayers(headers);
-  const metadata = makeMetadata(headers);
   return new Game(initial, moves, players, metadata);
 };
 
-const makeMoves = (start: Position, moves: Node<PgnNodeData>) =>
+const makeMoves = (start: Position, moves: Node<PgnNodeData>, metadata: Metadata) =>
   transform<PgnNodeData, MoveData, State>(moves, new State(start, Path.root, {}), (state, node, _index) => {
     const move = parseSan(state.pos, node.san);
     if (!move) return undefined;
@@ -60,10 +60,17 @@ const makeMoves = (start: Position, moves: Node<PgnNodeData>) =>
     const comments = parseComments(node.comments || []);
     const startingComments = parseComments(node.startingComments || []);
     const shapes = [...comments.shapes, ...startingComments.shapes];
-    const clocks = (state.clocks = makeClocks(state.clocks, state.pos.turn, comments.clock));
+    const ply = (setup.fullmoves - 1) * 2 + (state.pos.turn === 'white' ? 0 : 1);
+    let clocks = (state.clocks = makeClocks(state.clocks, state.pos.turn, comments.clock));
+    if (ply < 2 && metadata.timeControl)
+      clocks = {
+        white: metadata.timeControl.initial,
+        black: metadata.timeControl.initial,
+        ...clocks,
+      };
     const moveNode: MoveData = {
       path,
-      ply: (setup.fullmoves - 1) * 2 + (state.pos.turn === 'white' ? 0 : 1),
+      ply,
       move,
       san: node.san,
       uci: makeUci(move),
@@ -100,8 +107,20 @@ function makePlayers(headers: Headers): Players {
 
 function makeMetadata(headers: Headers): Metadata {
   const site = headers.get('site');
+  const tcs = headers
+    .get('timecontrol')
+    ?.split('+')
+    .map(x => parseInt(x));
+  const timeControl =
+    tcs && tcs[0]
+      ? {
+          initial: tcs[0],
+          increment: tcs[1] || 0,
+        }
+      : undefined;
   return {
     externalLink: site && site.startsWith('https://') ? site : undefined,
     isLichess: !!site && site.startsWith('https://lichess.org/'),
+    timeControl,
   };
 }

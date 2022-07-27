@@ -18,9 +18,9 @@ export default function renderPlayer(ctrl: Ctrl, side: 'top' | 'bottom'): VNode 
 const renderClock = (ctrl: Ctrl, color: Color): VNode | undefined => {
   const move = ctrl.curData();
   const clock = move.clocks && move.clocks[color];
-  return typeof clock == undefined ?
-    undefined :
-    h('div.lpv__player__clock', { class: { active: color == move.turn } }, clockContent(clock))
+  return typeof clock == undefined
+    ? undefined
+    : h('div.lpv__player__clock', { class: { active: color == move.turn } }, clockContent(clock));
 };
 
 const clockContent = (seconds: number | undefined): string[] => {
