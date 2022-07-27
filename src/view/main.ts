@@ -48,7 +48,7 @@ const renderPgnPane = (ctrl: Ctrl): VNode => {
       {
         attrs: {
           href: window.URL.createObjectURL(blob),
-          download: `${ctrl.game.title()}.pgn`,
+          download: ctrl.opts.menu.getPgn.fileName || `${ctrl.game.title()}.pgn`,
         },
       },
       ctrl.translate('download')

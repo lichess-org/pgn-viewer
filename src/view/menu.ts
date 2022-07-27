@@ -32,13 +32,15 @@ export const renderMenu = (ctrl: Ctrl) =>
       },
       ctrl.translate('practiceWithComputer')
     ),
-    h(
-      'button.lpv__menu__entry.lpv__menu__pgn.lpv__fbt',
-      {
-        hook: bind('click', ctrl.togglePgn),
-      },
-      ctrl.translate('getPgn')
-    ),
+    ctrl.opts.menu.getPgn.enabled
+      ? h(
+          'button.lpv__menu__entry.lpv__menu__pgn.lpv__fbt',
+          {
+            hook: bind('click', ctrl.togglePgn),
+          },
+          ctrl.translate('getPgn')
+        )
+      : undefined,
     renderExternalLink(ctrl),
   ]);
 

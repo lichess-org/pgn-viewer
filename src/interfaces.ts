@@ -80,5 +80,11 @@ export interface Opts {
   showClocks: boolean;
   initialPly: Ply | 'last';
   scrollToMove: boolean;
+  menu: {
+    getPgn: {
+      enabled: boolean;
+      fileName?: string;
+    };
+  };
   translate?: Translate;
 }
