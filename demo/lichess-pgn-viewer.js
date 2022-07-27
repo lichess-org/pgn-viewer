@@ -1308,7 +1308,7 @@ var LichessPgnViewer = (function () {
             else if (lower === 'k')
                 candidates = backrank.reversed();
             else if ('a' <= lower && lower <= 'h')
-                candidates = SquareSet.fromSquare(lower.charCodeAt(0) - 'a'.charCodeAt(0)).intersect(backrank);
+                candidates = SquareSet.fromFile(lower.charCodeAt(0) - 'a'.charCodeAt(0)).intersect(backrank);
             else
                 return n.err(new FenError(InvalidFen.Castling));
             for (const square of candidates) {
@@ -1467,15 +1467,15 @@ var LichessPgnViewer = (function () {
         let fen = '';
         for (const color of COLORS) {
             const backrank = SquareSet.backrank(color);
-            const king = board.kingOf(color);
-            if (!defined(king) || !backrank.has(king))
-                continue;
+            let king = board.kingOf(color);
+            if (defined(king) && !backrank.has(king))
+                king = undefined;
             const candidates = board.pieces(color, 'rook').intersect(backrank);
             for (const rook of unmovedRooks.intersect(candidates).reversed()) {
-                if (rook === candidates.first() && rook < king) {
+                if (rook === candidates.first() && defined(king) && rook < king) {
                     fen += color === 'white' ? 'Q' : 'q';
                 }
-                else if (rook === candidates.last() && king < rook) {
+                else if (rook === candidates.last() && defined(king) && king < rook) {
                     fen += color === 'white' ? 'K' : 'k';
                 }
                 else {
@@ -1814,12 +1814,21 @@ var LichessPgnViewer = (function () {
                 : SquareSet.full());
         }
         hasInsufficientMaterial(color) {
+            if (this.board[color].isEmpty())
+                return false;
+            if (this.board[opposite$1(color)].isEmpty())
+                return true;
             if (this.board.occupied.equals(this.board.bishop)) {
                 const weSomeOnLight = this.board[color].intersects(SquareSet.lightSquares());
                 const weSomeOnDark = this.board[color].intersects(SquareSet.darkSquares());
                 const theyAllOnDark = this.board[opposite$1(color)].isDisjoint(SquareSet.lightSquares());
                 const theyAllOnLight = this.board[opposite$1(color)].isDisjoint(SquareSet.darkSquares());
                 return (weSomeOnLight && theyAllOnDark) || (weSomeOnDark && theyAllOnLight);
+            }
+            if (this.board.occupied.equals(this.board.knight) && this.board.occupied.size() === 2) {
+                return ((this.board.white.intersects(SquareSet.lightSquares()) !==
+                    this.board.black.intersects(SquareSet.darkSquares())) !==
+                    (this.turn === color));
             }
             return false;
         }
@@ -2124,6 +2133,10 @@ var LichessPgnViewer = (function () {
         }
     };
 
+    const defaultGame = (initHeaders = defaultHeaders) => ({
+        headers: initHeaders(),
+        moves: new Node(),
+    });
     class Node {
         constructor() {
             this.children = [];
@@ -2154,10 +2167,10 @@ var LichessPgnViewer = (function () {
         ];
         let frame;
         while ((frame = stack.pop())) {
-            for (let i = 0; i < frame.before.children.length; i++) {
-                const ctx = i < frame.before.children.length - 1 ? frame.ctx.clone() : frame.ctx;
-                const childBefore = frame.before.children[i];
-                const data = f(ctx, childBefore.data, i);
+            for (let childIndex = 0; childIndex < frame.before.children.length; childIndex++) {
+                const ctx = childIndex < frame.before.children.length - 1 ? frame.ctx.clone() : frame.ctx;
+                const childBefore = frame.before.children[childIndex];
+                const data = f(ctx, childBefore.data, childIndex);
                 if (defined(data)) {
                     const childAfter = new ChildNode(data);
                     frame.after.children.push(childAfter);
@@ -2192,16 +2205,13 @@ var LichessPgnViewer = (function () {
             this.maxBudget = maxBudget;
             this.lineBuf = [];
             this.resetGame();
-            this.state = 0 /* Bom */;
+            this.state = 0 /* ParserState.Bom */;
         }
         resetGame() {
             this.budget = this.maxBudget;
             this.found = false;
-            this.state = 1 /* Pre */;
-            this.game = {
-                headers: this.initHeaders(),
-                moves: new Node(),
-            };
+            this.state = 1 /* ParserState.Pre */;
+            this.game = defaultGame(this.initHeaders);
             this.consecutiveEmptyLines = 0;
             this.stack = [{ parent: this.game.moves, root: true }];
             this.commentBuf = [];
@@ -2244,15 +2254,15 @@ var LichessPgnViewer = (function () {
             this.lineBuf = [];
             continuedLine: for (;;) {
                 switch (this.state) {
-                    case 0 /* Bom */:
+                    case 0 /* ParserState.Bom */:
                         if (line.startsWith(BOM))
                             line = line.slice(BOM.length);
-                        this.state = 1 /* Pre */; // fall through
-                    case 1 /* Pre */:
+                        this.state = 1 /* ParserState.Pre */; // fall through
+                    case 1 /* ParserState.Pre */:
                         if (isWhitespace(line) || isCommentLine(line))
                             return;
-                        this.state = 2 /* Headers */; // fall through
-                    case 2 /* Headers */:
+                        this.state = 2 /* ParserState.Headers */; // fall through
+                    case 2 /* ParserState.Headers */:
                         if (isCommentLine(line))
                             return;
                         if (this.consecutiveEmptyLines < 1 && isWhitespace(line)) {
@@ -2268,8 +2278,8 @@ var LichessPgnViewer = (function () {
                                 this.game.headers.set(matches[1], matches[2].replace(/\\"/g, '"').replace(/\\\\/g, '\\'));
                             return;
                         }
-                        this.state = 3 /* Moves */; // fall through
-                    case 3 /* Moves */: {
+                        this.state = 3 /* ParserState.Moves */; // fall through
+                    case 3 /* ParserState.Moves */: {
                         if (freshLine) {
                             if (isCommentLine(line))
                                 return;
@@ -2313,7 +2323,7 @@ var LichessPgnViewer = (function () {
                                 const openIndex = tokenRegex.lastIndex;
                                 const beginIndex = line[openIndex] === ' ' ? openIndex + 1 : openIndex;
                                 line = line.slice(beginIndex);
-                                this.state = 4 /* Comment */;
+                                this.state = 4 /* ParserState.Comment */;
                                 continue continuedLine;
                             }
                             else {
@@ -2335,7 +2345,7 @@ var LichessPgnViewer = (function () {
                         }
                         return;
                     }
-                    case 4 /* Comment */: {
+                    case 4 /* ParserState.Comment */: {
                         const closeIndex = line.indexOf('}');
                         if (closeIndex === -1) {
                             this.commentBuf.push(line);
@@ -2346,7 +2356,7 @@ var LichessPgnViewer = (function () {
                             this.commentBuf.push(line.slice(0, endIndex));
                             this.handleComment();
                             line = line.slice(closeIndex);
-                            this.state = 3 /* Moves */;
+                            this.state = 3 /* ParserState.Moves */;
                             freshLine = false;
                         }
                     }
@@ -2382,7 +2392,7 @@ var LichessPgnViewer = (function () {
             }
         }
         emit(err) {
-            if (this.state === 4 /* Comment */)
+            if (this.state === 4 /* ParserState.Comment */)
                 this.handleComment();
             if (err)
                 return this.emitGame(this.game, err);
@@ -2466,6 +2476,62 @@ var LichessPgnViewer = (function () {
         else
             return n.ok(defaultPosition(rules));
     };
+    function parseCommentShapeColor(str) {
+        switch (str) {
+            case 'G':
+                return 'green';
+            case 'R':
+                return 'red';
+            case 'Y':
+                return 'yellow';
+            case 'B':
+                return 'blue';
+            default:
+                return;
+        }
+    }
+    const parseCommentShape = (str) => {
+        const color = parseCommentShapeColor(str.slice(0, 1));
+        const from = parseSquare(str.slice(1, 3));
+        const to = parseSquare(str.slice(3, 5));
+        if (!color || !defined(from))
+            return;
+        if (str.length === 3)
+            return { color, from, to: from };
+        if (str.length === 5 && defined(to))
+            return { color, from, to };
+        return;
+    };
+    const parseComment = (comment) => {
+        let emt, clock, evaluation;
+        const shapes = [];
+        const text = comment
+            .replace(/(\s?)\[%(emt|clk)\s(\d{1,5}):(\d{1,2}):(\d{1,2}(?:\.\d{0,5})?)\]((?=\s?))/g, (_, prefix, annotation, hours, minutes, seconds, suffix) => {
+            const value = parseInt(hours, 10) * 3600 + parseInt(minutes, 10) * 60 + parseFloat(seconds);
+            if (annotation === 'emt')
+                emt = value;
+            else if (annotation === 'clk')
+                clock = value;
+            return prefix && suffix;
+        })
+            .replace(/(\s?)\[%(?:csl|cal)\s([RGYB][a-h][1-8](?:[a-h][1-8])?(?:,[RGYB][a-h][1-8](?:[a-h][1-8])?)*)\]((?=\s?))/g, (_, prefix, arrows, suffix) => {
+            for (const arrow of arrows.split(',')) {
+                shapes.push(parseCommentShape(arrow));
+            }
+            return prefix && suffix;
+        })
+            .replace(/(\s?)\[%eval\s(?:#([+-]?\d{1,5})|([+-]?(?:\d{1,5}\.?\d{0,5}|\.\d{1,5})))\]((?=\s?))/g, (_, prefix, mate, pawns, suffix) => {
+            evaluation = mate ? { mate: parseInt(mate) } : { pawns: parseFloat(pawns) };
+            return prefix && suffix;
+        });
+        return {
+            text,
+            shapes,
+            emt,
+            clock,
+            evaluation,
+        };
+    };
 
     function translate$1(translator) {
         return translator || defaultTranslator;
@@ -2475,8 +2541,10 @@ var LichessPgnViewer = (function () {
         flipTheBoard: 'Flip the board',
         analysisBoard: 'Analysis board',
         practiceWithComputer: 'Practice with computer',
-        viewDownloadPgn: 'View/Download PGN',
+        getPgn: 'Get PGN',
         download: 'Download',
+        viewOnLichess: 'View on Lichess',
+        viewOnSite: 'View on site',
     };
 
     const colors = ['white', 'black'];
@@ -2568,84 +2636,6 @@ var LichessPgnViewer = (function () {
         ];
     }
 
-    // immutable
-    class Game {
-        constructor(initial, moves, players) {
-            this.initial = initial;
-            this.moves = moves;
-            this.players = players;
-            this.nodeAt = (path) => {
-                if (path.empty())
-                    return this.moves;
-                const tree = this.moves.children.find(c => c.data.path.path == path.head());
-                return tree && nodeAtPathFrom(tree, path.tail());
-            };
-            this.dataAt = (path) => {
-                const node = this.nodeAt(path);
-                return node ? (isMoveNode(node) ? node.data : this.initial) : undefined;
-            };
-            this.title = () => [this.players.white.title, this.players.white.name, 'vs', this.players.black.title, this.players.black.name]
-                .filter(x => x && !!x.trim())
-                .join('_')
-                .replace(' ', '-');
-            this.mainline = Array.from(this.moves.mainline());
-        }
-    }
-    const childById = (node, id) => node.children.find(c => c.data.path.last() == id);
-    const nodeAtPathFrom = (node, path) => {
-        if (path.empty())
-            return node;
-        const child = childById(node, path.head());
-        return child ? nodeAtPathFrom(child, path.tail()) : node;
-    };
-    const isMoveNode = (n) => 'data' in n;
-    const isMoveData = (d) => 'uci' in d;
-
-    const parseComments = (comments) => comments.reduce(([strs, shapes], comment) => {
-        const [str, sps] = parseComment(comment);
-        return [[...strs, ...(str ? [str] : [])], shapes.concat(sps)];
-    }, [[], []]);
-    const parseComment = (comment) => {
-        const [s1, circles] = parseCircles(comment.trim());
-        const [s2, arrows] = parseArrows(s1.trim());
-        const s3 = s2
-            .replace(clockRemoveRegex, '')
-            .replace(tcecClockRemoveRegex, '')
-            .trim()
-            .replace(/\s{2,}/g, ' ');
-        return [s3, [...circles, ...arrows]];
-    };
-    const parseCircles = (comment) => {
-        const circles = Array.from(comment.matchAll(circlesRegex))
-            .map(m => m[1])
-            .flatMap(s => s.split(','))
-            .map(s => s.trim())
-            .map(s => ({
-            orig: s.slice(1),
-            brush: brushOf(s[0]),
-        }));
-        return [circles.length ? comment.replace(circlesRemoveRegex, '') : comment, circles];
-    };
-    const parseArrows = (comment) => {
-        const arrows = Array.from(comment.matchAll(arrowsRegex))
-            .map(m => m[1])
-            .flatMap(s => s.split(','))
-            .map(s => s.trim())
-            .map(s => ({
-            orig: s.slice(1, 3),
-            dest: s.slice(3, 5),
-            brush: brushOf(s[0]),
-        }));
-        return [arrows.length ? comment.replace(arrowsRemoveRegex, '') : comment, arrows];
-    };
-    const circlesRegex = /\[\%csl[\s\r\n]+((?:\w{3}[,\s]*)+)\]/g;
-    const circlesRemoveRegex = /\[\%csl[\s\r\n]+((?:\w{3}[,\s]*)+)\]/g;
-    const arrowsRegex = /\[\%cal[\s\r\n]+((?:\w{5}[,\s]*)+)\]/g;
-    const arrowsRemoveRegex = /\[\%cal[\s\r\n]+((?:\w{5}[,\s]*)+)\]/g;
-    const clockRemoveRegex = /\[\%clk[\s\r\n]+[\d:\.]+\]/g;
-    const tcecClockRemoveRegex = /tl=[\d:\.]+/g;
-    const brushOf = (c) => (c == 'G' ? 'green' : c == 'R' ? 'red' : c == 'Y' ? 'yellow' : 'blue');
-
     class Path {
         constructor(path) {
             this.path = path;
@@ -2664,24 +2654,84 @@ var LichessPgnViewer = (function () {
     }
     Path.root = new Path('');
 
-    class State {
-        constructor(pos, path) {
-            this.pos = pos;
-            this.path = path;
-            this.clone = () => new State(this.pos.clone(), this.path);
+    // immutable
+    class Game {
+        constructor(initial, moves, players, metadata) {
+            this.initial = initial;
+            this.moves = moves;
+            this.players = players;
+            this.metadata = metadata;
+            this.nodeAt = (path) => {
+                if (path.empty())
+                    return this.moves;
+                const tree = this.moves.children.find(c => c.data.path.path == path.head());
+                return tree && nodeAtPathFrom(tree, path.tail());
+            };
+            this.dataAt = (path) => {
+                const node = this.nodeAt(path);
+                return node ? (isMoveNode(node) ? node.data : this.initial) : undefined;
+            };
+            this.title = () => [this.players.white.title, this.players.white.name, 'vs', this.players.black.title, this.players.black.name]
+                .filter(x => x && !!x.trim())
+                .join('_')
+                .replace(' ', '-');
+            this.pathAtMainlinePly = (ply) => this.mainline[Math.max(0, Math.min(this.mainline.length - 1, ply == 'last' ? 9999 : ply))].path;
+            this.mainline = Array.from(this.moves.mainline());
         }
     }
+    const childById = (node, id) => node.children.find(c => c.data.path.last() == id);
+    const nodeAtPathFrom = (node, path) => {
+        if (path.empty())
+            return node;
+        const child = childById(node, path.head());
+        return child ? nodeAtPathFrom(child, path.tail()) : node;
+    };
+    const isMoveNode = (n) => 'data' in n;
+    const isMoveData = (d) => 'uci' in d;
+
+    class State {
+        constructor(pos, path, clocks) {
+            this.pos = pos;
+            this.path = path;
+            this.clocks = clocks;
+            this.clone = () => new State(this.pos.clone(), this.path, { ...this.clocks });
+        }
+    }
+    const parseComments = (strings) => {
+        const comments = strings.map(parseComment);
+        const reduceTimes = (times) => times.reduce((last, time) => (typeof time == undefined ? last : time), undefined);
+        return {
+            texts: comments.map(c => c.text).filter(t => !!t),
+            shapes: comments.flatMap(c => c.shapes),
+            clock: reduceTimes(comments.map(c => c.clock)),
+            emt: reduceTimes(comments.map(c => c.emt)),
+        };
+    };
     const makeGame = (pgn) => {
+        var _a, _b;
         const game = parsePgn(pgn)[0] || parsePgn('*')[0];
         const start = startingPosition(game.headers).unwrap();
         const fen = makeFen(start.toSetup());
-        const [comments, shapes] = parseComments(game.comments || []);
-        const initial = { fen, check: start.isCheck(), pos: start, comments, shapes };
-        const moves = makeMoves(start, game.moves);
-        const players = makePlayers(game.headers);
-        return new Game(initial, moves, players);
+        const comments = parseComments(game.comments || []);
+        const headers = new Map(Array.from(game.headers, ([key, value]) => [key.toLowerCase(), value]));
+        const metadata = makeMetadata(headers);
+        const initial = {
+            fen,
+            turn: start.turn,
+            check: start.isCheck(),
+            pos: start,
+            comments: comments.texts,
+            shapes: comments.shapes,
+            clocks: {
+                white: ((_a = metadata.timeControl) === null || _a === void 0 ? void 0 : _a.initial) || comments.clock,
+                black: ((_b = metadata.timeControl) === null || _b === void 0 ? void 0 : _b.initial) || comments.clock,
+            },
+        };
+        const moves = makeMoves(start, game.moves, metadata);
+        const players = makePlayers(headers);
+        return new Game(initial, moves, players, metadata);
     };
-    const makeMoves = (start, moves) => transform(moves, new State(start, Path.root), (state, node, _index) => {
+    const makeMoves = (start, moves, metadata) => transform(moves, new State(start, Path.root, {}), (state, node, _index) => {
         const move = parseSan(state.pos, node.san);
         if (!move)
             return undefined;
@@ -2690,27 +2740,38 @@ var LichessPgnViewer = (function () {
         state.pos.play(move);
         state.path = path;
         const setup = state.pos.toSetup();
-        const [comments, shapes1] = parseComments(node.comments || []);
-        const [startingComments, shapes2] = parseComments(node.startingComments || []);
-        const shapes = [...shapes1, ...shapes2];
+        const comments = parseComments(node.comments || []);
+        const startingComments = parseComments(node.startingComments || []);
+        const shapes = [...comments.shapes, ...startingComments.shapes];
+        const ply = (setup.fullmoves - 1) * 2 + (state.pos.turn === 'white' ? 0 : 1);
+        let clocks = (state.clocks = makeClocks(state.clocks, state.pos.turn, comments.clock));
+        if (ply < 2 && metadata.timeControl)
+            clocks = {
+                white: metadata.timeControl.initial,
+                black: metadata.timeControl.initial,
+                ...clocks,
+            };
         const moveNode = {
             path,
-            ply: (setup.fullmoves - 1) * 2 + (state.pos.turn === 'white' ? 0 : 1),
+            ply,
             move,
             san: node.san,
             uci: makeUci(move),
             fen: makeFen(state.pos.toSetup()),
+            turn: state.pos.turn,
             check: state.pos.isCheck(),
-            comments,
-            startingComments,
+            comments: comments.texts,
+            startingComments: startingComments.texts,
             nags: node.nags || [],
             shapes,
+            clocks,
+            emt: comments.emt,
         };
         return moveNode;
     });
+    const makeClocks = (prev, turn, clk) => turn == 'white' ? { ...prev, black: clk } : { ...prev, white: clk };
     function makePlayers(headers) {
-        const lower = new Map(Array.from(headers, ([key, value]) => [key.toLowerCase(), value]));
-        const get = (color, field) => lower.get(`${color}${field}`);
+        const get = (color, field) => headers.get(`${color}${field}`);
         const makePlayer = (color) => ({
             name: get(color, ''),
             title: get(color, 'title'),
@@ -2719,6 +2780,23 @@ var LichessPgnViewer = (function () {
         return {
             white: makePlayer('white'),
             black: makePlayer('black'),
+        };
+    }
+    function makeMetadata(headers) {
+        var _a;
+        const site = headers.get('site');
+        const tcs = (_a = headers
+            .get('timecontrol')) === null || _a === void 0 ? void 0 : _a.split('+').map(x => parseInt(x));
+        const timeControl = tcs && tcs[0]
+            ? {
+                initial: tcs[0],
+                increment: tcs[1] || 0,
+            }
+            : undefined;
+        return {
+            externalLink: site && site.startsWith('https://') ? site : undefined,
+            isLichess: !!site && site.startsWith('https://lichess.org/'),
+            timeControl,
         };
     }
 
@@ -2731,8 +2809,18 @@ var LichessPgnViewer = (function () {
             this.autoScrollRequested = false;
             this.curNode = () => this.game.nodeAt(this.path) || this.game.moves;
             this.curData = () => this.game.dataAt(this.path) || this.game.initial;
-            this.onward = (dir) => { var _a, _b; return this.toPath(dir == -1 ? this.path.init() : ((_b = (_a = this.game.nodeAt(this.path)) === null || _a === void 0 ? void 0 : _a.children[0]) === null || _b === void 0 ? void 0 : _b.data.path) || this.path); };
-            this.canOnward = (dir) => (dir == -1 && !this.path.empty()) || !!this.curNode().children[0];
+            this.goTo = (to) => {
+                var _a, _b;
+                const path = to == 'first'
+                    ? Path.root
+                    : to == 'prev'
+                        ? this.path.init()
+                        : to == 'next'
+                            ? (_b = (_a = this.game.nodeAt(this.path)) === null || _a === void 0 ? void 0 : _a.children[0]) === null || _b === void 0 ? void 0 : _b.data.path
+                            : this.game.pathAtMainlinePly('last');
+                this.toPath(path || this.path);
+            };
+            this.canGoTo = (to) => (to == 'prev' || to == 'first' ? !this.path.empty() : !!this.curNode().children[0]);
             this.toPath = (path) => {
                 this.path = path;
                 this.pane = 'board';
@@ -2767,23 +2855,28 @@ var LichessPgnViewer = (function () {
                     orientation: this.orientation(),
                     check: this.curData().check,
                     lastMove,
-                    turnColor: data.fen.includes(' w ') ? 'white' : 'black',
+                    turnColor: data.turn,
                 };
             };
-            this.analysisUrl = () => `https://lichess.org/analysis/${this.curData().fen.replace(' ', '_')}?color=${this.orientation}`;
+            this.analysisUrl = () => (this.game.metadata.isLichess && this.game.metadata.externalLink) ||
+                `https://lichess.org/analysis/${this.curData().fen.replace(' ', '_')}?color=${this.orientation}`;
             this.practiceUrl = () => `${this.analysisUrl()}#practice`;
             this.setGround = (cg) => {
                 this.ground = cg;
-                this.ground.setShapes(this.curData().shapes);
+                this.redrawGround();
             };
             this.redrawGround = () => this.withGround(g => {
                 g.set(this.cgConfig());
-                g.setShapes(this.curData().shapes);
+                g.setShapes(this.curData().shapes.map(s => ({
+                    orig: makeSquare(s.from),
+                    dest: makeSquare(s.to),
+                    brush: s.color,
+                })));
             });
             this.withGround = (f) => this.ground && f(this.ground);
             this.game = makeGame(opts.pgn);
             this.translate = translate$1(opts.translate);
-            this.path = this.game.mainline[opts.initialPly == 'last' ? this.game.mainline.length - 1 : opts.initialPly].path;
+            this.path = this.game.pathAtMainlinePly(opts.initialPly);
         }
     }
 
@@ -3798,7 +3891,7 @@ var LichessPgnViewer = (function () {
         };
     }
 
-    function defaults() {
+    function defaults$1() {
         return {
             pieces: read(initial),
             orientation: 'white',
@@ -4559,7 +4652,7 @@ var LichessPgnViewer = (function () {
     }
 
     function Chessground(element, config) {
-        const maybeState = defaults();
+        const maybeState = defaults$1();
         configure(maybeState, config || {});
         function redrawAll() {
             const prevUnbind = 'dom' in maybeState ? maybeState.dom.unbind : undefined;
@@ -5321,19 +5414,32 @@ var LichessPgnViewer = (function () {
         }, ctrl.translate('practiceWithComputer')),
         h('button.lpv__menu__entry.lpv__menu__pgn.lpv__fbt', {
             hook: bind('click', ctrl.togglePgn),
-        }, ctrl.translate('viewDownloadPgn')),
+        }, ctrl.translate('getPgn')),
+        renderExternalLink(ctrl),
     ]);
+    const renderExternalLink = (ctrl) => {
+        const link = ctrl.game.metadata.externalLink;
+        return (link &&
+            h('a.lpv__menu__entry.lpv__fbt', {
+                attrs: {
+                    href: link,
+                    target: '_blank',
+                },
+            }, ctrl.translate(ctrl.game.metadata.isLichess ? 'viewOnLichess' : 'viewOnSite')));
+    };
     const renderControls = (ctrl) => h('div.lpv__controls', [
-        dirButton('backward', ctrl, -1),
+        ctrl.pane == 'board' ? undefined : dirButton(ctrl, 'first'),
+        dirButton(ctrl, 'prev'),
         h('button.lpv__fbt.lpv__controls__menu', {
             class: { active: ctrl.pane != 'board' },
             hook: bind('click', ctrl.toggleMenu),
         }, ctrl.pane == 'board' ? '⋮' : 'X'),
-        dirButton('forward', ctrl, 1),
+        dirButton(ctrl, 'next'),
+        ctrl.pane == 'board' ? undefined : dirButton(ctrl, 'last'),
     ]);
-    const dirButton = (name, ctrl, dir) => h(`button.lpv__controls__${name}.lpv__fbt`, {
-        class: { disabled: ctrl.pane == 'board' && !ctrl.canOnward(dir) },
-        hook: onInsert(el => bindMobileMousedown(el, e => eventRepeater(() => ctrl.onward(dir), e))),
+    const dirButton = (ctrl, to) => h(`button.lpv__controls__goto.lpv__controls__goto--${to}.lpv__fbt`, {
+        class: { disabled: ctrl.pane == 'board' && !ctrl.canGoTo(to) },
+        hook: onInsert(el => bindMobileMousedown(el, e => eventRepeater(() => ctrl.goTo(to), e))),
     });
 
     const renderMoves = (ctrl) => h('div.lpv__side', h('div.lpv__moves', {
@@ -5430,8 +5536,23 @@ var LichessPgnViewer = (function () {
                 h('div.lpv__player__name', player.name),
                 player.rating ? h('div.lpv__player__rating', ['(', player.rating, ')']) : undefined,
             ]),
+            ctrl.opts.showClocks ? renderClock(ctrl, color) : undefined,
         ]);
     }
+    const renderClock = (ctrl, color) => {
+        const move = ctrl.curData();
+        const clock = move.clocks && move.clocks[color];
+        return typeof clock == undefined
+            ? undefined
+            : h('div.lpv__player__clock', { class: { active: color == move.turn } }, clockContent(clock));
+    };
+    const clockContent = (seconds) => {
+        if (!seconds && seconds !== 0)
+            return ['-'];
+        const date = new Date(seconds * 1000), sep = ':', baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
+        return seconds >= 3600 ? [Math.floor(seconds / 3600) + sep + baseStr] : [baseStr];
+    };
+    const pad2 = (num) => (num < 10 ? '0' : '') + num;
 
     function view(ctrl) {
         return h('div.lpv', {
@@ -5469,9 +5590,9 @@ var LichessPgnViewer = (function () {
         : bindNonPassive('wheel', stepwiseScroll((e, scroll) => {
             e.preventDefault();
             if (e.deltaY > 0 && scroll)
-                ctrl.onward(1);
+                ctrl.goTo('next');
             else if (e.deltaY < 0 && scroll)
-                ctrl.onward(-1);
+                ctrl.goTo('prev');
         }));
     const makeConfig = (ctrl, rootEl) => ({
         viewOnly: true,
@@ -5486,18 +5607,19 @@ var LichessPgnViewer = (function () {
         ...ctrl.cgConfig(),
     });
 
+    const defaults = {
+        pgn: '*',
+        showPlayers: true,
+        showMoves: true,
+        showClocks: true,
+        scrollToMove: true,
+        orientation: 'white',
+        initialPly: 0,
+        chessground: {},
+    };
     function start(element, cfg) {
         const patch = init([classModule, attributesModule]);
-        const opts = {
-            pgn: '*',
-            showPlayers: true,
-            showMoves: true,
-            scrollToMove: true,
-            orientation: 'white',
-            initialPly: 0,
-            chessground: {},
-            ...cfg,
-        };
+        const opts = { ...defaults, ...cfg };
         const ctrl = new Ctrl(opts, redraw);
         const blueprint = view(ctrl);
         element.innerHTML = '';

@@ -449,6 +449,7 @@ cg-board square.current-premove {
   background: hsl(37deg, 5%, 18%);
   display: flex;
   flex-flow: row nowrap;
+  padding: 0 1em;
 }
 .lpv__player--bottom {
   border-bottom: 1px solid hsl(0deg, 0%, 25%);
@@ -459,10 +460,20 @@ cg-board square.current-premove {
   flex-flow: row nowrap;
   align-items: center;
   gap: 1ch;
-  padding-left: 1em;
 }
 .lpv__player__title {
   font-weight: bold;
+}
+.lpv__player__clock {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  font-family: monospace;
+  font-size: 1.4em;
+  font-weight: bold;
+}
+.lpv__player__clock.active {
+  color: hsl(88deg, 62%, 37%);
 }
 
 .lpv__pane {
@@ -512,18 +523,25 @@ cg-board square.current-premove {
   width: 3em;
   padding: 0.4em 1em;
 }
-.lpv__controls__backward::before {
-  content: "←";
-}
-.lpv__controls__forward::before {
-  content: "→";
-}
-.lpv__controls__backward, .lpv__controls__forward {
+.lpv__controls__goto {
   padding: 0.4rem 0.7rem;
 }
-.lpv__controls__backward::before, .lpv__controls__forward::before {
-  font-size: 3em;
-  line-height: 0.5em;
+.lpv__controls__goto::before {
+  font-size: 2em;
+  line-height: 1em;
+  vertical-align: bottom;
+}
+.lpv__controls__goto--first::before {
+  content: "⇤";
+}
+.lpv__controls__goto--prev::before {
+  content: "⯇";
+}
+.lpv__controls__goto--next::before {
+  content: "⯈";
+}
+.lpv__controls__goto--last::before {
+  content: "⇥";
 }
 
 body ::-webkit-scrollbar,
