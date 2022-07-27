@@ -73,7 +73,7 @@ export interface Opts {
   showPlayers: boolean;
   showMoves: boolean;
   showClocks: boolean;
-  initialPly: number | 'last';
+  initialPly: Ply | 'last';
   scrollToMove: boolean;
   translate?: Translate;
 }

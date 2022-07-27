@@ -1,5 +1,5 @@
 import { Node, ChildNode } from 'chessops/pgn';
-import { Id, Initial, Metadata, MoveData, Players } from './interfaces';
+import { Id, Initial, Metadata, MoveData, Players, Ply } from './interfaces';
 import { Path } from './path';
 
 export type AnyNode = Node<MoveData>;
@@ -35,7 +35,8 @@ export class Game {
       .join('_')
       .replace(' ', '-');
 
-  lastMainlinepath = () => this.mainline[this.mainline.length - 1].path;
+  pathAtMainlinePly = (ply: Ply | 'last') =>
+    ply == 0 ? Path.root : this.mainline[ply == 'last' ? this.mainline.length - 1 : ply].path;
 }
 
 const childById = (node: MoveNode, id: Id) => node.children.find(c => c.data.path.last() == id);

@@ -20,7 +20,7 @@ export default class Ctrl {
   constructor(readonly opts: Opts, readonly redraw: () => void) {
     this.game = makeGame(opts.pgn);
     this.translate = translator(opts.translate);
-    this.path = opts.initialPly == 'last' ? this.game.lastMainlinepath() : Path.root;
+    this.path = this.game.pathAtMainlinePly(opts.initialPly);
   }
 
   curNode = () => this.game.nodeAt(this.path) || this.game.moves;
@@ -34,7 +34,7 @@ export default class Ctrl {
         ? this.path.init()
         : to == 'next'
         ? this.game.nodeAt(this.path)?.children[0]?.data.path
-        : this.game.lastMainlinepath();
+        : this.game.pathAtMainlinePly('last');
     this.toPath(path || this.path);
   };
 
