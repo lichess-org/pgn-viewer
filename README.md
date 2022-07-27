@@ -20,6 +20,7 @@ Please read more about GPL for JavaScript on [greendrake.info](https://greendrak
 - browse through a game
 - variation tree
 - PGN comments
+- players and clocks
 - mobile support
 - translatable and customisable
 - client-side only
@@ -73,16 +74,10 @@ LichessPgnViewer(domElement, {
 ```js
 LichessPgnViewer(domElement, {
   pgn: 'e4 c5 Nf3 d6 e5 Nc6 exd6 Qxd6 Nc3 Nf6',
-  initialPly: 'last',
-  chessground: {
-    // any chessground option
-    // https://github.com/lichess-org/chessground/blob/master/src/config.ts
-  },
-  showPlayers: true,
-  showMoves: true,
-  scrollToMove: true,
-  orientation: 'white',
+  // ... more Config
 });
 ```
+
+See [all configuration options in the documented source code](https://github.com/lichess-org/pgn-viewer/blob/master/src/config.ts#L3).
 
 View more examples in `demo/index.html`
