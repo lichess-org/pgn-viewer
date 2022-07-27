@@ -63,8 +63,8 @@ const wheelScroll = (ctrl: Ctrl) =>
         'wheel',
         stepwiseScroll((e: WheelEvent, scroll: boolean) => {
           e.preventDefault();
-          if (e.deltaY > 0 && scroll) ctrl.onward(1);
-          else if (e.deltaY < 0 && scroll) ctrl.onward(-1);
+          if (e.deltaY > 0 && scroll) ctrl.goTo('next');
+          else if (e.deltaY < 0 && scroll) ctrl.goTo('prev');
         })
       );
 

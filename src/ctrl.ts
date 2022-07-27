@@ -1,7 +1,7 @@
 import { Api as CgApi } from 'chessground/api';
 import { makeSquare, opposite } from 'chessops';
 import translator from './translation';
-import { Opts, Translate } from './interfaces';
+import { GoTo, Opts, Translate } from './interfaces';
 import { Config as CgConfig } from 'chessground/config';
 import { uciToMove } from 'chessground/util';
 import { Path } from './path';
@@ -20,16 +20,25 @@ export default class Ctrl {
   constructor(readonly opts: Opts, readonly redraw: () => void) {
     this.game = makeGame(opts.pgn);
     this.translate = translator(opts.translate);
-    this.path = this.game.mainline[opts.initialPly == 'last' ? this.game.mainline.length - 1 : opts.initialPly].path;
+    this.path = opts.initialPly == 'last' ? this.game.lastMainlinepath() : Path.root;
   }
 
   curNode = () => this.game.nodeAt(this.path) || this.game.moves;
   curData = () => this.game.dataAt(this.path) || this.game.initial;
 
-  onward = (dir: -1 | 1) =>
-    this.toPath(dir == -1 ? this.path.init() : this.game.nodeAt(this.path)?.children[0]?.data.path || this.path);
+  goTo = (to: GoTo) => {
+    const path =
+      to == 'first'
+        ? Path.root
+        : to == 'prev'
+        ? this.path.init()
+        : to == 'next'
+        ? this.game.nodeAt(this.path)?.children[0]?.data.path
+        : this.game.lastMainlinepath();
+    this.toPath(path || this.path);
+  };
 
-  canOnward = (dir: -1 | 1) => (dir == -1 && !this.path.empty()) || !!this.curNode().children[0];
+  canGoTo = (to: GoTo) => (to == 'prev' || to == 'first' ? !this.path.empty() : !!this.curNode().children[0]);
 
   toPath = (path: Path) => {
     this.path = path;
@@ -75,7 +84,7 @@ export default class Ctrl {
 
   analysisUrl = () =>
     (this.game.metadata.isLichess && this.game.metadata.externalLink) ||
-      `https://lichess.org/analysis/${this.curData().fen.replace(' ', '_')}?color=${this.orientation}`;
+    `https://lichess.org/analysis/${this.curData().fen.replace(' ', '_')}?color=${this.orientation}`;
   practiceUrl = () => `${this.analysisUrl()}#practice`;
 
   setGround = (cg: CgApi) => {

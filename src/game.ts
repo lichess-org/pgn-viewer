@@ -34,6 +34,8 @@ export class Game {
       .filter(x => x && !!x.trim())
       .join('_')
       .replace(' ', '-');
+
+  lastMainlinepath = () => this.mainline[this.mainline.length - 1].path;
 }
 
 const childById = (node: MoveNode, id: Id) => node.children.find(c => c.data.path.last() == id);

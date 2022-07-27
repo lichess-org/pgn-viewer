@@ -1,5 +1,6 @@
 import { h } from 'snabbdom';
 import Ctrl from '../ctrl';
+import { GoTo } from '../interfaces';
 import { bind, bindMobileMousedown, eventRepeater, onInsert } from './util';
 
 export const renderMenu = (ctrl: Ctrl) =>
@@ -60,7 +61,8 @@ const renderExternalLink = (ctrl: Ctrl) => {
 
 export const renderControls = (ctrl: Ctrl) =>
   h('div.lpv__controls', [
-    dirButton('backward', ctrl, -1),
+    ctrl.pane == 'board' ? undefined : dirButton(ctrl, 'first'),
+    dirButton(ctrl, 'prev'),
     h(
       'button.lpv__fbt.lpv__controls__menu',
       {
@@ -69,11 +71,12 @@ export const renderControls = (ctrl: Ctrl) =>
       },
       ctrl.pane == 'board' ? '⋮' : 'X'
     ),
-    dirButton('forward', ctrl, 1),
+    dirButton(ctrl, 'next'),
+    ctrl.pane == 'board' ? undefined : dirButton(ctrl, 'last'),
   ]);
 
-const dirButton = (name: string, ctrl: Ctrl, dir: -1 | 1) =>
-  h(`button.lpv__controls__${name}.lpv__fbt`, {
-    class: { disabled: ctrl.pane == 'board' && !ctrl.canOnward(dir) },
-    hook: onInsert(el => bindMobileMousedown(el, e => eventRepeater(() => ctrl.onward(dir), e))),
+const dirButton = (ctrl: Ctrl, to: GoTo) =>
+  h(`button.lpv__controls__goto.lpv__controls__goto--${to}.lpv__fbt`, {
+    class: { disabled: ctrl.pane == 'board' && !ctrl.canGoTo(to) },
+    hook: onInsert(el => bindMobileMousedown(el, e => eventRepeater(() => ctrl.goTo(to), e))),
   });

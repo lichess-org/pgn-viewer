@@ -64,6 +64,8 @@ export interface Comments {
   emt?: number;
 }
 
+export type GoTo = 'first' | 'prev' | 'next' | 'last';
+
 export interface Opts {
   pgn: string;
   chessground: CgConfig;

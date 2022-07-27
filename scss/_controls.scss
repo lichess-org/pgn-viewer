@@ -20,18 +20,24 @@
       width: 3em;
       padding: 0.4em 1em;
     }
-    &__backward::before {
-      content: '←';
-    }
-    &__forward::before {
-      content: '→';
-    }
-    &__backward,
-    &__forward {
+    &__goto {
       padding: 0.4rem 0.7rem;
       &::before {
-        font-size: 3em;
-        line-height: 0.5em;
+        font-size: 2em;
+        line-height: 1em;
+        vertical-align: bottom;
+      }
+      &--first::before {
+        content: '⇤';
+      }
+      &--prev::before {
+        content: '⯇';
+      }
+      &--next::before {
+        content: '⯈';
+      }
+      &--last::before {
+        content: '⇥';
       }
     }
   }
