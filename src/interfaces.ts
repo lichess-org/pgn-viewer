@@ -82,7 +82,7 @@ export interface Opts {
   scrollToMove: boolean;
   menu: {
     getPgn: {
-      enabled: boolean;
+      enabled?: boolean;
       fileName?: string;
     };
   };
