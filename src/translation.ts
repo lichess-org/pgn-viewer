@@ -1,10 +1,10 @@
 import { Translate } from './interfaces';
 
 export default function translate(translator?: Translate) {
-  return translator || defaultTranslator;
+  return (key: string) => (translator || defaultTranslator)(key) || key;
 }
 
-const defaultTranslator = (key: string) => defaultTranslations[key] || key;
+const defaultTranslator = (key: string) => defaultTranslations[key];
 
 const defaultTranslations: { [key: string]: string } = {
   flipTheBoard: 'Flip the board',

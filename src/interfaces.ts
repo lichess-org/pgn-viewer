@@ -2,7 +2,6 @@ import { Color, Move, Position } from 'chessops';
 import { Config as CgConfig } from 'chessground/config';
 import { FEN } from 'chessground/types';
 import { Path } from './path';
-import { DrawShape } from 'chessground/draw';
 import { CommentShape } from 'chessops/pgn';
 
 export type Id = string;
@@ -10,7 +9,7 @@ export type San = string;
 export type Uci = string;
 export type Ply = number;
 
-export type Translate = (key: string) => string;
+export type Translate = (key: string) => string | undefined;
 
 export type Clocks = {
   white?: number;
