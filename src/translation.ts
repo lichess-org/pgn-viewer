@@ -1,7 +1,7 @@
 import { Translate } from './interfaces';
 
 export default function translate(translator?: Translate) {
-  return (key: string) => (translator || defaultTranslator)(key) || key;
+  return (key: string) => (translator && translator(key)) || defaultTranslator(key);
 }
 
 const defaultTranslator = (key: string) => defaultTranslations[key];
