@@ -70,6 +70,8 @@ export interface Comments {
 
 export type GoTo = 'first' | 'prev' | 'next' | 'last';
 
+export type Layout = 'horizontal' | 'vertical' | 'stretch';
+
 export interface Opts {
   pgn: string;
   chessground: CgConfig;
@@ -79,7 +81,7 @@ export interface Opts {
   showClocks: boolean;
   initialPly: Ply | 'last';
   scrollToMove: boolean;
-  fullScreen: boolean;
+  layout: Layout;
   menu: {
     getPgn: {
       enabled?: boolean;
