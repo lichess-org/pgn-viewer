@@ -90,8 +90,7 @@ $board-min-width: 200px !default;
         'controls   side';
       grid-template-rows: $player-height auto $player-height $controls-height;
       grid-template-columns: minmax($board-min-width, calc(100vh - 2 * #{$player-height} - #{$controls-height})) $grid-side-column-full-screen;
-      // @media (max-width: #{$moves-auto-to-right}) {
-      @media (#{$moves-auto-to-right}) {
+      @media (max-width: #{$moves-auto-to-right}) {
         grid-template-areas:
           'player-top'
           'board'
