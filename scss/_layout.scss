@@ -1,4 +1,5 @@
 $grid-side-column: fit-content(38.2%);
+$grid-side-column-full-screen: minmax(200px, 1fr);
 $player-height: 2em;
 $controls-height: 3em;
 
@@ -13,7 +14,7 @@ $controls-height: 3em;
   grid-template-rows: auto $controls-height;
 
   &--full-screen {
-    grid-template-columns: minmax(200px, calc(100vh - #{$controls-height})) $grid-side-column;
+    grid-template-columns: minmax(200px, calc(100vh - #{$controls-height})) $grid-side-column-full-screen;
   }
 
   &--players {
@@ -25,7 +26,7 @@ $controls-height: 3em;
     grid-template-rows: $player-height auto $player-height $controls-height;
 
     &.lpv--full-screen {
-      grid-template-columns: minmax(200px, calc(100vh - 2 * #{$player-height} - #{$controls-height})) $grid-side-column;
+      grid-template-columns: minmax(200px, calc(100vh - 2 * #{$player-height} - #{$controls-height})) $grid-side-column-full-screen;
     }
   }
 
