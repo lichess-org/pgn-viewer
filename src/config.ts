@@ -2,14 +2,13 @@ import { Opts } from './interfaces';
 
 const defaults: Opts = {
   pgn: '*', // the PGN to render
-  showMoves: true, // show the moves alongside the board
   showPlayers: true, // show the players above and under the board
   showClocks: true, // show the clocks alongside the players
   scrollToMove: true, // enable scrolling through moves with a mouse wheel
   orientation: 'white', // default orientation of the board
   initialPly: 0, // current position to display. Can be a number, or "last"
   chessground: {}, // chessground configuration https://github.com/lichess-org/chessground/blob/master/src/config.ts#L7
-  layout: 'horizontal', // horizontal | vertical | auto. "auto" resizes so that the entire viewport is used
+  showMoves: 'right', // right | bottom | auto. "auto" uses media queries
   menu: {
     getPgn: {
       enabled: true, // enable the "Get PGN" menu entry

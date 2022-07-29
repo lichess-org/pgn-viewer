@@ -1,22 +1,32 @@
-$grid-side-column: fit-content(38.2%);
-$grid-side-column-full-screen: minmax(200px, 1fr);
-$grid-side-row: 10em;
-$player-height: 2em;
-$controls-height: 3em;
+$grid-side-column: fit-content(38.2%) !default;
+$grid-side-column-full-screen: minmax(200px, 1fr) !default;
+$grid-side-row: 10em !default;
+$player-height: 2em !default;
+$controls-height: 3em !default;
+$moves-auto-to-right: 500px !default;
+$board-min-width: 200px !default;
 
 .lpv {
   display: grid;
   overflow: hidden;
   grid-row-gap: 0;
 
-  // layout-horizontal, default
-  grid-template-areas:
-    'board      side'
-    'controls   side';
-  grid-template-columns: auto $grid-side-column;
-  grid-template-rows: auto $controls-height;
+  &--moves-false {
+    grid-template-areas:
+      'board'
+      'controls';
+    grid-template-rows: auto $controls-height;
+  }
 
-  &--layout-vertical {
+  &--moves-right {
+    grid-template-areas:
+      'board      side'
+      'controls   side';
+    grid-template-columns: auto $grid-side-column;
+    grid-template-rows: auto $controls-height;
+  }
+
+  &--moves-bottom {
     grid-template-areas:
       'board'
       'controls'
@@ -24,20 +34,42 @@ $controls-height: 3em;
     grid-template-rows: auto $controls-height;
   }
 
-  &--layout-stretch {
-    grid-template-columns: minmax(200px, calc(100vh - #{$controls-height})) $grid-side-column-full-screen;
+  &--moves-auto {
+    grid-template-areas:
+      'board      side'
+      'controls   side';
+    grid-template-columns: minmax($board-min-width, calc(100vh - #{$controls-height})) $grid-side-column-full-screen;
+    grid-template-rows: auto $controls-height;
+    @media (max-width: #{$moves-auto-to-right}) {
+      grid-template-areas:
+        'board'
+        'controls'
+        'side';
+      grid-template-columns: minmax($board-min-width, calc(100vh - #{$controls-height} - #{$grid-side-row}));
+      grid-template-rows: auto $controls-height $grid-side-row;
+    }
   }
 
   &--players {
-    // layout-horizontal, default
-    grid-template-areas:
-      'player-top side'
-      'board      side'
-      'player-bot side'
-      'controls   side';
-    grid-template-rows: $player-height auto $player-height $controls-height;
+    &.lpv--moves-false {
+      grid-template-areas:
+        'player-top'
+        'board'
+        'player-bot'
+        'controls';
+      grid-template-rows: $player-height auto $player-height $controls-height;
+    }
 
-    &.lpv--layout-vertical {
+    &.lpv--moves-right {
+      grid-template-areas:
+        'player-top side'
+        'board      side'
+        'player-bot side'
+        'controls   side';
+      grid-template-rows: $player-height auto $player-height $controls-height;
+    }
+
+    &.lpv--moves-bottom {
       grid-template-areas:
         'player-top'
         'board'
@@ -50,9 +82,16 @@ $controls-height: 3em;
       }
     }
 
-    &.lpv--layout-stretch {
-      grid-template-columns: minmax(200px, calc(100vh - 2 * #{$player-height} - #{$controls-height})) $grid-side-column-full-screen;
-      @media (max-width: 500px) {
+    &.lpv--moves-auto {
+      grid-template-areas:
+        'player-top side'
+        'board      side'
+        'player-bot side'
+        'controls   side';
+      grid-template-rows: $player-height auto $player-height $controls-height;
+      grid-template-columns: minmax($board-min-width, calc(100vh - 2 * #{$player-height} - #{$controls-height})) $grid-side-column-full-screen;
+      // @media (max-width: #{$moves-auto-to-right}) {
+      @media (#{$moves-auto-to-right}) {
         grid-template-areas:
           'player-top'
           'board'
@@ -60,7 +99,7 @@ $controls-height: 3em;
           'controls'
           'side';
         grid-template-columns: minmax(
-          200px,
+          $board-min-width,
           calc(100vh - 2 * #{$player-height} - #{$controls-height} - #{$grid-side-row})
         );
         grid-template-rows: $player-height auto $player-height $controls-height $grid-side-row;

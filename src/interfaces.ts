@@ -70,18 +70,17 @@ export interface Comments {
 
 export type GoTo = 'first' | 'prev' | 'next' | 'last';
 
-export type Layout = 'horizontal' | 'vertical' | 'stretch';
+export type ShowMoves = false | 'right' | 'bottom' | 'auto';
 
 export interface Opts {
   pgn: string;
   chessground: CgConfig;
   orientation: Color;
   showPlayers: boolean;
-  showMoves: boolean;
+  showMoves: ShowMoves;
   showClocks: boolean;
   initialPly: Ply | 'last';
   scrollToMove: boolean;
-  layout: Layout;
   menu: {
     getPgn: {
       enabled?: boolean;

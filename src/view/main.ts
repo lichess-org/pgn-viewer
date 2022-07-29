@@ -9,11 +9,10 @@ import renderPlayer from './player';
 
 export default function view(ctrl: Ctrl) {
   return h(
-    `div.lpv.lpv--layout-${ctrl.opts.layout}`,
+    `div.lpv.lpv--moves-${ctrl.opts.showMoves}`,
     {
       class: {
         'lpv--menu': ctrl.pane != 'board',
-        'lpv--moves': ctrl.opts.showMoves,
         'lpv--players': ctrl.opts.showPlayers,
       },
       hook: onInsert(el =>
