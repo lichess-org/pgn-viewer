@@ -1,11 +1,20 @@
+$grid-side-column: fit-content(38.2%);
+$player-height: 2em;
+$controls-height: 3em;
+
 .lpv {
   display: grid;
   overflow: hidden;
-  grid-template-columns: auto fit-content(24ch);
+  grid-template-columns: auto $grid-side-column;
   grid-row-gap: 0;
   grid-template-areas:
     'board      side'
     'controls   side';
+  grid-template-rows: auto $controls-height;
+
+  &--full-screen {
+    grid-template-columns: minmax(200px, calc(100vh - #{$controls-height})) $grid-side-column;
+  }
 
   &--players {
     grid-template-areas:
@@ -13,7 +22,11 @@
       'board      side'
       'player-bot side'
       'controls   side';
-    grid-template-rows: 2em auto 2em;
+    grid-template-rows: $player-height auto $player-height $controls-height;
+
+    &.lpv--full-screen {
+      grid-template-columns: minmax(200px, calc(100vh - 2 * #{$player-height} - #{$controls-height})) $grid-side-column;
+    }
   }
 
   &__board {

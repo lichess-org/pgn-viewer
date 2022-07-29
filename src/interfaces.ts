@@ -79,6 +79,7 @@ export interface Opts {
   showClocks: boolean;
   initialPly: Ply | 'last';
   scrollToMove: boolean;
+  fullScreen: boolean;
   menu: {
     getPgn: {
       enabled?: boolean;
