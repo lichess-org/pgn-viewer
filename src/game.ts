@@ -38,7 +38,9 @@ export class Game {
       : 'lichess-pgn-viewer';
 
   pathAtMainlinePly = (ply: Ply | 'last') =>
-    this.mainline[Math.max(0, Math.min(this.mainline.length - 1, ply == 'last' ? 9999 : ply))].path;
+    ply == 0
+      ? Path.root
+      : this.mainline[Math.max(0, Math.min(this.mainline.length - 1, ply == 'last' ? 9999 : ply - 1))].path;
 }
 
 const childById = (node: MoveNode, id: Id) => node.children.find(c => c.data.path.last() == id);
