@@ -17,7 +17,6 @@
   "module": "main.js",
   "types": "main.d.ts",
   "dependencies": {
-    "@bity/oauth2-auth-code-pkce": "^2",
     "chessground": "^8.3.3",
     "chessops": "^0.12.4",
     "snabbdom": "^3"
