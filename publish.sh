@@ -6,6 +6,7 @@ echo "Publishing $version"
 
 sed -i -e "s/\"version\": \".*\"/\"version\": \"$version\"/g" package.json;
 
+npm install
 npm run test
 
 git add package.json
