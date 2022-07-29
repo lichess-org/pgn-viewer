@@ -1,6 +1,6 @@
 $grid-side-column: fit-content(38.2%) !default;
 $grid-side-column-full-screen: minmax(200px, 1fr) !default;
-$grid-side-row: 10em !default;
+$grid-side-row: 5em !default;
 $player-height: 2em !default;
 $controls-height: 3em !default;
 $moves-auto-to-right: 500px !default;
@@ -46,7 +46,7 @@ $board-min-width: 200px !default;
         'controls'
         'side';
       grid-template-columns: minmax($board-min-width, calc(100vh - #{$controls-height} - #{$grid-side-row}));
-      grid-template-rows: auto $controls-height $grid-side-row;
+      grid-template-rows: auto $controls-height minmax($grid-side-row, 50vh);
     }
   }
 
@@ -101,7 +101,7 @@ $board-min-width: 200px !default;
           $board-min-width,
           calc(100vh - 2 * #{$player-height} - #{$controls-height} - #{$grid-side-row})
         );
-        grid-template-rows: $player-height auto $player-height $controls-height $grid-side-row;
+        grid-template-rows: $player-height auto $player-height $controls-height minmax($grid-side-row, 50vh);
       }
     }
   }
