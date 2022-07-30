@@ -2,7 +2,7 @@ import { Color, makeUci, Position } from 'chessops';
 import { scalachessCharPair } from 'chessops/compat';
 import { makeFen } from 'chessops/fen';
 import { parsePgn, parseComment, PgnNodeData, startingPosition, transform, Node, Comment } from 'chessops/pgn';
-import { parseSan } from 'chessops/san';
+import { makeSanAndPlay, parseSan } from 'chessops/san';
 import { Game } from './game';
 import { MoveData, Initial, Players, Player, Comments, Metadata, Clocks } from './interfaces';
 import { Path } from './path';
@@ -54,7 +54,7 @@ const makeMoves = (start: Position, moves: Node<PgnNodeData>, metadata: Metadata
     if (!move) return undefined;
     const moveId = scalachessCharPair(move);
     const path = state.path.append(moveId);
-    state.pos.play(move);
+    const san = makeSanAndPlay(state.pos, move);
     state.path = path;
     const setup = state.pos.toSetup();
     const comments = parseComments(node.comments || []);
@@ -72,7 +72,7 @@ const makeMoves = (start: Position, moves: Node<PgnNodeData>, metadata: Metadata
       path,
       ply,
       move,
-      san: node.san,
+      san,
       uci: makeUci(move),
       fen: makeFen(state.pos.toSetup()),
       turn: state.pos.turn,
