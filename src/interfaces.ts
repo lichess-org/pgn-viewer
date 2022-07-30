@@ -81,6 +81,7 @@ export interface Opts {
   showClocks: boolean;
   initialPly: Ply | 'last';
   scrollToMove: boolean;
+  drawArrows: boolean;
   menu: {
     getPgn: {
       enabled?: boolean;

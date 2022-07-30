@@ -9,6 +9,7 @@ const defaults: Opts = {
   initialPly: 0, // current position to display. Can be a number, or "last"
   chessground: {}, // chessground configuration https://github.com/lichess-org/chessground/blob/master/src/config.ts#L7
   showMoves: 'right', // right | bottom | auto. "auto" uses media queries
+  drawArrows: true, // allow mouse users to draw volatile arrows on the board. Disable for little perf boost
   menu: {
     getPgn: {
       enabled: true, // enable the "Get PGN" menu entry

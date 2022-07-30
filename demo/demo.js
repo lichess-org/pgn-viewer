@@ -102,7 +102,7 @@ You can find the book here for an absurdly low price: https://www.amazon.com/Mam
 };
 
 [
-  { pgn: pgns.croatia, showMoves: 'bottom', initialPly: undefined },
+  { pgn: pgns.croatia, showMoves: 'bottom', initialPly: undefined, drawArrows: false },
   // { pgn: pgns.clockMin, initialPly: 0 },
   { pgn: pgns.lichess, initialPly: 30, showPlayers: false },
   { pgn: pgns.lichess, initialPly: 30, showMoves: false },

@@ -69,11 +69,10 @@ export default class Ctrl {
     this.redraw();
   };
 
-  cgConfig = (): CgConfig => {
+  cgState = (): CgConfig => {
     const data = this.curData();
     const lastMove = isMoveData(data) ? uciToMove(data.uci) : undefined;
     return {
-      ...(this.opts.chessground || {}),
       fen: this.curData().fen,
       orientation: this.orientation(),
       check: this.curData().check,
@@ -94,7 +93,7 @@ export default class Ctrl {
 
   private redrawGround = () =>
     this.withGround(g => {
-      g.set(this.cgConfig());
+      g.set(this.cgState());
       g.setShapes(
         this.curData().shapes.map(s => ({
           orig: makeSquare(s.from),

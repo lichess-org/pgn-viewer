@@ -69,14 +69,22 @@ const wheelScroll = (ctrl: Ctrl) =>
       );
 
 export const makeConfig = (ctrl: Ctrl, rootEl: HTMLElement): CgConfig => ({
-  viewOnly: true,
+  viewOnly: !ctrl.opts.drawArrows,
   addDimensionsCssVarsTo: rootEl,
-  draggable: {
-    showGhost: false,
-  },
   drawable: {
-    enabled: false,
+    enabled: ctrl.opts.drawArrows,
     visible: true,
   },
-  ...ctrl.cgConfig(),
+  disableContextMenu: ctrl.opts.drawArrows,
+  ...(ctrl.opts.chessground || {}),
+  movable: {
+    free: false,
+  },
+  draggable: {
+    enabled: false,
+  },
+  selectable: {
+    enabled: false,
+  },
+  ...ctrl.cgState(),
 });
