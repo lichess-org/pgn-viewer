@@ -99,6 +99,24 @@ You can find the book here for an absurdly low price: https://www.amazon.com/Mam
 [Annotator "lichess.org"]
 
 1. e4 { [%eval 0.33] [%clk 0:01:00] } 1... c5 { [%eval 0.32] [%clk 0:01:00] } 2. Nf3 { [%eval 0.0] [%clk 0:00:00] }`,
+  horde: `[Event "Casual Horde game"]
+[Site "https://lichess.org/4wt9jTEj"]
+[Date "2022.07.30"]
+[White "Daymon_Rivera"]
+[Black "pripredi"]
+[Result "0-1"]
+[UTCDate "2022.07.30"]
+[UTCTime "09:30:36"]
+[WhiteElo "1500"]
+[BlackElo "1723"]
+[Variant "Horde"]
+[TimeControl "240+3"]
+[ECO "?"]
+[Opening "?"]
+[Termination "Normal"]
+[Annotator "lichess.org"]
+
+1. c6 { [%clk 0:04:00] } 1... bxc6 { [%clk 0:04:00] } 2. bxc6 { [%clk 0:04:03] } 2... dxc6 { [%clk 0:04:02] } 3. d5 { [%clk 0:04:05] } 3... e6 { [%clk 0:04:00] } 4. b5 { [%clk 0:04:00] } 4... cxd5 { [%clk 0:04:01] } 5. cxd5 { [%clk 0:04:01] } 5... exd5 { [%clk 0:04:03] } 6. exd5 { [%clk 0:04:04] } 6... Qxd5 { [%clk 0:04:04] } 7. e4 { [%clk 0:04:05] } 7... Qd8 { [%clk 0:04:02] } 8. d4 { [%clk 0:03:57] } 8... c6 { [%clk 0:03:37] } 9. c4 { [%clk 0:03:55] } 9... Qxd4 { [%clk 0:03:38] } 10. e3 { [%clk 0:03:58] } 10... Qd8 { [%clk 0:03:39] } 11. bxc6 { [%clk 0:03:59] } 11... Nxc6 { [%clk 0:03:40] } 12. h5 { [%clk 0:03:59] } 12... Be7 { [%clk 0:03:40] } 13. g6 { [%clk 0:04:02] } 13... fxg6 { [%clk 0:03:38] } 14. fxg6 { [%clk 0:04:03] } 14... hxg6 { [%clk 0:03:28] } 15. hxg6 { [%clk 0:04:06] } 15... Bd7 { [%clk 0:03:26] } 16. b4 { [%clk 0:03:56] } 16... Nxb4 { [%clk 0:03:25] } 17. axb4 { [%clk 0:03:59] } 17... Bxa4 { [%clk 0:03:20] } 18. c3 { [%clk 0:04:02] } 18... Bxd1 { [%clk 0:03:20] } 19. c5 { [%clk 0:03:54] } 19... Qd3 { [%clk 0:03:02] } 20. c2 { [%clk 0:03:44] } 20... Qxf1 { [%clk 0:03:03] } 21. b5 { [%clk 0:03:44] } 21... Bxc5 { [%clk 0:03:03] } 22. c4 { [%clk 0:03:45] } 22... Qxe1 { [%clk 0:03:04] } 23. d3 { [%clk 0:03:47] } 23... Bxe3 { [%clk 0:03:04] } 24. d4 { [%clk 0:03:50] } 24... Bxd4 { [%clk 0:03:04] } 25. c3 { [%clk 0:03:50] } 25... Bxc3 { [%clk 0:03:05] } 26. bxc3 { [%clk 0:03:52] } 26... Qxc3 { [%clk 0:03:06] } 27. b3 { [%clk 0:03:54] } 27... Bxb3 { [%clk 0:03:07] } 28. axb3 { [%clk 0:03:56] } 28... Qxb3 { [%clk 0:03:10] } 29. f5 { [%clk 0:03:55] } 29... Qxc4 { [%clk 0:03:10] } 30. e5 { [%clk 0:03:57] } 30... Qxb5 { [%clk 0:03:11] } 31. f4 { [%clk 0:03:58] } 31... Nh6 { [%clk 0:03:08] } 32. f6 { [%clk 0:03:58] } 32... O-O { [%clk 0:03:05] } 33. fxg7 { [%clk 0:03:56] } 33... Kxg7 { [%clk 0:03:06] } 34. g5 { [%clk 0:03:57] } 34... Kxg6 { [%clk 0:03:05] } 35. gxh6 { [%clk 0:03:58] } 35... Kxh6 { [%clk 0:03:07] } 36. g4 { [%clk 0:03:57] } 36... Qf1 { [%clk 0:03:08] } 37. g3 { [%clk 0:03:58] } 37... Qxh3 { [%clk 0:03:09] } 38. g5+ { [%clk 0:03:54] } 38... Kg6 { [%clk 0:03:10] } 39. g2 { [%clk 0:03:52] } 39... Qxh2 { [%clk 0:03:12] } 40. g4 { [%clk 0:03:52] } 40... Rxf4 { [%clk 0:03:11] } { White resigns. } 0-1`,
 };
 
 [
@@ -117,4 +135,5 @@ You can find the book here for an absurdly low price: https://www.amazon.com/Mam
   },
   // { pgn: pgns.commentMin1, },
   { pgn: pgns.mammoth1 },
+  { pgn: pgns.horde, showMoves: false, drawArrows: false },
 ].forEach((cfg, i) => LichessPgnViewer(document.querySelector(`.viewers > div:nth-child(${i + 1}) > div`), cfg));
