@@ -6,7 +6,7 @@ $c-bg-player: $c-bg !default;
 $c-bg-controls: $c-bg !default;
 $c-bg-movelist: $c-bg !default;
 $c-bg-variation: hsl($c-site-hue, 5%, 15%) !default;
-$c-bg-pane: mix($c-accent, $c-bg, 15%);
+$c-bg-pane: mix($c-accent, $c-bg, 15%) !default;
 $c-font: #aaa !default;
 $c-font-shy: mix($c-font, $c-bg, 50%) !default;
 $c-font-accent: mix($c-accent, #fff, 50%) !default;
