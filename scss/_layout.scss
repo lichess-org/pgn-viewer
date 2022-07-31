@@ -1,6 +1,6 @@
 $grid-side-column: fit-content(38.2%) !default;
 $grid-side-column-full-screen: minmax(200px, 1fr) !default;
-$grid-side-row: 5em !default;
+$grid-side-row: 6em !default;
 $player-height: 2em !default;
 $controls-height: 3em !default;
 $moves-auto-to-right: 500px !default;
@@ -31,7 +31,7 @@ $board-min-width: 200px !default;
       'board'
       'controls'
       'side';
-    grid-template-rows: auto $controls-height;
+    grid-template-rows: auto $controls-height $grid-side-row;
   }
 
   &--moves-auto {
@@ -88,8 +88,8 @@ $board-min-width: 200px !default;
         'board      side'
         'player-bot side'
         'controls   side';
-      grid-template-rows: $player-height auto $player-height $controls-height;
       grid-template-columns: minmax($board-min-width, calc(100vh - 2 * #{$player-height} - #{$controls-height})) $grid-side-column-full-screen;
+      grid-template-rows: $player-height auto $player-height $controls-height;
       @media (max-width: #{$moves-auto-to-right}) {
         grid-template-areas:
           'player-top'
