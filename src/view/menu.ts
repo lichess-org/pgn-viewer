@@ -63,22 +63,25 @@ const renderExternalLink = (ctrl: Ctrl) => {
 
 export const renderControls = (ctrl: Ctrl) =>
   h('div.lpv__controls', [
-    ctrl.pane == 'board' ? undefined : dirButton(ctrl, 'first'),
-    dirButton(ctrl, 'prev'),
+    ctrl.pane == 'board' ? undefined : dirButton(ctrl, 'first', 'step-backward'),
+    dirButton(ctrl, 'prev', 'left-open'),
     h(
-      'button.lpv__fbt.lpv__controls__menu',
+      'button.lpv__fbt.lpv__controls__menu.icon',
       {
-        class: { active: ctrl.pane != 'board' },
+        class: {
+          active: ctrl.pane != 'board',
+          'icon-ellipsis-vert': ctrl.pane == 'board',
+        },
         hook: bind('click', ctrl.toggleMenu),
       },
-      ctrl.pane == 'board' ? '⋮' : 'X'
+      ctrl.pane == 'board' ? undefined : 'X'
     ),
-    dirButton(ctrl, 'next'),
-    ctrl.pane == 'board' ? undefined : dirButton(ctrl, 'last'),
+    dirButton(ctrl, 'next', 'right-open'),
+    ctrl.pane == 'board' ? undefined : dirButton(ctrl, 'last', 'step-forward'),
   ]);
 
-const dirButton = (ctrl: Ctrl, to: GoTo) =>
-  h(`button.lpv__controls__goto.lpv__controls__goto--${to}.lpv__fbt`, {
+const dirButton = (ctrl: Ctrl, to: GoTo, icon: string) =>
+  h(`button.lpv__controls__goto.lpv__controls__goto--${to}.lpv__fbt.icon.icon-${icon}`, {
     class: { disabled: ctrl.pane == 'board' && !ctrl.canGoTo(to) },
     hook: onInsert(el => bindMobileMousedown(el, e => eventRepeater(() => ctrl.goTo(to), e))),
   });

@@ -18,27 +18,12 @@
     &__menu.lpv__fbt {
       flex: 0 1 auto;
       width: 3em;
-      padding: 0.4em 1em;
+      // the ellipsis icon is not well centered vertically
+      padding: 0.45em 1em 0.35em 1em;
+      font-size: 1.1em;
     }
     &__goto {
       padding: 0.4rem 0.7rem;
-      &::before {
-        font-size: 2em;
-        line-height: 1em;
-        vertical-align: bottom;
-      }
-      &--first::before {
-        content: '⇤';
-      }
-      &--prev::before {
-        content: '⯇';
-      }
-      &--next::before {
-        content: '⯈';
-      }
-      &--last::before {
-        content: '⇥';
-      }
     }
   }
 }

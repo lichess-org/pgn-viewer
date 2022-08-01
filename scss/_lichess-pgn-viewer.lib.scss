@@ -20,6 +20,7 @@ $c-border: hsl(0, 0%, 25%) !default;
 @import './pane';
 @import './controls';
 @import './scrollbar';
+@import './font';
 
 .lpv {
   border-radius: 5px;
