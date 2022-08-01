@@ -32,6 +32,9 @@ $board-min-width: 200px !default;
       'controls'
       'side';
     grid-template-rows: auto $controls-height $grid-side-row;
+    .lpv__controls {
+      border-bottom: 1px solid $c-border;
+    }
   }
 
   &--moves-auto {
