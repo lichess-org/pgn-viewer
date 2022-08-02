@@ -6,6 +6,13 @@ This won't replace a fully featured [analysis board](https://lichess.org/analysi
 
 ![board with move variation tree](https://raw.githubusercontent.com/lichess-org/pgn-viewer/master/screenshot/tree-comment.png)
 
+## See it in action
+
+- [In a forum post](https://lichess.org/forum/game-analysis/strong-fm-showed-me-a-line-which-i-could-use-one-year-later-against-himself-)
+- [In an opening page](https://lichess.org/opening/Caro-Kann_Defense_Advance_Variation)
+- [In a user blog post](https://lichess.org/@/mfeeney88/blog/analysis-paralysis/NmISTSVM)
+- [As a full-screen game embed](https://lichess.org/embed/game/ErSfVbRk)
+
 ## License
 
 Lichess PGN Viewer is distributed under the **GPL-3.0 license** (or any later version, at your option).
