@@ -18,7 +18,7 @@ export default class Ctrl {
   autoScrollRequested = false;
 
   constructor(readonly opts: Opts, readonly redraw: () => void) {
-    this.game = makeGame(opts.pgn);
+    this.game = makeGame(opts.pgn, opts.lichess);
     this.translate = translator(opts.translate);
     this.path = this.game.pathAtMainlinePly(opts.initialPly);
   }

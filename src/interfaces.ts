@@ -53,6 +53,7 @@ export interface Player {
   name?: string;
   title?: string;
   rating?: number;
+  isLichessUser: boolean;
 }
 export interface Players {
   white: Player;
@@ -71,12 +72,14 @@ export interface Comments {
 export type GoTo = 'first' | 'prev' | 'next' | 'last';
 
 export type ShowMoves = false | 'right' | 'bottom' | 'auto';
+export type ShowPlayers = true | false | 'auto';
+export type Lichess = string | false;
 
 export interface Opts {
   pgn: string;
   chessground: CgConfig;
   orientation: Color;
-  showPlayers: boolean;
+  showPlayers: ShowPlayers;
   showMoves: ShowMoves;
   showClocks: boolean;
   initialPly: Ply | 'last';
@@ -88,5 +91,6 @@ export interface Opts {
       fileName?: string;
     };
   };
+  lichess: Lichess;
   translate?: Translate;
 }

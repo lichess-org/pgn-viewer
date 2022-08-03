@@ -41,6 +41,8 @@ export class Game {
     ply == 0
       ? Path.root
       : this.mainline[Math.max(0, Math.min(this.mainline.length - 1, ply == 'last' ? 9999 : ply - 1))].path;
+
+  hasPlayerName = () => !!(this.players.white?.name || this.players.black?.name);
 }
 
 const childById = (node: MoveNode, id: Id) => node.children.find(c => c.data.path.last() == id);

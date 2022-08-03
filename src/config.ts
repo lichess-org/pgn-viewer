@@ -2,7 +2,7 @@ import { Opts } from './interfaces';
 
 const defaults: Opts = {
   pgn: '*', // the PGN to render
-  showPlayers: true, // show the players above and under the board
+  showPlayers: 'auto', // show the players above and under the board
   showClocks: true, // show the clocks alongside the players
   scrollToMove: true, // enable scrolling through moves with a mouse wheel
   orientation: 'white', // default orientation of the board
@@ -16,6 +16,7 @@ const defaults: Opts = {
       fileName: undefined, // name of the file when user clicks "Download PGN". Leave empty for automatic name.
     },
   },
+  lichess: 'https://lichess.org', // support for Lichess games, with links to the game and players. Set to false to disable.
 };
 
 export default function (cfg: Partial<Opts>) {

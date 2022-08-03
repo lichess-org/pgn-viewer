@@ -15,6 +15,8 @@
       flex-flow: row nowrap;
       align-items: center;
       gap: 1ch;
+      color: $c-font;
+      text-decoration: none;
     }
     &__title {
       font-weight: bold;

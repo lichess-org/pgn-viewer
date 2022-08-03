@@ -13,7 +13,7 @@ export default function view(ctrl: Ctrl) {
     {
       class: {
         'lpv--menu': ctrl.pane != 'board',
-        'lpv--players': ctrl.opts.showPlayers,
+        'lpv--players': ctrl.opts.showPlayers == 'auto' ? ctrl.game.hasPlayerName() : ctrl.opts.showPlayers,
       },
       hook: onInsert(el =>
         ctrl.setGround(Chessground(el.querySelector('.cg-wrap') as HTMLElement, makeConfig(ctrl, el)))
