@@ -3,7 +3,6 @@ import Ctrl from '../ctrl';
 import { MoveNode } from '../game';
 import { MoveData } from '../interfaces';
 import { Path } from '../path';
-import { bind } from './util';
 
 export const renderMoves = (ctrl: Ctrl) =>
   h(
@@ -96,6 +95,12 @@ const renderMove = (ctrl: Ctrl) => (move: MoveData) =>
       class: {
         current: ctrl.path.equals(move.path),
         ancestor: ctrl.path.contains(move.path),
+        good: move.nags.includes(1),
+        mistake: move.nags.includes(2),
+        brilliant: move.nags.includes(3),
+        blunder: move.nags.includes(4),
+        interesting: move.nags.includes(5),
+        inaccuracy: move.nags.includes(6),
       },
       attrs: {
         p: move.path.path,

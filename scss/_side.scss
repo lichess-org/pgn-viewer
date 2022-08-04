@@ -1,3 +1,10 @@
+$c-bg-inaccuracy-hover: c-dimmer($c-inaccuracy, 70%) !default;
+$c-bg-mistake-hover: c-dimmer($c-mistake, 70%) !default;
+$c-bg-blunder-hover: c-dimmer($c-blunder, 70%) !default;
+$c-bg-good-hover: c-dimmer($c-good-move, 70%) !default;
+$c-bg-brilliant-hover: c-dimmer($c-brilliant, 70%) !default;
+$c-bg-interesting-hover: c-dimmer($c-interesting, 70%) !default;
+
 .lpv {
   &__side {
     overflow: hidden;
@@ -44,6 +51,42 @@
       &.current {
         background: mix($c-accent, $c-bg, 70%) !important;
         color: $c-accent-over;
+      }
+      &.inaccuracy {
+        color: $c-inaccuracy;
+        &:hover {
+          background: $c-bg-inaccuracy-hover;
+        }
+      }
+      &.mistake {
+        color: $c-mistake;
+        &:hover {
+          background: $c-bg-mistake-hover;
+        }
+      }
+      &.blunder {
+        color: $c-blunder;
+        &:hover {
+          background: $c-bg-blunder-hover;
+        }
+      }
+      &.good {
+        color: $c-good-move;
+        &:hover {
+          background: $c-bg-good-hover;
+        }
+      }
+      &.brilliant {
+        color: $c-brilliant;
+        &:hover {
+          background: $c-bg-brilliant-hover;
+        }
+      }
+      &.interesting {
+        color: $c-interesting;
+        &:hover {
+          background: $c-bg-interesting-hover;
+        }
       }
     }
     > move {
