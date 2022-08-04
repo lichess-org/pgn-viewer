@@ -123,7 +123,7 @@ function makeMetadata(headers: Headers, lichess: Lichess): Metadata {
         }
       : undefined;
   return {
-    externalLink: site && site.startsWith('https://') ? site : undefined,
+    externalLink: site && site.match(/^https?:\/\//) ? site : undefined,
     isLichess: !!(lichess && site?.startsWith(lichess)),
     timeControl,
   };
