@@ -34,6 +34,7 @@ $c-bg-interesting-hover: c-dimmer($c-interesting, 70%) !default;
       justify-content: flex-end;
     }
     move {
+      border-radius: 3px;
       padding-left: 3%;
       font-weight: bold;
       white-space: nowrap;
@@ -91,10 +92,11 @@ $c-bg-interesting-hover: c-dimmer($c-interesting, 70%) !default;
     }
     > move {
       flex: 0 0 38%;
+      font-size: 1.1em;
     }
     comment {
       user-select: text;
-      font-size: 0.7rem;
+      font-size: 0.9em;
     }
     > comment {
       flex: 1 1 100%;
@@ -125,6 +127,8 @@ $c-bg-interesting-hover: c-dimmer($c-interesting, 70%) !default;
       move {
         display: inline-block;
         padding: 0.1em 0.2em;
+        min-width: 2.5ch;
+        text-align: center;
         + index {
           margin-left: 0.2em;
         }
