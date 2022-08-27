@@ -69,7 +69,7 @@ export interface Comments {
   emt?: number;
 }
 
-export type GoTo = 'first' | 'prev' | 'next' | 'last';
+export type GoTo = 'first' | 'prev' | 'next' | 'last' | 'flip';
 
 export type ShowMoves = false | 'right' | 'bottom' | 'auto';
 export type ShowPlayers = true | false | 'auto';

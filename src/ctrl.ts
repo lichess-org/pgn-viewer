@@ -27,15 +27,18 @@ export default class Ctrl {
   curData = (): InitialOrMove => this.game.dataAt(this.path) || this.game.initial;
 
   goTo = (to: GoTo) => {
-    const path =
-      to == 'first'
-        ? Path.root
-        : to == 'prev'
-        ? this.path.init()
-        : to == 'next'
-        ? this.game.nodeAt(this.path)?.children[0]?.data.path
-        : this.game.pathAtMainlinePly('last');
-    this.toPath(path || this.path);
+    if (to == 'flip') this.flip();
+    else {
+      const path =
+        to == 'first'
+          ? Path.root
+          : to == 'prev'
+          ? this.path.init()
+          : to == 'next'
+          ? this.game.nodeAt(this.path)?.children[0]?.data.path
+          : this.game.pathAtMainlinePly('last');
+      this.toPath(path || this.path);
+    }
   };
 
   canGoTo = (to: GoTo) => (to == 'prev' || to == 'first' ? !this.path.empty() : !!this.curNode().children[0]);

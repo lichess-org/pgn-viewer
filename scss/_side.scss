@@ -4,6 +4,7 @@ $c-bg-blunder-hover: c-dimmer($c-blunder, 70%) !default;
 $c-bg-good-hover: c-dimmer($c-good-move, 70%) !default;
 $c-bg-brilliant-hover: c-dimmer($c-brilliant, 70%) !default;
 $c-bg-interesting-hover: c-dimmer($c-interesting, 70%) !default;
+$c-border: hsl(37deg, 5%, 13%) !default;
 
 .lpv {
   &__side {
@@ -101,7 +102,7 @@ $c-bg-interesting-hover: c-dimmer($c-interesting, 70%) !default;
     > comment {
       flex: 1 1 100%;
       background: $c-bg-variation;
-      border: 1px solid hsl(37deg, 5%, 13%);
+      border: 1px solid $c-border;
       border-width: 1px 0;
       padding: 0.4em 1em;
       line-height: 1.4;
@@ -118,7 +119,7 @@ $c-bg-interesting-hover: c-dimmer($c-interesting, 70%) !default;
       overflow: hidden;
       font-size: 0.8em;
       background: $c-bg-variation;
-      border: 1px solid hsl(37deg, 5%, 13%);
+      border: 1px solid $c-border;
       border-width: 1px 0;
       padding: 0em 0.6em;
       + variation {
