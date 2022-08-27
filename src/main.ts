@@ -10,9 +10,11 @@ export default function start(element: HTMLElement, cfg: Partial<Opts>) {
   const opts = config(cfg);
 
   const ctrl = new Ctrl(opts, redraw);
-  ['first', 'last', 'next', 'prev', 'flip'].map( goto => {
+  ['first', 'last', 'next', 'prev'].map( goto => {
     element.addEventListener(goto, ctrl.goTo.bind(ctrl, goto as GoTo));
   });
+  element.addEventListener('flip', ctrl.flip);
+  
   const blueprint = view(ctrl);
   element.innerHTML = '';
   let vnode = patch(element, blueprint);
