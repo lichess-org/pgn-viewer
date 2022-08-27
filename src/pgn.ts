@@ -35,7 +35,7 @@ export const makeGame = (pgn: string, lichess: Lichess = false): Game => {
     fen,
     turn: start.turn,
     check: start.isCheck(),
-    pos: start,
+    pos: start.clone(),
     comments: comments.texts,
     shapes: comments.shapes,
     clocks: {

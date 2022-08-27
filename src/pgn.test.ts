@@ -34,3 +34,8 @@ test('longer mainline', () => {
   expect(lastMove.san).toBe('bxa1=Q');
   expect(lastMove.path.path).toBe('/?UE)8\\M.>E>8>aP$5WG>DVN%ISKD3TD5F`WIPWP-5_b3-PI+;D;,4;4->4,>M,c');
 });
+test('initial position', () => {
+  expect(makeGame('').initial.pos.fullmoves).toBe(1);
+  expect(makeGame('1. e4 c5 2. Nf3').initial.pos.fullmoves).toBe(1);
+  expect(makeGame('[FEN "rnbqkbnr/pppp1ppp/8/4p3/2B1P3/8/PPPP1PPP/RNBQK1NR b KQkq - 1 2"]').initial.pos.fullmoves).toBe(2);
+});
