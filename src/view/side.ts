@@ -31,37 +31,43 @@ export const renderMoves = (ctrl: Ctrl) =>
           },
         },
       },
-      [...ctrl.game.initial.comments.map(makeComment), ...makeMoveNodes(ctrl)]
+      [...ctrl.game.initial.comments.map(commentNode), ...makeMoveNodes(ctrl)]
     )
   );
+
+const emptyMove = () => h('move.empty', '...');
+const indexNode = (turn: number) => h('index', [turn, '.']);
+const commentNode = (comment: string) => h('comment', comment);
+const parenOpen = () => h('paren.open', '(');
+const parenClose = () => h('paren.close', ')');
+const moveTurn = (move: MoveData) => Math.floor((move.ply - 1) / 2) + 1;
 
 const makeMoveNodes = (ctrl: Ctrl): Array<VNode | undefined> => {
   const moveDom = renderMove(ctrl);
   const elms: VNode[] = [];
   let node: MoveNode | undefined,
     variations: MoveNode[] = ctrl.game.moves.children.slice(1);
-  while ((node = (node ? node : ctrl.game.moves).children[0])) {
+  if (ctrl.game.initial.pos.turn == 'black' && ctrl.game.mainline[0])
+    elms.push(indexNode(ctrl.game.initial.pos.fullmoves), emptyMove());
+  while ((node = (node || ctrl.game.moves).children[0])) {
     const move = node.data;
     const oddMove = move.ply % 2 == 1;
-    if (oddMove) elms.push(h('index', [moveTurn(move), '.']));
+    if (oddMove) elms.push(indexNode(moveTurn(move)));
     elms.push(moveDom(move));
     const addEmptyMove = oddMove && (variations.length || move.comments.length) && node.children.length;
-    if (addEmptyMove) elms.push(h('move.empty', '...'));
-    move.comments.forEach(comment => elms.push(makeComment(comment)));
+    if (addEmptyMove) elms.push(emptyMove());
+    move.comments.forEach(comment => elms.push(commentNode(comment)));
     variations.forEach(variation => elms.push(makeMainVariation(moveDom, variation)));
-    if (addEmptyMove) {
-      elms.push(h('index', [moveTurn(move), '.']));
-      elms.push(h('move.empty', '...'));
-    }
+    if (addEmptyMove) elms.push(indexNode(moveTurn(move)), emptyMove());
     variations = node.children.slice(1);
   }
   return elms;
 };
 
-const makeComment = (comment: string) => h('comment', comment);
+type MoveToDom = (move: MoveData) => VNode;
 
 const makeMainVariation = (moveDom: MoveToDom, node: MoveNode) =>
-  h('variation', [...node.data.startingComments.map(makeComment), ...makeVariationMoves(moveDom, node)]);
+  h('variation', [...node.data.startingComments.map(commentNode), ...makeVariationMoves(moveDom, node)]);
 
 const makeVariationMoves = (moveDom: MoveToDom, node: MoveNode) => {
   let elms: VNode[] = [];
@@ -71,7 +77,7 @@ const makeVariationMoves = (moveDom: MoveToDom, node: MoveNode) => {
     const move = node.data;
     if (move.ply % 2 == 1) elms.push(h('index', [moveTurn(move), '.']));
     elms.push(moveDom(move));
-    move.comments.forEach(comment => elms.push(makeComment(comment)));
+    move.comments.forEach(comment => elms.push(commentNode(comment)));
     variations.forEach(variation => {
       elms = [...elms, parenOpen(), ...makeVariationMoves(moveDom, variation), parenClose()];
     });
@@ -80,13 +86,6 @@ const makeVariationMoves = (moveDom: MoveToDom, node: MoveNode) => {
   } while (node);
   return elms;
 };
-
-const parenOpen = () => h('paren.open', '(');
-const parenClose = () => h('paren.close', ')');
-
-type MoveToDom = (move: MoveData) => VNode;
-
-const moveTurn = (move: MoveData) => Math.floor((move.ply - 1) / 2) + 1;
 
 const renderMove = (ctrl: Ctrl) => (move: MoveData) =>
   h(

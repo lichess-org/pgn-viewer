@@ -117,9 +117,31 @@ You can find the book here for an absurdly low price: https://www.amazon.com/Mam
 [Annotator "lichess.org"]
 
 1. c6 { [%clk 0:04:00] } 1... bxc6 { [%clk 0:04:00] } 2. bxc6 { [%clk 0:04:03] } 2... dxc6 { [%clk 0:04:02] } 3. d5 { [%clk 0:04:05] } 3... e6 { [%clk 0:04:00] } 4. b5 { [%clk 0:04:00] } 4... cxd5 { [%clk 0:04:01] } 5. cxd5 { [%clk 0:04:01] } 5... exd5 { [%clk 0:04:03] } 6. exd5 { [%clk 0:04:04] } 6... Qxd5 { [%clk 0:04:04] } 7. e4 { [%clk 0:04:05] } 7... Qd8 { [%clk 0:04:02] } 8. d4 { [%clk 0:03:57] } 8... c6 { [%clk 0:03:37] } 9. c4 { [%clk 0:03:55] } 9... Qxd4 { [%clk 0:03:38] } 10. e3 { [%clk 0:03:58] } 10... Qd8 { [%clk 0:03:39] } 11. bxc6 { [%clk 0:03:59] } 11... Nxc6 { [%clk 0:03:40] } 12. h5 { [%clk 0:03:59] } 12... Be7 { [%clk 0:03:40] } 13. g6 { [%clk 0:04:02] } 13... fxg6 { [%clk 0:03:38] } 14. fxg6 { [%clk 0:04:03] } 14... hxg6 { [%clk 0:03:28] } 15. hxg6 { [%clk 0:04:06] } 15... Bd7 { [%clk 0:03:26] } 16. b4 { [%clk 0:03:56] } 16... Nxb4 { [%clk 0:03:25] } 17. axb4 { [%clk 0:03:59] } 17... Bxa4 { [%clk 0:03:20] } 18. c3 { [%clk 0:04:02] } 18... Bxd1 { [%clk 0:03:20] } 19. c5 { [%clk 0:03:54] } 19... Qd3 { [%clk 0:03:02] } 20. c2 { [%clk 0:03:44] } 20... Qxf1 { [%clk 0:03:03] } 21. b5 { [%clk 0:03:44] } 21... Bxc5 { [%clk 0:03:03] } 22. c4 { [%clk 0:03:45] } 22... Qxe1 { [%clk 0:03:04] } 23. d3 { [%clk 0:03:47] } 23... Bxe3 { [%clk 0:03:04] } 24. d4 { [%clk 0:03:50] } 24... Bxd4 { [%clk 0:03:04] } 25. c3 { [%clk 0:03:50] } 25... Bxc3 { [%clk 0:03:05] } 26. bxc3 { [%clk 0:03:52] } 26... Qxc3 { [%clk 0:03:06] } 27. b3 { [%clk 0:03:54] } 27... Bxb3 { [%clk 0:03:07] } 28. axb3 { [%clk 0:03:56] } 28... Qxb3 { [%clk 0:03:10] } 29. f5 { [%clk 0:03:55] } 29... Qxc4 { [%clk 0:03:10] } 30. e5 { [%clk 0:03:57] } 30... Qxb5 { [%clk 0:03:11] } 31. f4 { [%clk 0:03:58] } 31... Nh6 { [%clk 0:03:08] } 32. f6 { [%clk 0:03:58] } 32... O-O { [%clk 0:03:05] } 33. fxg7 { [%clk 0:03:56] } 33... Kxg7 { [%clk 0:03:06] } 34. g5 { [%clk 0:03:57] } 34... Kxg6 { [%clk 0:03:05] } 35. gxh6 { [%clk 0:03:58] } 35... Kxh6 { [%clk 0:03:07] } 36. g4 { [%clk 0:03:57] } 36... Qf1 { [%clk 0:03:08] } 37. g3 { [%clk 0:03:58] } 37... Qxh3 { [%clk 0:03:09] } 38. g5+ { [%clk 0:03:54] } 38... Kg6 { [%clk 0:03:10] } 39. g2 { [%clk 0:03:52] } 39... Qxh2 { [%clk 0:03:12] } 40. g4 { [%clk 0:03:52] } 40... Rxf4 { [%clk 0:03:11] } { White resigns. } 0-1`,
+
+  blackStart: `[Event "Casual Standard game"]
+[Site "https://lichess.org/r6Deksq0"]
+[Date "2022.08.27"]
+[White "lichess AI level 1"]
+[Black "thibault"]
+[Result "1-0"]
+[UTCDate "2022.08.27"]
+[UTCTime "08:13:32"]
+[WhiteElo "?"]
+[BlackElo "1873"]
+[Variant "From Position"]
+[TimeControl "60+0"]
+[ECO "?"]
+[Opening "?"]
+[Termination "Time forfeit"]
+[FEN "rnbqkbnr/pppp1ppp/8/4p3/2B1P3/8/PPPP1PPP/RNBQK1NR b KQkq - 1 2"]
+[SetUp "1"]
+[Annotator "lichess.org"]
+
+2... Nf6 3. Nf3 Nc6 4. Ng5 d5 5. exd5 Nxd5 6. Nxf7 Kxf7 7. Qf3+ Qf6 8. Bxd5+ Ke7 9. Bxc6 Qxf3 10. Bxf3 g6 11. b3 Bg7 12. h4 Rf8 13. Nc3 Bf5 14. a4 Bxc2 15. d3 Bxb3 16. Bxb7 Rab8 17. Bf3 Be6 18. Ne4 Bf5 19. h5 g5 20. h6 g4 21. Bxg4 Bh8 22. Bxf5 Rxf5 23. Bd2 Rbf8 24. Rb1 Bf6 25. Rb7 Kd7 26. f3 Be7 27. Kf2 Bd6 28. a5 Kc6 29. Rxa7 Bc5+ 30. Ke2 Bxa7 { White wins on time. } 31. a6 1-0`,
 };
 
 [
+  // { pgn: pgns.blackStart, showPlayers: false },
   { pgn: pgns.croatia, showMoves: 'bottom', initialPly: undefined, drawArrows: false },
   // { pgn: pgns.clockMin, initialPly: 0 },
   { pgn: pgns.lichess, initialPly: 30, showPlayers: true },
