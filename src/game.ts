@@ -18,7 +18,7 @@ export class Game {
     this.mainline = Array.from(this.moves.mainline());
   }
 
-  nodeAt = (path: Path): AnyNode | undefined => nodeAtPathFrom(this.moves, path)
+  nodeAt = (path: Path): AnyNode | undefined => nodeAtPathFrom(this.moves, path);
 
   dataAt = (path: Path): MoveData | Initial | undefined => {
     const node = this.nodeAt(path);

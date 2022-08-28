@@ -13,6 +13,7 @@ export default class Ctrl {
   path: Path;
   translate: Translate;
   ground?: CgApi;
+  div?: HTMLElement;
   flipped = false;
   pane = 'board';
   autoScrollRequested = false;
