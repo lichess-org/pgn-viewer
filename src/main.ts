@@ -1,7 +1,7 @@
 import Ctrl from './ctrl';
 import view from './view/main';
 import { init, attributesModule, classModule } from 'snabbdom';
-import { Opts, GoTo } from './interfaces';
+import { Opts } from './interfaces';
 import config from './config';
 import { addCtrl } from './events';
 
