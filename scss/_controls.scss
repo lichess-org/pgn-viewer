@@ -8,6 +8,7 @@
 
     .lpv__fbt {
       flex: 1 1 auto;
+      font-size: 1.4em;
       padding: 0.4em 0.7em;
       border-left: 1px solid $c-border;
       &:first-child {
@@ -17,7 +18,7 @@
 
     &__menu.lpv__fbt {
       flex: 0 1 auto;
-      width: 3em;
+      width: 4em;
       // the ellipsis icon is not well centered vertically
       padding: 0.45em 1em 0.35em 1em;
       font-size: 1.1em;
