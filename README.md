@@ -1,6 +1,6 @@
-# Lichess PGN Viewer - work in progress
+# Lichess PGN Viewer
 
-Minimalistic PGN viewer widget, designed to be embedded in content pages.
+PGN viewer widget, designed to be embedded in content pages.
 
 This won't replace a fully featured [analysis board](https://lichess.org/analysis).
 
