@@ -42,8 +42,8 @@ function initEventHandlers() {
     if (scrollTimeout) window.clearTimeout(scrollTimeout);
     scrollTimeout = window.setTimeout(adjustViewTarget, 125);
   };
-  window.visualViewport.addEventListener('scroll', debouncer);
-  window.visualViewport.addEventListener('resize', debouncer);
+  document.addEventListener('scroll', debouncer);
+  window.addEventListener('resize', debouncer);
   document.addEventListener('keydown', onKeyDown);
 }
 
