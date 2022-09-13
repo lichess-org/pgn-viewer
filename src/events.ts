@@ -1,10 +1,5 @@
 import Ctrl from './ctrl';
 
-const lpvs = new Set<Ctrl>();
-let viewTarget: Ctrl | undefined;
-
-initEventHandlers();
-
 export function stepwiseScroll(inner: (e: WheelEvent, scroll: boolean) => void): (e: WheelEvent) => void {
   let scrollTotal = 0;
   return (e: WheelEvent) => {
@@ -31,64 +26,17 @@ export function eventRepeater(action: () => void, e: Event) {
   document.addEventListener(eventName, () => clearTimeout(timeout), { once: true });
 }
 
-export function addCtrl(ctrl: Ctrl) {
-  lpvs.add(ctrl);
-  adjustViewTarget(); // after all lpvs are added, we only do this again after scrolling.
-}
+const suppressKeyNavOn = (e: KeyboardEvent): boolean =>
+  e.altKey ||
+  e.ctrlKey ||
+  e.shiftKey ||
+  e.metaKey ||
+  document.activeElement instanceof HTMLInputElement ||
+  document.activeElement instanceof HTMLTextAreaElement;
 
-function initEventHandlers() {
-  let scrollTimeout = 0;
-  const debouncer = () => {
-    if (scrollTimeout) window.clearTimeout(scrollTimeout);
-    scrollTimeout = window.setTimeout(adjustViewTarget, 125);
-  };
-  document.addEventListener('scroll', debouncer);
-  window.addEventListener('resize', debouncer);
-  document.addEventListener('keydown', onKeyDown);
-}
-
-function suppressKeyNavOn(e: KeyboardEvent): boolean {
-  const ae = document.activeElement;
-  if (
-    !viewTarget ||
-    e.getModifierState('Shift') ||
-    e.getModifierState('Alt') ||
-    e.getModifierState('Control') ||
-    e.getModifierState('Meta')
-  )
-    return true;
-  else if (ae instanceof HTMLInputElement)
-    switch ((ae as HTMLInputElement).type) {
-      case 'button':
-      case 'checkbox':
-      case 'color':
-      case 'image':
-      case 'radio':
-      case 'submit':
-      case 'file':
-        return false;
-      default:
-        return true;
-    }
-  else return ae instanceof HTMLTextAreaElement;
-}
-
-function onKeyDown(e: KeyboardEvent) {
+export const onKeyDown = (ctrl: Ctrl) => (e: KeyboardEvent) => {
   if (suppressKeyNavOn(e)) return;
-  else if (e.key == 'ArrowLeft') viewTarget?.goTo('prev');
-  else if (e.key == 'ArrowRight') viewTarget?.goTo('next');
-  else if (e.key == 'f' && !(document.activeElement instanceof HTMLSelectElement)) viewTarget?.flip();
-}
-
-function adjustViewTarget() {
-  let largestOnscreenLpvHeight = 0;
-  viewTarget = undefined;
-  lpvs.forEach((v: Ctrl) => {
-    const r = v.div!.getBoundingClientRect();
-    const onscreenLpvHeight = Math.min(window.innerHeight, r.bottom) - Math.max(0, r.top);
-    if (onscreenLpvHeight > largestOnscreenLpvHeight) {
-      largestOnscreenLpvHeight = onscreenLpvHeight;
-      viewTarget = v;
-    }
-  });
-}
+  else if (e.key == 'ArrowLeft') ctrl.goTo('prev');
+  else if (e.key == 'ArrowRight') ctrl.goTo('next');
+  else if (e.key == 'f') ctrl.flip();
+};

@@ -47,7 +47,10 @@ export default class Ctrl {
     this.autoScrollRequested = true;
     this.redrawGround();
     this.redraw();
+    this.focus();
   };
+
+  focus = () => this.div?.focus();
 
   toggleMenu = () => {
     this.pane = this.pane == 'board' ? 'menu' : 'board';
