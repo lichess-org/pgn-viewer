@@ -2,7 +2,8 @@ import Ctrl from '../ctrl';
 import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
 import { h, VNode } from 'snabbdom';
-import { bindNonPassive, onInsert, stepwiseScroll } from './util';
+import { bindNonPassive, onInsert } from './util';
+import { onKeyDown, stepwiseScroll } from '../events';
 import { renderMenu, renderControls } from './menu';
 import { renderMoves } from './side';
 import renderPlayer from './player';
@@ -15,9 +16,13 @@ export default function view(ctrl: Ctrl) {
         'lpv--menu': ctrl.pane != 'board',
         'lpv--players': ctrl.opts.showPlayers == 'auto' ? ctrl.game.hasPlayerName() : ctrl.opts.showPlayers,
       },
-      hook: onInsert(el =>
-        ctrl.setGround(Chessground(el.querySelector('.cg-wrap') as HTMLElement, makeConfig(ctrl, el)))
-      ),
+      attrs: {
+        tabindex: 0,
+      },
+      hook: onInsert(el => {
+        ctrl.setGround(Chessground(el.querySelector('.cg-wrap') as HTMLElement, makeConfig(ctrl, el)));
+        el.addEventListener('keydown', onKeyDown(ctrl));
+      }),
     },
     [
       ctrl.opts.showPlayers ? renderPlayer(ctrl, 'top') : undefined,
@@ -34,7 +39,18 @@ const renderBoard = (ctrl: Ctrl): VNode =>
   h(
     'div.lpv__board',
     {
-      hook: wheelScroll(ctrl),
+      hook: onInsert(el => {
+        el.addEventListener('click', ctrl.focus);
+        if (ctrl.opts.scrollToMove && !('ontouchstart' in window))
+          bindNonPassive(
+            'wheel',
+            stepwiseScroll((e: WheelEvent, scroll: boolean) => {
+              e.preventDefault();
+              if (e.deltaY > 0 && scroll) ctrl.goTo('next');
+              else if (e.deltaY < 0 && scroll) ctrl.goTo('prev');
+            })
+          );
+      }),
     },
     h('div.cg-wrap')
   );
@@ -55,18 +71,6 @@ const renderPgnPane = (ctrl: Ctrl): VNode => {
     h('textarea.lpv__pgn__text', ctrl.opts.pgn),
   ]);
 };
-
-const wheelScroll = (ctrl: Ctrl) =>
-  'ontouchstart' in window || !ctrl.opts.scrollToMove
-    ? undefined
-    : bindNonPassive(
-        'wheel',
-        stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-          e.preventDefault();
-          if (e.deltaY > 0 && scroll) ctrl.goTo('next');
-          else if (e.deltaY < 0 && scroll) ctrl.goTo('prev');
-        })
-      );
 
 export const makeConfig = (ctrl: Ctrl, rootEl: HTMLElement): CgConfig => ({
   viewOnly: !ctrl.opts.drawArrows,

@@ -37,5 +37,7 @@ test('longer mainline', () => {
 test('initial position', () => {
   expect(makeGame('').initial.pos.fullmoves).toBe(1);
   expect(makeGame('1. e4 c5 2. Nf3').initial.pos.fullmoves).toBe(1);
-  expect(makeGame('[FEN "rnbqkbnr/pppp1ppp/8/4p3/2B1P3/8/PPPP1PPP/RNBQK1NR b KQkq - 1 2"]').initial.pos.fullmoves).toBe(2);
+  expect(makeGame('[FEN "rnbqkbnr/pppp1ppp/8/4p3/2B1P3/8/PPPP1PPP/RNBQK1NR b KQkq - 1 2"]').initial.pos.fullmoves).toBe(
+    2
+  );
 });

@@ -14,6 +14,7 @@ export default function start(element: HTMLElement, cfg: Partial<Opts>) {
   const blueprint = view(ctrl);
   element.innerHTML = '';
   let vnode = patch(element, blueprint);
+  ctrl.div = vnode.elm as HTMLElement;
 
   function redraw() {
     vnode = patch(vnode, view(ctrl));

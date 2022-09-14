@@ -13,6 +13,7 @@ export default class Ctrl {
   path: Path;
   translate: Translate;
   ground?: CgApi;
+  div?: HTMLElement;
   flipped = false;
   pane = 'board';
   autoScrollRequested = false;
@@ -46,7 +47,10 @@ export default class Ctrl {
     this.autoScrollRequested = true;
     this.redrawGround();
     this.redraw();
+    this.focus();
   };
+
+  focus = () => this.div?.focus();
 
   toggleMenu = () => {
     this.pane = this.pane == 'board' ? 'menu' : 'board';

@@ -1,7 +1,8 @@
 import { h } from 'snabbdom';
 import Ctrl from '../ctrl';
 import { GoTo } from '../interfaces';
-import { bind, bindMobileMousedown, eventRepeater, onInsert } from './util';
+import { bind, bindMobileMousedown, onInsert } from './util';
+import { eventRepeater } from '../events';
 
 export const renderMenu = (ctrl: Ctrl) =>
   h('div.lpv__menu.lpv__pane', [
