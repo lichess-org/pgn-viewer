@@ -2,7 +2,7 @@ import Ctrl from '../ctrl';
 import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
 import { h, VNode } from 'snabbdom';
-import { bindNonPassive, onInsert } from './util';
+import { onInsert } from './util';
 import { onKeyDown, stepwiseScroll } from '../events';
 import { renderMenu, renderControls } from './menu';
 import { renderMoves } from './side';
@@ -42,11 +42,14 @@ const renderBoard = (ctrl: Ctrl): VNode =>
       hook: onInsert(el => {
         el.addEventListener('click', ctrl.focus);
         if (ctrl.opts.scrollToMove && !('ontouchstart' in window))
-          el.addEventListener('wheel', stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-            e.preventDefault();
-            if (e.deltaY > 0 && scroll) ctrl.goTo('next', false);
-            else if (e.deltaY < 0 && scroll) ctrl.goTo('prev', false);
-          }));
+          el.addEventListener(
+            'wheel',
+            stepwiseScroll((e: WheelEvent, scroll: boolean) => {
+              e.preventDefault();
+              if (e.deltaY > 0 && scroll) ctrl.goTo('next', false);
+              else if (e.deltaY < 0 && scroll) ctrl.goTo('prev', false);
+            })
+          );
       }),
     },
     h('div.cg-wrap')

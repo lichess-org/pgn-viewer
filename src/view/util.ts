@@ -14,9 +14,6 @@ export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => unknown, r
   }
 }
 
-export const bindNonPassive = <E extends Event>(eventName: string, f: (e: E) => any, redraw?: () => void): Hooks =>
-  bind(eventName, f, redraw, false);
-
 export const bind = <E extends Event>(
   eventName: string,
   f: (e: E) => any,
