@@ -42,14 +42,11 @@ const renderBoard = (ctrl: Ctrl): VNode =>
       hook: onInsert(el => {
         el.addEventListener('click', ctrl.focus);
         if (ctrl.opts.scrollToMove && !('ontouchstart' in window))
-          bindNonPassive(
-            'wheel',
-            stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-              e.preventDefault();
-              if (e.deltaY > 0 && scroll) ctrl.goTo('next');
-              else if (e.deltaY < 0 && scroll) ctrl.goTo('prev');
-            })
-          );
+          el.addEventListener('wheel', stepwiseScroll((e: WheelEvent, scroll: boolean) => {
+            e.preventDefault();
+            if (e.deltaY > 0 && scroll) ctrl.goTo('next', false);
+            else if (e.deltaY < 0 && scroll) ctrl.goTo('prev', false);
+          }));
       }),
     },
     h('div.cg-wrap')

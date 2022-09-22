@@ -27,7 +27,7 @@ export default class Ctrl {
   curNode = (): AnyNode => this.game.nodeAt(this.path) || this.game.moves;
   curData = (): InitialOrMove => this.game.dataAt(this.path) || this.game.initial;
 
-  goTo = (to: GoTo) => {
+  goTo = (to: GoTo, focus = true) => {
     const path =
       to == 'first'
         ? Path.root
@@ -36,18 +36,18 @@ export default class Ctrl {
         : to == 'next'
         ? this.game.nodeAt(this.path)?.children[0]?.data.path
         : this.game.pathAtMainlinePly('last');
-    this.toPath(path || this.path);
+    this.toPath(path || this.path, focus);
   };
 
   canGoTo = (to: GoTo) => (to == 'prev' || to == 'first' ? !this.path.empty() : !!this.curNode().children[0]);
 
-  toPath = (path: Path) => {
+  toPath = (path: Path, focus = true) => {
     this.path = path;
     this.pane = 'board';
     this.autoScrollRequested = true;
     this.redrawGround();
     this.redraw();
-    this.focus();
+    if (focus) this.focus();
   };
 
   focus = () => this.div?.focus();

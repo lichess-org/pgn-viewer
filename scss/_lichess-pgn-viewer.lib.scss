@@ -1,4 +1,5 @@
 $c-site-hue: 37 !default;
+$c-primary: hsl(209, 77%, 50%) !default;
 $c-accent: hsl(88, 62%, 37%) !default;
 $c-accent-over: white !default;
 $c-bg: hsl($c-site-hue, 5%, 18%) !default;
@@ -45,5 +46,9 @@ $c-interesting: hsl(307, 80%, 70%) !default;
     cg-board {
       box-shadow: none;
     }
+  }
+
+  &:focus { 
+    outline: auto 2px $c-primary;
   }
 }
