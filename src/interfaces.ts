@@ -77,6 +77,7 @@ export type Lichess = string | false;
 
 export interface Opts {
   pgn: string;
+  fen?: string;
   chessground: CgConfig;
   orientation: Color;
   showPlayers: ShowPlayers;

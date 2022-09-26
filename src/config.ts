@@ -2,6 +2,7 @@ import { Opts } from './interfaces';
 
 const defaults: Opts = {
   pgn: '*', // the PGN to render
+  fen: undefined, // initial FEN, will append [FEN "initial FEN"] to the PGN
   showPlayers: 'auto', // show the players above and under the board
   showClocks: true, // show the clocks alongside the players
   scrollToMove: true, // enable scrolling through moves with a mouse wheel
@@ -22,6 +23,7 @@ const defaults: Opts = {
 export default function (cfg: Partial<Opts>) {
   const opts = { ...defaults };
   deepMerge(opts, cfg);
+  if (opts.fen) opts.pgn = `[FEN "${opts.fen}"]\n${opts.pgn}`;
   return opts;
 }
 
