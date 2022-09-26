@@ -36,7 +36,8 @@ export class Game {
   pathAtMainlinePly = (ply: Ply | 'last') =>
     ply == 0
       ? Path.root
-      : this.mainline[Math.max(0, Math.min(this.mainline.length - 1, ply == 'last' ? 9999 : ply - 1))].path;
+      : this.mainline[Math.max(0, Math.min(this.mainline.length - 1, ply == 'last' ? 9999 : ply - 1))]?.path ||
+        Path.root;
 
   hasPlayerName = () => !!(this.players.white?.name || this.players.black?.name);
 }
