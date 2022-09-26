@@ -75,7 +75,7 @@ export default class Ctrl {
 
   cgState = (): CgConfig => {
     const data = this.curData();
-    const lastMove = isMoveData(data) ? uciToMove(data.uci) : undefined;
+    const lastMove = isMoveData(data) ? uciToMove(data.uci) : this.opts.chessground?.lastMove;
     return {
       fen: this.curData().fen,
       orientation: this.orientation(),
