@@ -33,7 +33,7 @@ $board-min-width: 200px !default;
       'side';
     grid-template-rows: auto $controls-height $grid-side-row;
     .lpv__controls {
-      border-bottom: 1px solid $c-border;
+      border-bottom: 1px solid $lpv-border;
     }
   }
 
@@ -81,7 +81,7 @@ $board-min-width: 200px !default;
         'side';
       grid-template-rows: $player-height auto $player-height $controls-height $grid-side-row;
       .lpv__controls {
-        border-bottom: 1px solid $c-border;
+        border-bottom: 1px solid $lpv-border;
       }
     }
 

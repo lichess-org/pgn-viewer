@@ -1,14 +1,14 @@
 body ::-webkit-scrollbar,
 body ::-webkit-scrollbar-corner {
   width: 0.5rem;
-  background: $c-bg;
+  background: $lpv-bg;
 }
 
 body ::-webkit-scrollbar-thumb {
-  background: mix($c-font, $c-bg, 20%);
+  background: mix($lpv-font, $lpv-bg, 20%);
 }
 
 body ::-webkit-scrollbar-thumb:hover,
 body ::-webkit-scrollbar-thumb:active {
-  background: $c-font-shy;
+  background: $lpv-font-shy;
 }

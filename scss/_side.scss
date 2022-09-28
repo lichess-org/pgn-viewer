@@ -1,10 +1,10 @@
-$c-bg-inaccuracy-hover: c-dimmer($c-inaccuracy, 70%) !default;
-$c-bg-mistake-hover: c-dimmer($c-mistake, 70%) !default;
-$c-bg-blunder-hover: c-dimmer($c-blunder, 70%) !default;
-$c-bg-good-hover: c-dimmer($c-good-move, 70%) !default;
-$c-bg-brilliant-hover: c-dimmer($c-brilliant, 70%) !default;
-$c-bg-interesting-hover: c-dimmer($c-interesting, 70%) !default;
-$c-border: hsl(37deg, 5%, 13%) !default;
+$lpv-bg-inaccuracy-hover: c-dimmer($lpv-inaccuracy, 70%) !default;
+$lpv-bg-mistake-hover: c-dimmer($lpv-mistake, 70%) !default;
+$lpv-bg-blunder-hover: c-dimmer($lpv-blunder, 70%) !default;
+$lpv-bg-good-hover: c-dimmer($lpv-good-move, 70%) !default;
+$lpv-bg-brilliant-hover: c-dimmer($lpv-brilliant, 70%) !default;
+$lpv-bg-interesting-hover: c-dimmer($lpv-interesting, 70%) !default;
+$lpv-border: hsl(37deg, 5%, 13%) !default;
 
 .lpv {
   &__side {
@@ -18,7 +18,7 @@ $c-border: hsl(37deg, 5%, 13%) !default;
     display: flex;
     flex-flow: row wrap;
     overflow-y: auto;
-    background: $c-bg-movelist;
+    background: $lpv-bg-movelist;
     align-items: center;
     align-content: flex-start;
     will-change: scroll-position;
@@ -26,7 +26,7 @@ $c-border: hsl(37deg, 5%, 13%) !default;
     line-height: 1.7;
     min-width: 20ch;
     index {
-      color: $c-font-shy;
+      color: $lpv-font-shy;
     }
     > index {
       flex: 0 0 15%;
@@ -40,54 +40,54 @@ $c-border: hsl(37deg, 5%, 13%) !default;
       font-weight: bold;
       white-space: nowrap;
       &.empty {
-        color: mix($c-font, $c-bg, 50%);
+        color: mix($lpv-font, $lpv-bg, 50%);
       }
       &:not(.empty):hover {
-        background: mix($c-accent, $c-bg, 30%);
-        color: $c-accent-over;
+        background: mix($lpv-accent, $lpv-bg, 30%);
+        color: $lpv-accent-over;
         cursor: pointer;
       }
       &.ancestor {
-        color: $c-font-accent;
+        color: $lpv-font-accent;
       }
       &.current {
-        background: mix($c-accent, $c-bg, 70%) !important;
-        color: $c-accent-over;
+        background: mix($lpv-accent, $lpv-bg, 70%) !important;
+        color: $lpv-accent-over;
       }
       &.inaccuracy {
-        color: $c-inaccuracy;
+        color: $lpv-inaccuracy;
         &:hover {
-          background: $c-bg-inaccuracy-hover;
+          background: $lpv-bg-inaccuracy-hover;
         }
       }
       &.mistake {
-        color: $c-mistake;
+        color: $lpv-mistake;
         &:hover {
-          background: $c-bg-mistake-hover;
+          background: $lpv-bg-mistake-hover;
         }
       }
       &.blunder {
-        color: $c-blunder;
+        color: $lpv-blunder;
         &:hover {
-          background: $c-bg-blunder-hover;
+          background: $lpv-bg-blunder-hover;
         }
       }
       &.good {
-        color: $c-good-move;
+        color: $lpv-good-move;
         &:hover {
-          background: $c-bg-good-hover;
+          background: $lpv-bg-good-hover;
         }
       }
       &.brilliant {
-        color: $c-brilliant;
+        color: $lpv-brilliant;
         &:hover {
-          background: $c-bg-brilliant-hover;
+          background: $lpv-bg-brilliant-hover;
         }
       }
       &.interesting {
-        color: $c-interesting;
+        color: $lpv-interesting;
         &:hover {
-          background: $c-bg-interesting-hover;
+          background: $lpv-bg-interesting-hover;
         }
       }
     }
@@ -101,8 +101,8 @@ $c-border: hsl(37deg, 5%, 13%) !default;
     }
     > comment {
       flex: 1 1 100%;
-      background: $c-bg-variation;
-      border: 1px solid $c-border;
+      background: $lpv-bg-variation;
+      border: 1px solid $lpv-border;
       border-width: 1px 0;
       padding: 0.4em 1em;
       line-height: 1.4;
@@ -118,8 +118,8 @@ $c-border: hsl(37deg, 5%, 13%) !default;
       display: block;
       overflow: hidden;
       font-size: 0.8em;
-      background: $c-bg-variation;
-      border: 1px solid $c-border;
+      background: $lpv-bg-variation;
+      border: 1px solid $lpv-border;
       border-width: 1px 0;
       padding: 0em 0.6em;
       + variation {
@@ -146,7 +146,7 @@ $c-border: hsl(37deg, 5%, 13%) !default;
         margin: 0 0.3em;
       }
       paren {
-        color: $c-font-shy;
+        color: $lpv-font-shy;
         &.open {
           margin: 0 0.1em 0 0.2em;
         }

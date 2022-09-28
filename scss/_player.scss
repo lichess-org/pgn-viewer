@@ -1,13 +1,13 @@
 .lpv {
   &__player {
     font-size: 0.8em;
-    background: $c-bg-player;
+    background: $lpv-bg-player;
     display: flex;
     flex-flow: row nowrap;
     padding: 0 1em;
     // justify-content: stretch;
     &--bottom {
-      border-bottom: 1px solid $c-border;
+      border-bottom: 1px solid $lpv-border;
     }
     &__person {
       flex: 1 1 auto;
@@ -15,7 +15,7 @@
       flex-flow: row nowrap;
       align-items: center;
       gap: 1ch;
-      color: $c-font;
+      color: $lpv-font;
       text-decoration: none;
     }
     &__title {
@@ -29,7 +29,7 @@
       font-size: 1.4em;
       font-weight: bold;
       &.active {
-        color: $c-accent;
+        color: $lpv-accent;
       }
     }
   }
