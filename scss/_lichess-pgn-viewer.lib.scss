@@ -37,6 +37,12 @@ $lpv-interesting: hsl(307, 80%, 70%) !default;
   color: $lpv-font;
   box-sizing: border-box;
 
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+
   &__board {
     user-select: none;
     .cg-wrap {
