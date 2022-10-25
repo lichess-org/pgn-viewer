@@ -46,7 +46,7 @@ For these features, use an [analysis board](https://lichess.org/analysis) or [Li
 ```
 npm install
 npm run sass-dev
-npm run dev
+npm run watch
 npm run demo
 ```
 
