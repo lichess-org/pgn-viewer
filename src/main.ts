@@ -7,7 +7,7 @@ import config from './config';
 export default function start(element: HTMLElement, cfg: Partial<Opts>) {
   const patch = init([classModule, attributesModule]);
 
-  const opts = config(cfg);
+  const opts = config(element, cfg);
 
   const ctrl = new Ctrl(opts, redraw);
 

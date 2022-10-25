@@ -9,12 +9,14 @@ import { renderMoves } from './side';
 import renderPlayer from './player';
 
 export default function view(ctrl: Ctrl) {
+  const opts = ctrl.opts,
+    staticClasses = `lpv.lpv--moves-${opts.showMoves}${opts.classes ? '.' + opts.classes.replace(' ', '.') : ''}`;
   return h(
-    `div.lpv.lpv--moves-${ctrl.opts.showMoves}`,
+    `div.${staticClasses}`,
     {
       class: {
         'lpv--menu': ctrl.pane != 'board',
-        'lpv--players': ctrl.opts.showPlayers == 'auto' ? ctrl.game.hasPlayerName() : ctrl.opts.showPlayers,
+        'lpv--players': opts.showPlayers == 'auto' ? ctrl.game.hasPlayerName() : opts.showPlayers,
       },
       attrs: {
         tabindex: 0,
@@ -25,11 +27,11 @@ export default function view(ctrl: Ctrl) {
       }),
     },
     [
-      ctrl.opts.showPlayers ? renderPlayer(ctrl, 'top') : undefined,
+      opts.showPlayers ? renderPlayer(ctrl, 'top') : undefined,
       renderBoard(ctrl),
-      ctrl.opts.showPlayers ? renderPlayer(ctrl, 'bottom') : undefined,
+      opts.showPlayers ? renderPlayer(ctrl, 'bottom') : undefined,
       renderControls(ctrl),
-      ctrl.opts.showMoves ? renderMoves(ctrl) : undefined,
+      opts.showMoves ? renderMoves(ctrl) : undefined,
       ctrl.pane == 'menu' ? renderMenu(ctrl) : ctrl.pane == 'pgn' ? renderPgnPane(ctrl) : undefined,
     ]
   );

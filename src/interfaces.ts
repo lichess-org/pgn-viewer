@@ -93,5 +93,6 @@ export interface Opts {
     };
   };
   lichess: Lichess;
+  classes?: string;
   translate?: Translate;
 }
