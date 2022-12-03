@@ -17,8 +17,8 @@
   "module": "main.js",
   "types": "main.d.ts",
   "dependencies": {
-    "chessground": "^8.3.4",
-    "chessops": "^0.12.4",
+    "chessground": "^8.3.5",
+    "chessops": "^0.12.5",
     "snabbdom": "^3"
   },
   "devDependencies": {
