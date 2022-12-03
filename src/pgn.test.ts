@@ -41,3 +41,24 @@ test('initial position', () => {
     2
   );
 });
+test('empty player names', () => {
+  const pgn = `[Event "Import"]
+[WhiteElo "?"]
+[BlackElo "?"]
+`
+  expect(makeGame(pgn).hasPlayerName()).toBe(false);
+});
+test('question mark player names', () => {
+  const pgn = `[Event "Import"]
+[White "?"]
+[Black "?"]
+[WhiteElo "?"]
+[BlackElo "?"]
+`
+  expect(makeGame(pgn).hasPlayerName()).toBe(false);
+});
+test('empty player rating', () => {
+  const pgn = `[Event "Import"]
+`
+  expect(makeGame(pgn).players.white.rating).toBe(undefined);
+});
