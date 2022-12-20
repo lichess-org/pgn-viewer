@@ -87,7 +87,7 @@ export default class Ctrl {
 
   analysisUrl = () =>
     (this.game.metadata.isLichess && this.game.metadata.externalLink) ||
-    `https://lichess.org/analysis/${this.curData().fen.replace(' ', '_')}?color=${this.orientation}`;
+    `https://lichess.org/analysis/${this.curData().fen.replace(' ', '_')}?color=${this.orientation()}`;
   practiceUrl = () => `${this.analysisUrl()}#practice`;
 
   setGround = (cg: CgApi) => {
