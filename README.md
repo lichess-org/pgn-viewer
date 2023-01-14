@@ -71,15 +71,22 @@ npm i lichess-pgn-viewer
 ```js
 import LichessPgnViewer from 'lichess-pgn-viewer';
 
-LichessPgnViewer(domElement, {
+const lpv = LichessPgnViewer(domElement, {
   pgn: 'e4 c5 Nf3 d6 e5 Nc6 exd6 Qxd6 Nc3 Nf6',
 });
+
+// lpv is an instance of Ctrl, providing some utilities such as:
+lpv.goTo('first');
+lpv.goTo('next');
+lpv.flip();
+console.log(lpv.game);
+// see more in ctrl.ts
 ```
 
 ### Configuration
 
 ```js
-LichessPgnViewer(domElement, {
+const lpv = LichessPgnViewer(domElement, {
   pgn: 'e4 c5 Nf3 d6 e5 Nc6 exd6 Qxd6 Nc3 Nf6',
   // ... more Config
 });
