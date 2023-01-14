@@ -163,4 +163,5 @@ You can find the book here for an absurdly low price: https://www.amazon.com/Mam
     pgn: '21... Rg8 22. Qh3 f4 23. Bf5 Bxf5 24. Qxf5 fxe3 25. Qxf6+ Rg7 26. fxe3 Bxe3+ 27. Kh1 Bg5 28. Ng6+ hxg6 29. Qxg5 e4 30. Rf6 Rh7 31. Qxg6 { Black wins by checkmate. } Qxh2# 0-1',
     showPlayers: false,
   },
+  { pgn: pgns.lichess, showMoves: false, showPlayers: true, showControls: false },
 ].forEach((cfg, i) => LichessPgnViewer(document.querySelector(`.viewers > div:nth-child(${i + 1}) > div`), cfg));

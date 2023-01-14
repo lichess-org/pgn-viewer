@@ -10,7 +10,9 @@ import renderPlayer from './player';
 
 export default function view(ctrl: Ctrl) {
   const opts = ctrl.opts,
-    staticClasses = `lpv.lpv--moves-${opts.showMoves}${opts.classes ? '.' + opts.classes.replace(' ', '.') : ''}`;
+    staticClasses = `lpv.lpv--moves-${opts.showMoves}.lpv--controls-${opts.showControls}${
+      opts.classes ? '.' + opts.classes.replace(' ', '.') : ''
+    }`;
   return h(
     `div.${staticClasses}`,
     {
@@ -30,7 +32,7 @@ export default function view(ctrl: Ctrl) {
       opts.showPlayers ? renderPlayer(ctrl, 'top') : undefined,
       renderBoard(ctrl),
       opts.showPlayers ? renderPlayer(ctrl, 'bottom') : undefined,
-      renderControls(ctrl),
+      opts.showControls ? renderControls(ctrl) : undefined,
       opts.showMoves ? renderMoves(ctrl) : undefined,
       ctrl.pane == 'menu' ? renderMenu(ctrl) : ctrl.pane == 'pgn' ? renderPgnPane(ctrl) : undefined,
     ]

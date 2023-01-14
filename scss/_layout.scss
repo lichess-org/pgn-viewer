@@ -11,11 +11,16 @@ $board-min-width: 200px !default;
   overflow: hidden;
   grid-row-gap: 0;
 
+  --controls-height: $controls-height;
+  &--controls-false {
+    --controls-height: 0;
+  }
+
   &--moves-false {
     grid-template-areas:
       'board'
       'controls';
-    grid-template-rows: auto $controls-height;
+    grid-template-rows: auto var(--controls-height);
   }
 
   &--moves-right {
@@ -23,7 +28,7 @@ $board-min-width: 200px !default;
       'board      side'
       'controls   side';
     grid-template-columns: auto $grid-side-column;
-    grid-template-rows: auto $controls-height;
+    grid-template-rows: auto var(--controls-height);
   }
 
   &--moves-bottom {
@@ -31,7 +36,7 @@ $board-min-width: 200px !default;
       'board'
       'controls'
       'side';
-    grid-template-rows: auto $controls-height $grid-side-row;
+    grid-template-rows: auto var(--controls-height);
     .lpv__controls {
       border-bottom: 1px solid $lpv-border;
     }
@@ -41,15 +46,15 @@ $board-min-width: 200px !default;
     grid-template-areas:
       'board      side'
       'controls   side';
-    grid-template-columns: minmax($board-min-width, calc(100vh - #{$controls-height})) $grid-side-column-full-screen;
-    grid-template-rows: auto $controls-height;
+    grid-template-columns: minmax($board-min-width, calc(100vh - var(--controls-height))) $grid-side-column-full-screen;
+    grid-template-rows: auto var(--controls-height);
     @media (max-width: #{$moves-auto-to-right}) {
       grid-template-areas:
         'board'
         'controls'
         'side';
-      grid-template-columns: minmax($board-min-width, calc(100vh - #{$controls-height} - #{$grid-side-row}));
-      grid-template-rows: auto $controls-height minmax($grid-side-row, 25vh);
+      grid-template-columns: minmax($board-min-width, calc(100vh - var(--controls-height) - #{$grid-side-row}));
+      grid-template-rows: auto var(--controls-height);
     }
   }
 
@@ -60,7 +65,7 @@ $board-min-width: 200px !default;
         'board'
         'player-bot'
         'controls';
-      grid-template-rows: $player-height auto $player-height $controls-height;
+      grid-template-rows: $player-height auto $player-height var(--controls-height);
     }
 
     &.lpv--moves-right {
@@ -69,7 +74,7 @@ $board-min-width: 200px !default;
         'board      side'
         'player-bot side'
         'controls   side';
-      grid-template-rows: $player-height auto $player-height $controls-height;
+      grid-template-rows: $player-height auto $player-height var(--controls-height);
     }
 
     &.lpv--moves-bottom {
@@ -79,7 +84,7 @@ $board-min-width: 200px !default;
         'player-bot'
         'controls'
         'side';
-      grid-template-rows: $player-height auto $player-height $controls-height $grid-side-row;
+      grid-template-rows: $player-height auto $player-height var(--controls-height);
       .lpv__controls {
         border-bottom: 1px solid $lpv-border;
       }
@@ -91,8 +96,8 @@ $board-min-width: 200px !default;
         'board      side'
         'player-bot side'
         'controls   side';
-      grid-template-columns: minmax($board-min-width, calc(100vh - 2 * #{$player-height} - #{$controls-height})) $grid-side-column-full-screen;
-      grid-template-rows: $player-height auto $player-height $controls-height;
+      grid-template-columns: minmax($board-min-width, calc(100vh - 2 * #{$player-height} - var(--controls-height))) $grid-side-column-full-screen;
+      grid-template-rows: $player-height auto $player-height var(--controls-height);
       @media (max-width: #{$moves-auto-to-right}) {
         grid-template-areas:
           'player-top'
@@ -102,9 +107,9 @@ $board-min-width: 200px !default;
           'side';
         grid-template-columns: minmax(
           $board-min-width,
-          calc(100vh - 2 * #{$player-height} - #{$controls-height} - #{$grid-side-row})
+          calc(100vh - 2 * #{$player-height} - var(--controls-height) - #{$grid-side-row})
         );
-        grid-template-rows: $player-height auto $player-height $controls-height minmax($grid-side-row, 25vh);
+        grid-template-rows: $player-height auto $player-height var(--controls-height);
       }
     }
   }

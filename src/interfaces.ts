@@ -83,6 +83,7 @@ export interface Opts {
   showPlayers: ShowPlayers;
   showMoves: ShowMoves;
   showClocks: boolean;
+  showControls: boolean;
   initialPly: Ply | 'last';
   scrollToMove: boolean;
   drawArrows: boolean;
