@@ -1,7 +1,7 @@
 {
   "name": "lichess-pgn-viewer",
   "license": "GPL-3.0-or-later",
-  "version": "1.4.4",
+  "version": "1.5.0",
   "repository": "github:lichess-org/pgn-viewer",
   "author": "Thibault Duplessis <contact@lichess.org>",
   "funding": "https://lichess.org/patron",
