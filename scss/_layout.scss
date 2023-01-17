@@ -11,7 +11,7 @@ $board-min-width: 200px !default;
   overflow: hidden;
   grid-row-gap: 0;
 
-  --controls-height: $controls-height;
+  --controls-height: #{$controls-height};
   &--controls-false {
     --controls-height: 0;
   }
