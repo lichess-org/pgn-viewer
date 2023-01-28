@@ -95,3 +95,22 @@ const lpv = LichessPgnViewer(domElement, {
 See [all configuration options in the documented source code](https://github.com/lichess-org/pgn-viewer/blob/master/src/config.ts#L3).
 
 View more examples in `demo/index.html`
+
+## Styles
+
+### SCSS (recommended)
+
+If you use [SCSS](https://sass-lang.com/), you can import the styles with:
+```scss
+@import '../../node_modules/lichess-pgn-viewer/scss/lichess-pgn-viewer.lib';
+```
+Customisable SCSS variables are available, see [how lichess configures lichess-pgn-viewer with SCSS](https://github.com/lichess-org/lila/blob/master/ui/common/css/component/_lichess-pgn-viewer.scss).
+
+### CSS
+
+Alternatively you can build a CSS file with
+```sh
+npm run sass-prod
+```
+Then copy the `dist/lichess-pgn-viewer.css` file into your project.
+
