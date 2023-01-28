@@ -104,7 +104,7 @@ If you use [SCSS](https://sass-lang.com/), you can import the styles with:
 ```scss
 @import '../../node_modules/lichess-pgn-viewer/scss/lichess-pgn-viewer.lib';
 ```
-Customisable SCSS variables are available, see [how lichess configures lichess-pgn-viewer with SCSS](https://github.com/lichess-org/lila/blob/master/ui/common/css/component/_lichess-pgn-viewer.scss).
+Customisable SCSS variables are [available](https://github.com/lichess-org/pgn-viewer/blob/master/scss/_lichess-pgn-viewer.lib.scss), see [how lichess configures lichess-pgn-viewer with SCSS](https://github.com/lichess-org/lila/blob/master/ui/common/css/component/_lichess-pgn-viewer.scss).
 
 ### CSS
 
