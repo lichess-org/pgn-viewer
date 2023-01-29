@@ -10,7 +10,7 @@
     "declarationDir": "",
     "sourceMap": true,
     "outDir": "",
-    "target": "ES2018",
+    "target": "ES2019",
     "module": "esnext",
     "lib": ["DOM", "ES2019"]
   },
