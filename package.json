@@ -52,6 +52,7 @@
     "*.js",
     "*.js.map",
     "*.d.ts",
+    "demo/*",
     "dist/*",
     "view/*",
     "scss/*",
