@@ -12,7 +12,7 @@
     "outDir": "",
     "target": "ES2018",
     "module": "esnext",
-    "lib": ["DOM", "ES2018"]
+    "lib": ["DOM", "ES2019"]
   },
   "include": ["src"]
 }
