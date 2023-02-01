@@ -9,14 +9,10 @@ sed -i -e "s/\"version\": \".*\"/\"version\": \"$version\"/g" package.json;
 npm install
 npm run test
 
+npm publish
+
 git add package.json
-git add package-lock.json
-
 git commit -m "Bump v$version"
-
 git tag "v$version"
-
 git push
 git push --tags
-
-npm publish
