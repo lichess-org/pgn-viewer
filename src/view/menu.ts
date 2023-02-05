@@ -67,11 +67,11 @@ export const renderControls = (ctrl: Ctrl) =>
     ctrl.pane == 'board' ? undefined : dirButton(ctrl, 'first', 'step-backward'),
     dirButton(ctrl, 'prev', 'left-open'),
     h(
-      'button.lpv__fbt.lpv__controls__menu.icon',
+      'button.lpv__fbt.lpv__controls__menu.lpv__icon',
       {
         class: {
           active: ctrl.pane != 'board',
-          'icon-ellipsis-vert': ctrl.pane == 'board',
+          'lpv__icon-ellipsis-vert': ctrl.pane == 'board',
         },
         hook: bind('click', ctrl.toggleMenu),
       },
@@ -82,7 +82,7 @@ export const renderControls = (ctrl: Ctrl) =>
   ]);
 
 const dirButton = (ctrl: Ctrl, to: GoTo, icon: string) =>
-  h(`button.lpv__controls__goto.lpv__controls__goto--${to}.lpv__fbt.icon.icon-${icon}`, {
+  h(`button.lpv__controls__goto.lpv__controls__goto--${to}.lpv__fbt.lpv__icon.lpv__icon-${icon}`, {
     class: { disabled: ctrl.pane == 'board' && !ctrl.canGoTo(to) },
     hook: onInsert(el => bindMobileMousedown(el, e => eventRepeater(() => ctrl.goTo(to), e))),
   });
