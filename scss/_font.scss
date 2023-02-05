@@ -1,29 +1,33 @@
 @import './font-embed';
 
-.icon:before {
-  font-family: 'fontello';
+.lpv {
+  &__icon {
+    &:before {
+      font-family: 'lpv-fontello';
 
-  font-size: 1.1em;
-  width: 1em;
-  text-align: center;
+      font-size: 1.1em;
+      width: 1em;
+      text-align: center;
 
-  /* Font smoothing. That was taken from TWBS */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+      /* Font smoothing. That was taken from TWBS */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    &-step-forward:before {
+      content: '\e800';
+    } /* '' */
+    &-step-backward:before {
+      content: '\e801';
+    } /* '' */
+    &-left-open:before {
+      content: '\e802';
+    } /* '' */
+    &-right-open:before {
+      content: '\e803';
+    } /* '' */
+    &-ellipsis-vert:before {
+      content: '\f142';
+    } /* '' */
+  }
 }
-
-.icon-step-forward:before {
-  content: '\e800';
-} /* '' */
-.icon-step-backward:before {
-  content: '\e801';
-} /* '' */
-.icon-left-open:before {
-  content: '\e802';
-} /* '' */
-.icon-right-open:before {
-  content: '\e803';
-} /* '' */
-.icon-ellipsis-vert:before {
-  content: '\f142';
-} /* '' */
