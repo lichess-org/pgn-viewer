@@ -36,7 +36,7 @@ export const renderMoves = (ctrl: Ctrl) =>
   );
 
 const emptyMove = () => h('move.empty', '...');
-const indexNode = (turn: number) => h('index', [turn, '.']);
+const indexNode = (turn: number) => h('index', `${turn}.`);
 const commentNode = (comment: string) => h('comment', comment);
 const parenOpen = () => h('paren.open', '(');
 const parenClose = () => h('paren.close', ')');
