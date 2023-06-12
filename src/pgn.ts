@@ -113,7 +113,7 @@ function makePlayers(headers: Headers, metadata: Metadata): Players {
 }
 
 function makeMetadata(headers: Headers, lichess: Lichess): Metadata {
-  const site = headers.get('site');
+  const site = headers.get('source') || headers.get('site');
   const tcs = headers
     .get('timecontrol')
     ?.split('+')
