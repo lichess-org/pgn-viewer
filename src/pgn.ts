@@ -8,7 +8,7 @@ import { MoveData, Initial, Players, Player, Comments, Metadata, Clocks, Lichess
 import { Path } from './path';
 
 class State {
-  constructor(readonly pos: Position, public path: Path, public clocks: Clocks) { }
+  constructor(readonly pos: Position, public path: Path, public clocks: Clocks) {}
   clone = () => new State(this.pos.clone(), this.path, { ...this.clocks });
 }
 
@@ -96,7 +96,7 @@ function makePlayers(headers: Headers, metadata: Metadata): Players {
   const get = (color: Color, field: string): string | undefined => {
     const raw = headers.get(`${color}${field}`);
     return raw == '?' || raw == '' ? undefined : raw;
-  }
+  };
   const makePlayer = (color: Color): Player => {
     const name = get(color, '');
     return {
@@ -121,9 +121,9 @@ function makeMetadata(headers: Headers, lichess: Lichess): Metadata {
   const timeControl =
     tcs && tcs[0]
       ? {
-        initial: tcs[0],
-        increment: tcs[1] || 0,
-      }
+          initial: tcs[0],
+          increment: tcs[1] || 0,
+        }
       : undefined;
   return {
     externalLink: site && site.match(/^https?:\/\//) ? site : undefined,

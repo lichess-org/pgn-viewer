@@ -138,6 +138,25 @@ You can find the book here for an absurdly low price: https://www.amazon.com/Mam
 [Annotator "lichess.org"]
 
 2... Nf6 3. Nf3 Nc6 4. Ng5 d5 5. exd5 Nxd5 6. Nxf7 Kxf7 7. Qf3+ Qf6 8. Bxd5+ Ke7 9. Bxc6 Qxf3 10. Bxf3 g6 11. b3 Bg7 12. h4 Rf8 13. Nc3 Bf5 14. a4 Bxc2 15. d3 Bxb3 16. Bxb7 Rab8 17. Bf3 Be6 18. Ne4 Bf5 19. h5 g5 20. h6 g4 21. Bxg4 Bh8 22. Bxf5 Rxf5 23. Bd2 Rbf8 24. Rb1 Bf6 25. Rb7 Kd7 26. f3 Be7 27. Kf2 Bd6 28. a5 Kc6 29. Rxa7 Bc5+ 30. Ke2 Bxa7 { White wins on time. } 31. a6 1-0`,
+
+  shapes: `
+[Event "AlphaZero -- Stockfish 8 match"]
+[Site "London ENG"]
+[Date "2017.12.04"]
+[Round "3"]
+[White "AlphaZero"]
+[Black "Stockfish"]
+[Result "1-0"]
+[WhiteElo "0"]
+[BlackElo "0"]
+[Annotator "Gavriel,Tryfon"]
+[UTCDate "2023.06.02"]
+[UTCTime "10:01:19"]
+[Variant "Standard"]
+[ECO "E15"]
+[Opening "Queen's Indian Defense: Fianchetto Variation, Nimzowitsch Variation"]
+
+1. Nf3 Nf6 2. c4 b6 3. d4 e6 4. g3 Ba6 5. Qc2 c5 6. d5 exd5 7. cxd5 Bb7 (7... Nxd5 8. Qe4+ Ne7 9. Qxa8 Nec6 10. e3 Bxf1 11. Kxf1 Qc8 12. Kg2 Be7 13. Nc3 O-O 14. Rd1 Qa6 15. Rxd7 Nxd7 16. Qxc6 $16) 8. Bg2 Nxd5 (8... Bxd5 9. Nc3 Bc6 (9... Be6 10. Ne5 Na6 11. a3 (11. Bxa8 Qxa8 12. e4 $10) 11... Nc7 (11... b5 12. O-O Rb8 13. Rd1 Rb6 14. e4 Be7 15. f4 O-O 16. f5 Bc4 17. Nxc4 bxc4 18. e5 Ng4 19. f6 gxf6 20. Qf5 Nxe5 21. Be4 Ng6 22. Rxd7 Qe8 23. Nd5 Bd8 24. Nxb6 axb6 25. Bh6 $16) 12. Bf4 Be7 13. Nc6 dxc6 14. Bxc6+ Kf8 15. Bxc7 Qxc7 16. Bxa8 $16) 10. e4 Be7 11. O-O O-O 12. Rd1 Ne8 $16) 9. O-O Nc6 10. Rd1 Be7 11. Qf5 (11. Rxd5 Nb4 12. Qc3 Nxd5 $17) 11... Nf6 12. e4 g6 { [%csl Gg7,Gh6,Gf6] } (12... O-O 13. e5 Ne8 14. Nc3 (14. Rxd7)) 13. Qf4 (13. Qh3 h5) 13... O-O 14. e5 { [%csl Ge5][%cal Ye5d6,Ye5f6] } 14... Nh5 15. Qg4 Re8 16. Nc3 Qb8 17. Nd5 Bf8 (17... Nxe5 18. Nxe5 Qxe5 19. Nxe7+ Rxe7 20. Bxb7 $16) 18. Bf4 Qc8 (18... Nxf4 19. Nf6+ Kg7 20. gxf4 (20. Nxe8+ Qxe8 21. Qxf4 $16) 20... d6 21. Ng5 Qc7 22. Qh3 h6 23. Ng4 h5 24. exd6 Qd7 25. Bxc6 Qxc6 26. Qc3+ Kg8 27. Nf6+ Kh8 28. Nxe8+ Kg8 29. Nf6+ Kg7 30. Nxh5+ Kg8 31. Nf6+ Kg7 32. Nd5+ Kg8 33. Qh3 Bh6 34. Qxh6 Qxd5 35. Qh7+ Kf8 36. Qh8#) 19. h3 Ne7 20. Ne3 Bc6 21. Rd6 Ng7 22. Rf6 { [%csl Bf6] } 22... Qb7 { mistake } (22... Nh5 23. Rd6 Ng7 24. Rf6 $10) 23. Bh6 Nd5 24. Nxd5 Bxd5 25. Rd1 Ne6 26. Bxf8 Rxf8 27. Qh4 Bc6 28. Qh6 Rae8 29. Rd6 Bxf3 30. Bxf3 Qa6 31. h4 Qa5 (31... Qxa2 32. h5 Qxb2 33. hxg6 Qb1+ 34. Kg2 hxg6 35. Rxd7 a5 36. Bd5 a4 37. Bxe6) 32. Rd1 c4 33. Rd5 Qe1+ 34. Kg2 c3 35. bxc3 Qxc3 36. h5 Re7 37. Bd1 Qe1 38. Bb3 { threat is Rd4 } 38... Rd8 (38... a5 39. Rd4 Nxd4 (39... Qxe5 40. hxg6 hxg6 41. Rh4 Nf4+ 42. Kh2 Qh5 43. Rxh5 $16) 40. hxg6 hxg6 (40... Qe4+ 41. f3 Qxg6 42. Rxg6+ hxg6 43. Qxg6+ Kh8 44. Qh6+ Kg8 45. Qg5+ Kh8 46. Qxe7 $16) 41. Rxg6#) 39. Rf3 (39. Rd4 Qxe5 40. hxg6 hxg6 41. Rxe6 (41. Rh4 Qxf6 $17) 41... Rxe6 $17) 39... Qe4 40. Qd2 Qg4 41. Bd1 Qe4 (41... Qxh5 42. Rxf7) 42. h6 { thorn pawn } { [%csl Bh6][%cal Bh6g7] } 42... Nc7 43. Rd6 Ne6 44. Bb3 Qxe5 45. Rd5 Qh8 (45... Qa1 46. Rc3 a5 47. Rd4 { Bxe6 threat } 47... b5 (47... Nxd4 48. Qxd4 Kf8 49. Qh8#) 48. Bxe6 fxe6 49. Rc1 Qxd4 50. Qxd4 $16) 46. Qb4 Nc5 { [%cal Gd5c5] } 47. Rxc5 { [%cal Rd5c5] } 47... bxc5 48. Qh4 Rde8 49. Rf6 { [%cal Yh8f6,Yh6g7] } 49... Rf8 (49... Re6 50. Bxe6 Rxe6 (50... fxe6 51. Qf4 { g4 position } 51... e5 (51... c4 52. Qd4 a5 53. g4 Rd8 54. g5 Re8 55. Qxd7 Rf8 56. Qxe6+ Rf7 57. Qxf7#) 52. Qf3 e4 53. Qb3+ c4 54. Qxc4+ Re6 55. Qc8+ Re8 56. Qxe8#) (50... dxe6 51. Qf4 Rc8 52. g4 { not rxf7 } 52... c4 53. g5 c3 54. Qf3 c2 55. Qb7 Rf8 56. Qc7 c1=Q 57. Qxc1 a6 58. Qc5 Re8 59. Qc7 Rf8 60. Qa7 a5 61. Qxa5 Re8 62. Qa7 Rf8 63. Qe7 e5 64. a4 e4 65. Qxe4 Rd8 66. Qe7 Rf8 67. a5 Qg7 68. hxg7 $16) 51. Rxe6 fxe6 52. Qe7 d5 53. Qe8#) 50. Qf4 a5 51. g4 d5 (51... a4 52. Bd5 Re6 53. Bxe6 dxe6 54. g5 Rc8 55. Qxa4 Rf8 56. Qc6 c4 57. Qxc4 Re8 58. Qc7 Rf8 59. a4 Qg7 60. hxg7 $16) 52. Bxd5 Rd7 53. Bc4 a4 54. g5 { [%cal Yg5f6,Yh8f6,Yg8g7,Yh8g7] } 54... a3 55. Qf3 Rc7 56. Qxa3 Qxf6 { [%cal Yh8f6] } 57. gxf6 Rfc8 58. Qd3 Rf8 59. Qd6 Rfc8 60. a4 { end of game } 60... Ra7 61. a5 Rb7 62. a6 Rbc7 63. Qb6 Rc6 64. Qb5 R6c7 65. Qa5 Rd7 66. Qb6 Ra8 67. Qxc5 Kh8 68. Qe7 Rxe7 69. fxe7 Re8 70. a7 f5 71. Bd5 f4 72. a8=Q $16 { 1-0 White wins. } 1-0`,
 };
 
 [
@@ -164,4 +183,5 @@ You can find the book here for an absurdly low price: https://www.amazon.com/Mam
     showPlayers: false,
   },
   { pgn: pgns.lichess, showMoves: false, showPlayers: true, showControls: false },
+  { pgn: pgns.shapes, initialPly: 27 },
 ].forEach((cfg, i) => LichessPgnViewer(document.querySelector(`.viewers > div:nth-child(${i + 1}) > div`), cfg));
