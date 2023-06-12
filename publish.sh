@@ -4,12 +4,12 @@ version=$1
 
 echo "Publishing $version"
 
-sed -i -e "s/\"version\": \".*\"/\"version\": \"$version\"/g" package.json;
+sed -i -e "s/\"version\": \".*\"/\"version\": \"$version\"/g" package.json
 
-npm install
-npm run test
+pnpm install
+# pnpm run test
 
-npm publish
+pnpm publish
 
 git add package.json
 git commit -m "Bump v$version"
