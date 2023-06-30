@@ -47,6 +47,7 @@ export interface Metadata {
     initial: number;
     increment: number;
   };
+  orientation?: Color;
 }
 
 export interface Player {

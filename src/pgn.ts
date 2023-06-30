@@ -125,9 +125,11 @@ function makeMetadata(headers: Headers, lichess: Lichess): Metadata {
           increment: tcs[1] || 0,
         }
       : undefined;
+  const orientation = headers.get('orientation');
   return {
     externalLink: site && site.match(/^https?:\/\//) ? site : undefined,
     isLichess: !!(lichess && site?.startsWith(lichess)),
     timeControl,
+    orientation: orientation === 'white' || orientation === 'black' ? orientation : undefined,
   };
 }

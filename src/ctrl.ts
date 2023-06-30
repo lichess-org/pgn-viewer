@@ -20,6 +20,7 @@ export default class Ctrl {
 
   constructor(readonly opts: Opts, readonly redraw: () => void) {
     this.game = makeGame(opts.pgn, opts.lichess);
+    opts.orientation = opts.orientation || this.game.metadata.orientation;
     this.translate = translator(opts.translate);
     this.path = this.game.pathAtMainlinePly(opts.initialPly);
   }
