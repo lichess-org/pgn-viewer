@@ -1,4 +1,4 @@
-import Ctrl from './ctrl';
+import PgnViewer from './pgnViewer';
 
 export function stepwiseScroll(inner: (e: WheelEvent, scroll: boolean) => void): (e: WheelEvent) => void {
   let scrollTotal = 0;
@@ -34,7 +34,7 @@ const suppressKeyNavOn = (e: KeyboardEvent): boolean =>
   document.activeElement instanceof HTMLInputElement ||
   document.activeElement instanceof HTMLTextAreaElement;
 
-export const onKeyDown = (ctrl: Ctrl) => (e: KeyboardEvent) => {
+export const onKeyDown = (ctrl: PgnViewer) => (e: KeyboardEvent) => {
   if (suppressKeyNavOn(e)) return;
   else if (e.key == 'ArrowLeft') ctrl.goTo('prev');
   else if (e.key == 'ArrowRight') ctrl.goTo('next');

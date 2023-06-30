@@ -1,4 +1,4 @@
-import Ctrl from '../ctrl';
+import PgnViewer from '../pgnViewer';
 import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
 import { h, VNode } from 'snabbdom';
@@ -8,7 +8,7 @@ import { renderMenu, renderControls } from './menu';
 import { renderMoves } from './side';
 import renderPlayer from './player';
 
-export default function view(ctrl: Ctrl) {
+export default function view(ctrl: PgnViewer) {
   const opts = ctrl.opts,
     staticClasses = `lpv.lpv--moves-${opts.showMoves}.lpv--controls-${opts.showControls}${
       opts.classes ? '.' + opts.classes.replace(' ', '.') : ''
@@ -39,7 +39,7 @@ export default function view(ctrl: Ctrl) {
   );
 }
 
-const renderBoard = (ctrl: Ctrl): VNode =>
+const renderBoard = (ctrl: PgnViewer): VNode =>
   h(
     'div.lpv__board',
     {
@@ -59,7 +59,7 @@ const renderBoard = (ctrl: Ctrl): VNode =>
     h('div.cg-wrap')
   );
 
-const renderPgnPane = (ctrl: Ctrl): VNode => {
+const renderPgnPane = (ctrl: PgnViewer): VNode => {
   const blob = new Blob([ctrl.opts.pgn], { type: 'text/plain' });
   return h('div.lpv__pgn.lpv__pane', [
     h(
@@ -76,7 +76,7 @@ const renderPgnPane = (ctrl: Ctrl): VNode => {
   ]);
 };
 
-export const makeConfig = (ctrl: Ctrl, rootEl: HTMLElement): CgConfig => ({
+export const makeConfig = (ctrl: PgnViewer, rootEl: HTMLElement): CgConfig => ({
   viewOnly: !ctrl.opts.drawArrows,
   addDimensionsCssVarsTo: rootEl,
   drawable: {

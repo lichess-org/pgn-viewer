@@ -1,15 +1,15 @@
-import Ctrl from './ctrl';
+import PgnViewer from './pgnViewer';
 import view from './view/main';
 import { init, attributesModule, classModule } from 'snabbdom';
 import { Opts } from './interfaces';
 import config from './config';
 
-export default function start(element: HTMLElement, cfg: Partial<Opts>): Ctrl {
+export default function start(element: HTMLElement, cfg: Partial<Opts>): PgnViewer {
   const patch = init([classModule, attributesModule]);
 
   const opts = config(element, cfg);
 
-  const ctrl = new Ctrl(opts, redraw);
+  const ctrl = new PgnViewer(opts, redraw);
 
   const blueprint = view(ctrl);
   element.innerHTML = '';

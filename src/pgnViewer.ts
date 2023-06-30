@@ -8,7 +8,7 @@ import { Path } from './path';
 import { AnyNode, Game, isMoveData } from './game';
 import { makeGame } from './pgn';
 
-export default class Ctrl {
+export default class PgnViewer {
   game: Game;
   path: Path;
   translate: Translate;

@@ -1,8 +1,8 @@
 import { Color, opposite } from 'chessops';
 import { h, VNode } from 'snabbdom';
-import Ctrl from '../ctrl';
+import PgnViewer from '../pgnViewer';
 
-export default function renderPlayer(ctrl: Ctrl, side: 'top' | 'bottom'): VNode {
+export default function renderPlayer(ctrl: PgnViewer, side: 'top' | 'bottom'): VNode {
   const color = side == 'bottom' ? ctrl.orientation() : opposite(ctrl.orientation());
   const player = ctrl.game.players[color];
   const personEls = [
@@ -22,7 +22,7 @@ export default function renderPlayer(ctrl: Ctrl, side: 'top' | 'bottom'): VNode 
   ]);
 }
 
-const renderClock = (ctrl: Ctrl, color: Color): VNode | undefined => {
+const renderClock = (ctrl: PgnViewer, color: Color): VNode | undefined => {
   const move = ctrl.curData();
   const clock = move.clocks && move.clocks[color];
   return typeof clock == undefined

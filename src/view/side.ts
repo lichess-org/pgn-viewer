@@ -1,10 +1,10 @@
 import { h, VNode } from 'snabbdom';
-import Ctrl from '../ctrl';
+import PgnViewer from '../pgnViewer';
 import { MoveNode } from '../game';
 import { MoveData } from '../interfaces';
 import { Path } from '../path';
 
-export const renderMoves = (ctrl: Ctrl) =>
+export const renderMoves = (ctrl: PgnViewer) =>
   h(
     'div.lpv__side',
     h(
@@ -42,7 +42,7 @@ const parenOpen = () => h('paren.open', '(');
 const parenClose = () => h('paren.close', ')');
 const moveTurn = (move: MoveData) => Math.floor((move.ply - 1) / 2) + 1;
 
-const makeMoveNodes = (ctrl: Ctrl): Array<VNode | undefined> => {
+const makeMoveNodes = (ctrl: PgnViewer): Array<VNode | undefined> => {
   const moveDom = renderMove(ctrl);
   const elms: VNode[] = [];
   let node: MoveNode | undefined,
@@ -87,7 +87,7 @@ const makeVariationMoves = (moveDom: MoveToDom, node: MoveNode) => {
   return elms;
 };
 
-const renderMove = (ctrl: Ctrl) => (move: MoveData) =>
+const renderMove = (ctrl: PgnViewer) => (move: MoveData) =>
   h(
     'move',
     {
@@ -108,7 +108,7 @@ const renderMove = (ctrl: Ctrl) => (move: MoveData) =>
     move.san
   );
 
-const autoScroll = (ctrl: Ctrl, cont: HTMLElement) => {
+const autoScroll = (ctrl: PgnViewer, cont: HTMLElement) => {
   const target = cont.querySelector<HTMLElement>('.current');
   if (!target) {
     cont.scrollTop = ctrl.path.empty() ? 0 : 99999;
