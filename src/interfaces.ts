@@ -80,7 +80,7 @@ export interface Opts {
   pgn: string;
   fen?: string;
   chessground: CgConfig;
-  orientation: Color;
+  orientation?: Color;
   showPlayers: ShowPlayers;
   showMoves: ShowMoves;
   showClocks: boolean;

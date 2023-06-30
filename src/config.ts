@@ -8,7 +8,7 @@ const defaults: Opts = {
   showMoves: 'auto', // false | "right" | "bottom" | auto. "auto" uses media queries
   showControls: true, // show the [prev, menu, next] buttons
   scrollToMove: true, // enable scrolling through moves with a mouse wheel
-  orientation: 'white', // default orientation of the board
+  orientation: undefined, // orientation of the board. Undefined to use the Orientation PGN tag.
   initialPly: 0, // current position to display. Can be a number, or "last"
   chessground: {}, // chessground configuration https://github.com/lichess-org/chessground/blob/master/src/config.ts#L7
   drawArrows: true, // allow mouse users to draw volatile arrows on the board. Disable for little perf boost
