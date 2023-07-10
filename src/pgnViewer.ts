@@ -78,9 +78,9 @@ export default class PgnViewer {
     const data = this.curData();
     const lastMove = isMoveData(data) ? uciToMove(data.uci) : this.opts.chessground?.lastMove;
     return {
-      fen: this.curData().fen,
+      fen: data.fen,
       orientation: this.orientation(),
-      check: this.curData().check,
+      check: data.check,
       lastMove,
       turnColor: data.turn,
     };
