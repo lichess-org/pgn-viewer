@@ -13,13 +13,14 @@ $board-min-width: 200px !default;
 
   --controls-height: #{$controls-height};
   &--controls-false {
-    --controls-height: 0;
+    --controls-height: 0em;
   }
 
   &--moves-false {
     grid-template-areas:
       'board'
       'controls';
+    grid-template-columns: minmax(200px, calc(100vh - var(--controls-height)));
     grid-template-rows: auto var(--controls-height);
   }
 
