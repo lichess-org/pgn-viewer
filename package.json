@@ -18,7 +18,7 @@
   "types": "main.d.ts",
   "dependencies": {
     "@types/node": "^18.16.17",
-    "chessground": "^8.3.10",
+    "chessground": "^8.3.13",
     "chessops": "^0.12.7",
     "snabbdom": "^3.5.1"
   },
