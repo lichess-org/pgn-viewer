@@ -1,5 +1,5 @@
 {
-  "name": "lichess-pgn-viewer",
+  "name": "schlawg-pgn-viewer",
   "license": "GPL-3.0-or-later",
   "version": "2.0.0",
   "repository": "github:lichess-org/pgn-viewer",
@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@types/node": "^20.5.0",
-    "chessground": "^9.0.1",
+    "chessground": "npm:schlawground@9.0.1",
     "chessops": "^0.12.7",
     "snabbdom": "^3.5.1"
   },
