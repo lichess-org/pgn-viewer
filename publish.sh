@@ -8,7 +8,7 @@ sed -i -e "s/\"version\": \".*\"/\"version\": \"$version\"/g" package.json
 
 pnpm install
 # pnpm run test
-
+pnpm run dist
 pnpm publish
 
 git add package.json

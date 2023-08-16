@@ -54,7 +54,10 @@ $board-min-width: 200px !default;
         'board'
         'controls'
         'side';
-      grid-template-columns: minmax($board-min-width, calc(100vh - var(--controls-height) - #{$grid-side-row}));
+      grid-template-columns: minmax(
+        $board-min-width,
+        calc(100vh - var(--controls-height) - #{$grid-side-row})
+      );
       grid-template-rows: auto var(--controls-height);
     }
   }
@@ -97,7 +100,9 @@ $board-min-width: 200px !default;
         'board      side'
         'player-bot side'
         'controls   side';
-      grid-template-columns: minmax($board-min-width, calc(100vh - 2 * #{$player-height} - var(--controls-height))) $grid-side-column-full-screen;
+      grid-template-columns:
+        minmax($board-min-width, calc(100vh - 2 * #{$player-height} - var(--controls-height)))
+        $grid-side-column-full-screen;
       grid-template-rows: $player-height auto $player-height var(--controls-height);
       @media (max-width: #{$moves-auto-to-right}) {
         grid-template-areas:

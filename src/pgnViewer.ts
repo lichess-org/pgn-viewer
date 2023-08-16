@@ -18,7 +18,10 @@ export default class PgnViewer {
   pane = 'board';
   autoScrollRequested = false;
 
-  constructor(readonly opts: Opts, readonly redraw: () => void) {
+  constructor(
+    readonly opts: Opts,
+    readonly redraw: () => void,
+  ) {
     this.game = makeGame(opts.pgn, opts.lichess);
     opts.orientation = opts.orientation || this.game.metadata.orientation;
     this.translate = translator(opts.translate);
@@ -104,7 +107,7 @@ export default class PgnViewer {
           orig: makeSquare(s.from),
           dest: makeSquare(s.to),
           brush: s.color,
-        }))
+        })),
       );
     });
   private withGround = (f: (cg: CgApi) => void) => this.ground && f(this.ground);

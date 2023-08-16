@@ -13,7 +13,7 @@ export class Game {
     readonly initial: Initial,
     readonly moves: AnyNode,
     readonly players: Players,
-    readonly metadata: Metadata
+    readonly metadata: Metadata,
   ) {
     this.mainline = Array.from(this.moves.mainline());
   }
@@ -27,7 +27,13 @@ export class Game {
 
   title = () =>
     this.players.white.name
-      ? [this.players.white.title, this.players.white.name, 'vs', this.players.black.title, this.players.black.name]
+      ? [
+          this.players.white.title,
+          this.players.white.name,
+          'vs',
+          this.players.black.title,
+          this.players.black.name,
+        ]
           .filter(x => x && !!x.trim())
           .join('_')
           .replace(' ', '-')
@@ -36,13 +42,14 @@ export class Game {
   pathAtMainlinePly = (ply: Ply | 'last') =>
     ply == 0
       ? Path.root
-      : this.mainline[Math.max(0, Math.min(this.mainline.length - 1, ply == 'last' ? 9999 : ply - 1))]?.path ||
-        Path.root;
+      : this.mainline[Math.max(0, Math.min(this.mainline.length - 1, ply == 'last' ? 9999 : ply - 1))]
+          ?.path || Path.root;
 
   hasPlayerName = () => !!(this.players.white?.name || this.players.black?.name);
 }
 
-const childById = (node: AnyNode, id: Id): MoveNode | undefined => node.children.find(c => c.data.path.last() == id);
+const childById = (node: AnyNode, id: Id): MoveNode | undefined =>
+  node.children.find(c => c.data.path.last() == id);
 
 const nodeAtPathFrom = (node: AnyNode, path: Path): AnyNode | undefined => {
   if (path.empty()) return node;

@@ -1,8 +1,6 @@
 node_modules/
-*.js.map
-*.d.ts
-*.js
 demo/lichess-pgn-viewer.js
 demo/lichess-pgn-viewer.css
 dist/
 package-lock.json
+tsconfig.tsbuildinfo
