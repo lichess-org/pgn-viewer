@@ -8,7 +8,11 @@ import { MoveData, Initial, Players, Player, Comments, Metadata, Clocks, Lichess
 import { Path } from './path';
 
 class State {
-  constructor(readonly pos: Position, public path: Path, public clocks: Clocks) {}
+  constructor(
+    readonly pos: Position,
+    public path: Path,
+    public clocks: Clocks,
+  ) {}
   clone = () => new State(this.pos.clone(), this.path, { ...this.clocks });
 }
 

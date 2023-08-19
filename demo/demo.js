@@ -1,3 +1,5 @@
+import LichessPgnViewer from './lichess-pgn-viewer.js';
+
 const pgns = {
   empty: ``,
   mammoth1: `
@@ -184,4 +186,6 @@ You can find the book here for an absurdly low price: https://www.amazon.com/Mam
   },
   { pgn: pgns.lichess, showMoves: false, showPlayers: true, showControls: false },
   { pgn: pgns.shapes, initialPly: 27 },
-].forEach((cfg, i) => LichessPgnViewer(document.querySelector(`.viewers > div:nth-child(${i + 1}) > div`), cfg));
+].forEach((cfg, i) =>
+  LichessPgnViewer(document.querySelector(`.viewers > div:nth-child(${i + 1}) > div`), cfg),
+);
