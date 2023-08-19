@@ -9,8 +9,8 @@ dependencies:
     specifier: ^20.5.0
     version: 20.5.0
   chessground:
-    specifier: npm:schlawground@9.0.1
-    version: /schlawground@9.0.1
+    specifier: ^9.0.1
+    version: 9.0.1
   chessops:
     specifier: ^0.12.7
     version: 0.12.7
@@ -1189,6 +1189,10 @@ packages:
     resolution: {integrity: sha512-kWWXztvZ5SBQV+eRgKFeh8q5sLuZY2+8WUIzlxWVTg+oGwY14qylx1KbKzHd8P6ZYkAg0xyIDU9JMHhyJMZ1jw==}
     engines: {node: '>=10'}
     dev: true
+
+  /chessground@9.0.1:
+    resolution: {integrity: sha512-l7apsqKkM9l7nHOi6wp9RNiFOy2n4NHkfwW0xfKO2mS1RNzHdYaq0ecuFFijbTWQQuEdxycKawPnRb3wcGjWKg==}
+    dev: false
 
   /chessops@0.12.7:
     resolution: {integrity: sha512-ylWwKOudgTNJCDq7vx/Rs9fkZwPB3CEk0AJ8NtAfEYOoA3DGRQdS/Z/oQRsnQvs92rUu0yEobn4ZIPzLh8y9/w==}
@@ -2549,10 +2553,6 @@ packages:
       immutable: 4.3.0
       source-map-js: 1.0.2
     dev: true
-
-  /schlawground@9.0.1:
-    resolution: {integrity: sha512-nIlOhNk4InEN1aNXDazF2fqia3b9jBmYT+YphoTMYS2f43P6MaFPze7dz1NDCr9oTDNUupdDnwGu6h6TtpAAYQ==}
-    dev: false
 
   /secure-compare@3.0.1:
     resolution: {integrity: sha512-AckIIV90rPDcBcglUwXPF3kg0P0qmPsPXAj6BBEENQE1p5yA1xfmDJzfi1Tappj37Pv2mVbKpL3Z1T+Nn7k1Qw==}
