@@ -9,8 +9,8 @@ dependencies:
     specifier: ^20.5.0
     version: 20.5.0
   chessground:
-    specifier: ^9.0.1
-    version: 9.0.1
+    specifier: ^9.0.2
+    version: 9.0.2
   chessops:
     specifier: ^0.12.7
     version: 0.12.7
@@ -1190,8 +1190,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /chessground@9.0.1:
-    resolution: {integrity: sha512-l7apsqKkM9l7nHOi6wp9RNiFOy2n4NHkfwW0xfKO2mS1RNzHdYaq0ecuFFijbTWQQuEdxycKawPnRb3wcGjWKg==}
+  /chessground@9.0.2:
+    resolution: {integrity: sha512-3YRrA052eN+LRqxsjZ6Jesk12PWnONll0Hkfqf68abwbi9JN168D2PXOWeEygy4mPEWcDfSajAmn5r/vYSE8pQ==}
     dev: false
 
   /chessops@0.12.7:
