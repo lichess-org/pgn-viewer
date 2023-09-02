@@ -1,3 +1,4 @@
+.pnpm-store/
 node_modules/
 demo/lichess-pgn-viewer.js
 demo/lichess-pgn-viewer.css

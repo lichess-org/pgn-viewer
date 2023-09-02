@@ -44,19 +44,11 @@ For these features, use an [analysis board](https://lichess.org/analysis) or [Li
 ## Build and run
 
 ```
-npm install
-npm run sass-dev
-npm run watch
-npm run demo
+pnpm install
+pnpm run demo
 ```
 
-Then run the demos in your browser.
-
-### Rebuild on code change
-
-```
-npm run watch
-```
+Then open the demo page at http://localhost:8080
 
 ## Installation
 
