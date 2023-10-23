@@ -36,7 +36,7 @@ export default function view(ctrl: PgnViewer) {
       opts.showControls ? renderControls(ctrl) : undefined,
       opts.showMoves ? renderMoves(ctrl) : undefined,
       ctrl.pane == 'menu' ? renderMenu(ctrl) : ctrl.pane == 'pgn' ? renderPgnPane(ctrl) : undefined,
-    ]
+    ],
   );
 }
 
@@ -53,11 +53,11 @@ const renderBoard = (ctrl: PgnViewer): VNode =>
               e.preventDefault();
               if (e.deltaY > 0 && scroll) ctrl.goTo('next', false);
               else if (e.deltaY < 0 && scroll) ctrl.goTo('prev', false);
-            })
+            }),
           );
       }),
     },
-    h('div.cg-wrap')
+    h('div.cg-wrap'),
   );
 
 const renderPgnPane = (ctrl: PgnViewer): VNode => {
@@ -71,29 +71,29 @@ const renderPgnPane = (ctrl: PgnViewer): VNode => {
           download: ctrl.opts.menu.getPgn.fileName || `${ctrl.game.title()}.pgn`,
         },
       },
-      ctrl.translate('download')
+      ctrl.translate('download'),
     ),
     h('textarea.lpv__pgn__text', ctrl.opts.pgn),
   ]);
 };
 
 const renderSelect = (ctrl: PgnViewer): VNode =>
-  h('select.lpv__select', {
+  h(
+    'select.lpv__select',
+    {
       hook: {
-        insert: ({elm}) => {
+        insert: ({ elm }) => {
           let el = elm as HTMLSelectElement;
-          el.addEventListener("change", () => ctrl.selectIndex(Number(el.value)));
+          el.addEventListener('change', () => ctrl.selectIndex(Number(el.value)));
         },
-        update: ({elm}) => {
+        update: ({ elm }) => {
           let el = elm as HTMLSelectElement;
-          el.value = String(ctrl.index);
+          el.value = String(ctrl.selectedGame);
         },
       },
     },
-    ctrl.games.map((game, i) =>
-      h('option', {attrs: {value: i}}, game.metadata.name)
-    )
-  )
+    ctrl.games.map((game, i) => h('option', { attrs: { value: i } }, game.metadata.name)),
+  );
 
 export const makeConfig = (ctrl: PgnViewer, rootEl: HTMLElement): CgConfig => ({
   viewOnly: !ctrl.opts.drawArrows,
