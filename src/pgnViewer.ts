@@ -18,6 +18,7 @@ export default class PgnViewer {
   flipped = false;
   pane = 'board';
   autoScrollRequested = false;
+  selectedGame = 0;
 
   constructor(
     readonly opts: Opts,
@@ -30,23 +31,20 @@ export default class PgnViewer {
     this.path = this.game.pathAtMainlinePly(this.opts.initialPly);
   }
 
-  index = 0;
   get game() {
-    return this.games[this.index];
+    return this.games[this.selectedGame];
   }
   selectIndex = (i: number) => {
-    if (i < 0) i = 0;
-    if (i >= this.games.length) i = this.games.length - 1;
-    this.index = i;
+    this.selectedGame = Math.max(0, Math.min(this.games.length - 1, i));
     this.path = Path.root;
     this.redraw();
-  }
+  };
 
   curNode = (): AnyNode => this.game.nodeAt(this.path) || this.game.moves;
   curData = (): InitialOrMove => this.game.dataAt(this.path) || this.game.initial;
 
   goTo = (to: GoTo, focus = true) => {
-    let index = this.index;
+    let index = this.selectedGame;
     let path = this.path;
 
     if (to === 'first') path = Path.root;
@@ -63,7 +61,7 @@ export default class PgnViewer {
       if (index >= this.games.length) index = this.games.length - 1;
     }
 
-    if (index !== this.index) {
+    if (index !== this.selectedGame) {
       this.selectIndex(index);
       if (to === 'first') path = Path.root;
       if (to === 'last') path = this.game.pathAtMainlinePly('last');
@@ -76,8 +74,8 @@ export default class PgnViewer {
 
   canGoTo = (to: GoTo) =>
     to === 'prev' || to === 'first'
-    ? this.index > 0 || !this.path.empty()
-    : this.index < this.games.length - 1 || !!this.curNode().children[0];
+      ? this.selectedGame > 0 || !this.path.empty()
+      : this.selectedGame < this.games.length - 1 || !!this.curNode().children[0];
 
   toPath = (path: Path, focus = true) => {
     this.path = path;
