@@ -159,9 +159,73 @@ You can find the book here for an absurdly low price: https://www.amazon.com/Mam
 [Opening "Queen's Indian Defense: Fianchetto Variation, Nimzowitsch Variation"]
 
 1. Nf3 Nf6 2. c4 b6 3. d4 e6 4. g3 Ba6 5. Qc2 c5 6. d5 exd5 7. cxd5 Bb7 (7... Nxd5 8. Qe4+ Ne7 9. Qxa8 Nec6 10. e3 Bxf1 11. Kxf1 Qc8 12. Kg2 Be7 13. Nc3 O-O 14. Rd1 Qa6 15. Rxd7 Nxd7 16. Qxc6 $16) 8. Bg2 Nxd5 (8... Bxd5 9. Nc3 Bc6 (9... Be6 10. Ne5 Na6 11. a3 (11. Bxa8 Qxa8 12. e4 $10) 11... Nc7 (11... b5 12. O-O Rb8 13. Rd1 Rb6 14. e4 Be7 15. f4 O-O 16. f5 Bc4 17. Nxc4 bxc4 18. e5 Ng4 19. f6 gxf6 20. Qf5 Nxe5 21. Be4 Ng6 22. Rxd7 Qe8 23. Nd5 Bd8 24. Nxb6 axb6 25. Bh6 $16) 12. Bf4 Be7 13. Nc6 dxc6 14. Bxc6+ Kf8 15. Bxc7 Qxc7 16. Bxa8 $16) 10. e4 Be7 11. O-O O-O 12. Rd1 Ne8 $16) 9. O-O Nc6 10. Rd1 Be7 11. Qf5 (11. Rxd5 Nb4 12. Qc3 Nxd5 $17) 11... Nf6 12. e4 g6 { [%csl Gg7,Gh6,Gf6] } (12... O-O 13. e5 Ne8 14. Nc3 (14. Rxd7)) 13. Qf4 (13. Qh3 h5) 13... O-O 14. e5 { [%csl Ge5][%cal Ye5d6,Ye5f6] } 14... Nh5 15. Qg4 Re8 16. Nc3 Qb8 17. Nd5 Bf8 (17... Nxe5 18. Nxe5 Qxe5 19. Nxe7+ Rxe7 20. Bxb7 $16) 18. Bf4 Qc8 (18... Nxf4 19. Nf6+ Kg7 20. gxf4 (20. Nxe8+ Qxe8 21. Qxf4 $16) 20... d6 21. Ng5 Qc7 22. Qh3 h6 23. Ng4 h5 24. exd6 Qd7 25. Bxc6 Qxc6 26. Qc3+ Kg8 27. Nf6+ Kh8 28. Nxe8+ Kg8 29. Nf6+ Kg7 30. Nxh5+ Kg8 31. Nf6+ Kg7 32. Nd5+ Kg8 33. Qh3 Bh6 34. Qxh6 Qxd5 35. Qh7+ Kf8 36. Qh8#) 19. h3 Ne7 20. Ne3 Bc6 21. Rd6 Ng7 22. Rf6 { [%csl Bf6] } 22... Qb7 { mistake } (22... Nh5 23. Rd6 Ng7 24. Rf6 $10) 23. Bh6 Nd5 24. Nxd5 Bxd5 25. Rd1 Ne6 26. Bxf8 Rxf8 27. Qh4 Bc6 28. Qh6 Rae8 29. Rd6 Bxf3 30. Bxf3 Qa6 31. h4 Qa5 (31... Qxa2 32. h5 Qxb2 33. hxg6 Qb1+ 34. Kg2 hxg6 35. Rxd7 a5 36. Bd5 a4 37. Bxe6) 32. Rd1 c4 33. Rd5 Qe1+ 34. Kg2 c3 35. bxc3 Qxc3 36. h5 Re7 37. Bd1 Qe1 38. Bb3 { threat is Rd4 } 38... Rd8 (38... a5 39. Rd4 Nxd4 (39... Qxe5 40. hxg6 hxg6 41. Rh4 Nf4+ 42. Kh2 Qh5 43. Rxh5 $16) 40. hxg6 hxg6 (40... Qe4+ 41. f3 Qxg6 42. Rxg6+ hxg6 43. Qxg6+ Kh8 44. Qh6+ Kg8 45. Qg5+ Kh8 46. Qxe7 $16) 41. Rxg6#) 39. Rf3 (39. Rd4 Qxe5 40. hxg6 hxg6 41. Rxe6 (41. Rh4 Qxf6 $17) 41... Rxe6 $17) 39... Qe4 40. Qd2 Qg4 41. Bd1 Qe4 (41... Qxh5 42. Rxf7) 42. h6 { thorn pawn } { [%csl Bh6][%cal Bh6g7] } 42... Nc7 43. Rd6 Ne6 44. Bb3 Qxe5 45. Rd5 Qh8 (45... Qa1 46. Rc3 a5 47. Rd4 { Bxe6 threat } 47... b5 (47... Nxd4 48. Qxd4 Kf8 49. Qh8#) 48. Bxe6 fxe6 49. Rc1 Qxd4 50. Qxd4 $16) 46. Qb4 Nc5 { [%cal Gd5c5] } 47. Rxc5 { [%cal Rd5c5] } 47... bxc5 48. Qh4 Rde8 49. Rf6 { [%cal Yh8f6,Yh6g7] } 49... Rf8 (49... Re6 50. Bxe6 Rxe6 (50... fxe6 51. Qf4 { g4 position } 51... e5 (51... c4 52. Qd4 a5 53. g4 Rd8 54. g5 Re8 55. Qxd7 Rf8 56. Qxe6+ Rf7 57. Qxf7#) 52. Qf3 e4 53. Qb3+ c4 54. Qxc4+ Re6 55. Qc8+ Re8 56. Qxe8#) (50... dxe6 51. Qf4 Rc8 52. g4 { not rxf7 } 52... c4 53. g5 c3 54. Qf3 c2 55. Qb7 Rf8 56. Qc7 c1=Q 57. Qxc1 a6 58. Qc5 Re8 59. Qc7 Rf8 60. Qa7 a5 61. Qxa5 Re8 62. Qa7 Rf8 63. Qe7 e5 64. a4 e4 65. Qxe4 Rd8 66. Qe7 Rf8 67. a5 Qg7 68. hxg7 $16) 51. Rxe6 fxe6 52. Qe7 d5 53. Qe8#) 50. Qf4 a5 51. g4 d5 (51... a4 52. Bd5 Re6 53. Bxe6 dxe6 54. g5 Rc8 55. Qxa4 Rf8 56. Qc6 c4 57. Qxc4 Re8 58. Qc7 Rf8 59. a4 Qg7 60. hxg7 $16) 52. Bxd5 Rd7 53. Bc4 a4 54. g5 { [%cal Yg5f6,Yh8f6,Yg8g7,Yh8g7] } 54... a3 55. Qf3 Rc7 56. Qxa3 Qxf6 { [%cal Yh8f6] } 57. gxf6 Rfc8 58. Qd3 Rf8 59. Qd6 Rfc8 60. a4 { end of game } 60... Ra7 61. a5 Rb7 62. a6 Rbc7 63. Qb6 Rc6 64. Qb5 R6c7 65. Qa5 Rd7 66. Qb6 Ra8 67. Qxc5 Kh8 68. Qe7 Rxe7 69. fxe7 Re8 70. a7 f5 71. Bd5 f4 72. a8=Q $16 { 1-0 White wins. } 1-0`,
+  multipleGames: `
+[Event "Deutsche Bundesliga 2023/2024"]
+[Site "https://lichess.org/study/OZ0Y15rT/vG4PuUJn"]
+[Date "2023.10.21"]
+[Round "1.1"]
+[White "Nisipeanu, Liviu-Dieter"]
+[Black "Kadric, Denis"]
+[Result "1/2-1/2"]
+[WhiteElo "2600"]
+[WhiteTitle "GM"]
+[BlackElo "2579"]
+[BlackTitle "GM"]
+[UTCDate "2023.10.21"]
+[UTCTime "13:54:37"]
+[Variant "Standard"]
+[ECO "C42"]
+[Opening "Russian Game: Classical Attack"]
+[Annotator "https://lichess.org/@/AAArmstark"]
+
+1. e4 { [%eval 0.36] [%clk 1:40:56] } 1... e5 { [%eval 0.35] [%clk 1:40:55] } 2. Nf3 { [%eval 0.29] [%clk 1:41:21] } 2... Nf6 { [%eval 0.5] [%clk 1:41:23] } 3. Nxe5 { [%eval 0.34] [%clk 1:41:34] } 3... d6 { [%eval 0.49] [%clk 1:41:50] } 4. Nf3 { [%eval 0.35] [%clk 1:41:52] } 4... Nxe4 { [%eval 0.25] [%clk 1:42:17] } 5. d4 { [%eval 0.4] [%clk 1:42:14] } 5... d5 { [%eval 0.4] [%clk 1:42:40] } 6. Bd3 { [%eval 0.28] [%clk 1:42:38] } 6... Be7 { [%eval 0.43] [%clk 1:43:04] } 7. O-O { [%eval 0.37] [%clk 1:43:00] } 7... Nc6 { [%eval 0.56] [%clk 1:43:32] } 8. Nbd2 { [%eval 0.21] [%clk 1:43:10] } 8... Nd6 { [%eval 0.46] [%clk 1:43:59] } 9. c3 { [%eval 0.42] [%clk 1:43:10] } 9... Bf5 { [%eval 0.46] [%clk 1:44:21] } 10. Bc2 { [%eval 0.44] [%clk 1:43:25] } 10... O-O { [%eval 0.45] [%clk 1:44:29] } 11. Bb3 { [%eval 0.49] [%clk 1:43:35] } 11... Be6 { [%eval 0.42] [%clk 1:44:53] } 12. Re1 { [%eval 0.39] [%clk 1:43:27] } 12... Nb8 { [%eval 0.44] [%clk 1:44:51] } 13. Nf1 { [%eval 0.39] [%clk 1:38:56] } 13... Re8 { [%eval 0.44] [%clk 1:44:58] } 14. Ng3 { [%eval 0.42] [%clk 1:29:45] } 14... c6 { [%eval 0.49] [%clk 1:45:10] } 15. Bc2 { [%eval 0.38] [%clk 1:23:35] } 15... Nd7 { [%eval 0.44] [%clk 1:45:37] } 16. h3 { [%eval 0.49] [%clk 1:18:09] } 16... Nf8 { [%eval 0.39] [%clk 1:45:59] } 17. Re2 { [%eval 0.27] [%clk 1:16:26] } 17... f6 { [%eval 0.24] [%clk 1:38:39] } 18. Nh4 { [%eval 0.28] [%clk 1:08:17] } 18... Qd7 { [%eval 0.16] [%clk 1:34:14] } 19. Qd3 { [%eval 0.0] [%clk 1:07:17] } 19... Bd8 { [%eval 0.02] [%clk 1:29:16] } 20. b3 { [%eval 0.03] [%clk 0:49:14] } 20... Bc7 { [%eval 0.03] [%clk 1:23:42] } 21. Ba3 { [%eval 0.05] [%clk 0:49:38] } 21... g6 { [%eval 0.03] [%clk 1:19:06] } 22. Rae1 { [%eval 0.01] [%clk 0:44:51] } 22... Qf7 { [%eval 0.11] [%clk 1:10:24] } 23. Nf3 { [%eval 0.01] [%clk 0:32:52] } 23... Bd7 { [%eval 0.0] [%clk 1:09:11] } 24. Bc1 { [%eval -0.08] [%clk 0:26:13] } 24... Rxe2 { [%eval 0.03] [%clk 0:59:22] } 25. Rxe2 { [%eval 0.0] [%clk 0:26:32] } 25... Re8 { [%eval 0.06] [%clk 0:59:48] } 26. Qd1 { [%eval 0.02] [%clk 0:20:35] } 26... Re6 { [%eval 0.09] [%clk 0:53:37] } 27. a4 { [%eval 0.05] [%clk 0:19:01] } 27... a5 { [%eval 0.17] [%clk 0:40:43] } 28. Ne1 { [%eval 0.03] [%clk 0:18:34] } 28... Rxe2 { [%eval 0.01] [%clk 0:40:19] } 1/2-1/2
+
+
+[Event "Deutsche Bundesliga 2023/2024"]
+[Site "https://lichess.org/study/OZ0Y15rT/aXDLZaHj"]
+[Date "2023.10.21"]
+[Round "1.2"]
+[White "Brkic, Ante"]
+[Black "Bartel, Mateusz"]
+[Result "1/2-1/2"]
+[WhiteElo "2606"]
+[WhiteTitle "GM"]
+[BlackElo "2651"]
+[BlackTitle "GM"]
+[UTCDate "2023.10.21"]
+[UTCTime "13:54:37"]
+[Variant "Standard"]
+[ECO "C11"]
+[Opening "French Defense: Steinitz Variation"]
+[Annotator "https://lichess.org/@/AAArmstark"]
+
+1. e4 { [%eval 0.36] [%clk 1:40:57] } 1... e6 { [%eval 0.0] [%clk 1:40:55] } 2. d4 { [%eval 0.3] [%clk 1:41:22] } 2... d5 { [%eval 0.4] [%clk 1:41:20] } 3. Nc3 { [%eval 0.0] [%clk 1:41:47] } 3... Nf6 { [%eval 0.0] [%clk 1:41:45] } 4. e5 { [%eval 0.0] [%clk 1:41:33] } 4... Nfd7 { [%eval 0.0] [%clk 1:42:08] } 5. f4 { [%eval 0.17] [%clk 1:41:58] } 5... c5 { [%eval 0.44] [%clk 1:42:31] } 6. Nf3 { [%eval 0.0] [%clk 1:42:26] } 6... Be7?! { [%eval 0.59] } { Inaccuracy. cxd4 was best. } { [%clk 1:42:27] } (6... cxd4 7. Nxd4 Nc6 8. Be3 Qb6 9. Na4 Qa5+ 10. Nc3) 7. Be3 { [%eval 0.23] [%clk 1:42:10] } 7... Nc6 { [%eval 0.39] [%clk 1:42:50] } 8. a3 { [%eval 0.4] [%clk 1:41:04] } 8... O-O { [%eval 0.5] [%clk 1:40:59] } 9. dxc5 { [%eval 0.41] [%clk 1:41:04] } 9... Nxc5 { [%eval 0.38] [%clk 1:22:27] } 10. Be2 { [%eval 0.5] [%clk 1:34:09] } 10... b6 { [%eval 0.44] [%clk 1:20:18] } 11. Nd4 { [%eval 0.28] [%clk 1:28:46] } 11... Nxd4 { [%eval 0.35] [%clk 1:06:01] } 12. Bxd4 { [%eval 0.35] [%clk 1:29:10] } 12... f5 { [%eval 0.46] [%clk 1:01:04] } 13. exf6 { [%eval 0.47] [%clk 1:25:34] } 13... Bxf6 { [%eval 0.4] [%clk 1:01:27] } 14. O-O { [%eval 0.4] [%clk 1:25:54] } 14... Bb7 { [%eval 0.39] [%clk 0:58:30] } 15. Qd2 { [%eval 0.38] [%clk 1:20:39] } 15... Bxd4+ { [%eval 0.5] [%clk 0:54:05] } 16. Qxd4 { [%eval 0.45] [%clk 1:20:56] } 16... Qf6 { [%eval 0.47] [%clk 0:54:32] } 17. Rad1 { [%eval 0.45] [%clk 1:18:30] } 17... Rad8 { [%eval 0.77] [%clk 0:48:32] } 18. Qxf6 { [%eval 0.76] [%clk 1:09:40] } 18... Rxf6 { [%eval 0.64] [%clk 0:35:48] } 19. b4 { [%eval 0.8] [%clk 1:10:04] } 19... Nd7 { [%eval 0.79] [%clk 0:36:12] } 20. Bd3 { [%eval 0.49] [%clk 1:10:09] } 20... e5 { [%eval 0.95] [%clk 0:31:04] } 21. Bb5 { [%eval 0.83] [%clk 0:49:32] } 21... d4 { [%eval 0.96] [%clk 0:15:06] } 22. Ne2 { [%eval 0.76] [%clk 0:49:49] } 22... Bc6 { [%eval 0.64] [%clk 0:14:45] } 23. Bxc6 { [%eval 0.22] [%clk 0:41:17] } 23... Rxc6 { [%eval 0.28] [%clk 0:13:31] } 24. fxe5 { [%eval 0.38] [%clk 0:41:43] } 24... Nxe5 { [%eval 0.35] [%clk 0:13:57] } 25. Rxd4 { [%eval 0.15] [%clk 0:36:33] } 25... Rxd4 { [%eval 0.17] [%clk 0:14:18] } 26. Nxd4 { [%eval 0.15] [%clk 0:37:00] } 26... Rc3 { [%eval 0.39] [%clk 0:12:51] } 27. Re1 { [%eval 0.1] [%clk 0:34:22] } 27... Nc6 { [%eval 0.13] [%clk 0:09:09] } 28. Nxc6 { [%eval 0.12] [%clk 0:21:16] } 28... Rxc6 { [%eval 0.1] [%clk 0:09:37] } 29. Re8+ { [%eval 0.14] [%clk 0:14:10] } 29... Kf7 { [%eval 0.09] [%clk 0:10:01] } 30. Ra8 { [%eval 0.1] [%clk 0:14:37] } 30... a5 { [%eval 0.09] [%clk 0:09:48] } 31. Ra7+ { [%eval 0.1] [%clk 0:14:59] } 31... Kg8 { [%eval 0.15] [%clk 0:04:19] } 32. Ra6 { [%eval 0.09] [%clk 0:11:28] } 32... axb4 { [%eval 0.09] [%clk 0:04:47] } 33. axb4 { [%eval 0.07] [%clk 0:11:51] } 33... Rxc2 { [%eval 0.07] [%clk 0:04:23] } 34. Rxb6 { [%eval 0.05] [%clk 0:12:16] } 34... Rb2 { [%eval 0.04] [%clk 0:04:49] } 35. Rb7 { [%eval 0.09] [%clk 0:11:40] } 35... h5 { [%eval 0.04] [%clk 0:05:11] } 36. h4 { [%eval 0.04] [%clk 0:11:28] } 36... Kh7 { [%eval 0.07] [%clk 0:05:37] } 37. Rb5 { [%eval 0.05] [%clk 0:10:42] } 37... Kg8 { [%eval 0.03] [%clk 0:05:31] } 38. Kh2 { [%eval 0.04] [%clk 0:07:26] } 38... Rb3 { [%eval 0.06] [%clk 0:06:00] } 39. Kg1 { [%eval 0.02] [%clk 0:06:52] } 39... Rb2 { [%eval 0.06] [%clk 0:06:28] } 40. Kf1 { [%eval 0.0] [%clk 0:07:05] } 40... Kf7 { [%eval 0.02] [%clk 0:06:33] } 41. Rb6 { [%eval 0.03] [%clk 0:04:26] } 41... Ke7 { [%eval 0.04] [%clk 0:04:17] } 42. Kg1 { [%eval 0.01] [%clk 0:04:14] } 42... Kf7 { [%eval 0.02] [%clk 0:03:06] } 43. Kh2 { [%eval 0.05] [%clk 0:04:41] } 43... Rb3 { [%eval 0.06] [%clk 0:03:32] } 44. Rb5 { [%eval 0.03] [%clk 0:02:55] } 44... Kf6 { [%eval 0.03] [%clk 0:03:28] } 45. Rxh5 { [%eval 0.03] [%clk 0:01:35] } 45... Rxb4 { [%eval 0.0] [%clk 0:03:50] } 46. Kh3 { [%eval 0.0] [%clk 0:01:59] } 46... Kg6 { [%eval 0.0] [%clk 0:02:59] } 47. Ra5 { [%eval 0.0] [%clk 0:02:23] } 1/2-1/2
+
+
+[Event "Deutsche Bundesliga 2023/2024"]
+[Site "https://lichess.org/study/OZ0Y15rT/AzrrKf4m"]
+[Date "2023.10.21"]
+[Round "1.3"]
+[White "Michalik, Peter"]
+[Black "Predojevic, Borki"]
+[Result "1/2-1/2"]
+[WhiteElo "2576"]
+[WhiteTitle "GM"]
+[BlackElo "2580"]
+[BlackTitle "GM"]
+[UTCDate "2023.10.21"]
+[UTCTime "13:54:37"]
+[Variant "Standard"]
+[ECO "B10"]
+[Opening "Caro-Kann Defense"]
+[Annotator "https://lichess.org/@/AAArmstark"]
+
+1. e4 { [%eval 0.36] [%clk 1:40:56] } 1... c6 { [%eval 0.37] [%clk 1:40:30] } 2. Nf3 { [%eval 0.26] [%clk 1:41:04] } 2... d5 { [%eval 0.27] [%clk 1:40:49] } 3. d3 { [%eval 0.09] [%clk 1:41:28] } 3... dxe4 { [%eval 0.29] [%clk 1:40:46] } 4. dxe4 { [%eval 0.33] [%clk 1:41:52] } 4... Qxd1+ { [%eval 0.43] [%clk 1:41:10] } 5. Kxd1 { [%eval 0.28] [%clk 1:42:18] } 5... Nf6 { [%eval 0.13] [%clk 1:41:31] } 6. Nbd2 { [%eval 0.27] [%clk 1:42:32] } 6... g6 { [%eval 0.31] [%clk 1:41:42] } 7. Ne5 { [%eval 0.25] [%clk 1:40:57] } 7... Be6 { [%eval 0.28] [%clk 1:41:16] } 8. f3 { [%eval 0.12] [%clk 1:38:49] } 8... Bh6 { [%eval 0.13] [%clk 1:40:57] } 9. Bc4 { [%eval 0.15] [%clk 1:34:30] } 9... Nfd7 { [%eval 0.12] [%clk 1:39:46] } 10. Bxe6 { [%eval -0.09] [%clk 1:29:22] } 10... Nxe5 { [%eval -0.07] [%clk 1:38:52] } 11. Bh3 { [%eval -0.19] [%clk 1:24:27] } 11... Na6 { [%eval -0.05] [%clk 1:22:18] } 12. Rf1 { [%eval -0.11] [%clk 1:20:06] } 12... g5 { [%eval -0.15] [%clk 1:10:52] } 13. Nb3 { [%eval -0.08] [%clk 1:10:42] } 13... Rd8+ { [%eval 0.0] [%clk 1:00:03] } 14. Ke2 { [%eval 0.0] [%clk 1:05:41] } 14... Nb4 { [%eval 0.02] [%clk 0:48:46] } 15. Bd2 { [%eval 0.05] [%clk 1:02:07] } 15... Nxc2 { [%eval 0.22] [%clk 0:48:10] } 16. Rac1 { [%eval 0.21] [%clk 1:02:30] } 16... Rxd2+ { [%eval 0.38] [%clk 0:47:27] } 17. Nxd2 { [%eval 0.14] [%clk 1:00:37] } 17... Nd4+ { [%eval 0.3] [%clk 0:47:45] } 18. Ke3 { [%eval 0.21] [%clk 0:58:27] } 18... Nb5 { [%eval 0.17] [%clk 0:43:56] } 19. Bg4 { [%eval 0.35] [%clk 0:54:27] } 19... Bg7 { [%eval 0.23] [%clk 0:28:52] } 20. Bh5 { [%eval -0.14] [%clk 0:53:24] } 20... Ng6 { [%eval 0.0] [%clk 0:23:13] } 21. Nc4?! { [%eval -1.0] } { Inaccuracy. Bxg6 was best. } { [%clk 0:35:56] } (21. Bxg6 hxg6 22. a4 Nd6 23. b4 Rxh2 24. Rg1 Be5 25. Kd3 Kd7 26. Nf1 Rh8 27. Ne3 Bf4) 21... Nf4 { [%eval -0.98] [%clk 0:19:56] } 22. a4?! { [%eval -1.61] } { Inaccuracy. g4 was best. } { [%clk 0:33:30] } (22. g4 Bd4+ 23. Kd2 O-O 24. Rfd1 Nd6 25. b4 Rd8 26. Nxd6 exd6 27. a4 Be5 28. Rc2 Kg7) 22... Bd4+?! { [%eval -0.66] } { Inaccuracy. Nd4 was best. } { [%clk 0:16:10] } (22... Nd4 23. g4 Nb3 24. Rcd1 b5 25. axb5 cxb5 26. Na3 a6 27. h4 h6 28. Rf2 O-O 29. Rc2) 23. Kd2 { [%eval -0.85] [%clk 0:33:55] } 23... Nd6 { [%eval -0.95] [%clk 0:16:36] } 24. Bg4 { [%eval -0.74] [%clk 0:25:10] } 24... Nxg2 { [%eval -0.79] [%clk 0:16:25] } 25. Nxd6+?! { [%eval -1.68] } { Inaccuracy. Bh3 was best. } { [%clk 0:24:07] } (25. Bh3 Nf4 26. Nxd6+ exd6 27. Bc8 Ke7 28. Bxb7 Rb8 29. Bxc6 Rxb2+ 30. Rc2 Rb3 31. Rc4 Be5) 25... exd6 { [%eval -1.75] [%clk 0:16:47] } 26. Kd3 { [%eval -1.69] [%clk 0:24:25] } 26... c5 { [%eval -1.66] [%clk 0:10:01] } 27. b4 { [%eval -1.61] [%clk 0:23:03] } 27... Ke7 { [%eval -1.22] } 1/2-1/2
+`,
 };
 
 [
+  { pgn: pgns.multipleGames },
   // { pgn: pgns.blackStart, showPlayers: false },
   { pgn: pgns.croatia, showMoves: 'bottom', initialPly: undefined, drawArrows: false },
   // { pgn: pgns.clockMin, initialPly: 0 },
