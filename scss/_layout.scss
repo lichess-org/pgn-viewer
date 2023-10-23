@@ -114,7 +114,7 @@ $board-min-width: 200px !default;
         'player-bot side' $player-height
         'controls   side' var(--controls-height)
         / minmax($board-min-width, calc(100vh - 2 * #{$player-height} - var(--controls-height)))
-          $grid-side-column-full-screen;
+        $grid-side-column-full-screen;
       &.lpv--select {
         grid-template-areas:
           'player-top select'
@@ -130,7 +130,10 @@ $board-min-width: 200px !default;
           'player-bot' $player-height
           'controls' var(--controls-height)
           'side' auto
-          / minmax($board-min-width, calc(100vh - 2 * #{$player-height} - var(--controls-height) - #{$grid-side-row}));
+          / minmax(
+            $board-min-width,
+            calc(100vh - 2 * #{$player-height} - var(--controls-height) - #{$grid-side-row})
+          );
       }
     }
   }
