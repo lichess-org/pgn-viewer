@@ -45,7 +45,7 @@ export default class PgnViewer {
   curData = (): InitialOrMove => this.game.dataAt(this.path) || this.game.initial;
 
   goTo = (to: GoTo, focus = true) => {
-    let index = this.selectedGame;
+    let gameIndex = this.selectedGame;
     let path = this.path;
 
     if (to === 'first') path = Path.root;
@@ -54,18 +54,14 @@ export default class PgnViewer {
     if (to === 'next') path = this.game.nodeAt(this.path)?.children?.[0]?.data?.path ?? path;
 
     if (this.path.path === path.path) {
-      if (to === 'first') index = 0;
-      if (to === 'last') index = this.games.length - 1;
-      if (to === 'prev') index--;
-      if (to === 'next') index++;
-      if (index < 0) index = 0;
-      if (index >= this.games.length) index = this.games.length - 1;
+      if (to === 'prev') gameIndex--;
+      if (to === 'next') gameIndex++;
+      if (gameIndex < 0) gameIndex = 0;
+      if (gameIndex >= this.games.length) gameIndex = this.games.length - 1;
     }
 
-    if (index !== this.selectedGame) {
-      this.selectIndex(index);
-      if (to === 'first') path = Path.root;
-      if (to === 'last') path = this.game.pathAtMainlinePly('last');
+    if (gameIndex !== this.selectedGame) {
+      this.selectIndex(gameIndex);
       if (to === 'prev') path = this.game.pathAtMainlinePly('last');
       if (to === 'next') path = Path.root;
     }
