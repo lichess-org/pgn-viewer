@@ -2,7 +2,6 @@ import { Opts } from './interfaces';
 
 const defaults: Opts = {
   pgn: '*', // the PGN to render
-  fen: undefined, // initial FEN, will append [FEN "initial FEN"] to the PGN
   showPlayers: 'auto', // show the players above and under the board
   showClocks: true, // show the clocks alongside the players
   showMoves: 'auto', // false | "right" | "bottom" | auto. "auto" uses media queries
@@ -25,7 +24,6 @@ const defaults: Opts = {
 export default function (element: HTMLElement, cfg: Partial<Opts>) {
   const opts = { ...defaults };
   deepMerge(opts, cfg);
-  if (opts.fen) opts.pgn = `[FEN "${opts.fen}"]\n${opts.pgn}`;
   if (!opts.classes) opts.classes = element.className;
   return opts;
 }

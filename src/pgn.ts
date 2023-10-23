@@ -1,7 +1,7 @@
 import { Color, makeUci, Position } from 'chessops';
 import { scalachessCharPair } from 'chessops/compat';
 import { makeFen } from 'chessops/fen';
-import { parsePgn, parseComment, PgnNodeData, startingPosition, transform, Node } from 'chessops/pgn';
+import { parseComment, PgnNodeData, startingPosition, transform, Node, Game as PgnGame } from 'chessops/pgn';
 import { makeSanAndPlay, parseSan } from 'chessops/san';
 import { Game } from './game';
 import { MoveData, Initial, Players, Player, Comments, Metadata, Clocks, Lichess } from './interfaces';
@@ -28,8 +28,7 @@ export const parseComments = (strings: string[]): Comments => {
   };
 };
 
-export const makeGame = (pgn: string, lichess: Lichess = false): Game => {
-  const game = parsePgn(pgn)[0] || parsePgn('*')[0];
+export const makeGame = (game: PgnGame<PgnNodeData>, lichess: Lichess = false): Game => {
   const start = startingPosition(game.headers).unwrap();
   const fen = makeFen(start.toSetup());
   const comments = parseComments(game.comments || []);
@@ -118,6 +117,7 @@ function makePlayers(headers: Headers, metadata: Metadata): Players {
 
 function makeMetadata(headers: Headers, lichess: Lichess): Metadata {
   const site = headers.get('source') || headers.get('site');
+  const event = headers.get('event');
   const tcs = headers
     .get('timecontrol')
     ?.split('+')
@@ -135,5 +135,6 @@ function makeMetadata(headers: Headers, lichess: Lichess): Metadata {
     isLichess: !!(lichess && site?.startsWith(lichess)),
     timeControl,
     orientation: orientation === 'white' || orientation === 'black' ? orientation : undefined,
+    name: event ?? '?',
   };
 }

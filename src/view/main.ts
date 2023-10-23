@@ -12,7 +12,7 @@ export default function view(ctrl: PgnViewer) {
   const opts = ctrl.opts,
     staticClasses = `lpv.lpv--moves-${opts.showMoves}.lpv--controls-${opts.showControls}${
       opts.classes ? '.' + opts.classes.replace(' ', '.') : ''
-    }`;
+    }${ctrl.games.length > 1 ? '.lpv--select' : ''}`;
   return h(
     `div.${staticClasses}`,
     {
@@ -29,6 +29,7 @@ export default function view(ctrl: PgnViewer) {
       }),
     },
     [
+      ctrl.games.length > 1 ? renderSelect(ctrl) : undefined,
       opts.showPlayers ? renderPlayer(ctrl, 'top') : undefined,
       renderBoard(ctrl),
       opts.showPlayers ? renderPlayer(ctrl, 'bottom') : undefined,
@@ -75,6 +76,24 @@ const renderPgnPane = (ctrl: PgnViewer): VNode => {
     h('textarea.lpv__pgn__text', ctrl.opts.pgn),
   ]);
 };
+
+const renderSelect = (ctrl: PgnViewer): VNode =>
+  h('select.lpv__select', {
+      hook: {
+        insert: ({elm}) => {
+          let el = elm as HTMLSelectElement;
+          el.addEventListener("change", () => ctrl.selectIndex(Number(el.value)));
+        },
+        update: ({elm}) => {
+          let el = elm as HTMLSelectElement;
+          el.value = String(ctrl.index);
+        },
+      },
+    },
+    ctrl.games.map((game, i) =>
+      h('option', {attrs: {value: i}}, game.metadata.name)
+    )
+  )
 
 export const makeConfig = (ctrl: PgnViewer, rootEl: HTMLElement): CgConfig => ({
   viewOnly: !ctrl.opts.drawArrows,
