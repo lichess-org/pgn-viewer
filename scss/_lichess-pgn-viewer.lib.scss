@@ -28,6 +28,7 @@ $lpv-interesting: hsl(307, 80%, 70%) !default;
 @import './controls';
 @import './scrollbar';
 @import './font';
+@import './select';
 
 .lpv {
   border-radius: 5px;

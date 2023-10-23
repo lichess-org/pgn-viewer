@@ -13,109 +13,124 @@ $board-min-width: 200px !default;
 
   --controls-height: #{$controls-height};
   &--controls-false {
-    --controls-height: 0em;
+    --controls-height: 0;
+  }
+
+  --select-height: 0;
+  &--select {
+    --select-height: $player-height;
   }
 
   &--moves-false {
-    grid-template-areas:
-      'board'
-      'controls';
-    grid-template-columns: minmax(200px, calc(100vh - var(--controls-height)));
-    grid-template-rows: auto var(--controls-height);
+    grid-template:
+      'select' var(--select-height)
+      'board' auto
+      'controls' var(--controls-height)
+      / minmax(200px, calc(100vh - var(--controls-height)));
   }
 
   &--moves-right {
-    grid-template-areas:
-      'board      side'
-      'controls   side';
-    grid-template-columns: auto $grid-side-column;
-    grid-template-rows: auto var(--controls-height);
+    grid-template:
+      'board      select' var(--select-height)
+      'board      side' auto
+      'controls   side' var(--controls-height)
+      / auto $grid-side-column;
   }
 
   &--moves-bottom {
-    grid-template-areas:
-      'board'
-      'controls'
-      'side';
-    grid-template-rows: auto var(--controls-height);
+    grid-template:
+      'select' var(--select-height)
+      'board' auto
+      'controls' var(--controls-height)
+      'side' auto
+      / auto;
     .lpv__controls {
       border-bottom: 1px solid $lpv-border;
     }
   }
 
   &--moves-auto {
-    grid-template-areas:
-      'board      side'
-      'controls   side';
-    grid-template-columns: minmax($board-min-width, calc(100vh - var(--controls-height))) $grid-side-column-full-screen;
-    grid-template-rows: auto var(--controls-height);
+    grid-template:
+      'board      select' var(--select-height)
+      'board      side' auto
+      'controls   side' var(--controls-height)
+      / minmax($board-min-width, calc(100vh - var(--controls-height))) $grid-side-column-full-screen;
     @media (max-width: #{$moves-auto-to-right}) {
-      grid-template-areas:
-        'board'
-        'controls'
-        'side';
-      grid-template-columns: minmax(
-        $board-min-width,
-        calc(100vh - var(--controls-height) - #{$grid-side-row})
-      );
-      grid-template-rows: auto var(--controls-height);
+      grid-template:
+        'select' var(--select-height)
+        'board' auto
+        'controls' var(--controls-height)
+        'side' auto
+        / minmax($board-min-width, calc(100vh - var(--controls-height) - #{$grid-side-row}));
     }
   }
 
   &--players {
     &.lpv--moves-false {
-      grid-template-areas:
-        'player-top'
-        'board'
-        'player-bot'
-        'controls';
-      grid-template-rows: $player-height auto $player-height var(--controls-height);
+      grid-template:
+        'select' var(--select-height)
+        'player-top' $player-height
+        'board' auto
+        'player-bot' $player-height
+        'controls' var(--controls-height)
+        / auto;
     }
 
     &.lpv--moves-right {
-      grid-template-areas:
-        'player-top side'
-        'board      side'
-        'player-bot side'
-        'controls   side';
-      grid-template-rows: $player-height auto $player-height var(--controls-height);
+      grid-template:
+        'player-top side' $player-height
+        'board      side' auto
+        'player-bot side' $player-height
+        'controls   side' var(--controls-height)
+        / auto auto;
+
+      &.lpv--select {
+        grid-template-areas:
+          'player-top select'
+          'board      side'
+          'player-bot side'
+          'controls   side';
+      }
     }
 
     &.lpv--moves-bottom {
-      grid-template-areas:
-        'player-top'
-        'board'
-        'player-bot'
-        'controls'
-        'side';
-      grid-template-rows: $player-height auto $player-height var(--controls-height);
+      grid-template:
+        'select' var(--select-height)
+        'player-top' $player-height
+        'board' auto
+        'player-bot' $player-height
+        'controls' var(--controls-height)
+        'side' auto
+        / auto;
       .lpv__controls {
         border-bottom: 1px solid $lpv-border;
       }
     }
 
     &.lpv--moves-auto {
-      grid-template-areas:
-        'player-top side'
-        'board      side'
-        'player-bot side'
-        'controls   side';
-      grid-template-columns:
-        minmax($board-min-width, calc(100vh - 2 * #{$player-height} - var(--controls-height)))
-        $grid-side-column-full-screen;
-      grid-template-rows: $player-height auto $player-height var(--controls-height);
-      @media (max-width: #{$moves-auto-to-right}) {
+      grid-template:
+        'player-top side' $player-height
+        'board      side' auto
+        'player-bot side' $player-height
+        'controls   side' var(--controls-height)
+        / minmax($board-min-width, calc(100vh - 2 * #{$player-height} - var(--controls-height)))
+          $grid-side-column-full-screen;
+      &.lpv--select {
         grid-template-areas:
-          'player-top'
-          'board'
-          'player-bot'
-          'controls'
-          'side';
-        grid-template-columns: minmax(
-          $board-min-width,
-          calc(100vh - 2 * #{$player-height} - var(--controls-height) - #{$grid-side-row})
-        );
-        grid-template-rows: $player-height auto $player-height var(--controls-height);
+          'player-top select'
+          'board      side'
+          'player-bot side'
+          'controls   side';
+      }
+      @media (max-width: #{$moves-auto-to-right}) {
+        grid-template:
+          'select' var(--select-height)
+          'player-top' $player-height
+          'board' auto
+          'player-bot' $player-height
+          'controls' var(--controls-height)
+          'side' auto
+          / minmax($board-min-width, calc(100vh - 2 * #{$player-height} - var(--controls-height) - #{$grid-side-row}));
       }
     }
   }
@@ -134,6 +149,9 @@ $board-min-width: 200px !default;
   }
   &__controls {
     grid-area: controls;
+  }
+  &__select {
+    grid-area: select;
   }
   &__menu,
   &__pgn {
