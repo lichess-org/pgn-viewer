@@ -37,6 +37,7 @@ export default class PgnViewer {
   selectIndex = (i: number) => {
     this.selectedGame = Math.max(0, Math.min(this.games.length - 1, i));
     this.path = Path.root;
+    this.redrawGround();
     this.redraw();
   };
 
