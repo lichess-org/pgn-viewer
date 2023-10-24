@@ -48,6 +48,7 @@ export interface Metadata {
     increment: number;
   };
   orientation?: Color;
+  name: string;
 }
 
 export interface Player {
@@ -78,7 +79,6 @@ export type Lichess = string | false;
 
 export interface Opts {
   pgn: string;
-  fen?: string;
   chessground: CgConfig;
   orientation?: Color;
   showPlayers: ShowPlayers;

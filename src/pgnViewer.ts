@@ -1,5 +1,5 @@
 import { Api as CgApi } from 'chessground/api';
-import { makeSquare, opposite } from 'chessops';
+import { makeSquare, opposite, Color } from 'chessops';
 import translator from './translation';
 import { GoTo, InitialOrMove, Opts, Translate } from './interfaces';
 import { Config as CgConfig } from 'chessground/config';
@@ -7,9 +7,10 @@ import { uciToMove } from 'chessground/util';
 import { Path } from './path';
 import { AnyNode, Game, isMoveData } from './game';
 import { makeGame } from './pgn';
+import { parsePgn } from 'chessops/pgn';
 
 export default class PgnViewer {
-  game: Game;
+  games: Game[];
   path: Path;
   translate: Translate;
   ground?: CgApi;
@@ -17,33 +18,61 @@ export default class PgnViewer {
   flipped = false;
   pane = 'board';
   autoScrollRequested = false;
+  selectedGame = 0;
 
   constructor(
     readonly opts: Opts,
     readonly redraw: () => void,
   ) {
-    this.game = makeGame(opts.pgn, opts.lichess);
-    opts.orientation = opts.orientation || this.game.metadata.orientation;
+    let games = parsePgn(opts.pgn);
+    if (games.length === 0) games = parsePgn('*');
+    this.games = games.map(game => makeGame(game, opts.lichess));
     this.translate = translator(opts.translate);
-    this.path = this.game.pathAtMainlinePly(opts.initialPly);
+    this.path = this.game.pathAtMainlinePly(this.opts.initialPly);
   }
+
+  get game() {
+    return this.games[this.selectedGame];
+  }
+  selectIndex = (i: number) => {
+    this.selectedGame = Math.max(0, Math.min(this.games.length - 1, i));
+    this.path = Path.root;
+    this.redrawGround();
+    this.redraw();
+  };
 
   curNode = (): AnyNode => this.game.nodeAt(this.path) || this.game.moves;
   curData = (): InitialOrMove => this.game.dataAt(this.path) || this.game.initial;
 
   goTo = (to: GoTo, focus = true) => {
-    const path =
-      to == 'first'
-        ? Path.root
-        : to == 'prev'
-        ? this.path.init()
-        : to == 'next'
-        ? this.game.nodeAt(this.path)?.children[0]?.data.path
-        : this.game.pathAtMainlinePly('last');
+    let gameIndex = this.selectedGame;
+    let path = this.path;
+
+    if (to === 'first') path = Path.root;
+    if (to === 'last') path = this.game.pathAtMainlinePly('last');
+    if (to === 'prev') path = this.path.init();
+    if (to === 'next') path = this.game.nodeAt(this.path)?.children?.[0]?.data?.path ?? path;
+
+    if (this.path.path === path.path) {
+      if (to === 'prev') gameIndex--;
+      if (to === 'next') gameIndex++;
+      if (gameIndex < 0) gameIndex = 0;
+      if (gameIndex >= this.games.length) gameIndex = this.games.length - 1;
+    }
+
+    if (gameIndex !== this.selectedGame) {
+      this.selectIndex(gameIndex);
+      if (to === 'prev') path = this.game.pathAtMainlinePly('last');
+      if (to === 'next') path = Path.root;
+    }
+
     this.toPath(path || this.path, focus);
   };
 
-  canGoTo = (to: GoTo) => (to == 'prev' || to == 'first' ? !this.path.empty() : !!this.curNode().children[0]);
+  canGoTo = (to: GoTo) =>
+    to === 'prev' || to === 'first'
+      ? this.selectedGame > 0 || !this.path.empty()
+      : this.selectedGame < this.games.length - 1 || !!this.curNode().children[0];
 
   toPath = (path: Path, focus = true) => {
     this.path = path;
@@ -66,7 +95,7 @@ export default class PgnViewer {
   };
 
   orientation = () => {
-    const base = this.opts.orientation || 'white';
+    const base = this.game.metadata.orientation ?? this.opts.orientation ?? 'white';
     return this.flipped ? opposite(base) : base;
   };
 
