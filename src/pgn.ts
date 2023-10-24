@@ -138,11 +138,13 @@ function makeMetadata(headers: Headers, lichess: Lichess): Metadata {
   };
 }
 
-const makeGameName = (headers: Headers): string => {
-  const event = headers.get('event');
+const makeGameName = (h: Headers): string => {
+  const event = h.get('event');
   const players = ['white', 'black']
-    .map(c => [headers.get(c), headers.get(c + 'Elo')])
-    .map(([name, rating]) => (name ? `${name}${rating ? ` (${rating})` : ''}` : undefined))
+    .map(c => [h.get(c), h.get(c + 'title'), h.get(c + 'elo')])
+    .map(([name, title, rating]) =>
+      name ? `${title ? `${title} ` : ''}${name}${rating ? ` (${rating})` : ''}` : undefined,
+    )
     .filter(x => !!x);
   return players.length == 2 ? players.join(' vs ') : event ?? '?';
 };
