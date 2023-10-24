@@ -117,7 +117,6 @@ function makePlayers(headers: Headers, metadata: Metadata): Players {
 
 function makeMetadata(headers: Headers, lichess: Lichess): Metadata {
   const site = headers.get('source') || headers.get('site');
-  const event = headers.get('event');
   const tcs = headers
     .get('timecontrol')
     ?.split('+')
@@ -135,6 +134,15 @@ function makeMetadata(headers: Headers, lichess: Lichess): Metadata {
     isLichess: !!(lichess && site?.startsWith(lichess)),
     timeControl,
     orientation: orientation === 'white' || orientation === 'black' ? orientation : undefined,
-    name: event ?? '?',
+    name: makeGameName(headers),
   };
 }
+
+const makeGameName = (headers: Headers): string => {
+  const event = headers.get('event');
+  const players = ['white', 'black']
+    .map(c => [headers.get(c), headers.get(c + 'Elo')])
+    .map(([name, rating]) => (name ? `${name}${rating ? ` (${rating})` : ''}` : undefined))
+    .filter(x => !!x);
+  return players.length == 2 ? players.join(' vs ') : event ?? '?';
+};

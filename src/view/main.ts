@@ -92,7 +92,7 @@ const renderSelect = (ctrl: PgnViewer): VNode =>
         },
       },
     },
-    ctrl.games.map((game, i) => h('option', { attrs: { value: i } }, game.metadata.name)),
+    ctrl.games.map((game, i) => h('option', { attrs: { value: i } }, `${i + 1}. ${game.metadata.name}`)),
   );
 
 export const makeConfig = (ctrl: PgnViewer, rootEl: HTMLElement): CgConfig => ({
