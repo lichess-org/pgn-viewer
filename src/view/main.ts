@@ -13,12 +13,13 @@ export default function view(ctrl: PgnViewer) {
     staticClasses = `lpv.lpv--moves-${opts.showMoves}.lpv--controls-${opts.showControls}${
       opts.classes ? '.' + opts.classes.replace(' ', '.') : ''
     }`;
+  const showPlayers = opts.showPlayers == 'auto' ? ctrl.game.hasPlayerName() : opts.showPlayers;
   return h(
     `div.${staticClasses}`,
     {
       class: {
         'lpv--menu': ctrl.pane != 'board',
-        'lpv--players': opts.showPlayers == 'auto' ? ctrl.game.hasPlayerName() : opts.showPlayers,
+        'lpv--players': showPlayers,
       },
       attrs: {
         tabindex: 0,
@@ -29,13 +30,13 @@ export default function view(ctrl: PgnViewer) {
       }),
     },
     [
-      opts.showPlayers ? renderPlayer(ctrl, 'top') : undefined,
+      showPlayers ? renderPlayer(ctrl, 'top') : undefined,
       renderBoard(ctrl),
-      opts.showPlayers ? renderPlayer(ctrl, 'bottom') : undefined,
+      showPlayers ? renderPlayer(ctrl, 'bottom') : undefined,
       opts.showControls ? renderControls(ctrl) : undefined,
       opts.showMoves ? renderMoves(ctrl) : undefined,
       ctrl.pane == 'menu' ? renderMenu(ctrl) : ctrl.pane == 'pgn' ? renderPgnPane(ctrl) : undefined,
-    ]
+    ],
   );
 }
 
@@ -52,11 +53,11 @@ const renderBoard = (ctrl: PgnViewer): VNode =>
               e.preventDefault();
               if (e.deltaY > 0 && scroll) ctrl.goTo('next', false);
               else if (e.deltaY < 0 && scroll) ctrl.goTo('prev', false);
-            })
+            }),
           );
       }),
     },
-    h('div.cg-wrap')
+    h('div.cg-wrap'),
   );
 
 const renderPgnPane = (ctrl: PgnViewer): VNode => {
@@ -70,7 +71,7 @@ const renderPgnPane = (ctrl: PgnViewer): VNode => {
           download: ctrl.opts.menu.getPgn.fileName || `${ctrl.game.title()}.pgn`,
         },
       },
-      ctrl.translate('download')
+      ctrl.translate('download'),
     ),
     h('textarea.lpv__pgn__text', ctrl.opts.pgn),
   ]);
