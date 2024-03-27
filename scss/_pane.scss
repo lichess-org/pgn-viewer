@@ -1,8 +1,8 @@
 .lpv {
   &__pane {
     z-index: 2;
-    border-bottom: 2px solid $lpv-accent;
-    background: $lpv-bg-pane;
+    border-bottom: 2px solid var(--c-lpv-accent, #{$lpv-accent});
+    background: var(--c-lpv-bg-pane, #{$lpv-bg-pane});
     display: flex;
     flex-flow: column;
     justify-content: center;
@@ -11,11 +11,11 @@
       padding: 0.8em 2.5em;
       transition: none;
       &::before {
-        color: $lpv-accent;
+        color: var(--c-lpv-accent, #{$lpv-accent});
         font-size: 2em;
       }
       &:hover::before {
-        color: $lpv-accent-over;
+        color: var(--c-lpv-accent-over, #{$lpv-accent-over});
       }
     }
   }
@@ -23,8 +23,8 @@
   &__pgn {
     &__text {
       flex: 1 1 auto;
-      background: mix($lpv-bg-pane, $lpv-bg, 30%);
-      color: $lpv-font;
+      background: var(--c-lpv-pange-bg, #{$lpv-pane-bg});
+      color: var(--c-lpv-font, #{$lpv-font});
       padding: 0.8em 1.3em;
     }
   }

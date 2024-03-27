@@ -2,14 +2,19 @@ $lpv-site-hue: 37 !default;
 $lpv-accent: hsl(88, 62%, 37%) !default;
 $lpv-accent-over: white !default;
 $lpv-bg: hsl($lpv-site-hue, 5%, 18%) !default;
+$lpv-fbt-hover: mix($lpv-accent, $lpv-bg, 75%) !default;
 $lpv-bg-player: $lpv-bg !default;
 $lpv-bg-controls: $lpv-bg !default;
 $lpv-bg-movelist: $lpv-bg !default;
 $lpv-bg-variation: hsl($lpv-site-hue, 5%, 15%) !default;
 $lpv-bg-pane: mix($lpv-accent, $lpv-bg, 15%) !default;
+$lpv-pane-bg: mix($lpv-bg-pane, $lpv-bg, 30%) !default;
 $lpv-font: #aaa !default;
 $lpv-font-shy: mix($lpv-font, $lpv-bg, 50%) !default;
 $lpv-font-accent: mix($lpv-accent, #fff, 50%) !default;
+$lpv-font-bg: mix($lpv-font, $lpv-bg, 20%) !default;
+$lpv-empty: mix($lpv-font, $lpv-bg, 50%) !default;
+$lpv-current-move: mix($lpv-accent, $lpv-bg, 70%) !default;
 $lpv-border: hsl(0, 0%, 25%) !default;
 /* move highlights */
 $lpv-inaccuracy: hsl(202, 78%, 62%) !default;
@@ -57,6 +62,6 @@ $lpv-interesting: hsl(307, 80%, 70%) !default;
   }
 
   &:focus {
-    outline: auto 2px $lpv-accent;
+    outline: auto 2px var(--c-lpv-accent, #{$lpv-accent});
   }
 }
