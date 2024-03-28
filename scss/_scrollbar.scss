@@ -5,7 +5,7 @@ body ::-webkit-scrollbar-corner {
 }
 
 body ::-webkit-scrollbar-thumb {
-  background: mix($lpv-font, $lpv-bg, 20%);
+  background: var(--c-lpv-font-bg, $lpv-font-bg);
 }
 
 body ::-webkit-scrollbar-thumb:hover,

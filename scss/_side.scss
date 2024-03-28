@@ -1,11 +1,3 @@
-$lpv-bg-inaccuracy-hover: c-dimmer($lpv-inaccuracy, 70%) !default;
-$lpv-bg-mistake-hover: c-dimmer($lpv-mistake, 70%) !default;
-$lpv-bg-blunder-hover: c-dimmer($lpv-blunder, 70%) !default;
-$lpv-bg-good-hover: c-dimmer($lpv-good-move, 70%) !default;
-$lpv-bg-brilliant-hover: c-dimmer($lpv-brilliant, 70%) !default;
-$lpv-bg-interesting-hover: c-dimmer($lpv-interesting, 70%) !default;
-$lpv-border: hsl(37deg, 5%, 13%) !default;
-
 .lpv {
   &__side {
     overflow: hidden;
@@ -18,7 +10,7 @@ $lpv-border: hsl(37deg, 5%, 13%) !default;
     display: flex;
     flex-flow: row wrap;
     overflow-y: auto;
-    background: $lpv-bg-movelist;
+    background: var(--c-lpv-bg-movelist, $lpv-bg-movelist);
     align-items: center;
     align-content: flex-start;
     will-change: scroll-position;
@@ -26,7 +18,7 @@ $lpv-border: hsl(37deg, 5%, 13%) !default;
     line-height: 1.7;
     min-width: 20ch;
     index {
-      color: $lpv-font-shy;
+      color: var(--c-lpv-font-shy, $lpv-font-shy);
     }
     > index {
       flex: 0 0 15%;
@@ -40,54 +32,54 @@ $lpv-border: hsl(37deg, 5%, 13%) !default;
       font-weight: bold;
       white-space: nowrap;
       &.empty {
-        color: mix($lpv-font, $lpv-bg, 50%);
+        color: var(--c-lpv-font-shy, $lpv-font-shy);
       }
       &:not(.empty):hover {
-        background: mix($lpv-accent, $lpv-bg, 30%);
-        color: $lpv-accent-over;
+        background: var(--c-lpv-move-hover, $lpv-move-hover);
+        color: var(--c-lpv-accent-over, $lpv-accent-over);
         cursor: pointer;
       }
       &.ancestor {
-        color: $lpv-font-accent;
+        color: var(--c-lpv-font-accent, $lpv-font-accent);
       }
       &.current {
-        background: mix($lpv-accent, $lpv-bg, 70%) !important;
-        color: $lpv-accent-over;
+        background: var(--c-lpv-current-move, $lpv-current-move) !important;
+        color: var(--c-lpv-accent-over, $lpv-accent-over);
       }
       &.inaccuracy {
-        color: $lpv-inaccuracy;
+        color: var(--c-lpv-inaccuracy, $lpv-inaccuracy);
         &:hover {
-          background: $lpv-bg-inaccuracy-hover;
+          background: var(--c-lpv-bg-inaccuracy-hover, $lpv-bg-inaccuracy-hover);
         }
       }
       &.mistake {
-        color: $lpv-mistake;
+        color: var(--c-lpv-mistake, $lpv-mistake);
         &:hover {
-          background: $lpv-bg-mistake-hover;
+          background: var(--c-lpv-bg-mistake-hover, $lpv-bg-mistake-hover);
         }
       }
       &.blunder {
-        color: $lpv-blunder;
+        color: var(--c-lpv-blunder, $lpv-blunder);
         &:hover {
-          background: $lpv-bg-blunder-hover;
+          background: var(--c-lpv-bg-blunder-hover, $lpv-bg-blunder-hover);
         }
       }
       &.good {
-        color: $lpv-good-move;
+        color: var(--c-lpv-good-move, $lpv-good-move);
         &:hover {
-          background: $lpv-bg-good-hover;
+          background: var(--c-lpv-bg-good-hover, $lpv-bg-good-hover);
         }
       }
       &.brilliant {
-        color: $lpv-brilliant;
+        color: var(--c-lpv-brilliant, $lpv-brilliant);
         &:hover {
-          background: $lpv-bg-brilliant-hover;
+          background: var(--c-lpv-bg-brilliant-hover, $lpv-bg-brilliant-hover);
         }
       }
       &.interesting {
-        color: $lpv-interesting;
+        color: var(--c-lpv-interesting, $lpv-interesting);
         &:hover {
-          background: $lpv-bg-interesting-hover;
+          background: var(--c-lpv-bg-interesting-hover, $lpv-bg-interesting-hover);
         }
       }
     }
@@ -101,8 +93,8 @@ $lpv-border: hsl(37deg, 5%, 13%) !default;
     }
     > comment {
       flex: 1 1 100%;
-      background: $lpv-bg-variation;
-      border: 1px solid $lpv-border;
+      background: var(--c-lpv-bg-variation, $lpv-bg-variation);
+      border: 1px solid var(--c-lpv-side-border, $lpv-side-border);
       border-width: 1px 0;
       padding: 0.4em 1em;
       line-height: 1.4;
@@ -118,8 +110,8 @@ $lpv-border: hsl(37deg, 5%, 13%) !default;
       display: block;
       overflow: hidden;
       font-size: 0.8em;
-      background: $lpv-bg-variation;
-      border: 1px solid $lpv-border;
+      background: var(--c-lpv-bg-variation, $lpv-bg-variation);
+      border: 1px solid var(--c-lpv-side-border, $lpv-side-border);
       border-width: 1px 0;
       padding: 0em 0.6em;
       + variation {
@@ -146,7 +138,7 @@ $lpv-border: hsl(37deg, 5%, 13%) !default;
         margin: 0 0.3em;
       }
       paren {
-        color: $lpv-font-shy;
+        color: var(--c-lpv-font-shy, $lpv-font-shy);
         &.open {
           margin: 0 0.1em 0 0.2em;
         }

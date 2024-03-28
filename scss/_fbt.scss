@@ -3,7 +3,7 @@
     background: none;
     border: none;
     outline: none;
-    color: $lpv-font;
+    color: var(--c-lpv-font, $lpv-font);
     align-items: normal;
     cursor: pointer;
     text-transform: uppercase;
@@ -13,13 +13,13 @@
 
     @media (hover: hover) {
       &:hover:not(.disabled):not([disabled]) {
-        background: mix($lpv-accent, $lpv-bg, 75%);
+        background: var(--c-lpv-fbt-hover, lpv-fbt-hover);
         color: #fff;
       }
     }
 
     &.active {
-      background: $lpv-accent !important;
+      background: var(--c-lpv-accent, $lpv-accent) !important;
       color: #fff;
     }
 

@@ -4,13 +4,13 @@
     flex-flow: row nowrap;
     align-items: stretch;
     user-select: none;
-    background: $lpv-bg-controls;
+    background: var(--c-lpv-bg-controls, $lpv-bg-controls);
 
     .lpv__fbt {
       flex: 1 1 auto;
       font-size: 1.4em;
       padding: 0.4em 0.7em;
-      border-left: 1px solid $lpv-border;
+      border-left: 1px solid var(--c-lpv-border, $lpv-border);
       &:first-child {
         border: none;
       }
