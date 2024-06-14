@@ -46,6 +46,7 @@ export default class PgnViewer {
   canGoTo = (to: GoTo) => (to == 'prev' || to == 'first' ? !this.path.empty() : !!this.curNode().children[0]);
 
   toPath = (path: Path, focus = true) => {
+    this.div?.dispatchEvent(new CustomEvent('pathChange', { detail: { path: path } }));
     this.path = path;
     this.pane = 'board';
     this.autoScrollRequested = true;
