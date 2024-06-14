@@ -93,6 +93,12 @@ export interface Opts {
       enabled?: boolean;
       fileName?: string;
     };
+    practiceWithComputer?: {
+      enabled?: boolean;
+    };
+    analysisBoard?: {
+      enabled?: boolean;
+    }
   };
   lichess: Lichess;
   classes?: string;

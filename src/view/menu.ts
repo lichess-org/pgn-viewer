@@ -13,26 +13,30 @@ export const renderMenu = (ctrl: PgnViewer) =>
       },
       ctrl.translate('flipTheBoard')
     ),
-    h(
-      'a.lpv__menu__entry.lpv__menu__analysis.lpv__fbt',
-      {
-        attrs: {
-          href: ctrl.analysisUrl(),
-          target: '_blank',
-        },
-      },
-      ctrl.translate('analysisBoard')
-    ),
-    h(
-      'a.lpv__menu__entry.lpv__menu__practice.lpv__fbt',
-      {
-        attrs: {
-          href: ctrl.practiceUrl(),
-          target: '_blank',
-        },
-      },
-      ctrl.translate('practiceWithComputer')
-    ),
+    ctrl.opts.menu.analysisBoard?.enabled
+      ? h(
+          'a.lpv__menu__entry.lpv__menu__analysis.lpv__fbt',
+          {
+            attrs: {
+              href: ctrl.analysisUrl(),
+              target: '_blank',
+            },
+          },
+          ctrl.translate('analysisBoard')
+        )
+      : undefined,
+    ctrl.opts.menu.practiceWithComputer?.enabled
+      ? h(
+          'a.lpv__menu__entry.lpv__menu__practice.lpv__fbt',
+          {
+            attrs: {
+              href: ctrl.practiceUrl(),
+              target: '_blank',
+            },
+          },
+          ctrl.translate('practiceWithComputer')
+        )
+      : undefined,
     ctrl.opts.menu.getPgn.enabled
       ? h(
           'button.lpv__menu__entry.lpv__menu__pgn.lpv__fbt',
