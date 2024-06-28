@@ -40,7 +40,7 @@
         cursor: pointer;
       }
       &.ancestor {
-        color: var(--c-lpv-font-accent, $lpv-font-accent);
+        color: var(--c-lpv-past-moves, $lpv-past-moves);
       }
       &.current {
         background: var(--c-lpv-current-move, $lpv-current-move) !important;
