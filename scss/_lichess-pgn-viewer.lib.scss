@@ -14,7 +14,7 @@ $lpv-bg-pane: mix($lpv-accent, $lpv-bg, 15%) !default;
 $lpv-pgn-text: mix($lpv-bg-pane, $lpv-bg, 30%) !default;
 $lpv-font: #aaa !default;
 $lpv-font-shy: mix($lpv-font, $lpv-bg, 50%) !default;
-$lpv-past-moves: $lpv-font-shy !default;
+$lpv-past-moves: $lpv-font !default;
 $lpv-font-bg: mix($lpv-font, $lpv-bg, 20%) !default;
 $lpv-current-move: mix($lpv-accent, $lpv-bg, 70%) !default;
 $lpv-move-hover: mix($lpv-accent, $lpv-bg, 30%) !default;
