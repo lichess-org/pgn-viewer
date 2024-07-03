@@ -22,7 +22,7 @@ const defaults: Opts = {
     },
     analysisBoard: {
       enabled: true,
-    }
+    },
   },
   lichess: 'https://lichess.org', // support for Lichess games, with links to the game and players. Set to false to disable.
   classes: undefined, // CSS classes to set on the root element. Defaults to the element classes before being replaced by LPV.
