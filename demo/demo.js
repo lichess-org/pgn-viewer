@@ -189,3 +189,23 @@ You can find the book here for an absurdly low price: https://www.amazon.com/Mam
 ].forEach((cfg, i) =>
   LichessPgnViewer(document.querySelector(`.viewers > div:nth-child(${i + 1}) > div`), cfg),
 );
+
+const lightColors = {
+  "--c-lpv-accent": "hsl(209, 77%, 46%)",
+  "--c-lpv-bg": "--c-lpv-bg",
+  "--c-lpv-bg-player": "--c-lpv-bg",
+  "--c-lpv-bg-controls": "--c-lpv-bg",
+  "--c-lpv-bg-movelist":  "--c-lpv-bg",
+  "--c-lpv-bg-variation": "hsl(37, 12%, 92%)",
+  "--c-lpv-pgn-text": "hsl(37, 12%, 92%)",
+  "--c-lpv-font": "color(srgb 0.3019 0.302 0.302)",
+  "--c-lpv-font-bg": "color(srgb 0.8392 0.8392 0.8393)",
+  "--demo-bg": 'color(srgb 0.9272 0.9173 0.9047)'
+}
+
+document.getElementById('light-mode-selector').addEventListener('change', (e) => {
+  Object.entries(lightColors).forEach(([key, color],_) => {
+    console.log(key, color);
+    document.documentElement.style.setProperty(key, e.target.checked ? color : "unset");
+  })});
+

@@ -98,7 +98,7 @@ export interface Opts {
     };
     analysisBoard?: {
       enabled?: boolean;
-    }
+    };
   };
   lichess: Lichess;
   classes?: string;

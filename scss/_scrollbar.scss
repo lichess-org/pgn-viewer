@@ -1,14 +1,16 @@
-body ::-webkit-scrollbar,
-body ::-webkit-scrollbar-corner {
-  width: 0.5rem;
-  background: $lpv-bg;
-}
+.lpv {
+  *::-webkit-scrollbar,
+  *::-webkit-scrollbar-corner {
+    width: 0.5rem;
+    background: var(--c-lpv-bg, $lpv-bg);
+  }
 
-body ::-webkit-scrollbar-thumb {
-  background: var(--c-lpv-font-bg, $lpv-font-bg);
-}
+  *::-webkit-scrollbar-thumb {
+    background: var(--c-lpv-font-bg, $lpv-font-bg);
+  }
 
-body ::-webkit-scrollbar-thumb:hover,
-body ::-webkit-scrollbar-thumb:active {
-  background: $lpv-font-shy;
+  *::-webkit-scrollbar-thumb:hover,
+  *::-webkit-scrollbar-thumb:active {
+    background: var(--c-lpv-font-shy, $lpv-font-shy);
+  }
 }
