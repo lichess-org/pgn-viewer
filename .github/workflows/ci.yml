@@ -2,23 +2,21 @@ name: ci
 
 on:
   pull_request:
-    branches: [master]
   push:
-    branches: [master]
 
 jobs:
   checks:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '16.x'
-      - name: Install Dependencies
-        run: npm install
-      - name: Run tests
-        run: npm run test
+          node-version: 22
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: true
+      - run: pnpm run test
       - name: Compile sass
-        run: npm run sass-prod
+        run: pnpm run sass-prod
       - name: Test rollup build
-        run: npm run prod
+        run: pnpm run prod
