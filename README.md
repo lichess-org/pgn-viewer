@@ -106,3 +106,12 @@ npm run sass-prod
 ```
 Then copy the `dist/lichess-pgn-viewer.css` file into your project.
 
+## Testing
+
+```bash
+pnpm test
+
+## or
+
+pnpm test:watch
+```
