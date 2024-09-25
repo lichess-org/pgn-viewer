@@ -12,7 +12,7 @@ echo "Publishing $version"
 sed -i -e "s/\"version\": \".*\"/\"version\": \"$version\"/g" package.json
 
 pnpm install
-# pnpm run test
+pnpm run test
 pnpm run dist
 pnpm publish
 

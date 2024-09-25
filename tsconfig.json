@@ -1,11 +1,13 @@
 {
-  "include": ["src"],
+  "include": [
+    "src"
+  ],
   "compilerOptions": {
     "strict": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
     "declaration": true,
     "sourceMap": true,
@@ -13,6 +15,9 @@
     "outDir": "dist",
     "target": "ES2019",
     "module": "esnext",
-    "lib": ["DOM", "ES2019"]
+    "lib": [
+      "DOM",
+      "ES2019"
+    ]
   }
 }
