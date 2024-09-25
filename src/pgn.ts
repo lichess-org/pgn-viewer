@@ -135,5 +135,6 @@ function makeMetadata(headers: Headers, lichess: Lichess): Metadata {
     isLichess: !!(lichess && site?.startsWith(lichess)),
     timeControl,
     orientation: orientation === 'white' || orientation === 'black' ? orientation : undefined,
+    result: headers.get('result'),
   };
 }

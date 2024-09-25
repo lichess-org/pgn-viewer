@@ -91,6 +91,10 @@
       user-select: text;
       font-size: 0.9em;
     }
+    comment.result {
+      text-align: center;
+      font-weight: bold;
+    }
     > comment {
       flex: 1 1 100%;
       background: var(--c-lpv-bg-variation, $lpv-bg-variation);
