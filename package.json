@@ -30,20 +30,20 @@
     }
   },
   "dependencies": {
-    "@types/node": "^20.5.0",
-    "chessground": "^9.0.2",
+    "@types/node": "^20.16.8",
+    "chessground": "^9.1.1",
     "chessops": "^0.12.7",
-    "snabbdom": "^3.5.1"
+    "snabbdom": "^3.6.2"
   },
   "devDependencies": {
-    "esbuild": "^0.19.2",
+    "@stylistic/eslint-plugin": "^2.8.0",
+    "@typescript-eslint/eslint-plugin": "^8.7.0",
+    "@typescript-eslint/parser": "^8.7.0",
+    "esbuild": "^0.19.12",
+    "eslint": "^9.11.1",
     "http-server": "^14.1.1",
     "prettier": "^3.3.3",
-    "eslint": "^9.10.0",
-    "@typescript-eslint/eslint-plugin": "^8.6.0",
-    "@typescript-eslint/parser": "^8.6.0",
-    "@stylistic/eslint-plugin": "^2.8.0",
-    "sass": "^1.65.1",
+    "sass": "^1.79.3",
     "typescript": "^5.6.2",
     "vitest": "^2.1.1"
   },
@@ -51,15 +51,15 @@
     "compile": "tsc --incremental",
     "format": "prettier --write --log-level warn . && eslint --fix src",
     "bundle": "esbuild src/main.ts --bundle --format=esm --platform=browser",
-    "bundle-dev": "$npm_execpath run bundle --outfile=demo/lichess-pgn-viewer.js",
-    "bundle-prod": "$npm_execpath run bundle --minify --outfile=dist/lichess-pgn-viewer.min.js",
+    "bundle-dev": "pnpm run bundle --outfile=demo/lichess-pgn-viewer.js",
+    "bundle-prod": "pnpm run bundle --minify --outfile=dist/lichess-pgn-viewer.min.js",
     "sass-dev": "sass --no-source-map --update --style=expanded scss:demo",
     "sass-prod": "sass --no-source-map --style=compressed scss:dist",
-    "prod": "$npm_execpath run sass-prod && $npm_execpath run bundle-prod",
-    "demo": "$npm_execpath run sass-dev && $npm_execpath run bundle-dev && http-server demo",
+    "prod": "pnpm run sass-prod && pnpm run bundle-prod",
+    "demo": "pnpm run sass-dev && pnpm run bundle-dev && http-server demo",
     "test": "vitest run",
     "test:watch": "vitest",
-    "dist": "$npm_execpath run compile && $npm_execpath run prod && $npm_execpath run sass-dev && $npm_execpath run bundle-dev"
+    "dist": "pnpm run compile && pnpm run prod && pnpm run sass-dev && pnpm run bundle-dev"
   },
   "files": [
     "demo/*",
