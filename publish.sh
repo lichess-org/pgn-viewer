@@ -2,6 +2,11 @@
 
 version=$1
 
+if [ -z "$version" ]; then
+  echo "Version is required"
+  exit 1
+fi
+
 echo "Publishing $version"
 
 sed -i -e "s/\"version\": \".*\"/\"version\": \"$version\"/g" package.json
