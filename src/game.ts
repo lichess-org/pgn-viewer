@@ -28,22 +28,22 @@ export class Game {
   title = () =>
     this.players.white.name
       ? [
-          this.players.white.title,
-          this.players.white.name,
-          'vs',
-          this.players.black.title,
-          this.players.black.name,
-        ]
-          .filter(x => x && !!x.trim())
-          .join('_')
-          .replace(' ', '-')
+        this.players.white.title,
+        this.players.white.name,
+        'vs',
+        this.players.black.title,
+        this.players.black.name,
+      ]
+        .filter(x => x && !!x.trim())
+        .join('_')
+        .replace(' ', '-')
       : 'lichess-pgn-viewer';
 
   pathAtMainlinePly = (ply: Ply | 'last') =>
     ply == 0
       ? Path.root
       : this.mainline[Math.max(0, Math.min(this.mainline.length - 1, ply == 'last' ? 9999 : ply - 1))]
-          ?.path || Path.root;
+        ?.path || Path.root;
 
   hasPlayerName = () => !!(this.players.white?.name || this.players.black?.name);
 }

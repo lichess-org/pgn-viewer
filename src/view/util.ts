@@ -9,7 +9,7 @@ export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => unknown, r
         e.preventDefault();
         if (redraw) redraw();
       },
-      { passive: false }
+      { passive: false },
     );
   }
 }
@@ -18,7 +18,7 @@ export const bind = <E extends Event>(
   eventName: string,
   f: (e: E) => any,
   redraw?: () => void,
-  passive = true
+  passive = true,
 ): Hooks =>
   onInsert(el =>
     el.addEventListener(
@@ -29,8 +29,8 @@ export const bind = <E extends Event>(
         redraw?.();
         return res;
       },
-      { passive }
-    )
+      { passive },
+    ),
   );
 
 export function onInsert<A extends HTMLElement>(f: (element: A) => void): Hooks {

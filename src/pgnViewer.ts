@@ -36,10 +36,10 @@ export default class PgnViewer {
       to == 'first'
         ? Path.root
         : to == 'prev'
-        ? this.path.init()
-        : to == 'next'
-        ? this.game.nodeAt(this.path)?.children[0]?.data.path
-        : this.game.pathAtMainlinePly('last');
+          ? this.path.init()
+          : to == 'next'
+            ? this.game.nodeAt(this.path)?.children[0]?.data.path
+            : this.game.pathAtMainlinePly('last');
     this.toPath(path || this.path, focus);
   };
 

@@ -5,8 +5,7 @@ import { MoveData } from '../interfaces';
 import { Path } from '../path';
 
 export const renderMoves = (ctrl: PgnViewer) =>
-  h(
-    'div.lpv__side',
+  h('div.lpv__side', [
     h(
       'div.lpv__moves',
       {
@@ -20,7 +19,7 @@ export const renderMoves = (ctrl: PgnViewer) =>
                 const path = (e.target as HTMLElement).getAttribute('p');
                 if (path) ctrl.toPath(new Path(path));
               },
-              { passive: true }
+              { passive: true },
             );
           },
           postpatch: (_, vnode) => {
@@ -31,9 +30,10 @@ export const renderMoves = (ctrl: PgnViewer) =>
           },
         },
       },
-      [...ctrl.game.initial.comments.map(commentNode), ...makeMoveNodes(ctrl)]
-    )
-  );
+      [...ctrl.game.initial.comments.map(commentNode), ...makeMoveNodes(ctrl)],
+    ),
+    h('div.lpv__result', ctrl.game.result),
+  ]);
 
 const emptyMove = () => h('move.empty', '...');
 const indexNode = (turn: number) => h('index', `${turn}.`);
@@ -105,7 +105,7 @@ const renderMove = (ctrl: PgnViewer) => (move: MoveData) =>
         p: move.path.path,
       },
     },
-    move.san
+    move.san,
   );
 
 const autoScroll = (ctrl: PgnViewer, cont: HTMLElement) => {

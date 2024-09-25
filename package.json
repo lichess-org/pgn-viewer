@@ -38,14 +38,18 @@
   "devDependencies": {
     "esbuild": "^0.19.2",
     "http-server": "^14.1.1",
-    "prettier": "^3.0.2",
+    "prettier": "^3.3.3",
+    "eslint": "^9.10.0",
+    "@typescript-eslint/eslint-plugin": "^8.6.0",
+    "@typescript-eslint/parser": "^8.6.0",
+    "@stylistic/eslint-plugin": "^2.8.0",
     "sass": "^1.65.1",
-    "typescript": "^5.1.6",
+    "typescript": "^5.6.2",
     "vitest": "^2.1.1"
   },
   "scripts": {
     "compile": "tsc --incremental",
-    "format": "prettier --write **/*.ts **/*.scss",
+    "format": "prettier --write --log-level warn . && eslint --fix src",
     "bundle": "esbuild src/main.ts --bundle --format=esm --platform=browser",
     "bundle-dev": "$npm_execpath run bundle --outfile=demo/lichess-pgn-viewer.js",
     "bundle-prod": "$npm_execpath run bundle --minify --outfile=dist/lichess-pgn-viewer.min.js",
