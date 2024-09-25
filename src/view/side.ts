@@ -38,8 +38,10 @@ export const renderMoves = (ctrl: PgnViewer) =>
     ),
   ]);
 
-const renderResultComment = (ctrl: PgnViewer) =>
-  ctrl.game.metadata.result ? [ h('comment.result',ctrl.game.metadata.result)] : [];
+const renderResultComment = (ctrl: PgnViewer) => {
+  const res = ctrl.game.metadata.result;
+  return res && res != '*' ? [ h('comment.result',ctrl.game.metadata.result)] : [];
+};
 
 const emptyMove = () => h('move.empty', '...');
 const indexNode = (turn: number) => h('index', `${turn}.`);
