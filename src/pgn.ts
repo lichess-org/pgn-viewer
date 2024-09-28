@@ -125,9 +125,9 @@ function makeMetadata(headers: Headers, lichess: Lichess): Metadata {
   const timeControl =
     tcs && tcs[0]
       ? {
-        initial: tcs[0],
-        increment: tcs[1] || 0,
-      }
+          initial: tcs[0],
+          increment: tcs[1] || 0,
+        }
       : undefined;
   const orientation = headers.get('orientation');
   return {

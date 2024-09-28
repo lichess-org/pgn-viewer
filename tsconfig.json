@@ -1,7 +1,5 @@
 {
-  "include": [
-    "src"
-  ],
+  "include": ["src"],
   "compilerOptions": {
     "strict": true,
     "noImplicitReturns": true,
@@ -15,9 +13,6 @@
     "outDir": "dist",
     "target": "ES2019",
     "module": "esnext",
-    "lib": [
-      "DOM",
-      "ES2019"
-    ]
+    "lib": ["DOM", "ES2019"]
   }
 }
