@@ -15,36 +15,36 @@ export const renderMenu = (ctrl: PgnViewer) =>
     ),
     ctrl.opts.menu.analysisBoard?.enabled
       ? h(
-        'a.lpv__menu__entry.lpv__menu__analysis.lpv__fbt',
-        {
-          attrs: {
-            href: ctrl.analysisUrl(),
-            target: '_blank',
+          'a.lpv__menu__entry.lpv__menu__analysis.lpv__fbt',
+          {
+            attrs: {
+              href: ctrl.analysisUrl(),
+              target: '_blank',
+            },
           },
-        },
-        ctrl.translate('analysisBoard'),
-      )
+          ctrl.translate('analysisBoard'),
+        )
       : undefined,
     ctrl.opts.menu.practiceWithComputer?.enabled
       ? h(
-        'a.lpv__menu__entry.lpv__menu__practice.lpv__fbt',
-        {
-          attrs: {
-            href: ctrl.practiceUrl(),
-            target: '_blank',
+          'a.lpv__menu__entry.lpv__menu__practice.lpv__fbt',
+          {
+            attrs: {
+              href: ctrl.practiceUrl(),
+              target: '_blank',
+            },
           },
-        },
-        ctrl.translate('practiceWithComputer'),
-      )
+          ctrl.translate('practiceWithComputer'),
+        )
       : undefined,
     ctrl.opts.menu.getPgn.enabled
       ? h(
-        'button.lpv__menu__entry.lpv__menu__pgn.lpv__fbt',
-        {
-          hook: bind('click', ctrl.togglePgn),
-        },
-        ctrl.translate('getPgn'),
-      )
+          'button.lpv__menu__entry.lpv__menu__pgn.lpv__fbt',
+          {
+            hook: bind('click', ctrl.togglePgn),
+          },
+          ctrl.translate('getPgn'),
+        )
       : undefined,
     renderExternalLink(ctrl),
   ]);

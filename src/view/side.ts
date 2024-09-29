@@ -30,17 +30,13 @@ export const renderMoves = (ctrl: PgnViewer) =>
           },
         },
       },
-      [
-        ...ctrl.game.initial.comments.map(commentNode),
-        ...makeMoveNodes(ctrl),
-        ...renderResultComment(ctrl),
-      ],
+      [...ctrl.game.initial.comments.map(commentNode), ...makeMoveNodes(ctrl), ...renderResultComment(ctrl)],
     ),
   ]);
 
 const renderResultComment = (ctrl: PgnViewer) => {
   const res = ctrl.game.metadata.result;
-  return res && res != '*' ? [ h('comment.result',ctrl.game.metadata.result)] : [];
+  return res && res != '*' ? [h('comment.result', ctrl.game.metadata.result)] : [];
 };
 
 const emptyMove = () => h('move.empty', '...');

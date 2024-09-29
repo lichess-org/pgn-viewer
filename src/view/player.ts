@@ -13,10 +13,10 @@ export default function renderPlayer(ctrl: PgnViewer, side: 'top' | 'bottom'): V
   return h(`div.lpv__player.lpv__player--${side}`, [
     player.isLichessUser
       ? h(
-        'a.lpv__player__person.ulpt.user-link',
-        { attrs: { href: `${ctrl.opts.lichess}/@/${player.name}` } },
-        personEls,
-      )
+          'a.lpv__player__person.ulpt.user-link',
+          { attrs: { href: `${ctrl.opts.lichess}/@/${player.name}` } },
+          personEls,
+        )
       : h('span.lpv__player__person', personEls),
     ctrl.opts.showClocks ? renderClock(ctrl, color) : undefined,
   ]);
