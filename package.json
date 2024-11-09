@@ -1,7 +1,7 @@
 {
   "name": "lichess-pgn-viewer",
   "license": "GPL-3.0-or-later",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "repository": "github:lichess-org/pgn-viewer",
   "author": "Thibault Duplessis <contact@lichess.org>",
   "funding": "https://lichess.org/patron",
@@ -30,10 +30,10 @@
     }
   },
   "dependencies": {
-    "@types/node": "^22.8.7",
+    "@types/node": "^22.9.0",
     "chessground": "^9.1.1",
     "chessops": "^0.14.1",
-    "snabbdom": "^3.6.2"
+    "snabbdom": "^3.5.1"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.13.0",
