@@ -3,6 +3,7 @@ import PgnViewer from '../pgnViewer';
 import { MoveNode } from '../game';
 import { MoveData } from '../interfaces';
 import { Path } from '../path';
+import { renderNag } from './glyph';
 
 export const renderMoves = (ctrl: PgnViewer) =>
   h('div.lpv__side', [
@@ -109,7 +110,7 @@ const renderMove = (ctrl: PgnViewer) => (move: MoveData) =>
         p: move.path.path,
       },
     },
-    move.san,
+    [move.san, ...move.nags.map(renderNag)],
   );
 
 const autoScroll = (ctrl: PgnViewer, cont: HTMLElement) => {
