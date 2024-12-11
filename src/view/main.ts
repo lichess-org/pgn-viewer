@@ -26,7 +26,7 @@ export default function view(ctrl: PgnViewer) {
       },
       hook: onInsert(el => {
         ctrl.setGround(Chessground(el.querySelector('.cg-wrap') as HTMLElement, makeConfig(ctrl, el)));
-        el.addEventListener('keydown', onKeyDown(ctrl));
+        if (opts.keyboardToMove) el.addEventListener('keydown', onKeyDown(ctrl));
       }),
     },
     [
