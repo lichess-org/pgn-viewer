@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest';
 import { isNormal, parseSquare } from 'chessops';
-import { makeGame } from './pgn';
+import { makeGame } from '../src/pgn';
 
 test('single move pgn', () => {
   const lastMove = makeGame('e4')!.moves.children[0].data;

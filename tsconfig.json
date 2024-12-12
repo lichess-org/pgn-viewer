@@ -1,5 +1,5 @@
 {
-  "include": ["src"],
+  "include": ["src/**/*", "tests/**/*"],
   "compilerOptions": {
     "strict": true,
     "noImplicitReturns": true,
@@ -9,7 +9,6 @@
     "esModuleInterop": true,
     "declaration": true,
     "sourceMap": true,
-    "rootDir": "src",
     "outDir": "dist",
     "target": "ES2019",
     "module": "esnext",
