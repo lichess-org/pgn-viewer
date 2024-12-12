@@ -88,6 +88,7 @@ export interface Opts {
   showControls: boolean;
   initialPly: Ply | 'last';
   scrollToMove: boolean;
+  keyboardToMove: boolean;
   drawArrows: boolean;
   menu: {
     getPgn: {
