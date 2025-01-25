@@ -5,6 +5,7 @@ $player-height: 2em !default;
 $controls-height: 4em !default;
 $moves-auto-to-right: 500px !default;
 $board-min-width: 200px !default;
+$moves-height: 14em !default;
 
 .lpv {
   display: grid;
@@ -37,7 +38,7 @@ $board-min-width: 200px !default;
       'board'
       'controls'
       'side';
-    grid-template-rows: auto var(--controls-height);
+    grid-template-rows: auto var(--controls-height) $moves-height;
     .lpv__controls {
       border-bottom: 1px solid var(--c-lpv-border, $lpv-border);
     }
@@ -58,7 +59,7 @@ $board-min-width: 200px !default;
         $board-min-width,
         calc(100vh - var(--controls-height) - #{$grid-side-row})
       );
-      grid-template-rows: auto var(--controls-height);
+      grid-template-rows: auto var(--controls-height) $moves-height;
     }
   }
 
@@ -88,7 +89,7 @@ $board-min-width: 200px !default;
         'player-bot'
         'controls'
         'side';
-      grid-template-rows: $player-height auto $player-height var(--controls-height);
+      grid-template-rows: $player-height auto $player-height var(--controls-height) $moves-height;
       .lpv__controls {
         border-bottom: 1px solid var(--c-lpv-border, $lpv-border);
       }
@@ -115,7 +116,7 @@ $board-min-width: 200px !default;
           $board-min-width,
           calc(100vh - 2 * #{$player-height} - var(--controls-height) - #{$grid-side-row})
         );
-        grid-template-rows: $player-height auto $player-height var(--controls-height);
+        grid-template-rows: $player-height auto $player-height var(--controls-height) $moves-height;
       }
     }
   }
