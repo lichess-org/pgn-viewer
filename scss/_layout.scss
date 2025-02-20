@@ -3,7 +3,7 @@ $grid-side-column-full-screen: minmax(232px, 1fr) !default;
 $grid-side-row: 6em !default;
 $player-height: 2em !default;
 $controls-height: 4em !default;
-$moves-auto-to-right: 500px !default;
+$moves-auto-to-right: 450px !default;
 $board-min-width: 200px !default;
 
 .lpv {
@@ -47,7 +47,10 @@ $board-min-width: 200px !default;
     grid-template-areas:
       'board      side'
       'controls   side';
-    grid-template-columns: minmax($board-min-width, calc(100vh - var(--controls-height))) $grid-side-column-full-screen;
+    grid-template-columns: minmax(
+        $board-min-width,
+        calc(100vh - var(--controls-height))
+      ) $grid-side-column-full-screen;
     grid-template-rows: auto var(--controls-height);
     @media (max-width: #{$moves-auto-to-right}) {
       grid-template-areas:
