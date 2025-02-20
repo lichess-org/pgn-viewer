@@ -47,10 +47,9 @@ $board-min-width: 200px !default;
     grid-template-areas:
       'board      side'
       'controls   side';
-    grid-template-columns: minmax(
-        $board-min-width,
-        calc(100vh - var(--controls-height))
-      ) $grid-side-column-full-screen;
+    grid-template-columns:
+      minmax($board-min-width, calc(100vh - var(--controls-height)))
+      $grid-side-column-full-screen;
     grid-template-rows: auto var(--controls-height);
     @media (max-width: #{$moves-auto-to-right}) {
       grid-template-areas:
@@ -91,7 +90,7 @@ $board-min-width: 200px !default;
         'player-bot'
         'controls'
         'side';
-      grid-template-rows: $player-height auto $player-height var(--controls-height);
+      grid-template-rows: $player-height auto $player-height var(--controls-height) $grid-side-row;
       .lpv__controls {
         border-bottom: 1px solid var(--c-lpv-border, $lpv-border);
       }
@@ -118,7 +117,7 @@ $board-min-width: 200px !default;
           $board-min-width,
           calc(100vh - 2 * #{$player-height} - var(--controls-height) - #{$grid-side-row})
         );
-        grid-template-rows: $player-height auto $player-height var(--controls-height);
+        grid-template-rows: $player-height auto $player-height var(--controls-height) $grid-side-row;
       }
     }
   }
