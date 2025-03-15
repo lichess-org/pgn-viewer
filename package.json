@@ -33,8 +33,11 @@
     "@types/node": "^22.13.4",
     "chessground": "^9.1.1",
     "chessops": "^0.14.2",
-    "snabbdom": "^3.6.2"
+    "snabbdom": "^3.5.1"
   },
+  "//": [
+    "snabbdom pinned to 3.5.1 until https://github.com/snabbdom/snabbdom/issues/1114 is resolved"
+  ],
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.24.1",
     "@typescript-eslint/parser": "^8.24.1",
