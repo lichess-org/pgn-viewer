@@ -10,7 +10,6 @@
     "declaration": true,
     "sourceMap": true,
     "outDir": "dist",
-    "rootDir": "src",
     "target": "ES2019",
     "module": "esnext",
     "lib": ["DOM", "ES2019"]
