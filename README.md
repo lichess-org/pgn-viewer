@@ -119,3 +119,9 @@ pnpm test
 
 pnpm test:watch
 ```
+
+## Wrappers
+
+- Vue.js: [dragunovartem99/vue-pgn-viewer](https://github.com/dragunovartem99/vue-pgn-viewer)
+
+More? Please make a pull request to include it here.
