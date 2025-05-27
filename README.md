@@ -55,13 +55,13 @@ Then open the demo page at http://localhost:8080
 ### As an NPM package
 
 ```
-npm i lichess-pgn-viewer
+npm i @lichess-org/pgn-viewer
 ```
 
 ## Usage
 
 ```js
-import LichessPgnViewer from 'lichess-pgn-viewer';
+import LichessPgnViewer from '@lichess-org/pgn-viewer';
 
 const lpv = LichessPgnViewer(domElement, {
   pgn: 'e4 c5 Nf3 d6 e5 Nc6 exd6 Qxd6 Nc3 Nf6',
@@ -95,10 +95,10 @@ View more examples in `demo/index.html`
 If you use [SCSS](https://sass-lang.com/), you can import the styles with:
 
 ```scss
-@import '../../node_modules/lichess-pgn-viewer/scss/lichess-pgn-viewer.lib';
+@import '../../node_modules/@lichess-org/pgn-viewer/scss/lichess-pgn-viewer.lib';
 ```
 
-Customisable SCSS variables are [available](https://github.com/lichess-org/pgn-viewer/blob/master/scss/_lichess-pgn-viewer.lib.scss), see [how lichess configures lichess-pgn-viewer with SCSS](https://github.com/lichess-org/lila/blob/master/ui/common/css/component/_lichess-pgn-viewer.scss).
+Customisable SCSS variables are [available](https://github.com/lichess-org/pgn-viewer/blob/master/scss/_lichess-pgn-viewer.lib.scss), see [how lichess configures pgn-viewer with SCSS](https://github.com/lichess-org/lila/blob/master/ui/common/css/component/_lichess-pgn-viewer.scss).
 
 ### CSS
 

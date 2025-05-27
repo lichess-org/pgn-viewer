@@ -1,5 +1,5 @@
 {
-  "name": "lichess-pgn-viewer",
+  "name": "@lichess-org/pgn-viewer",
   "license": "GPL-3.0-or-later",
   "version": "2.4.5",
   "repository": "github:lichess-org/pgn-viewer",
@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@types/node": "^22.13.4",
-    "chessground": "^9.1.1",
+    "chessground": "^9.2.1",
     "chessops": "^0.14.2",
     "snabbdom": "^3.5.1"
   },
