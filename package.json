@@ -1,9 +1,9 @@
 {
   "name": "@lichess-org/pgn-viewer",
   "license": "GPL-3.0-or-later",
-  "version": "2.4.5",
+  "version": "2.4.6",
   "repository": "github:lichess-org/pgn-viewer",
-  "author": "Thibault Duplessis <contact@lichess.org>",
+  "author": "Lichess Team <contact@lichess.org>",
   "funding": "https://lichess.org/patron",
   "keywords": [
     "chess",
