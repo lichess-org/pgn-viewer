@@ -1,7 +1,7 @@
 {
   "name": "@lichess-org/pgn-viewer",
   "license": "GPL-3.0-or-later",
-  "version": "2.4.5",
+  "version": "2.4.7",
   "repository": "github:lichess-org/pgn-viewer",
   "author": "Lichess Team <contact@lichess.org>",
   "funding": "https://lichess.org/patron",
