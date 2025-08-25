@@ -1,5 +1,4 @@
-@forward 'variables';
-@use 'variables' as *;
+@use 'lichess-pgn-viewer.vars' as *;
 
 @use './fbt' as *;
 @use './util' as *;

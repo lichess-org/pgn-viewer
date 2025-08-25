@@ -1,4 +1,4 @@
-@use 'variables' as *;
+@use 'lichess-pgn-viewer.vars' as *;
 
 $grid-side-column: fit-content(40%) !default;
 $grid-side-column-full-screen: minmax(232px, 1fr) !default;
