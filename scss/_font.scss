@@ -1,4 +1,4 @@
-@import './font-embed';
+@use './font-embed' as *;
 
 .lpv {
   &__icon {
