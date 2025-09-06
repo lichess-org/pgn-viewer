@@ -21,11 +21,11 @@ jobs:
       - run: |
           [[ "${{ github.event.inputs.version }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-.*)?$ ]] || \
           (echo "Version must start with 'v' and match 'v<major>.<minor>.<patch>'" && exit 1)
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
           ref: ${{ github.ref }}
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           registry-url: https://registry.npmjs.org/
         env:
