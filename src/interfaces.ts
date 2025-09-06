@@ -9,8 +9,8 @@ export type San = string;
 export type Uci = string;
 export type Ply = number;
 
-export type Translate = (key: string) => string | undefined;
-
+export type Translate = (key: string, ...args: string[]) => string;
+export type Translator = (key: string) => string | undefined;
 export type Clocks = {
   white?: number;
   black?: number;

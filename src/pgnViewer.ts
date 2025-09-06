@@ -14,6 +14,7 @@ export default class PgnViewer {
   translate: Translate;
   ground?: CgApi;
   div?: HTMLElement;
+  menuButton?: HTMLElement;
   flipped = false;
   pane = 'board';
   autoScrollRequested = false;
@@ -59,6 +60,11 @@ export default class PgnViewer {
   toggleMenu = () => {
     this.pane = this.pane == 'board' ? 'menu' : 'board';
     this.redraw();
+
+    if (this.pane == 'board') {
+      // Menu has been closed - return focus to menu button
+      setTimeout(() => this.menuButton?.focus(), 0);
+    }
   };
   togglePgn = () => {
     this.pane = this.pane == 'pgn' ? 'board' : 'pgn';

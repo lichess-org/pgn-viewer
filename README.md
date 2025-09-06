@@ -29,6 +29,7 @@ Please read more about GPL for JavaScript on [greendrake.info](https://greendrak
 - PGN comments
 - players and clocks
 - mobile support
+- accessible to screen readers with ARIA support
 - translatable and customisable
 - client-side only
 - easy to set up on any page
@@ -40,6 +41,16 @@ Please read more about GPL for JavaScript on [greendrake.info](https://greendrak
 - opening explorer
 
 For these features, use an [analysis board](https://lichess.org/analysis) or [Lichess studies](https://lichess.org/study).
+
+## Accessibility
+
+The viewer is fully accessible to screen reader users with:
+
+- **Complete board representation**: Screen readers can navigate through all 64 squares with piece positions announced
+- **Live move announcements**: Real-time narration of moves including number, color, notation, and annotations
+- **Keyboard navigation**: All controls accessible via keyboard (arrow keys for moves, 'f' to flip board)
+- **ARIA labels and roles**: Comprehensive semantic markup for assistive technologies
+- **Game context**: Players, ratings, result, and timing information properly announced
 
 ## Build and run
 

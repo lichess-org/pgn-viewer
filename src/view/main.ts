@@ -2,11 +2,14 @@ import PgnViewer from '../pgnViewer';
 import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
 import { h, VNode } from 'snabbdom';
-import { onInsert } from './util';
+import { onInsert, clockContent, formatMoveForScreenReader } from './util';
 import { onKeyDown, stepwiseScroll } from '../events';
 import { renderMenu, renderControls } from './menu';
 import { renderMoves } from './side';
 import renderPlayer from './player';
+import { isMoveData } from '../game';
+import { Player } from '../interfaces';
+import { renderAccessibleBoard } from './accessibleBoard';
 
 export default function view(ctrl: PgnViewer) {
   const opts = ctrl.opts,
@@ -22,7 +25,9 @@ export default function view(ctrl: PgnViewer) {
         'lpv--players': showPlayers,
       },
       attrs: {
+        role: 'region',
         tabindex: 0,
+        'aria-label': renderRootAriaLabel(ctrl),
       },
       hook: onInsert(el => {
         ctrl.setGround(Chessground(el.querySelector('.cg-wrap') as HTMLElement, makeConfig(ctrl, el)));
@@ -30,6 +35,14 @@ export default function view(ctrl: PgnViewer) {
       }),
     },
     [
+      h(
+        'div.lpv__sr-only',
+        {
+          attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' },
+        },
+        renderAriaAnnouncement(ctrl),
+      ),
+      renderAccessibleBoard(ctrl),
       showPlayers ? renderPlayer(ctrl, 'top') : undefined,
       renderBoard(ctrl),
       showPlayers ? renderPlayer(ctrl, 'bottom') : undefined,
@@ -44,6 +57,9 @@ const renderBoard = (ctrl: PgnViewer): VNode =>
   h(
     'div.lpv__board',
     {
+      attrs: {
+        'aria-hidden': 'true',
+      },
       hook: onInsert(el => {
         el.addEventListener('click', ctrl.focus);
         if (ctrl.opts.scrollToMove && !('ontouchstart' in window))
@@ -75,6 +91,67 @@ const renderPgnPane = (ctrl: PgnViewer): VNode => {
     ),
     h('textarea.lpv__pgn__text', ctrl.opts.pgn),
   ]);
+};
+
+const renderAriaAnnouncement = (ctrl: PgnViewer): string => {
+  const data = ctrl.curData();
+
+  if (!isMoveData(data)) return '';
+
+  const moveNumber = Math.ceil(data.ply / 2);
+  const color = data.ply % 2 === 1 ? 'white' : 'black';
+  const san = data.san;
+
+  let announcement = ctrl.translate('aria.move', moveNumber.toString(), ctrl.translate(`aria.${color}`), formatMoveForScreenReader(san, data.nags));
+
+  if (data.check) {
+    announcement += ', ' + ctrl.translate('aria.check');
+  }
+
+  const clock = data.clocks && data.clocks[color === 'white' ? 'white' : 'black'];
+  if (clock !== undefined && ctrl.opts.showClocks) {
+    const clockTime = clockContent(clock).join('');
+    if (clockTime !== '-') {
+      announcement += ', ' + ctrl.translate('aria.remaining', clockTime);
+    }
+  }
+
+
+  const comments = data.comments.join(' ').trim();
+  if (comments) {
+    announcement += `. ${comments}`;
+  }
+
+  return announcement;
+};
+
+const renderRootAriaLabel = (ctrl: PgnViewer): string => {
+  const game = ctrl.game;
+
+  const formatPlayer = (player: Player): string => {
+    let playerInfo = player.name || ctrl.translate('aria.unknownPlayer');
+    if (player.title) {
+      playerInfo = `${player.title} ${playerInfo}`;
+    }
+    if (player.rating) {
+      playerInfo = `${playerInfo}, ${ctrl.translate('aria.rated', player.rating.toString())}`;
+    }
+    return playerInfo;
+  };
+
+  const formatResult = (result?: string): string => {
+    if (!result || result === '*') return ctrl.translate('aria.gameInProgress');
+    if (result === '1-0') return ctrl.translate('aria.whitesWin');
+    if (result === '0-1') return ctrl.translate('aria.blacksWin');
+    if (result === '1/2-1/2') return ctrl.translate('aria.draw');
+    return result; // fallback for any other result format
+  };
+
+  const whiteName = formatPlayer(game.players.white);
+  const blackName = formatPlayer(game.players.black);
+  const result = formatResult(game.metadata.result);
+
+  return ctrl.translate('aria.chessGameBetween', whiteName, blackName, result);
 };
 
 export const makeConfig = (ctrl: PgnViewer, rootEl: HTMLElement): CgConfig => ({

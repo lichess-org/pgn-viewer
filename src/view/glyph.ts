@@ -13,7 +13,7 @@ interface Glyphs {
   [key: number]: Glyph;
 }
 
-const glyphs: Glyphs = {
+export const glyphs: Glyphs = {
   1: {
     symbol: '!',
     name: 'Good move',
