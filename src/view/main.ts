@@ -9,7 +9,6 @@ import { renderMoves } from './side';
 import renderPlayer from './player';
 import { isMoveData } from '../game';
 import { Player } from '../interfaces';
-import { glyphs } from './glyph';
 
 export default function view(ctrl: PgnViewer) {
   const opts = ctrl.opts,
@@ -101,7 +100,7 @@ const renderAriaAnnouncement = (ctrl: PgnViewer): string => {
   const color = data.ply % 2 === 1 ? 'white' : 'black';
   const san = data.san;
 
-  let announcement = ctrl.translate('aria.move', moveNumber.toString(), ctrl.translate(`aria.${color}`), formatMoveForScreenReader(san));
+  let announcement = ctrl.translate('aria.move', moveNumber.toString(), ctrl.translate(`aria.${color}`), formatMoveForScreenReader(san, data.nags));
 
   if (data.check) {
     announcement += ', ' + ctrl.translate('aria.check');
@@ -115,14 +114,6 @@ const renderAriaAnnouncement = (ctrl: PgnViewer): string => {
     }
   }
 
-  const annotations = data.nags
-    .map(nag => glyphs[nag]?.name)
-    .filter(name => name)
-    .join(', ');
-
-  if (annotations) {
-    announcement += `, ${annotations}`;
-  }
 
   const comments = data.comments.join(' ').trim();
   if (comments) {

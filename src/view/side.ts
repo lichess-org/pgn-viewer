@@ -132,7 +132,7 @@ const renderMove = (ctrl: PgnViewer) => (move: MoveData) =>
       attrs: {
         'data-path': move.path.path,
         role: 'button',
-        'aria-label': ctrl.translate('aria.move', Math.ceil(move.ply / 2).toString(), ctrl.translate(`aria.${move.ply % 2 === 1 ? 'white' : 'black'}`), formatMoveForScreenReader(move.san)),
+        'aria-label': ctrl.translate('aria.move', Math.ceil(move.ply / 2).toString(), ctrl.translate(`aria.${move.ply % 2 === 1 ? 'white' : 'black'}`), formatMoveForScreenReader(move.san, move.nags)),
       },
     },
     [move.san, ...move.nags.map(renderNag)],

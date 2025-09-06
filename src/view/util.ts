@@ -1,4 +1,5 @@
 import { Hooks } from 'snabbdom';
+import { glyphs } from './glyph';
 
 export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => unknown, redraw?: () => void): void {
   for (const mousedownEvent of ['touchstart', 'mousedown']) {
@@ -49,7 +50,20 @@ export const clockContent = (seconds: number | undefined): string[] => {
 
 const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;
 
-// Turns "Be2" into "B e2". Without that "Be2" sounds exactly like "B2" which may be confusing.
-export const formatMoveForScreenReader = (san: string): string => {
-  return san.replace(/^([KQRBN])(x?)([a-h][1-8])/, '$1 $2$3');
+// Turns "Be2" into "B e2" and includes annotations. Without spacing "Be2" sounds exactly like "B2" which may be confusing.
+export const formatMoveForScreenReader = (san: string, nags?: number[]): string => {
+  let formatted = san.replace(/^([KQRBN])(x?)([a-h][1-8])/, '$1 $2$3');
+  
+  if (nags && nags.length > 0) {
+    const annotations = nags
+      .map(nag => glyphs[nag]?.name)
+      .filter(name => name)
+      .join(', ');
+    
+    if (annotations) {
+      formatted += `, ${annotations}`;
+    }
+  }
+  
+  return formatted;
 };
