@@ -2,7 +2,7 @@
   "name": "@lichess-org/pgn-viewer",
   "license": "GPL-3.0-or-later",
   "version": "2.4.7",
-  "//": "version is managed by the build system",
+  "// version is managed by the build system": "",
   "repository": "github:lichess-org/pgn-viewer",
   "author": "Lichess Team <contact@lichess.org>",
   "funding": "https://lichess.org/patron",
@@ -36,9 +36,7 @@
     "chessops": "^0.15.0",
     "snabbdom": "^3.5.1"
   },
-  "//": [
-    "snabbdom pinned to 3.5.1 until https://github.com/snabbdom/snabbdom/issues/1114 is resolved"
-  ],
+  "// snabbdom pinned to 3.5.1 until https://github.com/snabbdom/snabbdom/issues/1114 is resolved": "",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.42.0",
     "@typescript-eslint/parser": "^8.42.0",
