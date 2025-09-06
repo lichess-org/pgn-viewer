@@ -9,6 +9,7 @@ import { renderMoves } from './side';
 import renderPlayer from './player';
 import { isMoveData } from '../game';
 import { Player } from '../interfaces';
+import { renderAccessibleBoard } from './accessibleBoard';
 
 export default function view(ctrl: PgnViewer) {
   const opts = ctrl.opts,
@@ -41,6 +42,7 @@ export default function view(ctrl: PgnViewer) {
         },
         renderAriaAnnouncement(ctrl),
       ),
+      renderAccessibleBoard(ctrl),
       showPlayers ? renderPlayer(ctrl, 'top') : undefined,
       renderBoard(ctrl),
       showPlayers ? renderPlayer(ctrl, 'bottom') : undefined,
