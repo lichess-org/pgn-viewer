@@ -4,6 +4,7 @@ import { MoveNode } from '../game';
 import { MoveData } from '../interfaces';
 import { Path } from '../path';
 import { renderNag } from './glyph';
+import { formatMoveForScreenReader } from './util';
 
 export const renderMoves = (ctrl: PgnViewer) =>
   h('div.lpv__side', [
@@ -131,7 +132,7 @@ const renderMove = (ctrl: PgnViewer) => (move: MoveData) =>
       attrs: {
         'data-path': move.path.path,
         role: 'button',
-        'aria-label': `Move ${Math.ceil(move.ply / 2)}, ${move.ply % 2 === 1 ? 'white' : 'black'}, ${move.san}`,
+        'aria-label': `Move ${Math.ceil(move.ply / 2)}, ${move.ply % 2 === 1 ? 'white' : 'black'}, ${formatMoveForScreenReader(move.san)}`,
       },
     },
     [move.san, ...move.nags.map(renderNag)],

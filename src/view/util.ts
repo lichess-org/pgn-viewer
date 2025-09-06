@@ -48,3 +48,8 @@ export const clockContent = (seconds: number | undefined): string[] => {
 };
 
 const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;
+
+// Turns "Be2" into "B e2". Without that "Be2" sounds exactly like "B2" which may be confusing.
+export const formatMoveForScreenReader = (san: string): string => {
+  return san.replace(/^([KQRBN])(x?)([a-h][1-8])/, '$1 $2$3');
+};

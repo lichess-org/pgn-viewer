@@ -2,7 +2,7 @@ import PgnViewer from '../pgnViewer';
 import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
 import { h, VNode } from 'snabbdom';
-import { onInsert, clockContent } from './util';
+import { onInsert, clockContent, formatMoveForScreenReader } from './util';
 import { onKeyDown, stepwiseScroll } from '../events';
 import { renderMenu, renderControls } from './menu';
 import { renderMoves } from './side';
@@ -101,7 +101,7 @@ const renderAriaAnnouncement = (ctrl: PgnViewer): string => {
   const color = data.ply % 2 === 1 ? 'white' : 'black';
   const san = data.san;
 
-  let announcement = `Move ${moveNumber}, ${color}, ${san}`;
+  let announcement = `Move ${moveNumber}, ${color}, ${formatMoveForScreenReader(san)}`;
 
   if (data.check) {
     announcement += ', check';
