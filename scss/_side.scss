@@ -26,7 +26,16 @@
       display: flex;
       justify-content: flex-end;
     }
-    move {
+    .move {
+      border: none;
+      background: transparent;
+      font-family: inherit;
+      font-size: inherit;
+      text-align: left;
+      margin: 0;
+      padding: 4px 0 6px 0;
+      outline: none;
+      color: inherit;
       border-radius: 3px;
       padding-left: 3%;
       font-weight: bold;
@@ -83,7 +92,7 @@
         }
       }
     }
-    > move {
+    > .move {
       flex: 0 0 41%;
       font-size: 1.1em;
     }
@@ -121,7 +130,13 @@
       + variation {
         border-top: none;
       }
-      move {
+      .move {
+        border: none;
+        background: transparent;
+        font-family: inherit;
+        font-size: inherit;
+        margin: 0;
+        outline: none;
         display: inline-block;
         padding: 0.1em 0.2em;
         min-width: 2.5ch;
@@ -133,7 +148,7 @@
       index {
         margin: 0;
         padding: 0.1em 0;
-        + move {
+        + .move {
           margin-left: 0.1em;
         }
       }

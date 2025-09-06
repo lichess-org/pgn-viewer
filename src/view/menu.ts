@@ -78,6 +78,7 @@ export const renderControls = (ctrl: PgnViewer) =>
           'lpv__icon-ellipsis-vert': ctrl.pane == 'board',
         },
         hook: bind('click', ctrl.toggleMenu),
+        attrs: { 'aria-label': ctrl.translate('menu') ?? 'Menu' },
       },
       ctrl.pane == 'board' ? undefined : 'X',
     ),
@@ -85,8 +86,15 @@ export const renderControls = (ctrl: PgnViewer) =>
     ctrl.pane == 'board' ? undefined : dirButton(ctrl, 'last', 'step-forward'),
   ]);
 
-const dirButton = (ctrl: PgnViewer, to: GoTo, icon: string) =>
-  h(`button.lpv__controls__goto.lpv__controls__goto--${to}.lpv__fbt.lpv__icon.lpv__icon-${icon}`, {
-    class: { disabled: ctrl.pane == 'board' && !ctrl.canGoTo(to) },
+const dirButton = (ctrl: PgnViewer, to: GoTo, icon: string) => {
+  const isDisabled = ctrl.pane == 'board' && !ctrl.canGoTo(to);
+  return h(`button.lpv__controls__goto.lpv__controls__goto--${to}.lpv__fbt.lpv__icon.lpv__icon-${icon}`, {
+    class: { disabled: isDisabled },
     hook: onInsert(el => bindMobileMousedown(el, e => eventRepeater(() => ctrl.goTo(to), e))),
+    attrs: {
+      'aria-label': ctrl.translate(to) ?? to,
+      'aria-disabled': String(isDisabled),
+      disabled: isDisabled,
+    },
   });
+};

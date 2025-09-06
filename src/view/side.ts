@@ -10,14 +10,15 @@ export const renderMoves = (ctrl: PgnViewer) =>
     h(
       'div.lpv__moves',
       {
+        attrs: { role: 'region', 'aria-label': 'Game moves' },
         hook: {
           insert: vnode => {
             const el = vnode.elm as HTMLElement;
             if (!ctrl.path.empty()) autoScroll(ctrl, el);
             el.addEventListener(
-              'mousedown',
+              'click',
               e => {
-                const path = (e.target as HTMLElement).getAttribute('p');
+                const path = (e.target as HTMLElement).getAttribute('data-path');
                 if (path) ctrl.toPath(new Path(path));
               },
               { passive: true },
@@ -37,14 +38,23 @@ export const renderMoves = (ctrl: PgnViewer) =>
 
 const renderResultComment = (ctrl: PgnViewer) => {
   const res = ctrl.game.metadata.result;
-  return res && res != '*' ? [h('comment.result', ctrl.game.metadata.result)] : [];
+  return res && res != '*'
+    ? [
+        h(
+          'comment.result',
+          { attrs: { role: 'note', 'aria-label': 'Game result' } },
+          ctrl.game.metadata.result,
+        ),
+      ]
+    : [];
 };
 
-const emptyMove = () => h('move.empty', '...');
-const indexNode = (turn: number) => h('index', `${turn}.`);
-const commentNode = (comment: string) => h('comment', comment);
-const parenOpen = () => h('paren.open', '(');
-const parenClose = () => h('paren.close', ')');
+const emptyMove = () => h('button.move.empty', { attrs: { 'aria-hidden': 'true', disabled: true } }, '...');
+const indexNode = (turn: number) =>
+  h('index', { attrs: { role: 'presentation', 'aria-hidden': 'true' } }, `${turn}.`);
+const commentNode = (comment: string) => h('comment', { attrs: { role: 'note' } }, comment);
+const parenOpen = () => h('paren.open', { attrs: { 'aria-hidden': 'true' } }, '(');
+const parenClose = () => h('paren.close', { attrs: { 'aria-hidden': 'true' } }, ')');
 const moveTurn = (move: MoveData) => Math.floor((move.ply - 1) / 2) + 1;
 
 const makeMoveNodes = (ctrl: PgnViewer): Array<VNode | undefined> => {
@@ -72,15 +82,24 @@ const makeMoveNodes = (ctrl: PgnViewer): Array<VNode | undefined> => {
 type MoveToDom = (move: MoveData) => VNode;
 
 const makeMainVariation = (moveDom: MoveToDom, node: MoveNode) =>
-  h('variation', [...node.data.startingComments.map(commentNode), ...makeVariationMoves(moveDom, node)]);
+  h('variation', { attrs: { role: 'group', 'aria-label': 'Variation' } }, [
+    ...node.data.startingComments.map(commentNode),
+    ...makeVariationMoves(moveDom, node),
+  ]);
 
 const makeVariationMoves = (moveDom: MoveToDom, node: MoveNode) => {
   let elms: VNode[] = [];
   let variations: MoveNode[] = [];
-  if (node.data.ply % 2 == 0) elms.push(h('index', [moveTurn(node.data), '...']));
+  if (node.data.ply % 2 == 0)
+    elms.push(
+      h('index', { attrs: { role: 'presentation', 'aria-hidden': 'true' } }, [moveTurn(node.data), '...']),
+    );
   do {
     const move = node.data;
-    if (move.ply % 2 == 1) elms.push(h('index', [moveTurn(move), '.']));
+    if (move.ply % 2 == 1)
+      elms.push(
+        h('index', { attrs: { role: 'presentation', 'aria-hidden': 'true' } }, [moveTurn(move), '.']),
+      );
     elms.push(moveDom(move));
     move.comments.forEach(comment => elms.push(commentNode(comment)));
     variations.forEach(variation => {
@@ -94,7 +113,7 @@ const makeVariationMoves = (moveDom: MoveToDom, node: MoveNode) => {
 
 const renderMove = (ctrl: PgnViewer) => (move: MoveData) =>
   h(
-    'move',
+    'button.move',
     {
       class: {
         current: ctrl.path.equals(move.path),
@@ -107,7 +126,9 @@ const renderMove = (ctrl: PgnViewer) => (move: MoveData) =>
         inaccuracy: move.nags.includes(6),
       },
       attrs: {
-        p: move.path.path,
+        'data-path': move.path.path,
+        role: 'button',
+        'aria-label': `Move ${Math.ceil(move.ply / 2)}, ${move.ply % 2 === 1 ? 'white' : 'black'}, ${move.san}`,
       },
     },
     [move.san, ...move.nags.map(renderNag)],

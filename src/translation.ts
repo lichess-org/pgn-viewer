@@ -14,4 +14,9 @@ const defaultTranslations: { [key: string]: string } = {
   download: 'Download',
   viewOnLichess: 'View on Lichess',
   viewOnSite: 'View on site',
+  menu: 'Menu',
+  first: 'Go to first move',
+  prev: 'Go to previous move',
+  next: 'Go to next move',
+  last: 'Go to last move',
 };
