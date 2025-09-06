@@ -40,6 +40,7 @@ export const renderMenu = (ctrl: PgnViewer) =>
                 role: 'menuitem',
                 href: ctrl.analysisUrl(),
                 target: '_blank',
+                'aria-label': `${ctrl.translate('analysisBoard')}, link, opens in new tab`,
               },
             },
             ctrl.translate('analysisBoard'),
@@ -53,6 +54,7 @@ export const renderMenu = (ctrl: PgnViewer) =>
                 role: 'menuitem',
                 href: ctrl.practiceUrl(),
                 target: '_blank',
+                'aria-label': `${ctrl.translate('practiceWithComputer')}, link, opens in new tab`,
               },
             },
             ctrl.translate('practiceWithComputer'),
@@ -74,6 +76,7 @@ export const renderMenu = (ctrl: PgnViewer) =>
 
 const renderExternalLink = (ctrl: PgnViewer) => {
   const link = ctrl.game.metadata.externalLink;
+  const linkText = ctrl.translate(ctrl.game.metadata.isLichess ? 'viewOnLichess' : 'viewOnSite');
   return (
     link &&
     h(
@@ -83,9 +86,10 @@ const renderExternalLink = (ctrl: PgnViewer) => {
           role: 'menuitem',
           href: link,
           target: '_blank',
+          'aria-label': `${linkText}, link, opens in new tab`,
         },
       },
-      ctrl.translate(ctrl.game.metadata.isLichess ? 'viewOnLichess' : 'viewOnSite'),
+      linkText,
     )
   );
 };
