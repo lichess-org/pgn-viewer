@@ -10,7 +10,10 @@ export const renderMoves = (ctrl: PgnViewer) =>
     h(
       'div.lpv__moves',
       {
-        attrs: { role: 'region', 'aria-label': 'Game moves' },
+        attrs: { 
+          role: 'complementary', 
+          'aria-label': 'Game moves',
+        },
         hook: {
           insert: vnode => {
             const el = vnode.elm as HTMLElement;

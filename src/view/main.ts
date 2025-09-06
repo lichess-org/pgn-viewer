@@ -25,6 +25,7 @@ export default function view(ctrl: PgnViewer) {
         'lpv--players': showPlayers,
       },
       attrs: {
+        role: 'region',
         tabindex: 0,
         'aria-label': renderRootAriaLabel(ctrl),
       },
@@ -55,6 +56,9 @@ const renderBoard = (ctrl: PgnViewer): VNode =>
   h(
     'div.lpv__board',
     {
+      attrs: {
+        'aria-hidden': 'true',
+      },
       hook: onInsert(el => {
         el.addEventListener('click', ctrl.focus);
         if (ctrl.opts.scrollToMove && !('ontouchstart' in window))

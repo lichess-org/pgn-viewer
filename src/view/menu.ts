@@ -95,7 +95,12 @@ const renderExternalLink = (ctrl: PgnViewer) => {
 };
 
 export const renderControls = (ctrl: PgnViewer) =>
-  h('div.lpv__controls', [
+  h('div.lpv__controls', {
+    attrs: {
+      role: 'navigation',
+      'aria-label': 'Game navigation controls',
+    },
+  }, [
     ctrl.pane == 'board' ? undefined : dirButton(ctrl, 'first', 'step-backward'),
     dirButton(ctrl, 'prev', 'left-open'),
     h(

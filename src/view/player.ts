@@ -14,7 +14,12 @@ export default function renderPlayer(ctrl: PgnViewer, side: 'top' | 'bottom'): V
     player.isLichessUser
       ? h(
           'a.lpv__player__person.ulpt.user-link',
-          { attrs: { href: `${ctrl.opts.lichess}/@/${player.name}` } },
+          { 
+            attrs: { 
+              href: `${ctrl.opts.lichess}/@/${player.name}`,
+              'aria-label': `View ${player.name}'s profile on Lichess`,
+            }
+          },
           personEls,
         )
       : h('span.lpv__player__person', personEls),
@@ -27,7 +32,13 @@ const renderClock = (ctrl: PgnViewer, color: Color): VNode | undefined => {
   const clock = move.clocks && move.clocks[color];
   return typeof clock == undefined
     ? undefined
-    : h('div.lpv__player__clock', { class: { active: color == move.turn } }, clockContent(clock));
+    : h('div.lpv__player__clock', { 
+        class: { active: color == move.turn },
+        attrs: {
+          role: 'timer',
+          'aria-label': clockContent(clock).join(''),
+        }
+      }, clockContent(clock));
 };
 
 const clockContent = (seconds: number | undefined): string[] => {
