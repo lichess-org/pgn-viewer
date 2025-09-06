@@ -38,3 +38,13 @@ export function onInsert<A extends HTMLElement>(f: (element: A) => void): Hooks 
     insert: vnode => f(vnode.elm as A),
   };
 }
+
+export const clockContent = (seconds: number | undefined): string[] => {
+  if (!seconds && seconds !== 0) return ['-'];
+  const date = new Date(seconds * 1000),
+    sep = ':',
+    baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
+  return seconds >= 3600 ? [Math.floor(seconds / 3600) + sep + baseStr] : [baseStr];
+};
+
+const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;

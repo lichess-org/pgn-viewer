@@ -2,7 +2,7 @@ import PgnViewer from '../pgnViewer';
 import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
 import { h, VNode } from 'snabbdom';
-import { onInsert } from './util';
+import { onInsert, clockContent } from './util';
 import { onKeyDown, stepwiseScroll } from '../events';
 import { renderMenu, renderControls } from './menu';
 import { renderMoves } from './side';
@@ -105,6 +105,14 @@ const renderAriaAnnouncement = (ctrl: PgnViewer): string => {
 
   if (data.check) {
     announcement += ', check';
+  }
+
+  const clock = data.clocks && data.clocks[color === 'white' ? 'white' : 'black'];
+  if (clock !== undefined && ctrl.opts.showClocks) {
+    const clockTime = clockContent(clock).join('');
+    if (clockTime !== '-') {
+      announcement += `, ${clockTime} remaining`;
+    }
   }
 
   const annotations = data.nags
