@@ -101,17 +101,17 @@ const renderAriaAnnouncement = (ctrl: PgnViewer): string => {
   const color = data.ply % 2 === 1 ? 'white' : 'black';
   const san = data.san;
 
-  let announcement = `Move ${moveNumber}, ${color}, ${formatMoveForScreenReader(san)}`;
+  let announcement = ctrl.translate('aria.move', moveNumber.toString(), ctrl.translate(`aria.${color}`), formatMoveForScreenReader(san));
 
   if (data.check) {
-    announcement += ', check';
+    announcement += ', ' + ctrl.translate('aria.check');
   }
 
   const clock = data.clocks && data.clocks[color === 'white' ? 'white' : 'black'];
   if (clock !== undefined && ctrl.opts.showClocks) {
     const clockTime = clockContent(clock).join('');
     if (clockTime !== '-') {
-      announcement += `, ${clockTime} remaining`;
+      announcement += ', ' + ctrl.translate('aria.remaining', clockTime);
     }
   }
 
@@ -136,21 +136,21 @@ const renderRootAriaLabel = (ctrl: PgnViewer): string => {
   const game = ctrl.game;
 
   const formatPlayer = (player: Player): string => {
-    let playerInfo = player.name || 'Unknown player';
+    let playerInfo = player.name || ctrl.translate('aria.unknownPlayer');
     if (player.title) {
       playerInfo = `${player.title} ${playerInfo}`;
     }
     if (player.rating) {
-      playerInfo = `${playerInfo}, rated ${player.rating}`;
+      playerInfo = `${playerInfo}, ${ctrl.translate('aria.rated', player.rating.toString())}`;
     }
     return playerInfo;
   };
 
   const formatResult = (result?: string): string => {
-    if (!result || result === '*') return 'Game in progress';
-    if (result === '1-0') return 'Whites win';
-    if (result === '0-1') return 'Blacks win';
-    if (result === '1/2-1/2') return 'Draw';
+    if (!result || result === '*') return ctrl.translate('aria.gameInProgress');
+    if (result === '1-0') return ctrl.translate('aria.whitesWin');
+    if (result === '0-1') return ctrl.translate('aria.blacksWin');
+    if (result === '1/2-1/2') return ctrl.translate('aria.draw');
     return result; // fallback for any other result format
   };
 
@@ -158,7 +158,7 @@ const renderRootAriaLabel = (ctrl: PgnViewer): string => {
   const blackName = formatPlayer(game.players.black);
   const result = formatResult(game.metadata.result);
 
-  return `Chess game between ${whiteName}, whites, and ${blackName}, blacks. ${result}`;
+  return ctrl.translate('aria.chessGameBetween', whiteName, blackName, result);
 };
 
 export const makeConfig = (ctrl: PgnViewer, rootEl: HTMLElement): CgConfig => ({

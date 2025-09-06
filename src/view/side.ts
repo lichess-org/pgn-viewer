@@ -13,7 +13,7 @@ export const renderMoves = (ctrl: PgnViewer) =>
       {
         attrs: { 
           role: 'complementary', 
-          'aria-label': 'Game moves',
+          'aria-label': ctrl.translate('aria.gameMoves'),
         },
         hook: {
           insert: vnode => {
@@ -46,7 +46,7 @@ const renderResultComment = (ctrl: PgnViewer) => {
     ? [
         h(
           'comment.result',
-          { attrs: { role: 'note', 'aria-label': 'Game result' } },
+          { attrs: { role: 'note', 'aria-label': ctrl.translate('aria.gameResult') } },
           ctrl.game.metadata.result,
         ),
       ]
@@ -76,7 +76,7 @@ const makeMoveNodes = (ctrl: PgnViewer): Array<VNode | undefined> => {
     const addEmptyMove = oddMove && (variations.length || move.comments.length) && node.children.length;
     if (addEmptyMove) elms.push(emptyMove());
     move.comments.forEach(comment => elms.push(commentNode(comment)));
-    variations.forEach(variation => elms.push(makeMainVariation(moveDom, variation)));
+    variations.forEach(variation => elms.push(makeMainVariation(ctrl, moveDom, variation)));
     if (addEmptyMove) elms.push(indexNode(moveTurn(move)), emptyMove());
     variations = node.children.slice(1);
   }
@@ -85,8 +85,8 @@ const makeMoveNodes = (ctrl: PgnViewer): Array<VNode | undefined> => {
 
 type MoveToDom = (move: MoveData) => VNode;
 
-const makeMainVariation = (moveDom: MoveToDom, node: MoveNode) =>
-  h('variation', { attrs: { role: 'group', 'aria-label': 'Variation' } }, [
+const makeMainVariation = (ctrl: PgnViewer, moveDom: MoveToDom, node: MoveNode) =>
+  h('variation', { attrs: { role: 'group', 'aria-label': ctrl.translate('aria.variation') } }, [
     ...node.data.startingComments.map(commentNode),
     ...makeVariationMoves(moveDom, node),
   ]);
@@ -132,7 +132,7 @@ const renderMove = (ctrl: PgnViewer) => (move: MoveData) =>
       attrs: {
         'data-path': move.path.path,
         role: 'button',
-        'aria-label': `Move ${Math.ceil(move.ply / 2)}, ${move.ply % 2 === 1 ? 'white' : 'black'}, ${formatMoveForScreenReader(move.san)}`,
+        'aria-label': ctrl.translate('aria.move', Math.ceil(move.ply / 2).toString(), ctrl.translate(`aria.${move.ply % 2 === 1 ? 'white' : 'black'}`), formatMoveForScreenReader(move.san)),
       },
     },
     [move.san, ...move.nags.map(renderNag)],

@@ -18,7 +18,7 @@ export default function renderPlayer(ctrl: PgnViewer, side: 'top' | 'bottom'): V
           { 
             attrs: { 
               href: `${ctrl.opts.lichess}/@/${player.name}`,
-              'aria-label': `View ${player.name}'s profile on Lichess`,
+              'aria-label': ctrl.translate('aria.viewProfileOnLichess', player.name || ''),
             }
           },
           personEls,

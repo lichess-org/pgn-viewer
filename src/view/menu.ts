@@ -40,7 +40,7 @@ export const renderMenu = (ctrl: PgnViewer) =>
                 role: 'menuitem',
                 href: ctrl.analysisUrl(),
                 target: '_blank',
-                'aria-label': `${ctrl.translate('analysisBoard')}, link, opens in new tab`,
+                'aria-label': ctrl.translate('aria.linkOpensInNewTab', ctrl.translate('analysisBoard')),
               },
             },
             ctrl.translate('analysisBoard'),
@@ -54,7 +54,7 @@ export const renderMenu = (ctrl: PgnViewer) =>
                 role: 'menuitem',
                 href: ctrl.practiceUrl(),
                 target: '_blank',
-                'aria-label': `${ctrl.translate('practiceWithComputer')}, link, opens in new tab`,
+                'aria-label': ctrl.translate('aria.linkOpensInNewTab', ctrl.translate('practiceWithComputer')),
               },
             },
             ctrl.translate('practiceWithComputer'),
@@ -86,7 +86,7 @@ const renderExternalLink = (ctrl: PgnViewer) => {
           role: 'menuitem',
           href: link,
           target: '_blank',
-          'aria-label': `${linkText}, link, opens in new tab`,
+          'aria-label': ctrl.translate('aria.linkOpensInNewTab', linkText || ''),
         },
       },
       linkText,
@@ -98,7 +98,7 @@ export const renderControls = (ctrl: PgnViewer) =>
   h('div.lpv__controls', {
     attrs: {
       role: 'navigation',
-      'aria-label': 'Game navigation controls',
+      'aria-label': ctrl.translate('aria.navigationControls'),
     },
   }, [
     ctrl.pane == 'board' ? undefined : dirButton(ctrl, 'first', 'step-backward'),
@@ -136,7 +136,7 @@ const dirButton = (ctrl: PgnViewer, to: GoTo, icon: string) => {
     class: { disabled: isDisabled },
     hook: onInsert(el => bindMobileMousedown(el, e => eventRepeater(() => ctrl.goTo(to), e))),
     attrs: {
-      'aria-label': ctrl.translate(to) ?? to,
+      'aria-label': ctrl.translate(`aria.${to}`),
       'aria-disabled': String(isDisabled),
       disabled: isDisabled,
     },
