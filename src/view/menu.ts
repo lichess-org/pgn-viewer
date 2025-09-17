@@ -125,7 +125,7 @@ export const renderControls = (ctrl: PgnViewer) =>
             },
           },
           attrs: {
-            'aria-label': ctrl.translate('menu') ?? 'Menu',
+            'aria-label': ctrl.translate('menu'),
             'aria-expanded': String(ctrl.pane === 'menu'),
             'aria-haspopup': 'menu',
           },
