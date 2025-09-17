@@ -12,13 +12,13 @@ export default function renderPlayer(ctrl: PgnViewer, side: 'top' | 'bottom'): V
     player.rating ? h('span.lpv__player__rating', ['(', player.rating, ')']) : undefined,
   ];
   return h(`div.lpv__player.lpv__player--${side}`, [
-    player.isLichessUser
+    player.isLichessUser && player.name
       ? h(
           'a.lpv__player__person.ulpt.user-link',
           {
             attrs: {
               href: `${ctrl.opts.lichess}/@/${player.name}`,
-              'aria-label': ctrl.translate('aria.viewProfileOnLichess', player.name || ''),
+              'aria-label': ctrl.translate('aria.viewProfileOnLichess', player.name),
             },
           },
           personEls,
