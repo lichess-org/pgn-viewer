@@ -1,10 +1,11 @@
 import { h, VNode } from 'snabbdom';
 import PgnViewer from '../pgnViewer';
 import { MoveNode } from '../game';
-import { MoveData } from '../interfaces';
+import { MoveData, Translate } from '../interfaces';
 import { Path } from '../path';
 import { renderNag } from './glyph';
 import { formatMoveForScreenReader } from './util';
+import { ariaHidden, presentation } from './aria';
 
 export const renderMoves = (ctrl: PgnViewer) =>
   h('div.lpv__side', [
@@ -54,11 +55,10 @@ const renderResultComment = (ctrl: PgnViewer) => {
 };
 
 const emptyMove = () => h('button.move.empty', { attrs: { 'aria-hidden': 'true', disabled: true } }, '...');
-const indexNode = (turn: number) =>
-  h('index', { attrs: { role: 'presentation', 'aria-hidden': 'true' } }, `${turn}.`);
+const indexNode = (turn: number) => h('index', { attrs: presentation }, `${turn}.`);
 const commentNode = (comment: string) => h('comment', { attrs: { role: 'note' } }, comment);
-const parenOpen = () => h('paren.open', { attrs: { 'aria-hidden': 'true' } }, '(');
-const parenClose = () => h('paren.close', { attrs: { 'aria-hidden': 'true' } }, ')');
+const parenOpen = () => h('paren.open', { attrs: ariaHidden }, '(');
+const parenClose = () => h('paren.close', { attrs: ariaHidden }, ')');
 const moveTurn = (move: MoveData) => Math.floor((move.ply - 1) / 2) + 1;
 
 const makeMoveNodes = (ctrl: PgnViewer): Array<VNode | undefined> => {
@@ -76,7 +76,7 @@ const makeMoveNodes = (ctrl: PgnViewer): Array<VNode | undefined> => {
     const addEmptyMove = oddMove && (variations.length || move.comments.length) && node.children.length;
     if (addEmptyMove) elms.push(emptyMove());
     move.comments.forEach(comment => elms.push(commentNode(comment)));
-    variations.forEach(variation => elms.push(makeMainVariation(ctrl, moveDom, variation)));
+    variations.forEach(variation => elms.push(makeMainVariation(ctrl.translate, moveDom, variation)));
     if (addEmptyMove) elms.push(indexNode(moveTurn(move)), emptyMove());
     variations = node.children.slice(1);
   }
@@ -85,8 +85,8 @@ const makeMoveNodes = (ctrl: PgnViewer): Array<VNode | undefined> => {
 
 type MoveToDom = (move: MoveData) => VNode;
 
-const makeMainVariation = (ctrl: PgnViewer, moveDom: MoveToDom, node: MoveNode) =>
-  h('variation', { attrs: { role: 'group', 'aria-label': ctrl.translate('aria.variation') } }, [
+const makeMainVariation = (translate: Translate, moveDom: MoveToDom, node: MoveNode) =>
+  h('variation', { attrs: { role: 'group', 'aria-label': translate('aria.variation') } }, [
     ...node.data.startingComments.map(commentNode),
     ...makeVariationMoves(moveDom, node),
   ]);
@@ -94,16 +94,10 @@ const makeMainVariation = (ctrl: PgnViewer, moveDom: MoveToDom, node: MoveNode) 
 const makeVariationMoves = (moveDom: MoveToDom, node: MoveNode) => {
   let elms: VNode[] = [];
   let variations: MoveNode[] = [];
-  if (node.data.ply % 2 == 0)
-    elms.push(
-      h('index', { attrs: { role: 'presentation', 'aria-hidden': 'true' } }, [moveTurn(node.data), '...']),
-    );
+  if (node.data.ply % 2 == 0) elms.push(h('index', { attrs: presentation }, [moveTurn(node.data), '...']));
   do {
     const move = node.data;
-    if (move.ply % 2 == 1)
-      elms.push(
-        h('index', { attrs: { role: 'presentation', 'aria-hidden': 'true' } }, [moveTurn(move), '.']),
-      );
+    if (move.ply % 2 == 1) elms.push(h('index', { attrs: presentation }, [moveTurn(move), '.']));
     elms.push(moveDom(move));
     move.comments.forEach(comment => elms.push(commentNode(comment)));
     variations.forEach(variation => {

@@ -3,6 +3,9 @@ import { Player } from '../interfaces';
 import PgnViewer from '../pgnViewer';
 import { clockContent, formatMoveForScreenReader } from './util';
 
+export const ariaHidden = { 'aria-hidden': true };
+export const presentation = { role: 'presentation', 'aria-hidden': 'true' };
+
 export const renderAriaAnnouncement = (ctrl: PgnViewer): string => {
   const data = ctrl.curData();
 

@@ -8,7 +8,7 @@ import { renderMenu, renderControls } from './menu';
 import { renderMoves } from './side';
 import renderPlayer from './player';
 import { renderAccessibleBoard } from './accessibleBoard';
-import { renderAriaAnnouncement, renderRootAriaLabel } from './aria';
+import { ariaHidden, renderAriaAnnouncement, renderRootAriaLabel } from './aria';
 
 export default function view(ctrl: PgnViewer) {
   const opts = ctrl.opts,
@@ -56,9 +56,7 @@ const renderBoard = (ctrl: PgnViewer): VNode =>
   h(
     'div.lpv__board',
     {
-      attrs: {
-        'aria-hidden': 'true',
-      },
+      attrs: ariaHidden,
       hook: onInsert(el => {
         el.addEventListener('click', ctrl.focus);
         if (ctrl.opts.scrollToMove && !('ontouchstart' in window))
