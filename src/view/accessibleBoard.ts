@@ -1,15 +1,12 @@
 import { h, VNode } from 'snabbdom';
 import PgnViewer from '../pgnViewer';
 import { formatSquareForScreenReader } from './util';
-import { parseFen } from 'chessops/fen';
-import { parseSquare } from 'chessops';
-import { files, Piece, Rank, ranks } from 'chessground/types';
+import { files, Key, Piece, Rank, ranks } from 'chessground/types';
 import { Translate } from '../interfaces';
 import { invRanks } from 'chessground/util';
+import { read as readFen } from 'chessground/fen';
 
 export const renderAccessibleBoard = (ctrl: PgnViewer): VNode => {
-  const data = ctrl.curData();
-  const fen = data.fen;
   const flipped = ctrl.flipped;
 
   return h(
@@ -30,26 +27,23 @@ export const renderAccessibleBoard = (ctrl: PgnViewer): VNode => {
             'aria-label': ctrl.translate('aria.chessboardGrid'),
           },
         },
-        renderBoardRows(ctrl, fen, flipped),
+        renderBoardRows(ctrl, flipped),
       ),
     ],
   );
 };
 
-const renderBoardRows = (ctrl: PgnViewer, fen: string, flipped: boolean): VNode[] => {
+const renderBoardRows = (ctrl: PgnViewer, flipped: boolean): VNode[] => {
+  const pieces = ctrl.ground?.state.pieces || readFen(ctrl.curData().fen);
   const rows: VNode[] = [];
-
-  const setup = parseFen(fen);
-  if (!setup.isOk) return rows;
 
   const orderedRanks = flipped ? ranks : invRanks;
   const orderedFiles = flipped ? [...files].reverse() : files;
 
   orderedRanks.forEach(rank => {
     const rowCells = orderedFiles.map(file => {
-      const squareKey = `${file}${rank}`;
-      const square = parseSquare(squareKey);
-      const piece = square ? setup.value.board.get(square) : undefined;
+      const squareKey = `${file}${rank}` as Key;
+      const piece = pieces.get(squareKey);
 
       return renderSquare(ctrl.translate, file, rank, piece);
     });
