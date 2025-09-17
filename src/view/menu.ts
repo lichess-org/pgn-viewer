@@ -54,7 +54,10 @@ export const renderMenu = (ctrl: PgnViewer) =>
                 role: 'menuitem',
                 href: ctrl.practiceUrl(),
                 target: '_blank',
-                'aria-label': ctrl.translate('aria.linkOpensInNewTab', ctrl.translate('practiceWithComputer')),
+                'aria-label': ctrl.translate(
+                  'aria.linkOpensInNewTab',
+                  ctrl.translate('practiceWithComputer'),
+                ),
               },
             },
             ctrl.translate('practiceWithComputer'),
@@ -95,40 +98,44 @@ const renderExternalLink = (ctrl: PgnViewer) => {
 };
 
 export const renderControls = (ctrl: PgnViewer) =>
-  h('div.lpv__controls', {
-    attrs: {
-      role: 'navigation',
-      'aria-label': ctrl.translate('aria.navigationControls'),
+  h(
+    'div.lpv__controls',
+    {
+      attrs: {
+        role: 'navigation',
+        'aria-label': ctrl.translate('aria.navigationControls'),
+      },
     },
-  }, [
-    ctrl.pane == 'board' ? undefined : dirButton(ctrl, 'first', 'step-backward'),
-    dirButton(ctrl, 'prev', 'left-open'),
-    h(
-      'button.lpv__fbt.lpv__controls__menu.lpv__icon',
-      {
-        class: {
-          active: ctrl.pane != 'board',
-          'lpv__icon-ellipsis-vert': ctrl.pane == 'board',
-        },
-        hook: {
-          insert: vnode => {
-            const el = vnode.elm as HTMLElement;
-            el.addEventListener('click', ctrl.toggleMenu);
-            // Store reference for focus management
-            ctrl.menuButton = el;
+    [
+      ctrl.pane == 'board' ? undefined : dirButton(ctrl, 'first', 'step-backward'),
+      dirButton(ctrl, 'prev', 'left-open'),
+      h(
+        'button.lpv__fbt.lpv__controls__menu.lpv__icon',
+        {
+          class: {
+            active: ctrl.pane != 'board',
+            'lpv__icon-ellipsis-vert': ctrl.pane == 'board',
+          },
+          hook: {
+            insert: vnode => {
+              const el = vnode.elm as HTMLElement;
+              el.addEventListener('click', ctrl.toggleMenu);
+              // Store reference for focus management
+              ctrl.menuButton = el;
+            },
+          },
+          attrs: {
+            'aria-label': ctrl.translate('menu') ?? 'Menu',
+            'aria-expanded': String(ctrl.pane === 'menu'),
+            'aria-haspopup': 'menu',
           },
         },
-        attrs: {
-          'aria-label': ctrl.translate('menu') ?? 'Menu',
-          'aria-expanded': String(ctrl.pane === 'menu'),
-          'aria-haspopup': 'menu',
-        },
-      },
-      ctrl.pane == 'board' ? undefined : 'X',
-    ),
-    dirButton(ctrl, 'next', 'right-open'),
-    ctrl.pane == 'board' ? undefined : dirButton(ctrl, 'last', 'step-forward'),
-  ]);
+        ctrl.pane == 'board' ? undefined : 'X',
+      ),
+      dirButton(ctrl, 'next', 'right-open'),
+      ctrl.pane == 'board' ? undefined : dirButton(ctrl, 'last', 'step-forward'),
+    ],
+  );
 
 const dirButton = (ctrl: PgnViewer, to: GoTo, icon: string) => {
   const isDisabled = ctrl.pane == 'board' && !ctrl.canGoTo(to);
