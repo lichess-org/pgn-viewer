@@ -35,33 +35,25 @@ export const renderAccessibleBoard = (ctrl: PgnViewer): VNode => {
 
 const renderBoardRows = (ctrl: PgnViewer, flipped: boolean): VNode[] => {
   const pieces = ctrl.ground?.state.pieces || readFen(ctrl.curData().fen);
-  const rows: VNode[] = [];
 
   const orderedRanks = flipped ? ranks : invRanks;
   const orderedFiles = flipped ? [...files].reverse() : files;
 
-  orderedRanks.forEach(rank => {
-    const rowCells = orderedFiles.map(file => {
-      const squareKey = `${file}${rank}` as Key;
-      const piece = pieces.get(squareKey);
-
-      return renderSquare(ctrl.translate, file, rank, piece);
-    });
-
-    rows.push(
-      h(
-        'div',
-        {
-          attrs: {
-            role: 'row',
-          },
+  return orderedRanks.map(rank =>
+    h(
+      'div',
+      {
+        attrs: {
+          role: 'row',
         },
-        rowCells,
-      ),
-    );
-  });
-
-  return rows;
+      },
+      orderedFiles.map(file => {
+        const squareKey = `${file}${rank}` as Key;
+        const piece = pieces.get(squareKey);
+        return renderSquare(ctrl.translate, file, rank, piece);
+      }),
+    ),
+  );
 };
 
 const renderSquare = (translate: Translate, file: string, rank: Rank, piece?: Piece): VNode => {
