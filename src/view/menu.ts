@@ -89,7 +89,7 @@ const renderExternalLink = (ctrl: PgnViewer) => {
           role: 'menuitem',
           href: link,
           target: '_blank',
-          'aria-label': ctrl.translate('aria.linkOpensInNewTab', linkText || ''),
+          'aria-label': ctrl.translate('aria.linkOpensInNewTab', linkText),
         },
       },
       linkText,
