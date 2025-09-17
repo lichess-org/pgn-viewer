@@ -3,6 +3,7 @@ import PgnViewer from '../pgnViewer';
 import { formatSquareForScreenReader } from './util';
 import { parseFen } from 'chessops/fen';
 import { parseSquare } from 'chessops';
+import { Role } from 'chessground/types';
 
 export const renderAccessibleBoard = (ctrl: PgnViewer): VNode => {
   const data = ctrl.curData();
@@ -75,7 +76,7 @@ const renderSquare = (
   ctrl: PgnViewer,
   file: string,
   rank: number,
-  piece?: { role: string; color: string },
+  piece?: { role: Role; color: string },
 ): VNode => {
   const ariaLabel = formatSquareForScreenReader(
     ctrl.translate,
