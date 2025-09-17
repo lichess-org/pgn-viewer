@@ -1,7 +1,7 @@
 import { Hooks } from 'snabbdom';
 import { glyphs } from './glyph';
 import { Translate } from '../interfaces';
-import { Role, Color } from 'chessground/types';
+import { Piece, Rank } from 'chessground/types';
 
 export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => unknown, redraw?: () => void): void {
   for (const mousedownEvent of ['touchstart', 'mousedown']) {
@@ -55,32 +55,29 @@ const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;
 export const formatSquareForScreenReader = (
   translate: Translate,
   file: string,
-  rank: number,
-  pieceRole?: Role,
-  pieceColor?: Color,
+  rank: Rank,
+  piece?: Piece,
 ): string => {
   const square = `${file.toUpperCase()}${rank}`;
-  if (!pieceRole || !pieceColor) {
-    return `${square} ${translate('aria.empty')}`;
-  }
-  const pieceName = translate(`aria.piece.${pieceRole}`);
-  return `${square} ${translate(`aria.${pieceColor}`)} ${pieceName}`;
+  if (!piece) return `${square} ${translate('aria.empty')}`;
+  const pieceName = translate(`aria.piece.${piece.role}`);
+  return `${square} ${translate(`aria.${piece.color}`)} ${pieceName}`;
 };
 
 export const formatMoveForScreenReader = (san: string, nags?: number[]): string => {
   // Turns "Be2" into "B e2" and includes annotations. Without spacing "Be2" sounds exactly like "B2" which may be confusing.
   let formatted = san.replace(/^([KQRBN])(x?)([a-h][1-8])/, '$1 $2$3');
-  
+
   if (nags && nags.length > 0) {
     const annotations = nags
       .map(nag => glyphs[nag]?.name)
       .filter(name => name)
       .join(', ');
-    
+
     if (annotations) {
       formatted += `, ${annotations}`;
     }
   }
-  
+
   return formatted;
 };

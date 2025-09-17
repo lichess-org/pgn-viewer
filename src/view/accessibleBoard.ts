@@ -3,7 +3,9 @@ import PgnViewer from '../pgnViewer';
 import { formatSquareForScreenReader } from './util';
 import { parseFen } from 'chessops/fen';
 import { parseSquare } from 'chessops';
-import { Role } from 'chessground/types';
+import { files, Piece, Rank, ranks } from 'chessground/types';
+import { Translate } from '../interfaces';
+import { invRanks } from 'chessground/util';
 
 export const renderAccessibleBoard = (ctrl: PgnViewer): VNode => {
   const data = ctrl.curData();
@@ -36,24 +38,20 @@ export const renderAccessibleBoard = (ctrl: PgnViewer): VNode => {
 
 const renderBoardRows = (ctrl: PgnViewer, fen: string, flipped: boolean): VNode[] => {
   const rows: VNode[] = [];
-  const ranks = flipped ? [1, 2, 3, 4, 5, 6, 7, 8] : [8, 7, 6, 5, 4, 3, 2, 1];
 
   const setup = parseFen(fen);
   if (!setup.isOk) return rows;
 
-  ranks.forEach(rank => {
-    const files = flipped
-      ? ['h', 'g', 'f', 'e', 'd', 'c', 'b', 'a']
-      : ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+  const orderedRanks = flipped ? ranks : invRanks;
+  const orderedFiles = flipped ? [...files].reverse() : files;
 
-    const rowCells = files.map(file => {
+  orderedRanks.forEach(rank => {
+    const rowCells = orderedFiles.map(file => {
       const squareKey = `${file}${rank}`;
       const square = parseSquare(squareKey);
-      if (square === undefined) return renderSquare(ctrl, file, rank, undefined);
+      const piece = square ? setup.value.board.get(square) : undefined;
 
-      const piece = setup.value.board.get(square);
-
-      return renderSquare(ctrl, file, rank, piece);
+      return renderSquare(ctrl.translate, file, rank, piece);
     });
 
     rows.push(
@@ -72,19 +70,8 @@ const renderBoardRows = (ctrl: PgnViewer, fen: string, flipped: boolean): VNode[
   return rows;
 };
 
-const renderSquare = (
-  ctrl: PgnViewer,
-  file: string,
-  rank: number,
-  piece?: { role: Role; color: string },
-): VNode => {
-  const ariaLabel = formatSquareForScreenReader(
-    ctrl.translate,
-    file,
-    rank,
-    piece?.role,
-    piece?.color as 'white' | 'black',
-  );
+const renderSquare = (translate: Translate, file: string, rank: Rank, piece?: Piece): VNode => {
+  const ariaLabel = formatSquareForScreenReader(translate, file, rank, piece);
 
   return h(
     'span',
