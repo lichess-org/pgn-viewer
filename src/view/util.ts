@@ -64,9 +64,8 @@ export const formatSquareForScreenReader = (
   return `${square} ${translate(`aria.${piece.color}`)} ${pieceName}`;
 };
 
-export const formatMoveForScreenReader = (san: string, nags?: number[]): string => {
-  // Turns "Be2" into "B e2" and includes annotations. Without spacing "Be2" sounds exactly like "B2" which may be confusing.
-  let formatted = san.replace(/^([KQRBN])(x?)([a-h][1-8])/, '$1 $2$3');
+export const formatMoveForScreenReader = (san: string, nags?: number[], translate?: Translate): string => {
+  let formatted = translate ? transSanToWords(san, translate) : san;
 
   if (nags && nags.length > 0) {
     const annotations = nags
@@ -81,3 +80,27 @@ export const formatMoveForScreenReader = (san: string, nags?: number[]): string 
 
   return formatted;
 };
+
+const transSanToWords = (san: string, translate: Translate): string =>
+  san
+    .split('')
+    .map(c => {
+      if (c === 'x') return translate('san.takes');
+      if (c === '+') return translate('san.check');
+      if (c === '#') return translate('san.checkmate');
+      if (c === '=') return translate('san.promotesTo');
+      if (c === '@') return translate('san.droppedOn');
+      const code = c.charCodeAt(0);
+      if (code > 48 && code < 58) return c; // 1-8
+      if (code > 96 && code < 105) return c.toUpperCase(); // a-h
+      if (c === 'K') return translate('aria.piece.king');
+      if (c === 'Q') return translate('aria.piece.queen');
+      if (c === 'R') return translate('aria.piece.rook');
+      if (c === 'B') return translate('aria.piece.bishop');
+      if (c === 'N') return translate('aria.piece.knight');
+      if (c === 'O') return 'O'; // for castling
+      return c;
+    })
+    .join(' ')
+    .replace('O - O - O', translate('san.longCastling'))
+    .replace('O - O', translate('san.shortCastling'));

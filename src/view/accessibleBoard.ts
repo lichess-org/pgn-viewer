@@ -13,23 +13,12 @@ export const renderAccessibleBoard = (ctrl: PgnViewer): VNode => {
     'div.lpv__sr-only',
     {
       attrs: {
-        role: 'group',
+        role: 'grid',
         'aria-label': ctrl.translate('aria.accessibleChessboard'),
         'aria-hidden': 'false',
       },
     },
-    [
-      h(
-        'div',
-        {
-          attrs: {
-            role: 'grid',
-            'aria-label': ctrl.translate('aria.chessboardGrid'),
-          },
-        },
-        renderBoardRows(ctrl, flipped),
-      ),
-    ],
+    renderBoardRows(ctrl, flipped),
   );
 };
 

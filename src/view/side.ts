@@ -130,7 +130,7 @@ const renderMove = (ctrl: PgnViewer) => (move: MoveData) =>
           'aria.move',
           Math.ceil(move.ply / 2).toString(),
           ctrl.translate(`aria.${move.ply % 2 === 1 ? 'white' : 'black'}`),
-          formatMoveForScreenReader(move.san, move.nags),
+          formatMoveForScreenReader(move.san, move.nags, ctrl.translate),
         ),
       },
     },

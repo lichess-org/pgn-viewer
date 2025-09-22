@@ -8,7 +8,8 @@ export default function translate(translator = defaultTranslator) {
 
 const interpolate = (str: string, args: string[]): string => {
   let result = str;
-  args.forEach(arg => {
+  args.forEach((arg, index) => {
+    result = result.replace(`%${index + 1}$s`, arg);
     result = result.replace('%s', arg);
   });
   return result;
@@ -32,21 +33,19 @@ const defaultTranslations: { [key: string]: string } = {
   'aria.variation': 'Variation',
   'aria.navigationControls': 'Game navigation controls',
   'aria.viewProfileOnLichess': "View %s's profile on Lichess",
-  'aria.chessGameBetween': 'Chess game between %s, whites, and %s, blacks. %s',
+  'aria.chessGameBetween': 'Chess game between %1$s, whites, and %2$s, blacks. %3$s',
   'aria.gameInProgress': 'Game in progress',
   'aria.whitesWin': 'Whites win',
   'aria.blacksWin': 'Blacks win',
   'aria.draw': 'Draw',
   'aria.unknownPlayer': 'Unknown player',
   'aria.rated': 'rated %s',
-  'aria.move': 'Move %s, %s, %s',
+  'aria.move': 'Move %1$s, %2$s, %3$s',
   'aria.white': 'white',
   'aria.black': 'black',
-  'aria.check': 'check',
   'aria.remaining': '%s remaining',
   'aria.linkOpensInNewTab': '%s, link, opens in new tab',
   'aria.accessibleChessboard': 'Accessible chessboard',
-  'aria.chessboardGrid': 'Chessboard grid for screen readers',
   'aria.piece.king': 'king',
   'aria.piece.queen': 'queen',
   'aria.piece.rook': 'rook',
@@ -54,5 +53,11 @@ const defaultTranslations: { [key: string]: string } = {
   'aria.piece.knight': 'knight',
   'aria.piece.pawn': 'pawn',
   'aria.empty': 'empty',
-  'aria.unknown': 'unknown',
+  'san.takes': 'takes',
+  'san.check': 'check',
+  'san.checkmate': 'checkmate',
+  'san.promotesTo': 'promotes to',
+  'san.droppedOn': 'dropped on',
+  'san.longCastling': 'long castling',
+  'san.shortCastling': 'short castling',
 };

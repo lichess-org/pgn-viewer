@@ -19,12 +19,8 @@ export const renderAriaAnnouncement = (ctrl: PgnViewer): string => {
     'aria.move',
     moveNumber.toString(),
     ctrl.translate(`aria.${color}`),
-    formatMoveForScreenReader(san, data.nags),
+    formatMoveForScreenReader(san, data.nags, ctrl.translate),
   );
-
-  if (data.check) {
-    announcement += ', ' + ctrl.translate('aria.check');
-  }
 
   const clock = data.clocks && data.clocks[color === 'white' ? 'white' : 'black'];
   if (clock !== undefined && ctrl.opts.showClocks) {
