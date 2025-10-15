@@ -7,6 +7,8 @@ import { onKeyDown, stepwiseScroll } from '../events';
 import { renderMenu, renderControls } from './menu';
 import { renderMoves } from './side';
 import renderPlayer from './player';
+import { renderAccessibleBoard } from './accessibleBoard';
+import { ariaHidden, renderAriaAnnouncement, renderRootAriaLabel } from './aria';
 
 export default function view(ctrl: PgnViewer) {
   const opts = ctrl.opts,
@@ -22,7 +24,9 @@ export default function view(ctrl: PgnViewer) {
         'lpv--players': showPlayers,
       },
       attrs: {
+        role: 'region',
         tabindex: 0,
+        'aria-label': renderRootAriaLabel(ctrl),
       },
       hook: onInsert(el => {
         ctrl.setGround(Chessground(el.querySelector('.cg-wrap') as HTMLElement, makeConfig(ctrl, el)));
@@ -30,6 +34,14 @@ export default function view(ctrl: PgnViewer) {
       }),
     },
     [
+      h(
+        'div.lpv__sr-only',
+        {
+          attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' },
+        },
+        renderAriaAnnouncement(ctrl),
+      ),
+      renderAccessibleBoard(ctrl),
       showPlayers ? renderPlayer(ctrl, 'top') : undefined,
       renderBoard(ctrl),
       showPlayers ? renderPlayer(ctrl, 'bottom') : undefined,
@@ -44,6 +56,7 @@ const renderBoard = (ctrl: PgnViewer): VNode =>
   h(
     'div.lpv__board',
     {
+      attrs: ariaHidden,
       hook: onInsert(el => {
         el.addEventListener('click', ctrl.focus);
         if (ctrl.opts.scrollToMove && !('ontouchstart' in window))
