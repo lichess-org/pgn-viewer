@@ -2,8 +2,11 @@ import { Translator } from './interfaces';
 
 const defaultTranslator: Translator = (key: string) => defaultTranslations[key];
 
-export default function translate(translator = defaultTranslator) {
-  return (key: string, ...args: string[]) => interpolate(translator(key) ?? key, args);
+export default function translate(custom?: Translator) {
+  return (key: string, ...args: string[]) => {
+    const translated = (custom && custom(key)) || defaultTranslator(key);
+    return interpolate(translated ?? key, args);
+  };
 }
 
 const interpolate = (str: string, args: string[]): string => {
