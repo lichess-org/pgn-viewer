@@ -1,7 +1,7 @@
 # Lichess PGN Viewer
 
 [![Continuous Integration](https://github.com/lichess-org/pgn-viewer/actions/workflows/ci.yml/badge.svg)](https://github.com/lichess-org/pgn-viewer/actions/workflows/ci.yml)
-[![npm](https://img.shields.io/npm/v/@lichess-org/chessground)](https://www.npmjs.com/package/@lichess-org/chessground)
+[![npm](https://img.shields.io/npm/v/@lichess-org/pgn-viewer)](https://www.npmjs.com/package/@lichess-org/pgn-viewer)
 
 PGN viewer widget, designed to be embedded in content pages.
 
