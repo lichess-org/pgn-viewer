@@ -1,7 +1,7 @@
 import { Hooks } from 'snabbdom';
 import { glyphs } from './glyph';
 import { Translate } from '../interfaces';
-import { Piece, Rank } from 'chessground/types';
+import { Piece, Rank } from '@lichess-org/chessground/types';
 
 export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => unknown, redraw?: () => void): void {
   for (const mousedownEvent of ['touchstart', 'mousedown']) {

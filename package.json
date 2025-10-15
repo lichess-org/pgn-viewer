@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@types/node": "^24.3.1",
-    "chessground": "^9.2.1",
+    "@lichess-org/chessground": "^9.8.2",
     "chessops": "^0.15.0",
     "snabbdom": "^3.5.1"
   },

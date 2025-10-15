@@ -1,6 +1,6 @@
 import PgnViewer from '../pgnViewer';
-import { Chessground } from 'chessground';
-import { Config as CgConfig } from 'chessground/config';
+import { Chessground } from '@lichess-org/chessground';
+import { Config as CgConfig } from '@lichess-org/chessground/config';
 import { h, VNode } from 'snabbdom';
 import { onInsert } from './util';
 import { onKeyDown, stepwiseScroll } from '../events';

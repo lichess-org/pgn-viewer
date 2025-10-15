@@ -1,6 +1,6 @@
 import { Color, Move, Position } from 'chessops';
-import { Config as CgConfig } from 'chessground/config';
-import { FEN } from 'chessground/types';
+import { Config as CgConfig } from '@lichess-org/chessground/config';
+import { FEN } from '@lichess-org/chessground/types';
 import { Path } from './path';
 import { CommentShape } from 'chessops/pgn';
 

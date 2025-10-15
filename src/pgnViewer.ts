@@ -1,9 +1,9 @@
-import { Api as CgApi } from 'chessground/api';
+import { Api as CgApi } from '@lichess-org/chessground/api';
 import { makeSquare, opposite } from 'chessops';
 import translator from './translation';
 import { GoTo, InitialOrMove, Opts, Translate } from './interfaces';
-import { Config as CgConfig } from 'chessground/config';
-import { uciToMove } from 'chessground/util';
+import { Config as CgConfig } from '@lichess-org/chessground/config';
+import { uciToMove } from '@lichess-org/chessground/util';
 import { Path } from './path';
 import { AnyNode, Game, isMoveData } from './game';
 import { makeGame } from './pgn';

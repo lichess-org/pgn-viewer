@@ -8,12 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@lichess-org/chessground':
+        specifier: ^9.8.2
+        version: 9.8.2
       '@types/node':
         specifier: ^24.3.1
         version: 24.3.1
-      chessground:
-        specifier: ^9.2.1
-        version: 9.2.1
       chessops:
         specifier: ^0.15.0
         version: 0.15.0
@@ -406,6 +406,9 @@ packages:
   '@jridgewell/sourcemap-codec@1.5.5':
     resolution: {integrity: sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==}
 
+  '@lichess-org/chessground@9.8.2':
+    resolution: {integrity: sha512-5zJ5Ixkkrz/h7GUc7pk/ERLzcRNLdKNNRIGS/pGmyOlrnlHyh8rgMfm46iKuwDRl/wl2T/AoDhSfpbFIBL+oag==}
+
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -779,9 +782,6 @@ packages:
   check-error@2.1.1:
     resolution: {integrity: sha512-OAlb+T7V4Op9OwdkjmguYRqncdlx5JiofwOAUkmTF+jNdHwzTaTs4sRAGpzLF3oOz5xAyDGrPgeIDFQmDOTiJw==}
     engines: {node: '>= 16'}
-
-  chessground@9.2.1:
-    resolution: {integrity: sha512-KIdxm0zD69e62XRwdnFB0XUNYSzn5HM3pMazRCwpfruRUowFI8y+1OAK5YSyBff29myeV1/4o5Q8T191+Irbog==}
 
   chessops@0.15.0:
     resolution: {integrity: sha512-4Ps0O8/UO09tDGbze1mMilUSMZjVYMFtQvrhlCQV385cO0BgdUPUZsq/r1Qrf6UQ4J0i7XcMbRRvFRKu+Ith1w==}
@@ -1666,6 +1666,8 @@ snapshots:
 
   '@jridgewell/sourcemap-codec@1.5.5': {}
 
+  '@lichess-org/chessground@9.8.2': {}
+
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
       '@nodelib/fs.stat': 2.0.5
@@ -2021,8 +2023,6 @@ snapshots:
       supports-color: 7.2.0
 
   check-error@2.1.1: {}
-
-  chessground@9.2.1: {}
 
   chessops@0.15.0:
     dependencies:
