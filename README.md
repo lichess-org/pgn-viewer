@@ -1,5 +1,8 @@
 # Lichess PGN Viewer
 
+[![Continuous Integration](https://github.com/lichess-org/pgn-viewer/workflows/Continuous%20Integration/badge.svg)](https://github.com/lichess-org/pgn-viewer/actions?query=workflow%3A%22Continuous+Integration%22)
+[![npm](https://img.shields.io/npm/v/@lichess-org/pgn-viewer)](https://www.npmjs.com/package/@lichess-org/pgn-viewer)
+
 PGN viewer widget, designed to be embedded in content pages.
 
 This won't replace a fully featured [analysis board](https://lichess.org/analysis).
@@ -136,3 +139,12 @@ pnpm test:watch
 - Vue.js: [dragunovartem99/vue-pgn-viewer](https://github.com/dragunovartem99/vue-pgn-viewer)
 
 More? Please make a pull request to include it here.
+
+## Release procedure
+
+- https://github.com/lichess-org/pgn-viewer/actions/workflows/release.yaml
+- [Run workflow]
+- Branch: master
+- Version tag: vX.Y.Z
+
+The release workflow will increment the package.json version, create the tag, the github release, and publish to npm
