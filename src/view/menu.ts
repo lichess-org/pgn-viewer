@@ -1,4 +1,4 @@
-import { h } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import PgnViewer from '../pgnViewer';
 import { GoTo } from '../interfaces';
 import { bind, bindMobileMousedown, onInsert } from './util';
@@ -13,7 +13,7 @@ export const renderMenu = (ctrl: PgnViewer) =>
         'aria-label': ctrl.translate('menu') ?? 'Menu',
       },
       hook: {
-        insert: vnode => {
+        insert: (vnode: VNode) => {
           const menuEl = vnode.elm as HTMLElement;
           // Focus first menu item when menu opens
           const firstItem = menuEl.querySelector<HTMLElement>('[role="menuitem"]');
@@ -117,7 +117,7 @@ export const renderControls = (ctrl: PgnViewer) =>
             'lpv__icon-ellipsis-vert': ctrl.pane == 'board',
           },
           hook: {
-            insert: vnode => {
+            insert: (vnode: VNode) => {
               const el = vnode.elm as HTMLElement;
               el.addEventListener('click', ctrl.toggleMenu);
               // Store reference for focus management
