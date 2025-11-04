@@ -20,7 +20,11 @@
   "exports": {
     ".": {
       "types": "./dist/main.d.ts",
-      "default": "./dist/main.js"
+      "import": "./dist/main.js"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.js"
     }
   },
   "typesVersions": {
@@ -31,13 +35,13 @@
     }
   },
   "dependencies": {
-    "@types/node": "^24.3.1",
-    "@lichess-org/chessground": "^9.8.2",
+    "@lichess-org/chessground": "^9.8.5",
     "chessops": "^0.15.0",
     "snabbdom": "^3.5.1"
   },
   "// snabbdom pinned to 3.5.1 until https://github.com/snabbdom/snabbdom/issues/1114 is resolved": "",
   "devDependencies": {
+    "@types/node": "^24.3.1",
     "@typescript-eslint/eslint-plugin": "^8.42.0",
     "@typescript-eslint/parser": "^8.42.0",
     "esbuild": "^0.25.9",
