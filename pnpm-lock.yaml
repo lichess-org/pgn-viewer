@@ -9,11 +9,8 @@ importers:
   .:
     dependencies:
       '@lichess-org/chessground':
-        specifier: ^9.8.2
-        version: 9.8.2
-      '@types/node':
-        specifier: ^24.3.1
-        version: 24.3.1
+        specifier: ^9.8.5
+        version: 9.8.5
       chessops:
         specifier: ^0.15.0
         version: 0.15.0
@@ -21,6 +18,9 @@ importers:
         specifier: ^3.5.1
         version: 3.5.1
     devDependencies:
+      '@types/node':
+        specifier: ^24.3.1
+        version: 24.3.1
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.42.0
         version: 8.42.0(@typescript-eslint/parser@8.42.0(eslint@9.35.0)(typescript@5.9.2))(eslint@9.35.0)(typescript@5.9.2)
@@ -406,8 +406,8 @@ packages:
   '@jridgewell/sourcemap-codec@1.5.5':
     resolution: {integrity: sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==}
 
-  '@lichess-org/chessground@9.8.2':
-    resolution: {integrity: sha512-5zJ5Ixkkrz/h7GUc7pk/ERLzcRNLdKNNRIGS/pGmyOlrnlHyh8rgMfm46iKuwDRl/wl2T/AoDhSfpbFIBL+oag==}
+  '@lichess-org/chessground@9.8.5':
+    resolution: {integrity: sha512-jCY7JIM3sWtKjGWlIA20kG/TZ7zSp9/GVhfhvS8Hp5/VcQTnPfhdtYLa8wBK5iy5CiOTDcJ5IA1YPWO9M3Y1hw==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -1666,7 +1666,7 @@ snapshots:
 
   '@jridgewell/sourcemap-codec@1.5.5': {}
 
-  '@lichess-org/chessground@9.8.2': {}
+  '@lichess-org/chessground@9.8.5': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
