@@ -54,8 +54,8 @@ export const renderRootAriaLabel = (ctrl: PgnViewer): string => {
 
   const formatResult = (result?: string): string => {
     if (!result || result === '*') return ctrl.translate('aria.gameInProgress');
-    if (result === '1-0') return ctrl.translate('aria.whitesWin');
-    if (result === '0-1') return ctrl.translate('aria.blacksWin');
+    if (result === '1-0') return ctrl.translate('aria.whiteWins');
+    if (result === '0-1') return ctrl.translate('aria.blackWins');
     if (result === '1/2-1/2') return ctrl.translate('aria.draw');
     return result; // fallback for any other result format
   };
