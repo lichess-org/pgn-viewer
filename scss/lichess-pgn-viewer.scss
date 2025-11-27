@@ -1,4 +1,4 @@
-@import './chessground.base';
-@import './chessground.transp';
-@import './chessground.cburnett';
-@import 'lichess-pgn-viewer.lib';
+@use './chessground.base' as *;
+@use './chessground.transp' as *;
+@use './chessground.cburnett' as *;
+@use 'lichess-pgn-viewer.lib' as *;
