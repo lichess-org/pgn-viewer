@@ -112,7 +112,7 @@ If you use [SCSS](https://sass-lang.com/), you can import the styles with:
 @import '../../node_modules/@lichess-org/pgn-viewer/scss/lichess-pgn-viewer.lib';
 ```
 
-Customisable SCSS variables are [available](https://github.com/lichess-org/pgn-viewer/blob/master/scss/_lichess-pgn-viewer.lib.scss), see [how lichess configures pgn-viewer with SCSS](https://github.com/lichess-org/lila/blob/master/ui/common/css/component/_lichess-pgn-viewer.scss).
+Customisable CSS variables are [available](https://github.com/lichess-org/pgn-viewer/blob/master/scss/_lichess-pgn-viewer.lib.scss), see [how lichess configures pgn-viewer with CSS](https://github.com/lichess-org/lila/blob/master/ui/lib/css/component/_pgn-viewer.scss).
 
 ### CSS
 
