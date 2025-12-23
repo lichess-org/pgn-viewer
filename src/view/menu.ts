@@ -73,7 +73,9 @@ export const renderMenu = (ctrl: PgnViewer) =>
             ctrl.translate('getPgn'),
           )
         : undefined,
-      renderExternalLink(ctrl),
+      !ctrl.game.metadata.isLichess || !ctrl.opts.menu.analysisBoard?.enabled
+        ? renderExternalLink(ctrl)
+        : undefined,
     ],
   );
 
