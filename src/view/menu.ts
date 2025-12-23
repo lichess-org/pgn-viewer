@@ -38,7 +38,7 @@ export const renderMenu = (ctrl: PgnViewer) =>
             {
               attrs: {
                 role: 'menuitem',
-                href: ctrl.analysisUrl(),
+                href: ctrl.analysisUrl(false),
                 target: '_blank',
                 'aria-label': ctrl.translate('aria.linkOpensInNewTab', ctrl.translate('analysisBoard')),
               },
