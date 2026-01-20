@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@lichess-org/chessground':
-        specifier: ^9.8.5
-        version: 9.8.5
+        specifier: ^10.0.1
+        version: 10.0.1
       chessops:
         specifier: ^0.15.0
         version: 0.15.0
@@ -406,8 +406,8 @@ packages:
   '@jridgewell/sourcemap-codec@1.5.5':
     resolution: {integrity: sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==}
 
-  '@lichess-org/chessground@9.8.5':
-    resolution: {integrity: sha512-jCY7JIM3sWtKjGWlIA20kG/TZ7zSp9/GVhfhvS8Hp5/VcQTnPfhdtYLa8wBK5iy5CiOTDcJ5IA1YPWO9M3Y1hw==}
+  '@lichess-org/chessground@10.0.1':
+    resolution: {integrity: sha512-QNVgPB2XqfIo4qAbgffP/Eaze12ZzaBJsIDN65g6b1FqbVR0zJYYehTJ8C/dukPR+L9z6+7MJd8n00urelBl/A==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -1666,7 +1666,7 @@ snapshots:
 
   '@jridgewell/sourcemap-codec@1.5.5': {}
 
-  '@lichess-org/chessground@9.8.5': {}
+  '@lichess-org/chessground@10.0.1': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
