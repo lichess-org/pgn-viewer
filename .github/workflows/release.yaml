@@ -30,8 +30,6 @@ jobs:
         with:
           registry-url: https://registry.npmjs.org/
           cache: pnpm
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
       - run: pnpm install
       - run: |
           pnpm run dist
