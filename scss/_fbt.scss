@@ -1,3 +1,5 @@
+@use 'lichess-pgn-viewer.vars' as *;
+
 .lpv {
   &__fbt {
     background: none;
@@ -13,7 +15,7 @@
 
     @media (hover: hover) {
       &:hover:not(.disabled):not([disabled]) {
-        background: var(--c-lpv-fbt-hover, lpv-fbt-hover);
+        background: var(--c-lpv-fbt-hover, $lpv-fbt-hover);
         color: #fff;
       }
     }
