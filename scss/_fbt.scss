@@ -25,6 +25,7 @@
 
     &.disabled,
     &[disabled] {
+      pointer-events: none; // disabled elements don't fire mouse events, this will make any mouse events on a disabled element fall through to the parent element
       opacity: 0.4;
       cursor: default;
     }
