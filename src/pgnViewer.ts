@@ -1,9 +1,9 @@
-import { Api as CgApi } from 'chessground/api';
+import { Api as CgApi } from '@lichess-org/chessground/api';
 import { makeSquare, opposite } from 'chessops';
 import translator from './translation';
 import { GoTo, InitialOrMove, Opts, Pane, Translate } from './interfaces';
-import { Config as CgConfig } from 'chessground/config';
-import { uciToMove } from 'chessground/util';
+import { Config as CgConfig } from '@lichess-org/chessground/config';
+import { uciToMove } from '@lichess-org/chessground/util';
 import { Path } from './path';
 import { AnyNode, Game, isMoveData } from './game';
 import { makeGame } from './pgn';
@@ -14,6 +14,7 @@ export default class PgnViewer {
   translate: Translate;
   ground?: CgApi;
   div?: HTMLElement;
+  menuButton?: HTMLElement;
   flipped = false;
   pane: Pane = 'board';
   autoScrollRequested = false;
@@ -59,6 +60,11 @@ export default class PgnViewer {
   toggleMenu = () => {
     this.pane = this.pane == 'board' ? 'menu' : 'board';
     this.redraw();
+
+    if (this.pane == 'board') {
+      // Menu has been closed - return focus to menu button
+      setTimeout(() => this.menuButton?.focus(), 0);
+    }
   };
   togglePgn = () => {
     this.pane = this.pane == 'pgn' ? 'board' : 'pgn';
@@ -89,10 +95,25 @@ export default class PgnViewer {
     };
   };
 
-  analysisUrl = () =>
-    (this.game.metadata.isLichess && this.game.metadata.externalLink) ||
-    `https://lichess.org/analysis/${this.curData().fen.replace(' ', '_')}?color=${this.orientation()}`;
-  practiceUrl = () => `${this.analysisUrl()}#practice`;
+  analysisUrl = (forPractice: boolean): string => {
+    const mainlinePly = this.plyOnMainline();
+    const onMainline = mainlinePly !== undefined;
+    return this.game.metadata.isLichess && this.game.metadata.externalLink && onMainline && !forPractice
+      ? this.game.metadata.externalLink + `#${mainlinePly}`
+      : `https://lichess.org/analysis/${this.curData().fen.replace(' ', '_')}?color=${this.orientation()}`;
+  };
+
+  practiceUrl = () => `${this.analysisUrl(true)}#practice`;
+
+  private plyOnMainline(): number | undefined {
+    const data = this.curData();
+    const ply = isMoveData(data) ? data.ply : 0;
+    const onMainline =
+      ply === 0
+        ? this.path.empty()
+        : !!this.game.mainline[ply - 1] && this.game.mainline[ply - 1].path.equals(this.path);
+    return onMainline ? ply : undefined;
+  }
 
   setGround = (cg: CgApi) => {
     this.ground = cg;

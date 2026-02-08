@@ -1,5 +1,8 @@
 # Lichess PGN Viewer
 
+[![Continuous Integration](https://github.com/lichess-org/pgn-viewer/actions/workflows/ci.yml/badge.svg)](https://github.com/lichess-org/pgn-viewer/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/@lichess-org/pgn-viewer)](https://www.npmjs.com/package/@lichess-org/pgn-viewer)
+
 PGN viewer widget, designed to be embedded in content pages.
 
 This won't replace a fully featured [analysis board](https://lichess.org/analysis).
@@ -29,6 +32,7 @@ Please read more about GPL for JavaScript on [greendrake.info](https://greendrak
 - PGN comments
 - players and clocks
 - mobile support
+- accessible to screen readers with ARIA support
 - translatable and customisable
 - client-side only
 - easy to set up on any page
@@ -40,6 +44,16 @@ Please read more about GPL for JavaScript on [greendrake.info](https://greendrak
 - opening explorer
 
 For these features, use an [analysis board](https://lichess.org/analysis) or [Lichess studies](https://lichess.org/study).
+
+## Accessibility
+
+The viewer is fully accessible to screen reader users with:
+
+- **Complete board representation**: Screen readers can navigate through all 64 squares with piece positions announced
+- **Live move announcements**: Real-time narration of moves including number, color, notation, and annotations
+- **Keyboard navigation**: All controls accessible via keyboard (arrow keys for moves, 'f' to flip board)
+- **ARIA labels and roles**: Comprehensive semantic markup for assistive technologies
+- **Game context**: Players, ratings, result, and timing information properly announced
 
 ## Build and run
 
@@ -55,13 +69,13 @@ Then open the demo page at http://localhost:8080
 ### As an NPM package
 
 ```
-npm i lichess-pgn-viewer
+npm i @lichess-org/pgn-viewer
 ```
 
 ## Usage
 
 ```js
-import LichessPgnViewer from 'lichess-pgn-viewer';
+import LichessPgnViewer from '@lichess-org/pgn-viewer';
 
 const lpv = LichessPgnViewer(domElement, {
   pgn: 'e4 c5 Nf3 d6 e5 Nc6 exd6 Qxd6 Nc3 Nf6',
@@ -95,10 +109,10 @@ View more examples in `demo/index.html`
 If you use [SCSS](https://sass-lang.com/), you can import the styles with:
 
 ```scss
-@import '../../node_modules/lichess-pgn-viewer/scss/lichess-pgn-viewer.lib';
+@import '../../node_modules/@lichess-org/pgn-viewer/scss/lichess-pgn-viewer.lib';
 ```
 
-Customisable SCSS variables are [available](https://github.com/lichess-org/pgn-viewer/blob/master/scss/_lichess-pgn-viewer.lib.scss), see [how lichess configures lichess-pgn-viewer with SCSS](https://github.com/lichess-org/lila/blob/master/ui/common/css/component/_lichess-pgn-viewer.scss).
+Customisable CSS variables are [available](https://github.com/lichess-org/pgn-viewer/blob/master/scss/_lichess-pgn-viewer.lib.scss), see [how lichess configures pgn-viewer with CSS](https://github.com/lichess-org/lila/blob/master/ui/lib/css/component/_pgn-viewer.scss).
 
 ### CSS
 
@@ -119,3 +133,18 @@ pnpm test
 
 pnpm test:watch
 ```
+
+## Wrappers
+
+- Vue.js: [dragunovartem99/vue-pgn-viewer](https://github.com/dragunovartem99/vue-pgn-viewer)
+
+More? Please make a pull request to include it here.
+
+## Release procedure
+
+- https://github.com/lichess-org/pgn-viewer/actions/workflows/release.yaml
+- [Run workflow]
+- Branch: master
+- Version tag: vX.Y.Z
+
+The release workflow will increment the package.json version, create the tag, the github release, and publish to npm
