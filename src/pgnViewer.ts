@@ -1,7 +1,7 @@
 import { Api as CgApi } from '@lichess-org/chessground/api';
 import { makeSquare, opposite } from 'chessops';
 import translator from './translation';
-import { GoTo, InitialOrMove, Opts, Translate } from './interfaces';
+import { GoTo, InitialOrMove, Opts, Pane, Translate } from './interfaces';
 import { Config as CgConfig } from '@lichess-org/chessground/config';
 import { uciToMove } from '@lichess-org/chessground/util';
 import { Path } from './path';
@@ -16,7 +16,7 @@ export default class PgnViewer {
   div?: HTMLElement;
   menuButton?: HTMLElement;
   flipped = false;
-  pane = 'board';
+  pane: Pane = 'board';
   autoScrollRequested = false;
 
   constructor(
