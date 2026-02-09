@@ -1,3 +1,5 @@
+@use 'lichess-pgn-viewer.vars' as *;
+
 .lpv {
   &__side {
     overflow: hidden;
