@@ -15,3 +15,13 @@ body {
 .viewers > div {
   max-width: 600px;
 }
+
+iframe {
+  border: 1px solid #888;
+}
+.frames {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  justify-content: flex-start;
+}
