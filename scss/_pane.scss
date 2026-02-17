@@ -26,6 +26,8 @@
       background: var(--c-lpv-pgn-text, $lpv-pgn-text);
       color: var(--c-lpv-font, $lpv-font);
       padding: 0.8em 1.3em;
+      font-family: monospace;
+      font-size: 0.8em;
     }
   }
 }
