@@ -56,6 +56,7 @@
     "compile": "tsc --incremental",
     "lint": "eslint src/*.ts",
     "format": "prettier --write --log-level warn .",
+    "format:check": "prettier --check --log-level warn .",
     "bundle": "esbuild src/main.ts --bundle --format=esm --platform=browser",
     "bundle-dev": "pnpm run bundle --outfile=demo/lichess-pgn-viewer.js",
     "bundle-prod": "pnpm run bundle --minify --outfile=dist/lichess-pgn-viewer.min.js",
