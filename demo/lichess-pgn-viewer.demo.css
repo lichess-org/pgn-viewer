@@ -1,6 +1,6 @@
 body {
   background: var(--demo-bg, #161512);
-  font-family: 'Noto Sans';
+  font-family: 'Noto Sans', sans-serif;
   --board-color: #886f46;
   margin: 0;
 }

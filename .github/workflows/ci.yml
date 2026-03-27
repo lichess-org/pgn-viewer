@@ -13,6 +13,8 @@ jobs:
           node-version: 24.1.0
           cache: pnpm
       - run: pnpm install
+      - run: pnpm lint
+      - run: pnpm format:check
       - run: pnpm run test
       - name: Compile sass
         run: pnpm run sass-prod
