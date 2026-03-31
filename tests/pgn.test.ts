@@ -1,5 +1,6 @@
-import { expect, test } from 'vitest';
 import { isNormal, parseSquare } from 'chessops';
+import { expect, test } from 'vitest';
+
 import { makeGame } from '../src/pgn';
 
 test('single move pgn', () => {

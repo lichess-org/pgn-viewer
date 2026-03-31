@@ -1,4 +1,4 @@
-import { Opts } from './interfaces';
+import { type Opts } from './interfaces';
 
 const defaults: Opts = {
   pgn: '*', // the PGN to render
@@ -29,7 +29,7 @@ const defaults: Opts = {
   classes: undefined, // CSS classes to set on the root element. Defaults to the element classes before being replaced by LPV.
 };
 
-export default function (element: HTMLElement, cfg: Partial<Opts>) {
+export default function Config(element: HTMLElement, cfg: Partial<Opts>) {
   const opts = { ...defaults };
   deepMerge(opts, cfg);
   if (opts.fen) opts.pgn = `[FEN "${opts.fen}"]\n${opts.pgn}`;

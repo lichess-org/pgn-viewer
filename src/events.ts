@@ -1,4 +1,4 @@
-import PgnViewer from './pgnViewer';
+import type PgnViewer from './pgnViewer';
 
 export function stepwiseScroll(inner: (e: WheelEvent, scroll: boolean) => void): (e: WheelEvent) => void {
   let scrollTotal = 0;
@@ -22,7 +22,7 @@ export function eventRepeater(action: () => void, e: Event) {
   let delay = 350;
   let timeout = setTimeout(repeat, 500);
   action();
-  const eventName = e.type == 'touchstart' ? 'touchend' : 'mouseup';
+  const eventName = e.type === 'touchstart' ? 'touchend' : 'mouseup';
   document.addEventListener(eventName, () => clearTimeout(timeout), { once: true });
 }
 
@@ -35,8 +35,9 @@ const suppressKeyNavOn = (e: KeyboardEvent): boolean =>
   document.activeElement instanceof HTMLTextAreaElement;
 
 export const onKeyDown = (ctrl: PgnViewer) => (e: KeyboardEvent) => {
-  if (suppressKeyNavOn(e)) return;
-  else if (e.key == 'ArrowLeft') ctrl.goTo('prev');
-  else if (e.key == 'ArrowRight') ctrl.goTo('next');
-  else if (e.key == 'f') ctrl.flip();
+  if (!suppressKeyNavOn(e)) {
+    if (e.key === 'ArrowLeft') ctrl.goTo('prev');
+    else if (e.key === 'ArrowRight') ctrl.goTo('next');
+    else if (e.key === 'f') ctrl.flip();
+  }
 };

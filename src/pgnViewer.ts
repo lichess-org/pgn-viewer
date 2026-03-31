@@ -1,12 +1,13 @@
-import { Api as CgApi } from '@lichess-org/chessground/api';
-import { makeSquare, opposite } from 'chessops';
-import translator from './translation';
-import { GoTo, InitialOrMove, Opts, Pane, Translate } from './interfaces';
-import { Config as CgConfig } from '@lichess-org/chessground/config';
+import { type Api as CgApi } from '@lichess-org/chessground/api';
+import { type Config as CgConfig } from '@lichess-org/chessground/config';
 import { uciToMove } from '@lichess-org/chessground/util';
+import { makeSquare, opposite } from 'chessops';
+
+import { type AnyNode, type Game, isMoveData } from './game';
+import { type GoTo, type InitialOrMove, type Opts, type Pane, type Translate } from './interfaces';
 import { Path } from './path';
-import { AnyNode, Game, isMoveData } from './game';
 import { makeGame } from './pgn';
+import translator from './translation';
 
 export default class PgnViewer {
   game: Game;
@@ -34,17 +35,18 @@ export default class PgnViewer {
 
   goTo = (to: GoTo, focus = true) => {
     const path =
-      to == 'first'
+      to === 'first'
         ? Path.root
-        : to == 'prev'
+        : to === 'prev'
           ? this.path.init()
-          : to == 'next'
+          : to === 'next'
             ? this.game.nodeAt(this.path)?.children[0]?.data.path
             : this.game.pathAtMainlinePly('last');
     this.toPath(path || this.path, focus);
   };
 
-  canGoTo = (to: GoTo) => (to == 'prev' || to == 'first' ? !this.path.empty() : !!this.curNode().children[0]);
+  canGoTo = (to: GoTo) =>
+    to === 'prev' || to === 'first' ? !this.path.empty() : !!this.curNode().children[0];
 
   toPath = (path: Path, focus = true) => {
     this.path = path;
@@ -58,16 +60,16 @@ export default class PgnViewer {
   focus = () => this.div?.focus();
 
   toggleMenu = () => {
-    this.pane = this.pane == 'board' ? 'menu' : 'board';
+    this.pane = this.pane === 'board' ? 'menu' : 'board';
     this.redraw();
 
-    if (this.pane == 'board') {
+    if (this.pane === 'board') {
       // Menu has been closed - return focus to menu button
       setTimeout(() => this.menuButton?.focus(), 0);
     }
   };
   togglePgn = () => {
-    this.pane = this.pane == 'pgn' ? 'board' : 'pgn';
+    this.pane = this.pane === 'pgn' ? 'board' : 'pgn';
     this.redraw();
   };
 

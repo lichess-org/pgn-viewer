@@ -1,10 +1,27 @@
-import { Color, makeUci, Position } from 'chessops';
+import { type Color, makeUci, type Position } from 'chessops';
 import { scalachessCharPair } from 'chessops/compat';
 import { makeFen } from 'chessops/fen';
-import { parsePgn, parseComment, PgnNodeData, startingPosition, transform, Node } from 'chessops/pgn';
+import {
+  type Node,
+  parseComment,
+  parsePgn,
+  type PgnNodeData,
+  startingPosition,
+  transform,
+} from 'chessops/pgn';
 import { makeSanAndPlay, parseSan } from 'chessops/san';
+
 import { Game } from './game';
-import { MoveData, Initial, Players, Player, Comments, Metadata, Clocks, Lichess } from './interfaces';
+import {
+  type Clocks,
+  type Comments,
+  type Initial,
+  type Lichess,
+  type Metadata,
+  type MoveData,
+  type Player,
+  type Players,
+} from './interfaces';
 import { Path } from './path';
 
 class State {
@@ -19,7 +36,7 @@ class State {
 export const parseComments = (strings: string[]): Comments => {
   const comments = strings.map(parseComment);
   const reduceTimes = (times: Array<number | undefined>) =>
-    times.reduce<number | undefined>((last, time) => (typeof time == undefined ? last : time), undefined);
+    times.reduce<number | undefined>((last, time) => (typeof time === 'undefined' ? last : time), undefined);
   return {
     texts: comments.map(c => c.text).filter(t => !!t),
     shapes: comments.flatMap(c => c.shapes),
@@ -92,21 +109,21 @@ const makeMoves = (start: Position, moves: Node<PgnNodeData>, metadata: Metadata
   });
 
 const makeClocks = (prev: Clocks, turn: Color, clk?: number): Clocks =>
-  turn == 'white' ? { ...prev, black: clk } : { ...prev, white: clk };
+  turn === 'white' ? { ...prev, black: clk } : { ...prev, white: clk };
 
 type Headers = Map<string, string>;
 
 function makePlayers(headers: Headers, metadata: Metadata): Players {
   const get = (color: Color, field: string): string | undefined => {
     const raw = headers.get(`${color}${field}`);
-    return raw == '?' || raw == '' ? undefined : raw;
+    return raw === '?' || raw === '' ? undefined : raw;
   };
   const makePlayer = (color: Color): Player => {
     const name = get(color, '');
     return {
       name,
       title: get(color, 'title'),
-      rating: parseInt(get(color, 'elo') || '') || undefined,
+      rating: Number.parseInt(get(color, 'elo') || '') || undefined,
       isLichessUser: metadata.isLichess && !!name?.match(/^[a-z0-9][a-z0-9_-]{0,28}[a-z0-9]$/i),
     };
   };
@@ -122,7 +139,7 @@ function makeMetadata(headers: Headers, lichess: Lichess): Metadata {
   const tcs = headers
     .get('timecontrol')
     ?.split('+')
-    .map(x => parseInt(x));
+    .map(x => Number.parseInt(x));
   const timeControl =
     tcs && tcs[0]
       ? {

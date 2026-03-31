@@ -1,26 +1,28 @@
-import PgnViewer from '../pgnViewer';
 import { Chessground } from '@lichess-org/chessground';
-import { Config as CgConfig } from '@lichess-org/chessground/config';
-import { h, VNode } from 'snabbdom';
-import { onInsert } from './util';
+import { type Config as CgConfig } from '@lichess-org/chessground/config';
+import { h, type VNode } from 'snabbdom';
+
 import { onKeyDown, stepwiseScroll } from '../events';
-import { renderMenu, renderControls } from './menu';
-import { renderMoves } from './side';
-import renderPlayer from './player';
+import type PgnViewer from '../pgnViewer';
+
 import { renderAccessibleBoard } from './accessibleBoard';
 import { ariaHidden, renderAriaAnnouncement, renderRootAriaLabel } from './aria';
+import { renderControls, renderMenu } from './menu';
+import renderPlayer from './player';
+import { renderMoves } from './side';
+import { onInsert } from './util';
 
 export default function view(ctrl: PgnViewer) {
   const opts = ctrl.opts,
     staticClasses = `lpv.lpv--moves-${opts.showMoves}.lpv--controls-${opts.showControls}${
       opts.classes ? '.' + opts.classes.replace(' ', '.') : ''
     }`;
-  const showPlayers = opts.showPlayers == 'auto' ? ctrl.game.hasPlayerName() : opts.showPlayers;
+  const showPlayers = opts.showPlayers === 'auto' ? ctrl.game.hasPlayerName() : opts.showPlayers;
   return h(
     `div.${staticClasses}`,
     {
       class: {
-        'lpv--menu': ctrl.pane != 'board',
+        'lpv--menu': ctrl.pane !== 'board',
         'lpv--players': showPlayers,
       },
       attrs: {
@@ -47,7 +49,7 @@ export default function view(ctrl: PgnViewer) {
       showPlayers ? renderPlayer(ctrl, 'bottom') : undefined,
       opts.showControls ? renderControls(ctrl) : undefined,
       opts.showMoves ? renderMoves(ctrl) : undefined,
-      ctrl.pane == 'menu' ? renderMenu(ctrl) : ctrl.pane == 'pgn' ? renderPgnPane(ctrl) : undefined,
+      ctrl.pane === 'menu' ? renderMenu(ctrl) : ctrl.pane === 'pgn' ? renderPgnPane(ctrl) : undefined,
     ],
   );
 }
@@ -98,7 +100,7 @@ export const makeConfig = (ctrl: PgnViewer, rootEl: HTMLElement): CgConfig => ({
     visible: true,
   },
   disableContextMenu: ctrl.opts.drawArrows,
-  ...(ctrl.opts.chessground || {}),
+  ...ctrl.opts.chessground,
   movable: {
     free: false,
   },

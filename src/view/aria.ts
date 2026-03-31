@@ -1,6 +1,7 @@
 import { isMoveData } from '../game';
-import { Player } from '../interfaces';
-import PgnViewer from '../pgnViewer';
+import { type Player } from '../interfaces';
+import type PgnViewer from '../pgnViewer';
+
 import { clockContent, formatMoveForScreenReader } from './util';
 
 export const ariaHidden = { 'aria-hidden': true };
