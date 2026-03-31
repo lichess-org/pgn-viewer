@@ -1,4 +1,4 @@
-import { Id } from './interfaces';
+import { type Id } from './interfaces';
 
 export class Path {
   constructor(readonly path: string) {}
@@ -14,7 +14,7 @@ export class Path {
 
   last = (): Id => this.path.slice(-2);
 
-  empty = () => this.path == '';
+  empty = () => this.path === '';
 
   contains = (other: Path): boolean => this.path.startsWith(other.path);
 
@@ -22,7 +22,7 @@ export class Path {
 
   append = (id: Id) => new Path(this.path + id);
 
-  equals = (other: Path) => this.path == other.path;
+  equals = (other: Path) => this.path === other.path;
 
   static root = new Path('');
 }

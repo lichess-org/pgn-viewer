@@ -1,10 +1,12 @@
-import { h, VNode } from 'snabbdom';
-import PgnViewer from '../pgnViewer';
-import { formatSquareForScreenReader } from './util';
-import { files, Key, Piece, Rank, ranks } from '@lichess-org/chessground/types';
-import { Translate } from '../interfaces';
-import { invRanks } from '@lichess-org/chessground/util';
 import { read as readFen } from '@lichess-org/chessground/fen';
+import { files, type Key, type Piece, type Rank, ranks } from '@lichess-org/chessground/types';
+import { invRanks } from '@lichess-org/chessground/util';
+import { h, type VNode } from 'snabbdom';
+
+import { type Translate } from '../interfaces';
+import type PgnViewer from '../pgnViewer';
+
+import { formatSquareForScreenReader } from './util';
 
 export const renderAccessibleBoard = (ctrl: PgnViewer): VNode => {
   const flipped = ctrl.flipped;

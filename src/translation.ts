@@ -1,4 +1,4 @@
-import { Translator } from './interfaces';
+import { type Translator } from './interfaces';
 
 const defaultTranslator: Translator = (key: string) => defaultTranslations[key];
 

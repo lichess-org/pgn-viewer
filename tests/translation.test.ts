@@ -1,4 +1,5 @@
 import { expect, test } from 'vitest';
+
 import translation from '../src/translation';
 
 test('default translator', () => {
@@ -20,7 +21,7 @@ test('dumb custom translator', () => {
 });
 
 test('partial custom translator', () => {
-  const t = translation(k => (k == 'flipTheBoard' ? 'Flip it' : undefined));
+  const t = translation(k => (k === 'flipTheBoard' ? 'Flip it' : undefined));
   expect(t('flipTheBoard')).toBe('Flip it');
   expect(t('viewOnSite')).toBe('View on site');
 });

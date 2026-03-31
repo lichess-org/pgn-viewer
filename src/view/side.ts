@@ -1,11 +1,13 @@
-import { h, VNode } from 'snabbdom';
-import PgnViewer from '../pgnViewer';
-import { MoveNode } from '../game';
-import { MoveData, Translate } from '../interfaces';
+import { h, type VNode } from 'snabbdom';
+
+import { type MoveNode } from '../game';
+import { type MoveData, type Translate } from '../interfaces';
 import { Path } from '../path';
+import type PgnViewer from '../pgnViewer';
+
+import { ariaHidden, presentation } from './aria';
 import { renderNag } from './glyph';
 import { formatMoveForScreenReader } from './util';
-import { ariaHidden, presentation } from './aria';
 
 export const renderMoves = (ctrl: PgnViewer) =>
   h('div.lpv__side', [
@@ -43,7 +45,7 @@ export const renderMoves = (ctrl: PgnViewer) =>
 
 const renderResultComment = (ctrl: PgnViewer) => {
   const res = ctrl.game.metadata.result;
-  return res && res != '*'
+  return res && res !== '*'
     ? [
         h(
           'comment.result',
@@ -66,11 +68,11 @@ const makeMoveNodes = (ctrl: PgnViewer): Array<VNode | undefined> => {
   const elms: VNode[] = [];
   let node: MoveNode | undefined,
     variations: MoveNode[] = ctrl.game.moves.children.slice(1);
-  if (ctrl.game.initial.pos.turn == 'black' && ctrl.game.mainline[0])
+  if (ctrl.game.initial.pos.turn === 'black' && ctrl.game.mainline[0])
     elms.push(indexNode(ctrl.game.initial.pos.fullmoves), emptyMove());
   while ((node = (node || ctrl.game.moves).children[0])) {
     const move = node.data;
-    const oddMove = move.ply % 2 == 1;
+    const oddMove = move.ply % 2 === 1;
     if (oddMove) elms.push(indexNode(moveTurn(move)));
     elms.push(moveDom(move));
     const addEmptyMove = oddMove && (variations.length || move.comments.length) && node.children.length;
@@ -94,10 +96,10 @@ const makeMainVariation = (translate: Translate, moveDom: MoveToDom, node: MoveN
 const makeVariationMoves = (moveDom: MoveToDom, node: MoveNode) => {
   let elms: VNode[] = [];
   let variations: MoveNode[] = [];
-  if (node.data.ply % 2 == 0) elms.push(h('index', { attrs: presentation }, [moveTurn(node.data), '...']));
+  if (node.data.ply % 2 === 0) elms.push(h('index', { attrs: presentation }, [moveTurn(node.data), '...']));
   do {
     const move = node.data;
-    if (move.ply % 2 == 1) elms.push(h('index', { attrs: presentation }, [moveTurn(move), '.']));
+    if (move.ply % 2 === 1) elms.push(h('index', { attrs: presentation }, [moveTurn(move), '.']));
     elms.push(moveDom(move));
     move.comments.forEach(comment => elms.push(commentNode(comment)));
     variations.forEach(variation => {
@@ -140,7 +142,7 @@ const renderMove = (ctrl: PgnViewer) => (move: MoveData) =>
 const autoScroll = (ctrl: PgnViewer, cont: HTMLElement) => {
   const target = cont.querySelector<HTMLElement>('.current');
   if (!target) {
-    cont.scrollTop = ctrl.path.empty() ? 0 : 99999;
+    cont.scrollTop = ctrl.path.empty() ? 0 : 99_999;
     return;
   }
   cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
