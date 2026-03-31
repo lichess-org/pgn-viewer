@@ -69,11 +69,8 @@
     "dist": "pnpm run compile && pnpm run prod && pnpm run sass-dev && pnpm run bundle-dev"
   },
   "files": [
-    "demo/*",
     "dist/*",
-    "view/*",
-    "scss/*",
-    "src/**/*"
+    "scss/*"
   ],
   "packageManager": "pnpm@10.32.1"
 }
