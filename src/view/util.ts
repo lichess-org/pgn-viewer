@@ -1,7 +1,9 @@
-import { Hooks } from 'snabbdom';
+import { type Piece, type Rank } from '@lichess-org/chessground/types';
+import { type Hooks } from 'snabbdom';
+
+import { type Translate } from '../interfaces';
+
 import { glyphs } from './glyph';
-import { Translate } from '../interfaces';
-import { Piece, Rank } from '@lichess-org/chessground/types';
 
 export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => unknown, redraw?: () => void): void {
   for (const mousedownEvent of ['touchstart', 'mousedown']) {
@@ -70,7 +72,7 @@ export const formatMoveForScreenReader = (san: string, nags?: number[], translat
   if (nags && nags.length > 0) {
     const annotations = nags
       .map(nag => glyphs[nag]?.name)
-      .filter(name => name)
+      .filter(Boolean)
       .join(', ');
 
     if (annotations) {

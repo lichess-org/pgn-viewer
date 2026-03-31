@@ -1,8 +1,9 @@
-import { Color, Move, Position } from 'chessops';
-import { Config as CgConfig } from '@lichess-org/chessground/config';
-import { FEN } from '@lichess-org/chessground/types';
-import { Path } from './path';
-import { CommentShape } from 'chessops/pgn';
+import { type Config as CgConfig } from '@lichess-org/chessground/config';
+import { type FEN } from '@lichess-org/chessground/types';
+import { type Color, type Move, type Position } from 'chessops';
+import { type CommentShape } from 'chessops/pgn';
+
+import { type Path } from './path';
 
 export type Id = string;
 export type San = string;

@@ -1,8 +1,10 @@
-import { h, VNode } from 'snabbdom';
-import PgnViewer from '../pgnViewer';
-import { GoTo } from '../interfaces';
-import { bind, bindMobileMousedown, onInsert } from './util';
+import { h, type VNode } from 'snabbdom';
+
 import { eventRepeater } from '../events';
+import { type GoTo } from '../interfaces';
+import type PgnViewer from '../pgnViewer';
+
+import { bind, bindMobileMousedown, onInsert } from './util';
 
 export const renderMenu = (ctrl: PgnViewer) =>
   h(
@@ -109,14 +111,14 @@ export const renderControls = (ctrl: PgnViewer) =>
       },
     },
     [
-      ctrl.pane == 'board' ? undefined : dirButton(ctrl, 'first', 'step-backward'),
+      ctrl.pane === 'board' ? undefined : dirButton(ctrl, 'first', 'step-backward'),
       dirButton(ctrl, 'prev', 'left-open'),
       h(
         'button.lpv__fbt.lpv__controls__menu.lpv__icon',
         {
           class: {
-            active: ctrl.pane != 'board',
-            'lpv__icon-ellipsis-vert': ctrl.pane == 'board',
+            active: ctrl.pane !== 'board',
+            'lpv__icon-ellipsis-vert': ctrl.pane === 'board',
           },
           hook: {
             insert: (vnode: VNode) => {
@@ -132,15 +134,15 @@ export const renderControls = (ctrl: PgnViewer) =>
             'aria-haspopup': 'menu',
           },
         },
-        ctrl.pane == 'board' ? undefined : 'X',
+        ctrl.pane === 'board' ? undefined : 'X',
       ),
       dirButton(ctrl, 'next', 'right-open'),
-      ctrl.pane == 'board' ? undefined : dirButton(ctrl, 'last', 'step-forward'),
+      ctrl.pane === 'board' ? undefined : dirButton(ctrl, 'last', 'step-forward'),
     ],
   );
 
 const dirButton = (ctrl: PgnViewer, to: GoTo, icon: string) => {
-  const isDisabled = ctrl.pane == 'board' && !ctrl.canGoTo(to);
+  const isDisabled = ctrl.pane === 'board' && !ctrl.canGoTo(to);
   return h(`button.lpv__controls__goto.lpv__controls__goto--${to}.lpv__fbt.lpv__icon.lpv__icon-${icon}`, {
     class: { disabled: isDisabled },
     hook: onInsert(el => bindMobileMousedown(el, e => eventRepeater(() => ctrl.goTo(to), e))),

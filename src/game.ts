@@ -1,5 +1,14 @@
-import { Node, ChildNode } from 'chessops/pgn';
-import { Id, Initial, InitialOrMove, Metadata, MoveData, Players, Ply } from './interfaces';
+import { type ChildNode, type Node } from 'chessops/pgn';
+
+import {
+  type Id,
+  type Initial,
+  type InitialOrMove,
+  type Metadata,
+  type MoveData,
+  type Players,
+  type Ply,
+} from './interfaces';
 import { Path } from './path';
 
 export type AnyNode = Node<MoveData>;
@@ -40,16 +49,16 @@ export class Game {
       : 'lichess-pgn-viewer';
 
   pathAtMainlinePly = (ply: Ply | 'last') =>
-    ply == 0
+    ply === 0
       ? Path.root
-      : this.mainline[Math.max(0, Math.min(this.mainline.length - 1, ply == 'last' ? 9999 : ply - 1))]
+      : this.mainline[Math.max(0, Math.min(this.mainline.length - 1, ply === 'last' ? 9999 : ply - 1))]
           ?.path || Path.root;
 
   hasPlayerName = () => !!(this.players.white?.name || this.players.black?.name);
 }
 
 const childById = (node: AnyNode, id: Id): MoveNode | undefined =>
-  node.children.find(c => c.data.path.last() == id);
+  node.children.find(c => c.data.path.last() === id);
 
 const nodeAtPathFrom = (node: AnyNode, path: Path): AnyNode | undefined => {
   if (path.empty()) return node;
