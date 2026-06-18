@@ -15,8 +15,8 @@ importers:
         specifier: ^0.15.0
         version: 0.15.0
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.5.1
+        specifier: ^3.6.4
+        version: 3.6.4
     devDependencies:
       '@types/node':
         specifier: ^24.12.0
@@ -1217,9 +1217,9 @@ packages:
   siginfo@2.0.0:
     resolution: {integrity: sha512-ybx0WO1/8bSBLEWXZvEd7gMW3Sn3JFlW3TvX1nREbDLRNQNaeNN8WK0meBwPdAaOI7TtRRRJn/Es1zhrrCHu7g==}
 
-  snabbdom@3.5.1:
-    resolution: {integrity: sha512-wHMNIOjkm/YNE5EM3RCbr/+DVgPg6AqQAX1eOxO46zYNvCXjKP5Y865tqQj3EXnaMBjkxmQA5jFuDpDK/dbfiA==}
-    engines: {node: '>=8.3.0'}
+  snabbdom@3.6.4:
+    resolution: {integrity: sha512-VmxEfuw1/Y/eFj5VtMhYnukExpYiPkNzoo3+N3qwAOUDMl8wXgbli5ebR+j0knE3lZ/0eYskLxNcX64uy10N9w==}
+    engines: {node: '>=12.17.0'}
 
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
@@ -2253,7 +2253,7 @@ snapshots:
 
   siginfo@2.0.0: {}
 
-  snabbdom@3.5.1: {}
+  snabbdom@3.6.4: {}
 
   source-map-js@1.2.1: {}
 
