@@ -88,17 +88,21 @@ const makeMoveNodes = (ctrl: PgnViewer): Array<VNode | undefined> => {
 type MoveToDom = (move: MoveData) => VNode;
 
 const makeMainVariation = (translate: Translate, moveDom: MoveToDom, node: MoveNode) =>
-  h('variation', { attrs: { role: 'group', 'aria-label': translate('aria.variation') } }, [
-    ...node.data.startingComments.map(commentNode),
-    ...makeVariationMoves(moveDom, node),
-  ]);
+  h(
+    'variation',
+    { attrs: { role: 'group', 'aria-label': translate('aria.variation') } },
+    makeVariationMoves(moveDom, node),
+  );
 
 const makeVariationMoves = (moveDom: MoveToDom, node: MoveNode) => {
   let elms: VNode[] = [];
   let variations: MoveNode[] = [];
-  if (node.data.ply % 2 === 0) elms.push(h('index', { attrs: presentation }, [moveTurn(node.data), '...']));
+  let firstMove = true;
   do {
     const move = node.data;
+    move.startingComments.forEach(comment => elms.push(commentNode(comment)));
+    if (firstMove && move.ply % 2 === 0)
+      elms.push(h('index', { attrs: presentation }, [moveTurn(move), '...']));
     if (move.ply % 2 === 1) elms.push(h('index', { attrs: presentation }, [moveTurn(move), '.']));
     elms.push(moveDom(move));
     move.comments.forEach(comment => elms.push(commentNode(comment)));
@@ -107,6 +111,7 @@ const makeVariationMoves = (moveDom: MoveToDom, node: MoveNode) => {
     });
     variations = node.children.slice(1);
     node = node.children[0];
+    firstMove = false;
   } while (node);
   return elms;
 };
