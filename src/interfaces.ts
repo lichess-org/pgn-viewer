@@ -88,6 +88,7 @@ export interface Opts {
   showClocks: boolean;
   showControls: boolean;
   showVariations: boolean;
+  showCommentary: boolean;
   initialPly: Ply | 'last';
   scrollToMove: boolean;
   keyboardToMove: boolean;

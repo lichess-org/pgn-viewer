@@ -10,54 +10,54 @@ import { renderNag } from './glyph';
 import { formatMoveForScreenReader } from './util';
 
 export const renderMoves = (ctrl: PgnViewer) =>
-    h('div.lpv__side', [
-      h(
-          'div.lpv__moves',
-          {
-            attrs: {
-              role: 'complementary',
-              'aria-label': ctrl.translate('aria.gameMoves'),
-            },
-            hook: {
-              insert: vnode => {
-                const el = vnode.elm as HTMLElement;
-                if (!ctrl.path.empty()) autoScroll(ctrl, el);
-                el.addEventListener(
-                    'click',
-                    e => {
-                      const path = (e.target as HTMLElement).getAttribute('data-path');
-                      if (path) ctrl.toPath(new Path(path));
-                    },
-                    { passive: true },
-                );
+  h('div.lpv__side', [
+    h(
+      'div.lpv__moves',
+      {
+        attrs: {
+          role: 'complementary',
+          'aria-label': ctrl.translate('aria.gameMoves'),
+        },
+        hook: {
+          insert: vnode => {
+            const el = vnode.elm as HTMLElement;
+            if (!ctrl.path.empty()) autoScroll(ctrl, el);
+            el.addEventListener(
+              'click',
+              e => {
+                const path = (e.target as HTMLElement).getAttribute('data-path');
+                if (path) ctrl.toPath(new Path(path));
               },
-              postpatch: (_, vnode) => {
-                if (ctrl.autoScrollRequested) {
-                  autoScroll(ctrl, vnode.elm as HTMLElement);
-                  ctrl.autoScrollRequested = false;
-                }
-              },
-            },
+              { passive: true },
+            );
           },
-          [
-            ...(ctrl.opts.showVariations ? ctrl.game.initial.comments.map(commentNode) : []),
-            ...makeMoveNodes(ctrl),
-            ...renderResultComment(ctrl),
-          ],
-      ),
-    ]);
+          postpatch: (_, vnode) => {
+            if (ctrl.autoScrollRequested) {
+              autoScroll(ctrl, vnode.elm as HTMLElement);
+              ctrl.autoScrollRequested = false;
+            }
+          },
+        },
+      },
+      [
+        ...(ctrl.opts.showVariations ? ctrl.game.initial.comments.map(commentNode) : []),
+        ...makeMoveNodes(ctrl),
+        ...renderResultComment(ctrl),
+      ],
+    ),
+  ]);
 
 const renderResultComment = (ctrl: PgnViewer) => {
   const res = ctrl.game.metadata.result;
   return res && res !== '*'
-      ? [
+    ? [
         h(
-            'comment.result',
-            { attrs: { role: 'note', 'aria-label': ctrl.translate('aria.gameResult') } },
-            ctrl.game.metadata.result,
+          'comment.result',
+          { attrs: { role: 'note', 'aria-label': ctrl.translate('aria.gameResult') } },
+          ctrl.game.metadata.result,
         ),
       ]
-      : [];
+    : [];
 };
 
 const indexNode = (turn: number) => h('index', { attrs: presentation }, `${turn}.`);
@@ -68,14 +68,15 @@ const parenClose = () => h('paren.close', { attrs: ariaHidden }, ')');
 const moveTurn = (move: MoveData) => Math.floor((move.ply - 1) / 2) + 1;
 
 const makeMoveNodes = (ctrl: PgnViewer): Array<VNode | undefined> =>
-    ctrl.opts.showVariations ? makeFullMoveNodes(ctrl) : makeSimplifiedMoveNodes(ctrl);
+  ctrl.opts.showVariations ? makeFullMoveNodes(ctrl) : makeSimplifiedMoveNodes(ctrl);
 
-// Full rendering: variations and per-move comments appear inline, recursively,a la lichess-pgn-viewer
+// Full rendering: variations and per-move comments appear inline, recursively,
+// the way upstream lichess-pgn-viewer always has.
 const makeFullMoveNodes = (ctrl: PgnViewer): Array<VNode | undefined> => {
   const moveDom = renderMove(ctrl);
   const elms: VNode[] = [];
   let node: MoveNode | undefined,
-      variations: MoveNode[] = ctrl.game.moves.children.slice(1);
+    variations: MoveNode[] = ctrl.game.moves.children.slice(1);
   if (ctrl.game.initial.pos.turn === 'black' && ctrl.game.mainline[0])
     elms.push(indexNode(ctrl.game.initial.pos.fullmoves), emptyMove());
   while ((node = (node || ctrl.game.moves).children[0])) {
@@ -96,11 +97,11 @@ const makeFullMoveNodes = (ctrl: PgnViewer): Array<VNode | undefined> => {
 type MoveToDom = (move: MoveData) => VNode;
 
 const makeMainVariation = (translate: Translate, moveDom: MoveToDom, node: MoveNode) =>
-    h(
-        'variation',
-        { attrs: { role: 'group', 'aria-label': translate('aria.variation') } },
-        makeVariationMoves(moveDom, node),
-    );
+  h(
+    'variation',
+    { attrs: { role: 'group', 'aria-label': translate('aria.variation') } },
+    makeVariationMoves(moveDom, node),
+  );
 
 const makeVariationMoves = (moveDom: MoveToDom, node: MoveNode) => {
   let elms: VNode[] = [];
@@ -144,32 +145,32 @@ const makeSimplifiedMoveNodes = (ctrl: PgnViewer): Array<VNode | undefined> => {
 };
 
 const renderMove = (ctrl: PgnViewer) => (move: MoveData) =>
-    h(
-        'button.move',
-        {
-          class: {
-            current: ctrl.path.equals(move.path),
-            ancestor: ctrl.path.contains(move.path),
-            good: move.nags.includes(1),
-            mistake: move.nags.includes(2),
-            brilliant: move.nags.includes(3),
-            blunder: move.nags.includes(4),
-            interesting: move.nags.includes(5),
-            inaccuracy: move.nags.includes(6),
-          },
-          attrs: {
-            'data-path': move.path.path,
-            role: 'button',
-            'aria-label': ctrl.translate(
-                'aria.move',
-                Math.ceil(move.ply / 2).toString(),
-                ctrl.translate(`aria.${move.ply % 2 === 1 ? 'white' : 'black'}`),
-                formatMoveForScreenReader(move.san, move.nags, ctrl.translate),
-            ),
-          },
-        },
-        [move.san, ...move.nags.map(renderNag)],
-    );
+  h(
+    'button.move',
+    {
+      class: {
+        current: ctrl.path.equals(move.path),
+        ancestor: ctrl.path.contains(move.path),
+        good: move.nags.includes(1),
+        mistake: move.nags.includes(2),
+        brilliant: move.nags.includes(3),
+        blunder: move.nags.includes(4),
+        interesting: move.nags.includes(5),
+        inaccuracy: move.nags.includes(6),
+      },
+      attrs: {
+        'data-path': move.path.path,
+        role: 'button',
+        'aria-label': ctrl.translate(
+          'aria.move',
+          Math.ceil(move.ply / 2).toString(),
+          ctrl.translate(`aria.${move.ply % 2 === 1 ? 'white' : 'black'}`),
+          formatMoveForScreenReader(move.san, move.nags, ctrl.translate),
+        ),
+      },
+    },
+    [move.san, ...move.nags.map(renderNag)],
+  );
 
 const autoScroll = (ctrl: PgnViewer, cont: HTMLElement) => {
   const target = cont.querySelector<HTMLElement>('.current');

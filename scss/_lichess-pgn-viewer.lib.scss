@@ -39,6 +39,7 @@ $lpv-bg-interesting-hover: mix($lpv-interesting, $lpv-bg, 30%) !default;
 @import './util';
 @import './layout';
 @import './side';
+@import './commentary';
 @import './player';
 @import './pane';
 @import './controls';

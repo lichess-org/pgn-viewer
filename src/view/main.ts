@@ -7,6 +7,7 @@ import type PgnViewer from '../pgnViewer';
 
 import { renderAccessibleBoard } from './accessibleBoard';
 import { ariaHidden, renderAriaAnnouncement, renderRootAriaLabel } from './aria';
+import { renderCommentary } from './commentary';
 import { renderControls, renderMenu } from './menu';
 import renderPlayer from './player';
 import { renderMoves } from './side';
@@ -48,6 +49,7 @@ export default function view(ctrl: PgnViewer) {
       renderBoard(ctrl),
       showPlayers ? renderPlayer(ctrl, 'bottom') : undefined,
       opts.showControls ? renderControls(ctrl) : undefined,
+      opts.showCommentary ? renderCommentary(ctrl) : undefined,
       opts.showMoves ? renderMoves(ctrl) : undefined,
       ctrl.pane === 'menu' ? renderMenu(ctrl) : ctrl.pane === 'pgn' ? renderPgnPane(ctrl) : undefined,
     ],
