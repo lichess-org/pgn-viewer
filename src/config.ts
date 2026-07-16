@@ -7,6 +7,10 @@ const defaults: Opts = {
   showClocks: true, // show the clocks alongside the players
   showMoves: 'auto', // false | "right" | "bottom" | auto. "auto" uses media queries
   showControls: true, // show the [prev, menu, next] buttons
+  showVariations: true, // show variations (and their comments) inline in the move list.
+  // Set false for a simplified, mainline-only move list — variations become
+  // reachable via the board's variation arrows instead, and per-move
+  // comments are only shown for whichever move is currently selected.
   scrollToMove: true, // enable scrolling through moves with a mouse wheel
   keyboardToMove: true, // enable keyboard navigation through moves
   orientation: undefined, // orientation of the board. Undefined to use the Orientation PGN tag.

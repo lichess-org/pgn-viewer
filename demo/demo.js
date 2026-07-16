@@ -208,6 +208,7 @@ Nc4 weakens the c3-pawn } 25... Rc8 26. Rc1 (26. Nb1 Bf5 $17) 26... d4! 27. c4 N
   },
   // { pgn: pgns.commentMin1, },
   { pgn: pgns.mammoth1 },
+  { pgn: pgns.mammoth1, showVariations: false },
   { pgn: pgns.horde, showMoves: false, drawArrows: false },
   {
     fen: '1rb2r1k/p1q4p/2p2p2/2bppp2/7N/3BP1Q1/P4PPP/R4RK1 b - - 0 21',
@@ -217,7 +218,7 @@ Nc4 weakens the c3-pawn } 25... Rc8 26. Rc1 (26. Nb1 Bf5 $17) 26... d4! 27. c4 N
   { pgn: pgns.lichess, showMoves: false, showPlayers: true, showControls: false },
   { pgn: pgns.shapes, initialPly: 27 },
 ].forEach((cfg, i) =>
-  LichessPgnViewer(document.querySelector(`.viewers > div:nth-child(${i + 1}) > div`), cfg),
+    LichessPgnViewer(document.querySelector(`.viewers > div:nth-child(${i + 1}) > div`), cfg),
 );
 
 const lightColors = {
