@@ -1,20 +1,11 @@
-# Lichess PGN Viewer
+# Lichess PGN Blog Viewer
 
 [![Continuous Integration](https://github.com/lichess-org/pgn-viewer/actions/workflows/ci.yml/badge.svg)](https://github.com/lichess-org/pgn-viewer/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/@lichess-org/pgn-viewer)](https://www.npmjs.com/package/@lichess-org/pgn-viewer)
 
-PGN viewer widget, designed to be embedded in content pages.
+This is a fork of the PGN viewer widget, designed to be embedded in lichess blog pages.
 
-This won't replace a fully featured [analysis board](https://lichess.org/analysis).
-
-![board with move variation tree](https://raw.githubusercontent.com/lichess-org/pgn-viewer/master/screenshot/tree-comment.png)
-
-## See it in action
-
-- [In a forum post](https://lichess.org/forum/game-analysis/strong-fm-showed-me-a-line-which-i-could-use-one-year-later-against-himself-)
-- [In an opening page](https://lichess.org/opening/Caro-Kann_Defense_Advance_Variation)
-- [In a user blog post](https://lichess.org/@/mfeeney88/blog/analysis-paralysis/NmISTSVM)
-- [As a full-screen game embed](https://lichess.org/embed/game/ErSfVbRk)
+[Simple Demo](https://github.com/JohnChernoff/pgn-blog-viewer/blob/master/demo/blog.html)
 
 ## License
 
@@ -26,24 +17,9 @@ Please read more about GPL for JavaScript on [greendrake.info](https://greendrak
 
 ## Goals
 
-- load and render very fast
-- browse through a game
-- variation tree
-- PGN comments
-- players and clocks
-- mobile support
-- accessible to screen readers with ARIA support
-- translatable and customisable
-- client-side only
-- easy to set up on any page
-
-### Non Goals
-
-- custom user moves
-- engine support
-- opening explorer
-
-For these features, use an [analysis board](https://lichess.org/analysis) or [Lichess studies](https://lichess.org/study).
+- Clear, context-aware commentary
+- Compact design
+- Clickable variation arrows
 
 ## Accessibility
 
