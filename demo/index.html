@@ -16,8 +16,11 @@
   <title>Lichess PGN Viewer</title>
 </head>
 <body>
-<input type="checkbox" id="light-mode-selector" />
-<label for="light-mode-selector" style="color: #aaa">Light mode</label>
+<select id="theme-selector">
+  <option value="default">Default</option>
+  <option value="light">Light mode</option>
+  <option value="dark">Dark mode (chessvue)</option>
+</select>
 <div class="viewers">
   <div><div></div></div>
   <div><div class="previous-class"></div></div>

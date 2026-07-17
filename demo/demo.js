@@ -208,7 +208,7 @@ Nc4 weakens the c3-pawn } 25... Rc8 26. Rc1 (26. Nb1 Bf5 $17) 26... d4! 27. c4 N
   },
   // { pgn: pgns.commentMin1, },
   { pgn: pgns.mammoth1 },
-  { pgn: pgns.mammoth1, showVariations: false },
+  { pgn: pgns.annotations, showVariations: false },
   { pgn: pgns.horde, showMoves: false, drawArrows: false },
   {
     fen: '1rb2r1k/p1q4p/2p2p2/2bppp2/7N/3BP1Q1/P4PPP/R4RK1 b - - 0 21',
@@ -234,9 +234,55 @@ const lightColors = {
   '--demo-bg': 'color(srgb 0.9272 0.9173 0.9047)',
 };
 
-document.getElementById('light-mode-selector').addEventListener('change', e => {
-  Object.entries(lightColors).forEach(([key, color], _) => {
-    console.log(key, color);
-    document.documentElement.style.setProperty(key, e.target.checked ? color : 'unset');
-  });
-});
+// A dark scheme matching chessvue.com's aesthetic (near-black background,
+// amber highlight for annotated/significant moves, a cool blue-gray board).
+const darkColors = {
+  '--c-lpv-accent': '#2e7d32',
+  '--c-lpv-current-move': '#2e7d32',
+  '--c-lpv-accent-over': 'white',
+  '--c-lpv-bg': '#16171a',
+  '--c-lpv-bg-player': '#1e1e21',
+  '--c-lpv-bg-controls': '#232326',
+  '--c-lpv-bg-movelist': '#16171a',
+  '--c-lpv-bg-variation': '#1e1e21',
+  '--c-lpv-bg-pane': '#1e1e21',
+  '--c-lpv-pgn-text': '#1e1e21',
+  '--c-lpv-move-hover': '#2a2a2e',
+  '--c-lpv-past-moves': '#999',
+  '--c-lpv-font': '#e6e6e6',
+  '--c-lpv-font-shy': '#888',
+  '--c-lpv-font-bg': '#2a2a2e',
+  '--c-lpv-border': '#333338',
+  '--c-lpv-side-border': '#333338',
+  '--board-color': '#CCCCCC',
+  '--demo-bg': '#16171a',
+};
+
+// Both schemes are applied to (and cleared from) `body` specifically, not
+// `documentElement` — demo.css sets --board-color directly on body, and
+// that explicit declaration would otherwise win over anything set higher up
+// on <html>, silently blocking the board-color override.
+const themeSchemes = { light: lightColors, dark: darkColors };
+const allThemeKeys = Array.from(
+    new Set(Object.values(themeSchemes).flatMap(scheme => Object.keys(scheme))),
+);
+
+function applyTheme(theme) {
+  // Clear every key from every scheme first, so switching between themes —
+  // or back to Default — is always a clean reset rather than layering one
+  // scheme's leftover overrides underneath another's.
+  // removeProperty, not setProperty(key, 'unset') — an inline style with the
+  // literal value "unset" still wins over a stylesheet rule on the same
+  // element (inline beats stylesheet regardless of value), so it would
+  // never let demo.css's own `body { --board-color: ... }` rule take over
+  // again. removeProperty actually deletes the inline override, letting
+  // that stylesheet rule (or the widget's own SCSS fallback, for every
+  // other property here) win back through normally.
+  allThemeKeys.forEach(key => document.body.style.removeProperty(key));
+  const colors = themeSchemes[theme];
+  if (colors) {
+    Object.entries(colors).forEach(([key, color]) => document.body.style.setProperty(key, color));
+  }
+}
+
+document.getElementById('theme-selector').addEventListener('change', e => applyTheme(e.target.value));
