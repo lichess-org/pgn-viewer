@@ -15,6 +15,12 @@ const defaults: Opts = {
   // move is currently selected (or the game's own leading comment, at the
   // start position). Pairs naturally with showVariations: false, but works
   // independently of it too.
+  mainlineArrow: 'always', // when showVariations is false, whether the board also
+  // shows a green arrow for the mainline continuation, not just variations:
+  // 'always' shows it whenever there's a next move; 'ifVariation' only shows
+  // it at positions where a variation also branches (otherwise there's
+  // nothing to choose between, so the arrow is just clutter); 'never' shows
+  // only variation arrows, ever.
   scrollToMove: true, // enable scrolling through moves with a mouse wheel
   keyboardToMove: true, // enable keyboard navigation through moves
   orientation: undefined, // orientation of the board. Undefined to use the Orientation PGN tag.

@@ -45,6 +45,8 @@ $lpv-bg-interesting-hover: mix($lpv-interesting, $lpv-bg, 30%) !default;
 @import './controls';
 @import './scrollbar';
 @import './font';
+@import './variation-arrows';
+@import './variation-popup';
 
 .lpv {
   border-radius: 5px;
@@ -64,6 +66,7 @@ $lpv-bg-interesting-hover: mix($lpv-interesting, $lpv-bg, 30%) !default;
   }
 
   &__board {
+    position: relative;
     user-select: none;
     .cg-wrap {
       @extend %square;

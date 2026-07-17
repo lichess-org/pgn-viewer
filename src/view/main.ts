@@ -3,6 +3,7 @@ import { type Config as CgConfig } from '@lichess-org/chessground/config';
 import { h, type VNode } from 'snabbdom';
 
 import { onKeyDown, stepwiseScroll } from '../events';
+import { Path } from '../path';
 import type PgnViewer from '../pgnViewer';
 
 import { renderAccessibleBoard } from './accessibleBoard';
@@ -12,6 +13,8 @@ import { renderControls, renderMenu } from './menu';
 import renderPlayer from './player';
 import { renderMoves } from './side';
 import { onInsert } from './util';
+import { bindArrowOverlayClicks, continuationArrows, renderArrowOverlay } from './variationArrows';
+import { renderVariationPopup } from './variationPopup';
 
 export default function view(ctrl: PgnViewer) {
   const opts = ctrl.opts,
@@ -52,12 +55,14 @@ export default function view(ctrl: PgnViewer) {
       opts.showCommentary ? renderCommentary(ctrl) : undefined,
       opts.showMoves ? renderMoves(ctrl) : undefined,
       ctrl.pane === 'menu' ? renderMenu(ctrl) : ctrl.pane === 'pgn' ? renderPgnPane(ctrl) : undefined,
+      ...ctrl.variationPopups.map((popup, i) => renderVariationPopup(ctrl, popup, i)),
     ],
   );
 }
 
-const renderBoard = (ctrl: PgnViewer): VNode =>
-  h(
+const renderBoard = (ctrl: PgnViewer): VNode => {
+  const arrows = ctrl.opts.showVariations ? [] : continuationArrows(ctrl.curNode(), ctrl.opts.mainlineArrow);
+  return h(
     'div.lpv__board',
     {
       attrs: ariaHidden,
@@ -72,10 +77,16 @@ const renderBoard = (ctrl: PgnViewer): VNode =>
               else if (e.deltaY < 0 && scroll) ctrl.goTo('prev', false);
             }),
           );
+        bindArrowOverlayClicks(
+          el,
+          path => ctrl.toPath(new Path(path)),
+          path => ctrl.openVariationPopup(new Path(path)),
+        );
       }),
     },
-    h('div.cg-wrap'),
+    [h('div.cg-wrap'), renderArrowOverlay(arrows, ctrl.orientation())],
   );
+};
 
 const renderPgnPane = (ctrl: PgnViewer): VNode => {
   const blob = new Blob([ctrl.opts.pgn], { type: 'text/plain' });

@@ -4,7 +4,14 @@ import { uciToMove } from '@lichess-org/chessground/util';
 import { makeSquare, opposite } from 'chessops';
 
 import { type AnyNode, type Game, isMoveData } from './game';
-import { type GoTo, type InitialOrMove, type Opts, type Pane, type Translate } from './interfaces';
+import {
+  type GoTo,
+  type InitialOrMove,
+  type Opts,
+  type Pane,
+  type Translate,
+  type VariationPopup,
+} from './interfaces';
 import { Path } from './path';
 import { makeGame } from './pgn';
 import translator from './translation';
@@ -19,6 +26,9 @@ export default class PgnViewer {
   flipped = false;
   pane: Pane = 'board';
   autoScrollRequested = false;
+  variationPopups: VariationPopup[] = [];
+  private nextPopupId = 0;
+  private popupGrounds = new Map<number, CgApi>();
 
   constructor(
     readonly opts: Opts,
@@ -52,6 +62,7 @@ export default class PgnViewer {
     this.path = path;
     this.pane = 'board';
     this.autoScrollRequested = true;
+    this.destroyAllPopups();
     this.redrawGround();
     this.redraw();
     if (focus) this.focus();
@@ -85,8 +96,10 @@ export default class PgnViewer {
     this.redraw();
   };
 
-  cgState = (): CgConfig => {
-    const data = this.curData();
+  cgState = (): CgConfig => this.cgStateFor(this.path);
+
+  cgStateFor = (path: Path): CgConfig => {
+    const data = this.game.dataAt(path) || this.game.initial;
     const lastMove = isMoveData(data) ? uciToMove(data.uci) : this.opts.chessground?.lastMove;
     return {
       fen: data.fen,
@@ -134,4 +147,106 @@ export default class PgnViewer {
       );
     });
   private withGround = (f: (cg: CgApi) => void) => this.ground && f(this.ground);
+
+  // --- Variation popups -----------------------------------------------
+  // Each popup is a lightweight, independently-navigable view onto some
+  // position in the (shared, immutable) game tree — identified by an
+  // absolute Path from the game root, same as the main path. Opening a
+  // variation from *within* a popup just pushes another popup onto the
+  // same stack, so popups can nest to arbitrary depth without any special
+  // casing: they all reuse this same generic path-based machinery.
+
+  openVariationPopup = (path: Path) => {
+    this.variationPopups.push({ id: this.nextPopupId++, path, rootPath: path });
+    this.redraw();
+  };
+
+  // Closing a popup also closes any popups opened "on top of" it, since a
+  // nested popup only makes sense in the context of the one it branched
+  // from being open.
+  closeVariationPopupsFrom = (index: number) => {
+    for (const popup of this.variationPopups.slice(index)) {
+      this.popupGrounds.get(popup.id)?.destroy();
+      this.popupGrounds.delete(popup.id);
+    }
+    this.variationPopups = this.variationPopups.slice(0, index);
+    this.redraw();
+  };
+
+  private destroyAllPopups = () => {
+    for (const ground of this.popupGrounds.values()) ground.destroy();
+    this.popupGrounds.clear();
+    this.variationPopups = [];
+  };
+
+  popupNodeAt = (index: number): AnyNode =>
+    this.game.nodeAt(this.variationPopups[index].path) || this.game.moves;
+
+  // "prev"/"first" never go earlier than the popup's own rootPath — without
+  // this, repeatedly rewinding a popup would walk straight through the
+  // branching point into the outer game's own history, effectively showing
+  // the same position the main board (or a parent popup) already does.
+  canPopupGoTo = (index: number, to: GoTo) => {
+    const popup = this.variationPopups[index];
+    if (to === 'prev' || to === 'first') return !popup.path.equals(popup.rootPath);
+    return !!this.popupNodeAt(index).children[0];
+  };
+
+  popupGoTo = (index: number, to: GoTo) => {
+    const popup = this.variationPopups[index];
+    if ((to === 'prev' || to === 'first') && popup.path.equals(popup.rootPath)) return;
+    const path =
+      to === 'first'
+        ? popup.rootPath
+        : to === 'prev'
+          ? this.clampToRoot(popup.path.init(), popup.rootPath)
+          : to === 'next'
+            ? this.game.nodeAt(popup.path)?.children[0]?.data.path
+            : this.popupLastPath(index);
+    this.popupToPath(index, path || popup.path);
+  };
+
+  // If stepping back would overshoot the popup's own root (e.g. its root is
+  // several plies deep into the tree, "prev" moving one ply at a time could
+  // otherwise land *before* it rather than exactly on it), clamp to the root.
+  private clampToRoot = (path: Path, rootPath: Path): Path =>
+    path.size() < rootPath.size() ? rootPath : path;
+
+  private popupLastPath = (index: number): Path => {
+    const popup = this.variationPopups[index];
+    let node: AnyNode = this.game.nodeAt(popup.rootPath) || this.game.moves;
+    let lastPath = popup.rootPath;
+    while (node.children[0]) {
+      const child = node.children[0];
+      lastPath = child.data.path;
+      node = child;
+    }
+    return lastPath;
+  };
+
+  popupToPath = (index: number, path: Path) => {
+    this.variationPopups[index].path = path;
+    this.redrawPopupGround(index);
+    this.redraw();
+  };
+
+  setPopupGround = (index: number, cg: CgApi) => {
+    this.popupGrounds.set(this.variationPopups[index].id, cg);
+    this.redrawPopupGround(index);
+  };
+
+  private redrawPopupGround = (index: number) => {
+    const popup = this.variationPopups[index];
+    const ground = popup && this.popupGrounds.get(popup.id);
+    if (!ground) return;
+    ground.set(this.cgStateFor(popup.path));
+    const data = this.game.dataAt(popup.path) || this.game.initial;
+    ground.setShapes(
+      data.shapes.map(s => ({
+        orig: makeSquare(s.from),
+        dest: makeSquare(s.to),
+        brush: s.color,
+      })),
+    );
+  };
 }

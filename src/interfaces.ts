@@ -65,6 +65,13 @@ export interface Players {
 
 export type Pane = 'board' | 'menu' | 'pgn';
 
+export interface VariationPopup {
+  id: number;
+  path: Path;
+  /** The path this popup was opened at — navigation within it never goes earlier than this. */
+  rootPath: Path;
+}
+
 export interface Comments {
   texts: string[];
   shapes: CommentShape[];
@@ -77,6 +84,7 @@ export type GoTo = 'first' | 'prev' | 'next' | 'last';
 export type ShowMoves = false | 'right' | 'bottom' | 'auto';
 export type ShowPlayers = true | false | 'auto';
 export type Lichess = string | false;
+export type MainlineArrow = 'always' | 'ifVariation' | 'never';
 
 export interface Opts {
   pgn: string;
@@ -89,6 +97,7 @@ export interface Opts {
   showControls: boolean;
   showVariations: boolean;
   showCommentary: boolean;
+  mainlineArrow: MainlineArrow;
   initialPly: Ply | 'last';
   scrollToMove: boolean;
   keyboardToMove: boolean;

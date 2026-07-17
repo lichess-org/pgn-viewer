@@ -65,7 +65,7 @@ const emptyMove = () => h('button.move.empty', { attrs: { 'aria-hidden': 'true',
 const commentNode = (comment: string) => h('comment', { attrs: { role: 'note' } }, comment);
 const parenOpen = () => h('paren.open', { attrs: ariaHidden }, '(');
 const parenClose = () => h('paren.close', { attrs: ariaHidden }, ')');
-const moveTurn = (move: MoveData) => Math.floor((move.ply - 1) / 2) + 1;
+export const moveTurn = (move: MoveData) => Math.floor((move.ply - 1) / 2) + 1;
 
 const makeMoveNodes = (ctrl: PgnViewer): Array<VNode | undefined> =>
   ctrl.opts.showVariations ? makeFullMoveNodes(ctrl) : makeSimplifiedMoveNodes(ctrl);

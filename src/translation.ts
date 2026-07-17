@@ -36,6 +36,8 @@ const defaultTranslations: { [key: string]: string } = {
   'aria.variation': 'Variation',
   'aria.currentComment': 'Comment for the current move',
   noComment: 'No comment for this move.',
+  gameStart: 'Start',
+  'aria.closeVariation': 'Close variation',
   'aria.navigationControls': 'Game navigation controls',
   'aria.viewProfileOnLichess': "View %s's profile on Lichess",
   'aria.chessGameBetween': 'Chess game between %1$s as white and %2$s as black. %3$s',
