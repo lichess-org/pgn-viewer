@@ -1,0 +1,20 @@
+.lpv {
+  &__commentary {
+    padding: 10px 14px;
+    background: var(--c-lpv-bg-pane, $lpv-bg-pane);
+    border-top: 1px solid var(--c-lpv-border, $lpv-border);
+    overflow-y: auto;
+    max-height: 12em;
+  }
+  &__commentary__text {
+    margin: 0;
+    font-size: 1.05em;
+    line-height: 1.5;
+    color: var(--c-lpv-font, $lpv-font);
+
+    &--empty {
+      color: var(--c-lpv-font-shy, $lpv-font-shy);
+      font-style: italic;
+    }
+  }
+}
