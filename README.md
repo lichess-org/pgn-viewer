@@ -32,6 +32,7 @@ const lpv = LichessPgnViewer(domElement, {
     //'ifVariation' -> for all moves when a variation exists,
     //'never' -> only for variation move (never the mainline) 
     showVariations: false,  //simplified movelist for blogs
+    sideControls: true, //navigation controls at bottom of movelist (when on side)
   // ... more Config
 });
 ```
