@@ -1,0 +1,65 @@
+.lpv__variation-popup {
+  position: fixed;
+  top: calc(8% + var(--lpv-popup-index, 0) * 24px);
+  left: calc(50% + var(--lpv-popup-index, 0) * 24px);
+  transform: translateX(-50%);
+  z-index: calc(1000 + var(--lpv-popup-index, 0));
+  width: min(340px, 92vw);
+  background: var(--c-lpv-bg-pane, $lpv-bg-pane);
+  border: 1px solid var(--c-lpv-border, $lpv-border);
+  border-radius: 8px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  padding: 10px;
+  display: flex;
+  flex-flow: column;
+  gap: 8px;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__title {
+    font-weight: 600;
+    color: var(--c-lpv-font, $lpv-font);
+  }
+  &__close {
+    border: none;
+    background: none;
+    color: var(--c-lpv-font, $lpv-font);
+    cursor: pointer;
+    font-size: 0.9em;
+    padding: 0.2em 0.4em;
+    &:hover {
+      color: var(--c-lpv-accent, $lpv-accent);
+    }
+  }
+  &__board {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+  }
+  &__controls {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+  }
+  &__nav {
+    border: 1px solid var(--c-lpv-border, $lpv-border);
+    background: var(--c-lpv-bg-controls, $lpv-bg-controls);
+    color: var(--c-lpv-font, $lpv-font);
+    border-radius: 5px;
+    padding: 0.25em 0.8em;
+    cursor: pointer;
+    &.disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+  }
+
+  .lpv__commentary {
+    height: 6em;
+    padding: 8px 4px 0;
+    border-top: none;
+  }
+}

@@ -1,20 +1,11 @@
-# Lichess PGN Viewer
+# Lichess PGN Blog Viewer
 
 [![Continuous Integration](https://github.com/lichess-org/pgn-viewer/actions/workflows/ci.yml/badge.svg)](https://github.com/lichess-org/pgn-viewer/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/@lichess-org/pgn-viewer)](https://www.npmjs.com/package/@lichess-org/pgn-viewer)
 
-PGN viewer widget, designed to be embedded in content pages.
+This is a fork of the [PGN viewer widget](https://github.com/lichess-org/pgn-viewer), designed to be embedded in lichess blog pages.
 
-This won't replace a fully featured [analysis board](https://lichess.org/analysis).
-
-![board with move variation tree](https://raw.githubusercontent.com/lichess-org/pgn-viewer/master/screenshot/tree-comment.png)
-
-## See it in action
-
-- [In a forum post](https://lichess.org/forum/game-analysis/strong-fm-showed-me-a-line-which-i-could-use-one-year-later-against-himself-)
-- [In an opening page](https://lichess.org/opening/Caro-Kann_Defense_Advance_Variation)
-- [In a user blog post](https://lichess.org/@/mfeeney88/blog/analysis-paralysis/NmISTSVM)
-- [As a full-screen game embed](https://lichess.org/embed/game/ErSfVbRk)
+[Simple Demo](https://chessvue.com/lpv/demo/blog.html)
 
 ## License
 
@@ -26,125 +17,27 @@ Please read more about GPL for JavaScript on [greendrake.info](https://greendrak
 
 ## Goals
 
-- load and render very fast
-- browse through a game
-- variation tree
-- PGN comments
-- players and clocks
-- mobile support
-- accessible to screen readers with ARIA support
-- translatable and customisable
-- client-side only
-- easy to set up on any page
-
-### Non Goals
-
-- custom user moves
-- engine support
-- opening explorer
-
-For these features, use an [analysis board](https://lichess.org/analysis) or [Lichess studies](https://lichess.org/study).
-
-## Accessibility
-
-The viewer is fully accessible to screen reader users with:
-
-- **Complete board representation**: Screen readers can navigate through all 64 squares with piece positions announced
-- **Live move announcements**: Real-time narration of moves including number, color, notation, and annotations
-- **Keyboard navigation**: All controls accessible via keyboard (arrow keys for moves, 'f' to flip board)
-- **ARIA labels and roles**: Comprehensive semantic markup for assistive technologies
-- **Game context**: Players, ratings, result, and timing information properly announced
-
-## Build and run
-
-```
-pnpm install
-pnpm run demo
-```
-
-Then open the demo page at http://localhost:8080
-
-## Installation
-
-### As an NPM package
-
-```
-npm i @lichess-org/pgn-viewer
-```
-
-## Usage
-
-```js
-import LichessPgnViewer from '@lichess-org/pgn-viewer';
-
-const lpv = LichessPgnViewer(domElement, {
-  pgn: 'e4 c5 Nf3 d6 e5 Nc6 exd6 Qxd6 Nc3 Nf6',
-});
-
-// lpv is an instance of PgnViewer , providing some utilities such as:
-lpv.goTo('first');
-lpv.goTo('next');
-lpv.flip();
-console.log(lpv.game);
-// see more in pgnViewer.ts
-```
+- Clear, context-aware commentary
+- Compact design
+- Clickable variation arrows
 
 ### Configuration
 
 ```js
 const lpv = LichessPgnViewer(domElement, {
   pgn: 'e4 c5 Nf3 d6 e5 Nc6 exd6 Qxd6 Nc3 Nf6',
+    showCommentary: true, //display contextual commentary box
+    mainlineArrow: 'never', 
+    //'always' -> show arrows for all moves, 
+    //'ifVariation' -> for all moves when a variation exists,
+    //'never' -> only for variation move (never the mainline) 
+    showVariations: false,  //simplified movelist for blogs
+    sideControls: true, //navigation controls at bottom of movelist (when on side)
   // ... more Config
 });
 ```
 
-See [all configuration options in the documented source code](https://github.com/lichess-org/pgn-viewer/blob/master/src/config.ts#L3).
+See [all configuration options in the documented source code](https://github.com/JohnChernoff/pgn-blog-viewer/blob/master/src/config.ts#L3).
 
 View more examples in `demo/index.html`
 
-## Styles
-
-### SCSS (recommended)
-
-If you use [SCSS](https://sass-lang.com/), you can import the styles with:
-
-```scss
-@import '../../node_modules/@lichess-org/pgn-viewer/scss/lichess-pgn-viewer.lib';
-```
-
-Customisable CSS variables are [available](https://github.com/lichess-org/pgn-viewer/blob/master/scss/_lichess-pgn-viewer.lib.scss), see [how lichess configures pgn-viewer with CSS](https://github.com/lichess-org/lila/blob/master/ui/lib/css/component/_pgn-viewer.scss).
-
-### CSS
-
-Alternatively you can build a CSS file with
-
-```sh
-npm run sass-prod
-```
-
-Then copy the `dist/lichess-pgn-viewer.css` file into your project.
-
-## Testing
-
-```bash
-pnpm test
-
-## or
-
-pnpm test:watch
-```
-
-## Wrappers
-
-- Vue.js: [dragunovartem99/vue-pgn-viewer](https://github.com/dragunovartem99/vue-pgn-viewer)
-
-More? Please make a pull request to include it here.
-
-## Release procedure
-
-- https://github.com/lichess-org/pgn-viewer/actions/workflows/release.yaml
-- [Run workflow]
-- Branch: master
-- Version tag: vX.Y.Z
-
-The release workflow will increment the package.json version, create the tag, the github release, and publish to npm
