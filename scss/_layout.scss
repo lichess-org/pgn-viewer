@@ -37,7 +37,8 @@ $board-min-width: 200px !default;
       'board'
       'controls'
       'side';
-    grid-template-rows: auto var(--controls-height);
+    grid-template-columns: minmax($board-min-width, calc(100vh - var(--controls-height) - #{$grid-side-row}));
+    grid-template-rows: auto var(--controls-height) 1fr;
     .lpv__controls {
       border-bottom: 1px solid var(--c-lpv-border, $lpv-border);
     }
@@ -60,7 +61,7 @@ $board-min-width: 200px !default;
         $board-min-width,
         calc(100vh - var(--controls-height) - #{$grid-side-row})
       );
-      grid-template-rows: auto var(--controls-height);
+      grid-template-rows: auto var(--controls-height) 1fr;
     }
   }
 
@@ -90,7 +91,11 @@ $board-min-width: 200px !default;
         'player-bot'
         'controls'
         'side';
-      grid-template-rows: $player-height auto $player-height var(--controls-height) $grid-side-row;
+      grid-template-columns: minmax(
+        $board-min-width,
+        calc(100vh - 2 * #{$player-height} - var(--controls-height) - #{$grid-side-row})
+      );
+      grid-template-rows: $player-height auto $player-height var(--controls-height) 1fr;
       .lpv__controls {
         border-bottom: 1px solid var(--c-lpv-border, $lpv-border);
       }
@@ -117,7 +122,7 @@ $board-min-width: 200px !default;
           $board-min-width,
           calc(100vh - 2 * #{$player-height} - var(--controls-height) - #{$grid-side-row})
         );
-        grid-template-rows: $player-height auto $player-height var(--controls-height) $grid-side-row;
+        grid-template-rows: $player-height auto $player-height var(--controls-height) 1fr;
       }
     }
   }
