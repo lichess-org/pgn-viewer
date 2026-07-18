@@ -72,35 +72,30 @@ $board-min-width: 200px !default;
   // Opt-in alternative: put the transport controls at the bottom of the side
   // column (below the move list) instead of their usual place under the
   // board. Only meaningful for the two-column layouts (moves-right/auto) —
-  // moves-bottom/false have no side column for controls to move into, so
-  // this modifier has no effect there.
+  // moves-bottom/false have no side column to move controls into, so this
+  // modifier has no effect there.
   //
-  // Commentary and controls deliberately share one row rather than each
-  // getting their own — giving controls a dedicated row that only exists in
-  // the side column left the board+commentary column visibly shorter than
-  // the side+controls column. Sharing a row keeps both columns' total height
-  // equal. Controls is anchored to the bottom of that shared row (not
-  // stretched to fill it — see _controls.scss's align-items: stretch, which
-  // would otherwise blow the buttons up to the full row height).
+  // Controls is rendered as a real DOM child inside .lpv__side itself here
+  // (see side.ts), not as its own grid cell — so there's no 'controls' area
+  // in this template at all, and no cross-column height math to get right:
+  // side already spans exactly the rows board+commentary use, same as the
+  // default layout, and the move list naturally fills whatever height
+  // controls' own flex-child doesn't take.
   &--side-controls {
     &.lpv--moves-right {
       grid-template-areas:
         'board      side'
-        'commentary controls';
+        'commentary side';
       grid-template-rows: auto auto;
     }
 
     &.lpv--moves-auto {
       grid-template-areas:
         'board      side'
-        'commentary controls';
+        'commentary side';
       grid-template-rows: auto auto;
       // The narrow single-column fallback is unaffected — there's no side
       // column to move controls into at that width regardless.
-    }
-
-    .lpv__controls {
-      align-self: end;
     }
   }
 
@@ -172,7 +167,7 @@ $board-min-width: 200px !default;
           'player-top side'
           'board      side'
           'player-bot side'
-          'commentary controls';
+          'commentary side';
         grid-template-rows: $player-height auto $player-height auto;
       }
 
@@ -181,7 +176,7 @@ $board-min-width: 200px !default;
           'player-top side'
           'board      side'
           'player-bot side'
-          'commentary controls';
+          'commentary side';
         grid-template-columns:
           minmax($board-min-width, calc(100vh - 2 * #{$player-height} - var(--controls-height)))
           $grid-side-column-full-screen;
