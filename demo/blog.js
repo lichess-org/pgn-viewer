@@ -4,6 +4,7 @@ LichessPgnViewer(document.getElementById('blog'), {
   showCommentary: true,
   mainlineArrow: 'never',
   showVariations: false,
+  sideControls: true,
   pgn: `[Event "FIDE World Championship 2024"]
 [Site "Singapore, Singapore"]
 [Date "2024.11.30"]
@@ -26,7 +27,19 @@ LichessPgnViewer(document.getElementById('blog'), {
 [Source "https://lichess.org/study/LF4x850G/IAPVNb4a"]
 [Orientation "white"]
 
-{A demonstration of a blog-style pgn view - click on arrows to examine popup-windowed variations. }
+{
+A demonstration of a blog-style pgn view - click on arrows to examine popup-windowed variations. 
+
+The general philosophy of this view is to minimize distraction by removing commentary/variations from the movelist and
+to focus only upon the commentary for the currently displayed position.
+
+Note the navigation controls are currently also moved to the side, but can be optionally reverted to their default 
+(below the board) position.
+ 
+This comment is 
+quite long so as to demonstrate scrolling within the commentary window.
+
+}
 1. e4 (1.d4 Nf6 2.Bg5 {Behold the Trompowsky...}) e6 { Ding decides to play the french again. I personally cannot say that being in a french mood is a bad thing but it would not be a surprise if Richard Rapport is behind this choice. Ding's second is definitely an expert on this opening. } 2. d4 d5 3. exd5 { Gukesh decides to vary from round 1 and play a much more solid line, the exchange french. This line has become fashion in top level tournaments these last few months. White will try to get a slight advantage from their extra tempo. } (3. Nc3 { , a much more aggressive line, had been played in round 1 which led to a double edge position and the defeat of Gukesh. }) 3... exd5 4. Nf3 Nf6 (4... Nc6!? { is another agressive way to play in order to immediately stop the symetrical position. } 5. Nc3 Bg4!?) 5. Bd3 c5!? { Ding decides to unbalance the position and not to play the symmetrical continuation with 5...Bd6. That last move can give an isolated pawn structure which means Ding was ready to play a dynamic game. } (5... Bd6 { is the other
 way to play. }) 6. c3!? { Ding decides to unbalance the position and not to play the symmetrical continuation with 5...Bd6. That last move can give an isolated pawn structure which means Ding was ready to play a dynamic game. } (6. dxc5 Bxc5 { leads to a good isolated pawn position for Black. } 7. O-O O-O 8. Bg5 h6 9. Bh4 g5! 10. Bg3 Ne4 { Black get the initiative. }) (6. O-O { is the main line } 6... c4 7. Re1+ Be7 8. Bf1 O-O 9. b3 cxb3 10. axb3 Nc6 { with a certain equality. The move of the game seems to be more precise to keep the bishop on the b1-h7 diagonal. }) 6... c4 { Ding immediately chooses to fix the structure. } (6... Bd6 { or 6...Nc6 are also possible to keep the pressure in the center. }) 7. Bc2 Bd6 { so far both players played very fast meaning they were both in known fields. } 8. Qe2+ (8. O-O O-O 9. Ne5!? { is another interesting dynamic
 way to play. } 9... Qc7 10. f4 Nc6 11. Qf3 Ne7 12. g4!? $13 { objectively the position is fine for black but it can be scary somehow for them thanks to this strong e5-knight. For example grabbing the pawn after: } 12... Bxe5? (12... b5 $13) 13. fxe5 Nxg4 14. h3 Nh6 15. Bxh6 gxh6 16. Na3 $18 { White will have a winning attack. }) 8... Qe7 (8... Be6?! { could be tempting in order to keep the queens

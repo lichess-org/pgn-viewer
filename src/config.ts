@@ -21,6 +21,10 @@ const defaults: Opts = {
   // it at positions where a variation also branches (otherwise there's
   // nothing to choose between, so the arrow is just clutter); 'never' shows
   // only variation arrows, ever.
+  sideControls: false, // when showMoves is 'right' or 'auto' (i.e. there's a
+  // side column), show the transport controls at the bottom of that column
+  // instead of their usual place below the board. Purely a layout choice —
+  // has no effect with showMoves: 'bottom'/false, which have no side column.
   scrollToMove: true, // enable scrolling through moves with a mouse wheel
   keyboardToMove: true, // enable keyboard navigation through moves
   orientation: undefined, // orientation of the board. Undefined to use the Orientation PGN tag.

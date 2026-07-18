@@ -63,9 +63,34 @@ $board-min-width: 200px !default;
         'side';
       grid-template-columns: minmax(
         $board-min-width,
-        calc(100vh - var(--controls-height) - #{$grid-side-row})
+                      calc(100vh - var(--controls-height) - #{$grid-side-row})
       );
       grid-template-rows: auto var(--controls-height) auto;
+    }
+  }
+
+  // Opt-in alternative: put the transport controls at the bottom of the side
+  // column (below the move list) instead of their usual place under the
+  // board. Only meaningful for the two-column layouts (moves-right/auto) —
+  // moves-bottom/false have no side column for controls to move into, so
+  // this modifier has no effect there.
+  &--side-controls {
+    &.lpv--moves-right {
+      grid-template-areas:
+        'board      side'
+        'commentary side'
+        '.          controls';
+      grid-template-rows: auto auto var(--controls-height);
+    }
+
+    &.lpv--moves-auto {
+      grid-template-areas:
+        'board      side'
+        'commentary side'
+        '.          controls';
+      grid-template-rows: auto auto var(--controls-height);
+      // The narrow single-column fallback is unaffected — there's no side
+      // column to move controls into at that width regardless.
     }
   }
 
@@ -125,9 +150,34 @@ $board-min-width: 200px !default;
           'side';
         grid-template-columns: minmax(
           $board-min-width,
-          calc(100vh - 2 * #{$player-height} - var(--controls-height) - #{$grid-side-row})
+                        calc(100vh - 2 * #{$player-height} - var(--controls-height) - #{$grid-side-row})
         );
         grid-template-rows: $player-height auto $player-height var(--controls-height) auto $grid-side-row;
+      }
+    }
+
+    &.lpv--side-controls {
+      &.lpv--moves-right {
+        grid-template-areas:
+          'player-top side'
+          'board      side'
+          'player-bot side'
+          'commentary side'
+          '.          controls';
+        grid-template-rows: $player-height auto $player-height auto var(--controls-height);
+      }
+
+      &.lpv--moves-auto {
+        grid-template-areas:
+          'player-top side'
+          'board      side'
+          'player-bot side'
+          'commentary side'
+          '.          controls';
+        grid-template-columns:
+          minmax($board-min-width, calc(100vh - 2 * #{$player-height} - var(--controls-height)))
+          $grid-side-column-full-screen;
+        grid-template-rows: $player-height auto $player-height auto var(--controls-height);
       }
     }
   }
