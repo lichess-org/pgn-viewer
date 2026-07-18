@@ -62,7 +62,8 @@ export default function view(ctrl: PgnViewer) {
 }
 
 const renderBoard = (ctrl: PgnViewer): VNode => {
-    const arrows = ctrl.opts.showVariations ? [] : continuationArrows(ctrl.curNode(), ctrl.opts.mainlineArrow);
+    const arrows =
+        ctrl.opts.showVariations || ctrl.pane !== 'board' ? [] : continuationArrows(ctrl.curNode(), ctrl.opts.mainlineArrow);
     return h(
         'div.lpv__board',
         {
