@@ -74,23 +74,33 @@ $board-min-width: 200px !default;
   // board. Only meaningful for the two-column layouts (moves-right/auto) —
   // moves-bottom/false have no side column for controls to move into, so
   // this modifier has no effect there.
+  //
+  // Commentary and controls deliberately share one row rather than each
+  // getting their own — giving controls a dedicated row that only exists in
+  // the side column left the board+commentary column visibly shorter than
+  // the side+controls column. Sharing a row keeps both columns' total height
+  // equal. Controls is anchored to the bottom of that shared row (not
+  // stretched to fill it — see _controls.scss's align-items: stretch, which
+  // would otherwise blow the buttons up to the full row height).
   &--side-controls {
     &.lpv--moves-right {
       grid-template-areas:
         'board      side'
-        'commentary side'
-        '.          controls';
-      grid-template-rows: auto auto var(--controls-height);
+        'commentary controls';
+      grid-template-rows: auto auto;
     }
 
     &.lpv--moves-auto {
       grid-template-areas:
         'board      side'
-        'commentary side'
-        '.          controls';
-      grid-template-rows: auto auto var(--controls-height);
+        'commentary controls';
+      grid-template-rows: auto auto;
       // The narrow single-column fallback is unaffected — there's no side
       // column to move controls into at that width regardless.
+    }
+
+    .lpv__controls {
+      align-self: end;
     }
   }
 
@@ -162,9 +172,8 @@ $board-min-width: 200px !default;
           'player-top side'
           'board      side'
           'player-bot side'
-          'commentary side'
-          '.          controls';
-        grid-template-rows: $player-height auto $player-height auto var(--controls-height);
+          'commentary controls';
+        grid-template-rows: $player-height auto $player-height auto;
       }
 
       &.lpv--moves-auto {
@@ -172,12 +181,11 @@ $board-min-width: 200px !default;
           'player-top side'
           'board      side'
           'player-bot side'
-          'commentary side'
-          '.          controls';
+          'commentary controls';
         grid-template-columns:
           minmax($board-min-width, calc(100vh - 2 * #{$player-height} - var(--controls-height)))
           $grid-side-column-full-screen;
-        grid-template-rows: $player-height auto $player-height auto var(--controls-height);
+        grid-template-rows: $player-height auto $player-height auto;
       }
     }
   }
