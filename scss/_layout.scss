@@ -19,25 +19,28 @@ $board-min-width: 200px !default;
   &--moves-false {
     grid-template-areas:
       'board'
-      'controls';
+      'controls'
+      'commentary';
     grid-template-columns: minmax(200px, calc(100vh - var(--controls-height)));
-    grid-template-rows: auto var(--controls-height);
+    grid-template-rows: auto var(--controls-height) auto;
   }
 
   &--moves-right {
     grid-template-areas:
       'board      side'
-      'controls   side';
+      'controls   side'
+      'commentary side';
     grid-template-columns: auto $grid-side-column;
-    grid-template-rows: auto var(--controls-height);
+    grid-template-rows: auto var(--controls-height) auto;
   }
 
   &--moves-bottom {
     grid-template-areas:
       'board'
       'controls'
+      'commentary'
       'side';
-    grid-template-rows: auto var(--controls-height);
+    grid-template-rows: auto var(--controls-height) auto;
     .lpv__controls {
       border-bottom: 1px solid var(--c-lpv-border, $lpv-border);
     }
@@ -46,21 +49,53 @@ $board-min-width: 200px !default;
   &--moves-auto {
     grid-template-areas:
       'board      side'
-      'controls   side';
+      'controls   side'
+      'commentary side';
     grid-template-columns:
       minmax($board-min-width, calc(100vh - var(--controls-height)))
       $grid-side-column-full-screen;
-    grid-template-rows: auto var(--controls-height);
+    grid-template-rows: auto var(--controls-height) auto;
     @media (max-width: #{$moves-auto-to-right}) {
       grid-template-areas:
         'board'
         'controls'
+        'commentary'
         'side';
       grid-template-columns: minmax(
         $board-min-width,
-        calc(100vh - var(--controls-height) - #{$grid-side-row})
+                      calc(100vh - var(--controls-height) - #{$grid-side-row})
       );
-      grid-template-rows: auto var(--controls-height);
+      grid-template-rows: auto var(--controls-height) auto;
+    }
+  }
+
+  // Opt-in alternative: put the transport controls at the bottom of the side
+  // column (below the move list) instead of their usual place under the
+  // board. Only meaningful for the two-column layouts (moves-right/auto) —
+  // moves-bottom/false have no side column to move controls into, so this
+  // modifier has no effect there.
+  //
+  // Controls is rendered as a real DOM child inside .lpv__side itself here
+  // (see side.ts), not as its own grid cell — so there's no 'controls' area
+  // in this template at all, and no cross-column height math to get right:
+  // side already spans exactly the rows board+commentary use, same as the
+  // default layout, and the move list naturally fills whatever height
+  // controls' own flex-child doesn't take.
+  &--side-controls {
+    &.lpv--moves-right {
+      grid-template-areas:
+        'board      side'
+        'commentary side';
+      grid-template-rows: auto auto;
+    }
+
+    &.lpv--moves-auto {
+      grid-template-areas:
+        'board      side'
+        'commentary side';
+      grid-template-rows: auto auto;
+      // The narrow single-column fallback is unaffected — there's no side
+      // column to move controls into at that width regardless.
     }
   }
 
@@ -70,8 +105,9 @@ $board-min-width: 200px !default;
         'player-top'
         'board'
         'player-bot'
-        'controls';
-      grid-template-rows: $player-height auto $player-height var(--controls-height);
+        'controls'
+        'commentary';
+      grid-template-rows: $player-height auto $player-height var(--controls-height) auto;
     }
 
     &.lpv--moves-right {
@@ -79,8 +115,9 @@ $board-min-width: 200px !default;
         'player-top side'
         'board      side'
         'player-bot side'
-        'controls   side';
-      grid-template-rows: $player-height auto $player-height var(--controls-height);
+        'controls   side'
+        'commentary side';
+      grid-template-rows: $player-height auto $player-height var(--controls-height) auto;
     }
 
     &.lpv--moves-bottom {
@@ -89,8 +126,9 @@ $board-min-width: 200px !default;
         'board'
         'player-bot'
         'controls'
+        'commentary'
         'side';
-      grid-template-rows: $player-height auto $player-height var(--controls-height) $grid-side-row;
+      grid-template-rows: $player-height auto $player-height var(--controls-height) auto $grid-side-row;
       .lpv__controls {
         border-bottom: 1px solid var(--c-lpv-border, $lpv-border);
       }
@@ -101,23 +139,48 @@ $board-min-width: 200px !default;
         'player-top side'
         'board      side'
         'player-bot side'
-        'controls   side';
+        'controls   side'
+        'commentary side';
       grid-template-columns:
         minmax($board-min-width, calc(100vh - 2 * #{$player-height} - var(--controls-height)))
         $grid-side-column-full-screen;
-      grid-template-rows: $player-height auto $player-height var(--controls-height);
+      grid-template-rows: $player-height auto $player-height var(--controls-height) auto;
       @media (max-width: #{$moves-auto-to-right}) {
         grid-template-areas:
           'player-top'
           'board'
           'player-bot'
           'controls'
+          'commentary'
           'side';
         grid-template-columns: minmax(
           $board-min-width,
-          calc(100vh - 2 * #{$player-height} - var(--controls-height) - #{$grid-side-row})
+                        calc(100vh - 2 * #{$player-height} - var(--controls-height) - #{$grid-side-row})
         );
-        grid-template-rows: $player-height auto $player-height var(--controls-height) $grid-side-row;
+        grid-template-rows: $player-height auto $player-height var(--controls-height) auto $grid-side-row;
+      }
+    }
+
+    &.lpv--side-controls {
+      &.lpv--moves-right {
+        grid-template-areas:
+          'player-top side'
+          'board      side'
+          'player-bot side'
+          'commentary side';
+        grid-template-rows: $player-height auto $player-height auto;
+      }
+
+      &.lpv--moves-auto {
+        grid-template-areas:
+          'player-top side'
+          'board      side'
+          'player-bot side'
+          'commentary side';
+        grid-template-columns:
+          minmax($board-min-width, calc(100vh - 2 * #{$player-height} - var(--controls-height)))
+          $grid-side-column-full-screen;
+        grid-template-rows: $player-height auto $player-height auto;
       }
     }
   }
@@ -127,6 +190,9 @@ $board-min-width: 200px !default;
   }
   &__side {
     grid-area: side;
+  }
+  &__commentary {
+    grid-area: commentary;
   }
   &__player--top {
     grid-area: player-top;

@@ -7,6 +7,24 @@ const defaults: Opts = {
   showClocks: true, // show the clocks alongside the players
   showMoves: 'auto', // false | "right" | "bottom" | auto. "auto" uses media queries
   showControls: true, // show the [prev, menu, next] buttons
+  showVariations: true, // show variations (and their comments) inline in the move list.
+  // Set false for a simplified, mainline-only move list — variations become
+  // reachable via the board's variation arrows instead, and per-move
+  // comments are only shown for whichever move is currently selected.
+  showCommentary: true, // show a prominent panel with the comment for whichever
+  // move is currently selected (or the game's own leading comment, at the
+  // start position). Pairs naturally with showVariations: false, but works
+  // independently of it too.
+  mainlineArrow: 'always', // when showVariations is false, whether the board also
+  // shows a green arrow for the mainline continuation, not just variations:
+  // 'always' shows it whenever there's a next move; 'ifVariation' only shows
+  // it at positions where a variation also branches (otherwise there's
+  // nothing to choose between, so the arrow is just clutter); 'never' shows
+  // only variation arrows, ever.
+  sideControls: false, // when showMoves is 'right' or 'auto' (i.e. there's a
+  // side column), show the transport controls at the bottom of that column
+  // instead of their usual place below the board. Purely a layout choice —
+  // has no effect with showMoves: 'bottom'/false, which have no side column.
   scrollToMove: true, // enable scrolling through moves with a mouse wheel
   keyboardToMove: true, // enable keyboard navigation through moves
   orientation: undefined, // orientation of the board. Undefined to use the Orientation PGN tag.

@@ -1,0 +1,22 @@
+.lpv {
+  &__commentary {
+    padding: 10px 14px;
+    background: var(--c-lpv-bg-pane, $lpv-bg-pane);
+    border-top: 1px solid var(--c-lpv-border, $lpv-border);
+    overflow-y: auto;
+    height: 12em; // fixed, not max-height — keeps the layout stable as you
+    // step between moves with short/long/no comments, so surrounding
+    // elements (controls, move list) don't shift position on every move.
+  }
+  &__commentary__text {
+    margin: 0;
+    font-size: 1.05em;
+    line-height: 1.5;
+    color: var(--c-lpv-font, $lpv-font);
+
+    &--empty {
+      color: var(--c-lpv-font-shy, $lpv-font-shy);
+      font-style: italic;
+    }
+  }
+}
