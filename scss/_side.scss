@@ -52,42 +52,72 @@
         color: var(--c-lpv-past-moves, $lpv-past-moves);
       }
       &.current {
-        background: var(--c-lpv-current-move, $lpv-current-move) !important;
+        background: var(--c-lpv-current-move, $lpv-current-move);
         color: var(--c-lpv-accent-over, $lpv-accent-over);
       }
       &.inaccuracy {
         color: var(--c-lpv-inaccuracy, $lpv-inaccuracy);
-        &:hover {
+        &.current {
+          background: var(--c-lpv-bg-inaccuracy-current, $lpv-bg-inaccuracy-current);
+          color: var(--c-lpv-accent-over, $lpv-accent-over);
+        }
+        &:hover,
+        &.current:hover {
           background: var(--c-lpv-bg-inaccuracy-hover, $lpv-bg-inaccuracy-hover);
         }
       }
       &.mistake {
         color: var(--c-lpv-mistake, $lpv-mistake);
-        &:hover {
+        &.current {
+          background: var(--c-lpv-bg-mistake-current, $lpv-bg-mistake-current);
+          color: var(--c-lpv-accent-over, $lpv-accent-over);
+        }
+        &:hover,
+        &.current:hover {
           background: var(--c-lpv-bg-mistake-hover, $lpv-bg-mistake-hover);
         }
       }
       &.blunder {
         color: var(--c-lpv-blunder, $lpv-blunder);
-        &:hover {
+        &.current {
+          background: var(--c-lpv-bg-blunder-current, $lpv-bg-blunder-current);
+          color: var(--c-lpv-accent-over, $lpv-accent-over);
+        }
+        &:hover,
+        &.current:hover {
           background: var(--c-lpv-bg-blunder-hover, $lpv-bg-blunder-hover);
         }
       }
       &.good {
         color: var(--c-lpv-good-move, $lpv-good-move);
-        &:hover {
+        &.current {
+          background: var(--c-lpv-bg-good-current, $lpv-bg-good-current);
+          color: var(--c-lpv-accent-over, $lpv-accent-over);
+        }
+        &:hover,
+        &.current:hover {
           background: var(--c-lpv-bg-good-hover, $lpv-bg-good-hover);
         }
       }
       &.brilliant {
         color: var(--c-lpv-brilliant, $lpv-brilliant);
-        &:hover {
+        &.current {
+          background: var(--c-lpv-bg-brilliant-current, $lpv-bg-brilliant-current);
+          color: var(--c-lpv-accent-over, $lpv-accent-over);
+        }
+        &:hover,
+        &.current:hover {
           background: var(--c-lpv-bg-brilliant-hover, $lpv-bg-brilliant-hover);
         }
       }
       &.interesting {
         color: var(--c-lpv-interesting, $lpv-interesting);
-        &:hover {
+        &.current {
+          background: var(--c-lpv-bg-interesting-current, $lpv-bg-interesting-current);
+          color: var(--c-lpv-accent-over, $lpv-accent-over);
+        }
+        &:hover,
+        &.current:hover {
           background: var(--c-lpv-bg-interesting-hover, $lpv-bg-interesting-hover);
         }
       }
