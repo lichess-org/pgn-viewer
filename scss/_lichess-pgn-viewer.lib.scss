@@ -34,6 +34,12 @@ $lpv-bg-blunder-hover: mix($lpv-blunder, $lpv-bg, 30%) !default;
 $lpv-bg-good-hover: mix($lpv-good-move, $lpv-bg, 30%) !default;
 $lpv-bg-brilliant-hover: mix($lpv-brilliant, $lpv-bg, 30%) !default;
 $lpv-bg-interesting-hover: mix($lpv-interesting, $lpv-bg, 30%) !default;
+$lpv-bg-inaccuracy-current: mix($lpv-inaccuracy, $lpv-bg, 50%) !default;
+$lpv-bg-mistake-current: mix($lpv-mistake, $lpv-bg, 50%) !default;
+$lpv-bg-blunder-current: mix($lpv-blunder, $lpv-bg, 50%) !default;
+$lpv-bg-good-current: mix($lpv-good-move, $lpv-bg, 50%) !default;
+$lpv-bg-brilliant-current: mix($lpv-brilliant, $lpv-bg, 50%) !default;
+$lpv-bg-interesting-current: mix($lpv-interesting, $lpv-bg, 50%) !default;
 
 @import './fbt';
 @import './util';
