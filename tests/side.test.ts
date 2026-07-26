@@ -2,6 +2,7 @@ import { type VNode } from 'snabbdom';
 import { expect, test } from 'vitest';
 
 import { type Opts } from '../src/interfaces';
+import { movePathFromEventTarget } from '../src/view/events';
 
 type TextNode = VNode | string | number | null | undefined;
 
@@ -50,6 +51,16 @@ const renderText = async (pgn: string) => {
   return collectText(renderMoves(ctrl));
 };
 
+const targetWithClosest = (path: string | null) =>
+  ({
+    closest: (selector: string) =>
+      selector === '[data-path]'
+        ? {
+            getAttribute: (name: string) => (name === 'data-path' ? path : null),
+          }
+        : null,
+  }) as unknown as EventTarget;
+
 test('renders starting comments before variation moves', async () => {
   const text = await renderText(
     "1.e4 c5 2.Nf3 Nc6 3.d4 cxd4 4.Nxd4 Nf6 5.Nc3 e5 6.Ndb5 d6 7.Bg5 a6 8.Na3 b5 ({Again, White has two main options. We'll see} Nd5 {in quite detail, but here, let's explore another knight jump that has gained some popularity recently.}) 9.Nab1 *",
@@ -62,4 +73,14 @@ test('renders starting comments before moves in nested variations', async () => 
   const text = await renderText('1. e4 e5 (1... c5 ({Nested comment} 1... e6) 2. Nf3) *');
 
   expect(text).toContain('Nested comment');
+});
+
+test('finds move path from event target ancestors', () => {
+  expect(movePathFromEventTarget(targetWithClosest('/abc'))).toBe('/abc');
+});
+
+test('returns undefined when event target has no move path', () => {
+  expect(movePathFromEventTarget(targetWithClosest(null))).toBe(undefined);
+  expect(movePathFromEventTarget({} as EventTarget)).toBe(undefined);
+  expect(movePathFromEventTarget(null)).toBe(undefined);
 });
