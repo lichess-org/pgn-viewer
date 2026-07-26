@@ -63,3 +63,24 @@ test('empty player rating', () => {
 `;
   expect(makeGame(pgn).players.white.rating).toBe(undefined);
 });
+
+test('starting comments before moves in variations are preserved', () => {
+  const pgn = `[Event "Sample event"]
+[Site "Github"]
+[Date "????.??.??"]
+[White "Sveshnikov"]
+[Black "9.Nab1"]
+[Result "*"]
+
+1.e4 c5 2.Nf3 Nc6 3.d4 cxd4 4.Nxd4 Nf6 5.Nc3 e5 6.Ndb5 d6 7.Bg5 a6 8.Na3 b5 ({Again, White has two main options. We'll see} Nd5 {in quite detail, but here, let's explore another knight jump that has gained some popularity recently.}) 9.Nab1 *`;
+
+  const game = makeGame(pgn);
+  const mainline = Array.from(game.moves.mainline());
+  const na3 = mainline.find(move => move.san === 'Na3');
+  const variation = na3 && game.nodeAt(na3.path)?.children.find(child => child.data.san === 'Nd5');
+
+  expect(variation?.data.startingComments).toContain("Again, White has two main options. We'll see");
+  expect(variation?.data.comments).toContain(
+    "in quite detail, but here, let's explore another knight jump that has gained some popularity recently.",
+  );
+});
