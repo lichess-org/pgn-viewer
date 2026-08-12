@@ -70,7 +70,7 @@ const makeMoveNodes = (ctrl: PgnViewer): Array<VNode | undefined> => {
     variations: MoveNode[] = ctrl.game.moves.children.slice(1);
   if (ctrl.game.initial.pos.turn === 'black' && ctrl.game.mainline[0])
     elms.push(indexNode(ctrl.game.initial.pos.fullmoves), emptyMove());
-  while ((node = (node || ctrl.game.moves).children[0])) {
+  while ((node = (node ?? ctrl.game.moves).children[0])) {
     const move = node.data;
     const oddMove = move.ply % 2 === 1;
     if (oddMove) elms.push(indexNode(moveTurn(move)));

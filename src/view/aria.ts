@@ -43,7 +43,7 @@ export const renderRootAriaLabel = (ctrl: PgnViewer): string => {
   const game = ctrl.game;
 
   const formatPlayer = (player: Player): string => {
-    let playerInfo = player.name || ctrl.translate('aria.unknownPlayer');
+    let playerInfo = player.name ?? ctrl.translate('aria.unknownPlayer');
     if (player.title) {
       playerInfo = `${player.title} ${playerInfo}`;
     }
