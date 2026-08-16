@@ -25,7 +25,7 @@ export const renderAccessibleBoard = (ctrl: PgnViewer): VNode => {
 };
 
 const renderBoardRows = (ctrl: PgnViewer, flipped: boolean): VNode[] => {
-  const pieces = ctrl.ground?.state.pieces || readFen(ctrl.curData().fen);
+  const pieces = ctrl.ground?.state.pieces ?? readFen(ctrl.curData().fen);
 
   const orderedRanks = flipped ? ranks : invRanks;
   const orderedFiles = flipped ? [...files].reverse() : files;

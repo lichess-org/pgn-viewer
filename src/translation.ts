@@ -4,7 +4,7 @@ const defaultTranslator: Translator = (key: string) => defaultTranslations[key];
 
 export default function translate(custom?: Translator) {
   return (key: string, ...args: string[]) => {
-    const translated = (custom && custom(key)) || defaultTranslator(key);
+    const translated = (custom && custom(key)) ?? defaultTranslator(key);
     return interpolate(translated ?? key, args);
   };
 }
@@ -18,7 +18,7 @@ const interpolate = (str: string, args: string[]): string => {
   return result;
 };
 
-const defaultTranslations: { [key: string]: string } = {
+const defaultTranslations: Record<string, string> = {
   flipTheBoard: 'Flip the board',
   analysisBoard: 'Analysis board',
   practiceWithComputer: 'Practice with computer',

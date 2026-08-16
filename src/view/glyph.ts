@@ -9,9 +9,7 @@ type Glyph = {
   symbol: string;
   name: string;
 };
-interface Glyphs {
-  [key: number]: Glyph;
-}
+type Glyphs = Record<number, Glyph>;
 
 export const glyphs: Glyphs = {
   1: {
