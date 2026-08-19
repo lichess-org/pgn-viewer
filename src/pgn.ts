@@ -49,7 +49,7 @@ export const makeGame = (pgn: string, lichess: Lichess = false): Game => {
   const game = parsePgn(pgn)[0] || parsePgn('*')[0];
   const start = startingPosition(game.headers).unwrap();
   const fen = makeFen(start.toSetup());
-  const comments = parseComments(game.comments || []);
+  const comments = parseComments(game.comments ?? []);
   const headers = new Map(Array.from(game.headers, ([key, value]) => [key.toLowerCase(), value]));
   const metadata = makeMetadata(headers, lichess);
   const initial: Initial = {
@@ -60,8 +60,8 @@ export const makeGame = (pgn: string, lichess: Lichess = false): Game => {
     comments: comments.texts,
     shapes: comments.shapes,
     clocks: {
-      white: metadata.timeControl?.initial || comments.clock,
-      black: metadata.timeControl?.initial || comments.clock,
+      white: metadata.timeControl?.initial ?? comments.clock,
+      black: metadata.timeControl?.initial ?? comments.clock,
     },
   };
   const moves = makeMoves(start, game.moves, metadata);
@@ -78,8 +78,8 @@ const makeMoves = (start: Position, moves: Node<PgnNodeData>, metadata: Metadata
     const san = makeSanAndPlay(state.pos, move);
     state.path = path;
     const setup = state.pos.toSetup();
-    const comments = parseComments(node.comments || []);
-    const startingComments = parseComments(node.startingComments || []);
+    const comments = parseComments(node.comments ?? []);
+    const startingComments = parseComments(node.startingComments ?? []);
     const shapes = [...comments.shapes, ...startingComments.shapes];
     const ply = (setup.fullmoves - 1) * 2 + (state.pos.turn === 'white' ? 0 : 1);
     let clocks = (state.clocks = makeClocks(state.clocks, state.pos.turn, comments.clock));
@@ -100,7 +100,7 @@ const makeMoves = (start: Position, moves: Node<PgnNodeData>, metadata: Metadata
       check: state.pos.isCheck(),
       comments: comments.texts,
       startingComments: startingComments.texts,
-      nags: node.nags || [],
+      nags: node.nags ?? [],
       shapes,
       clocks,
       emt: comments.emt,
@@ -123,7 +123,7 @@ function makePlayers(headers: Headers, metadata: Metadata): Players {
     return {
       name,
       title: get(color, 'title'),
-      rating: Number.parseInt(get(color, 'elo') || '') || undefined,
+      rating: Number.parseInt(get(color, 'elo') ?? '') || undefined,
       isLichessUser: metadata.isLichess && !!name?.match(/^[a-z0-9][a-z0-9_-]{0,28}[a-z0-9]$/i),
     };
   };
@@ -135,7 +135,7 @@ function makePlayers(headers: Headers, metadata: Metadata): Players {
 
 function makeMetadata(headers: Headers, lichess: Lichess): Metadata {
   const site =
-    headers.get('chapterurl') || headers.get('gameurl') || headers.get('source') || headers.get('site');
+    headers.get('chapterurl') ?? headers.get('gameurl') ?? headers.get('source') ?? headers.get('site');
   const tcs = headers
     .get('timecontrol')
     ?.split('+')

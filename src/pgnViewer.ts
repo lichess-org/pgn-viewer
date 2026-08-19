@@ -25,13 +25,13 @@ export default class PgnViewer {
     readonly redraw: () => void,
   ) {
     this.game = makeGame(opts.pgn, opts.lichess);
-    opts.orientation = opts.orientation || this.game.metadata.orientation;
+    opts.orientation = opts.orientation ?? this.game.metadata.orientation;
     this.translate = translator(opts.translate);
     this.path = this.game.pathAtMainlinePly(opts.initialPly);
   }
 
-  curNode = (): AnyNode => this.game.nodeAt(this.path) || this.game.moves;
-  curData = (): InitialOrMove => this.game.dataAt(this.path) || this.game.initial;
+  curNode = (): AnyNode => this.game.nodeAt(this.path) ?? this.game.moves;
+  curData = (): InitialOrMove => this.game.dataAt(this.path) ?? this.game.initial;
 
   goTo = (to: GoTo, focus = true) => {
     const path =
@@ -42,7 +42,7 @@ export default class PgnViewer {
           : to === 'next'
             ? this.game.nodeAt(this.path)?.children[0]?.data.path
             : this.game.pathAtMainlinePly('last');
-    this.toPath(path || this.path, focus);
+    this.toPath(path ?? this.path, focus);
   };
 
   canGoTo = (to: GoTo) =>
@@ -74,7 +74,7 @@ export default class PgnViewer {
   };
 
   orientation = () => {
-    const base = this.opts.orientation || 'white';
+    const base = this.opts.orientation ?? 'white';
     return this.flipped ? opposite(base) : base;
   };
 
@@ -122,7 +122,7 @@ export default class PgnViewer {
     this.redrawGround();
   };
 
-  private redrawGround = () =>
+  private readonly redrawGround = () =>
     this.withGround(g => {
       g.set(this.cgState());
       g.setShapes(
@@ -133,5 +133,5 @@ export default class PgnViewer {
         })),
       );
     });
-  private withGround = (f: (cg: CgApi) => void) => this.ground && f(this.ground);
+  private readonly withGround = (f: (cg: CgApi) => void) => this.ground && f(this.ground);
 }

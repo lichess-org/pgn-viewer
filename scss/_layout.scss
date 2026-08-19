@@ -37,7 +37,7 @@ $board-min-width: 200px !default;
       'board'
       'controls'
       'side';
-    grid-template-rows: auto var(--controls-height);
+    grid-template-rows: auto var(--controls-height) $grid-side-row;
     .lpv__controls {
       border-bottom: 1px solid var(--c-lpv-border, $lpv-border);
     }
@@ -60,7 +60,7 @@ $board-min-width: 200px !default;
         $board-min-width,
         calc(100vh - var(--controls-height) - #{$grid-side-row})
       );
-      grid-template-rows: auto var(--controls-height);
+      grid-template-rows: auto var(--controls-height) $grid-side-row;
     }
   }
 
