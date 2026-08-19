@@ -25,7 +25,7 @@ export const renderMoves = (ctrl: PgnViewer) =>
             el.addEventListener(
               'click',
               e => {
-                const path = (e.target as HTMLElement).getAttribute('data-path');
+                const path = (e.target as HTMLElement).closest('[data-path]')?.getAttribute('data-path');
                 if (path) ctrl.toPath(new Path(path));
               },
               { passive: true },
