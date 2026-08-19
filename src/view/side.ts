@@ -6,7 +6,6 @@ import { Path } from '../path';
 import type PgnViewer from '../pgnViewer';
 
 import { ariaHidden, presentation } from './aria';
-import { movePathFromEventTarget } from './events';
 import { renderNag } from './glyph';
 import { formatMoveForScreenReader } from './util';
 
@@ -26,7 +25,7 @@ export const renderMoves = (ctrl: PgnViewer) =>
             el.addEventListener(
               'click',
               e => {
-                const path = movePathFromEventTarget(e.target);
+                const path = (e.target as HTMLElement).closest('[data-path]')?.getAttribute('data-path');
                 if (path) ctrl.toPath(new Path(path));
               },
               { passive: true },
