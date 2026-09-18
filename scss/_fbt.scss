@@ -14,7 +14,7 @@
     text-align: center;
 
     @media (hover: hover) {
-      &:hover:not(.disabled):not([disabled]) {
+      &:hover:not(.disabled, [disabled]) {
         background: var(--c-lpv-fbt-hover, lpv-fbt-hover);
         color: #fff;
       }

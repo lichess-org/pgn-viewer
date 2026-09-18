@@ -11,6 +11,7 @@
       font-size: 1.4em;
       padding: 0.4em 0.7em;
       border-left: 1px solid var(--c-lpv-border, $lpv-border);
+
       &:first-child {
         border: none;
       }
@@ -19,10 +20,10 @@
     &__menu.lpv__fbt {
       flex: 0 1 auto;
       width: 4em;
-      // the ellipsis icon is not well centered vertically
-      padding: 0.45em 1em 0.35em 1em;
+      padding: 0.45em 1em 0.35em 1em; // the ellipsis icon is not well centered vertically
       font-size: 1.1em;
     }
+
     &__goto {
       padding: 0.4rem 0.7rem;
     }

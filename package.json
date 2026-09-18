@@ -35,7 +35,7 @@
     }
   },
   "dependencies": {
-    "@lichess-org/chessground": "^10.1.1",
+    "@lichess-org/chessground": "^10.2.0",
     "chessops": "^0.15.1",
     "snabbdom": "3.5.1"
   },
@@ -61,7 +61,7 @@
     "bundle-dev": "pnpm run bundle --outfile=demo/lichess-pgn-viewer.js",
     "bundle-prod": "pnpm run bundle --minify --outfile=dist/lichess-pgn-viewer.min.js",
     "sass-dev": "sass --no-source-map --update --style=expanded scss:demo",
-    "sass-prod": "sass --no-source-map --style=compressed scss:dist",
+    "sass-prod": "sass --no-source-map --silence-deprecation=import --style=compressed scss:dist",
     "prod": "pnpm run sass-prod && pnpm run bundle-prod",
     "demo": "pnpm run sass-dev && pnpm run bundle-dev && http-server demo",
     "test": "vitest run",

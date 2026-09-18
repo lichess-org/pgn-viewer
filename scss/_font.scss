@@ -2,9 +2,8 @@
 
 .lpv {
   &__icon {
-    &:before {
-      font-family: 'lpv-fontello';
-
+    &::before {
+      font-family: lpv-fontello;
       font-size: 1.1em;
       width: 1em;
       text-align: center;
@@ -14,19 +13,19 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    &-step-forward:before {
+    &-step-forward::before {
       content: '\e800';
     } /* '' */
-    &-step-backward:before {
+    &-step-backward::before {
       content: '\e801';
     } /* '' */
-    &-left-open:before {
+    &-left-open::before {
       content: '\e802';
     } /* '' */
-    &-right-open:before {
+    &-right-open::before {
       content: '\e803';
     } /* '' */
-    &-ellipsis-vert:before {
+    &-ellipsis-vert::before {
       content: '\f142';
     } /* '' */
   }
