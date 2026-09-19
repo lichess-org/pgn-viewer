@@ -6,14 +6,17 @@
     display: flex;
     flex-flow: column;
     justify-content: center;
+
     .lpv__fbt {
       text-align: left;
       padding: 0.8em 2.5em;
       transition: none;
+
       &::before {
         color: var(--c-lpv-accent, $lpv-accent);
         font-size: 2em;
       }
+
       &:hover::before {
         color: var(--c-lpv-accent-over, $lpv-accent-over);
       }

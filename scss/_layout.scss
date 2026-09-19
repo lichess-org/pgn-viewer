@@ -9,11 +9,12 @@ $board-min-width: 200px !default;
 .lpv {
   display: grid;
   overflow: hidden;
-  grid-row-gap: 0;
+  row-gap: 0;
 
   --controls-height: #{$controls-height};
+
   &--controls-false {
-    --controls-height: 0em;
+    --controls-height: 0;
   }
 
   &--moves-false {
@@ -38,6 +39,7 @@ $board-min-width: 200px !default;
       'controls'
       'side';
     grid-template-rows: auto var(--controls-height) $grid-side-row;
+
     .lpv__controls {
       border-bottom: 1px solid var(--c-lpv-border, $lpv-border);
     }
@@ -51,6 +53,7 @@ $board-min-width: 200px !default;
       minmax($board-min-width, calc(100vh - var(--controls-height)))
       $grid-side-column-full-screen;
     grid-template-rows: auto var(--controls-height);
+
     @media (max-width: #{$moves-auto-to-right}) {
       grid-template-areas:
         'board'
@@ -91,6 +94,7 @@ $board-min-width: 200px !default;
         'controls'
         'side';
       grid-template-rows: $player-height auto $player-height var(--controls-height) $grid-side-row;
+
       .lpv__controls {
         border-bottom: 1px solid var(--c-lpv-border, $lpv-border);
       }
@@ -106,6 +110,7 @@ $board-min-width: 200px !default;
         minmax($board-min-width, calc(100vh - 2 * #{$player-height} - var(--controls-height)))
         $grid-side-column-full-screen;
       grid-template-rows: $player-height auto $player-height var(--controls-height);
+
       @media (max-width: #{$moves-auto-to-right}) {
         grid-template-areas:
           'player-top'
@@ -125,21 +130,27 @@ $board-min-width: 200px !default;
   &__board {
     grid-area: board;
   }
+
   &__side {
     grid-area: side;
   }
+
   &__player--top {
     grid-area: player-top;
   }
+
   &__player--bottom {
     grid-area: player-bot;
   }
+
   &__controls {
     grid-area: controls;
   }
+
   &__menu,
   &__pgn {
     grid-area: 1 / 1 / 2 / 2;
+
     .lpv--players & {
       grid-area: 1 / 1 / 4 / 2;
     }
