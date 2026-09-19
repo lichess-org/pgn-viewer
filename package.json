@@ -44,11 +44,12 @@
     "esbuild": "^0.28.2",
     "http-server": "^14.1.1",
     "oxfmt": "0.61.0",
-    "oxlint": "1.77.0",
+    "oxlint": "1.79.0",
+    "oxlint-plugin-golden": "^0.1.2",
     "oxlint-tsgolint": "7.0.2001",
-    "sass": "^1.98.0",
-    "typescript": "^6.0.3",
-    "vitest": "^4.1.10"
+    "sass": "^1.104.1",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.11"
   },
   "scripts": {
     "compile": "tsc --incremental",
@@ -71,5 +72,9 @@
     "dist/*",
     "scss/*"
   ],
-  "packageManager": "pnpm@11.18.0"
+  "packageManager": "pnpm@12.3.4",
+  "engines": {
+    "node": ">=24",
+    "pnpm": ">=12"
+  }
 }

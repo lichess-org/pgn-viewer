@@ -5,7 +5,7 @@ import { type Translate } from '../interfaces';
 
 import { glyphs } from './glyph';
 
-export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => unknown, redraw?: () => void): void {
+export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => void, redraw?: () => void): void {
   for (const mousedownEvent of ['touchstart', 'mousedown']) {
     el.addEventListener(
       mousedownEvent,
