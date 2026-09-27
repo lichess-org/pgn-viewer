@@ -8,6 +8,7 @@ import { type GoTo, type InitialOrMove, type Opts, type Pane, type Translate } f
 import { Path } from './path';
 import { makeGame } from './pgn';
 import translator from './translation';
+import { annotationShapes } from './view/glyph';
 
 export default class PgnViewer {
   game: Game;
@@ -125,12 +126,18 @@ export default class PgnViewer {
   private readonly redrawGround = () =>
     this.withGround(g => {
       g.set(this.cgState());
+      const currentData = this.curData();
       g.setShapes(
-        this.curData().shapes.map(s => ({
+        currentData.shapes.map(s => ({
           orig: makeSquare(s.from),
           dest: makeSquare(s.to),
           brush: s.color,
         })),
+      );
+      g.setAutoShapes(
+        this.opts.maxGlyphs > 0 && isMoveData(currentData)
+          ? annotationShapes(currentData, this.opts.maxGlyphs)
+          : [],
       );
     });
   private readonly withGround = (f: (cg: CgApi) => void) => this.ground && f(this.ground);

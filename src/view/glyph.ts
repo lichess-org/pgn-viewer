@@ -1,4 +1,9 @@
+import { type DrawShape } from '@lichess-org/chessground/draw';
+import { glyphToSvg } from '@lichess-org/chessground/glyph';
+import { makeSquare, squareRank } from 'chessops/util';
 import { h } from 'snabbdom';
+
+import { type MoveData } from '../interfaces';
 
 export const renderNag = (nag: number) => {
   const glyph = glyphs[nag];
@@ -109,3 +114,38 @@ export const glyphs: Glyphs = {
     name: 'With the idea',
   },
 };
+
+export function annotationShapes(data: MoveData, maxGlyphs: number): DrawShape[] {
+  const { move, nags, san } = data;
+  const curGlyphs = nags
+    .map(nag => glyphs[nag])
+    .filter((glyph): glyph is Glyph => !!glyph)
+    .slice(0, maxGlyphs);
+  if (!move || !san || !curGlyphs.length) return [];
+  const destSquare = san.startsWith('O-O') // castle, short or long
+    ? squareRank(move.to) === 0 // white castle
+      ? san.startsWith('O-O-O')
+        ? 'c1'
+        : 'g1'
+      : san.startsWith('O-O-O')
+        ? 'c8'
+        : 'g8'
+    : makeSquare(move.to);
+  const toSvg = glyphToSvg(maxGlyphs);
+  return (
+    curGlyphs
+      .map((glyph, idx) => {
+        const symbol = glyph.symbol;
+        const prerendered = toSvg[symbol] ? toSvg[symbol](idx) : undefined;
+        return {
+          orig: destSquare,
+          brush: prerendered ? '' : undefined,
+          customSvg: prerendered ? { html: prerendered } : undefined,
+          label: prerendered ? undefined : { text: symbol, fill: 'purple' },
+          // keep some purple just to keep feedback forum on their toes
+        };
+      })
+      // needed so that the right-most (and first) glyph is at the top of the stack
+      .reverse()
+  );
+}
