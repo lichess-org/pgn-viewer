@@ -84,3 +84,20 @@ test('starting comments before moves in variations are preserved', () => {
     "in quite detail, but here, let's explore another knight jump that has gained some popularity recently.",
   );
 });
+
+test('threefold repetition is marked on the final position occurrences', () => {
+  const mainline = makeGame('1. Nf3 Nf6 2. Ng1 Ng8 3. Nf3 Nf6 4. Ng1 Ng8').mainline;
+  expect(mainline[3].repetition).toBe(2);
+  expect(mainline[7].repetition).toBe(3);
+  expect(mainline[0].repetition).toBe(undefined);
+});
+
+test('positions repeated only twice are not marked', () => {
+  const mainline = makeGame('1. Nf3 Nf6 2. Ng1 Ng8 3. Nf3 Nf6').mainline;
+  expect(mainline.every(move => move.repetition === undefined)).toBe(true);
+});
+
+test('games not ending in repetition are not marked', () => {
+  const mainline = makeGame('1. e4 e5 2. Nf3 Nc6 3. Bb5 a6').mainline;
+  expect(mainline.every(move => move.repetition === undefined)).toBe(true);
+});

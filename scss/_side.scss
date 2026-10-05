@@ -45,6 +45,10 @@
       font-weight: bold;
       white-space: nowrap;
 
+      nag.repetition {
+        margin-left: 0.3em;
+      }
+
       &.empty {
         color: var(--c-lpv-font-shy, $lpv-font-shy);
       }

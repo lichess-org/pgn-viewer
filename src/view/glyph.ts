@@ -10,6 +10,21 @@ export const renderNag = (nag: number) => {
   return glyph ? h('nag', { attrs: { title: glyph.name } }, glyph.symbol) : undefined;
 };
 
+const repetitionGlyphs: Glyphs = {
+  1: { symbol: '①', name: 'First occurrence' },
+  2: { symbol: '②', name: 'Second occurrence' },
+  3: { symbol: '③', name: 'Third occurrence' },
+  4: { symbol: '④', name: 'Fourth occurrence' },
+  5: { symbol: '⑤', name: 'Fifth occurrence' },
+};
+
+export const renderRepetition = (repetition?: number) => {
+  const glyph = repetition ? repetitionGlyphs[repetition] : undefined;
+  return glyph
+    ? h('nag', { class: { repetition: true }, attrs: { title: glyph.name } }, glyph.symbol)
+    : undefined;
+};
+
 type Glyph = {
   symbol: string;
   name: string;
@@ -115,10 +130,12 @@ export const glyphs: Glyphs = {
   },
 };
 
-export function annotationShapes(data: MoveData, maxGlyphs: number): DrawShape[] {
-  const { move, nags, san } = data;
-  const curGlyphs = nags
-    .map(nag => glyphs[nag])
+export function annotationShapes(data: MoveData, maxGlyphs: number, showRepetitions: boolean): DrawShape[] {
+  const { move, nags, san, repetition } = data;
+  const curGlyphs = [
+    ...(showRepetitions && repetition ? [repetitionGlyphs[repetition]] : []),
+    ...nags.map(nag => glyphs[nag]),
+  ]
     .filter((glyph): glyph is Glyph => !!glyph)
     .slice(0, maxGlyphs);
   if (!move || !san || !curGlyphs.length) return [];

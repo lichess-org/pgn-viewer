@@ -39,6 +39,7 @@ export interface MoveData extends InitialOrMove {
   startingComments: string[];
   nags: number[];
   emt?: number;
+  repetition?: number;
 }
 
 export interface Metadata {
@@ -88,6 +89,7 @@ export interface Opts {
   showClocks: boolean;
   showControls: boolean;
   maxGlyphs: number;
+  showRepetitions: boolean;
   initialPly: Ply | 'last';
   scrollToMove: boolean;
   keyboardToMove: boolean;

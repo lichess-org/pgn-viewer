@@ -136,7 +136,7 @@ export default class PgnViewer {
       );
       g.setAutoShapes(
         this.opts.maxGlyphs > 0 && isMoveData(currentData)
-          ? annotationShapes(currentData, this.opts.maxGlyphs)
+          ? annotationShapes(currentData, this.opts.maxGlyphs, this.opts.showRepetitions)
           : [],
       );
     });
