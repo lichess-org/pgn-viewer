@@ -34,7 +34,7 @@ class State {
 }
 
 export const parseComments = (strings: string[]): Comments => {
-  const comments = strings.map(parseComment);
+  const comments = strings.map(comment => parseComment(comment.replace(/\[%anno(?:\s+[^\]]*)?\]\s*/g, '')));
   const reduceTimes = (times: Array<number | undefined>) =>
     times.reduce<number | undefined>((last, time) => (typeof time === 'undefined' ? last : time), undefined);
   return {
