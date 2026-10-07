@@ -1,7 +1,7 @@
 import { isNormal, parseSquare } from 'chessops';
 import { expect, test } from 'vitest';
 
-import { makeGame } from '../src/pgn';
+import { makeGame, parseComments } from '../src/pgn';
 
 test('single move pgn', () => {
   const lastMove = makeGame('e4')!.moves.children[0].data;
@@ -83,4 +83,8 @@ test('starting comments before moves in variations are preserved', () => {
   expect(variation?.data.comments).toContain(
     "in quite detail, but here, let's explore another knight jump that has gained some popularity recently.",
   );
+  expect(parseComments(['first comment', '[%anno "id" name] second comment']).texts).toEqual([
+    'first comment',
+    'second comment',
+  ]);
 });
