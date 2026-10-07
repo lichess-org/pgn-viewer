@@ -58,6 +58,19 @@ test('question mark player names', () => {
 `;
   expect(makeGame(pgn).hasPlayerName()).toBe(false);
 });
+
+test('filters Lichess author annotations from displayed comments', () => {
+  const game = makeGame('1. e4 { [%anno "Bobby", bobby] The London System } e5 *');
+
+  expect(game.moves.children[0].data.comments).toEqual(['The London System']);
+});
+
+test('keeps supported PGN commands while filtering author annotations', () => {
+  const game = makeGame('1. e4 { [%anno "Bobby", bobby] [%cal Ge2e4] note } e5 *');
+
+  expect(game.moves.children[0].data.comments).toEqual(['note']);
+  expect(game.moves.children[0].data.shapes).toHaveLength(1);
+});
 test('empty player rating', () => {
   const pgn = `[Event "Import"]
 `;
