@@ -6,7 +6,7 @@ import { Path } from '../path';
 import type PgnViewer from '../pgnViewer';
 
 import { ariaHidden, presentation } from './aria';
-import { renderNag } from './glyph';
+import { renderNag, renderRepetition } from './glyph';
 import { formatMoveForScreenReader } from './util';
 
 export const renderMoves = (ctrl: PgnViewer) =>
@@ -141,7 +141,11 @@ const renderMove = (ctrl: PgnViewer) => (move: MoveData) =>
         ),
       },
     },
-    [move.san, ...move.nags.map(renderNag)],
+    [
+      move.san,
+      ...move.nags.map(renderNag),
+      ...(ctrl.opts.showRepetitions ? [renderRepetition(move.repetition)] : []),
+    ],
   );
 
 const autoScroll = (ctrl: PgnViewer, cont: HTMLElement) => {

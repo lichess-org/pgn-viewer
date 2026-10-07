@@ -7,6 +7,8 @@ const defaults: Opts = {
   showClocks: true, // show the clocks alongside the players
   showMoves: 'auto', // false | "right" | "bottom" | auto. "auto" uses media queries
   showControls: true, // show the [prev, menu, next] buttons
+  maxGlyphs: 4, // maximum number of glyphs to show on the board, 0 to disable them
+  showRepetitions: true, // show repeated positions in movelist and possibly as annotation depending on `maxGlyphs` when the game ended in a threefold/fivefold repetition
   scrollToMove: true, // enable scrolling through moves with a mouse wheel
   keyboardToMove: true, // enable keyboard navigation through moves
   orientation: undefined, // orientation of the board. Undefined to use the Orientation PGN tag.
