@@ -110,8 +110,8 @@ importers:
   .:
     dependencies:
       '@lichess-org/chessground':
-        specifier: ^10.4.0
-        version: 10.4.0
+        specifier: ^10.4.2
+        version: 10.4.2
       chessops:
         specifier: ^0.15.1
         version: 0.15.1
@@ -315,8 +315,8 @@ packages:
   '@jridgewell/sourcemap-codec@1.5.5':
     resolution: {integrity: sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==}
 
-  '@lichess-org/chessground@10.4.0':
-    resolution: {integrity: sha512-pRnLto7OSoSRsN94qHW+CRhh8iYd3i7ZnzqWnuV9qCDzSeGmTeXJfDPp18CnaQWuw7AdCgTlRbUvy5NOaftTow==}
+  '@lichess-org/chessground@10.4.2':
+    resolution: {integrity: sha512-T7j43oF2OIxwUlP42eHtX79drYkzCaSvuW4ENdrooW9pxAvbrse4g8OL3EH2HeA4Rn0tuOGQvAUC71NfK5lsVw==}
     engines: {node: '>=24', pnpm: '>=12'}
 
   '@oxc-project/types@0.143.0':
@@ -1593,7 +1593,7 @@ snapshots:
 
   '@jridgewell/sourcemap-codec@1.5.5': {}
 
-  '@lichess-org/chessground@10.4.0': {}
+  '@lichess-org/chessground@10.4.2': {}
 
   '@oxc-project/types@0.143.0': {}
 
