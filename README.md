@@ -142,6 +142,12 @@ More? Please make a pull request to include it here.
 
 ## Release procedure
 
+```sh
+gh release create v2.7.0
+```
+
+or
+
 - https://github.com/lichess-org/pgn-viewer/actions/workflows/release.yaml
 - [Run workflow]
 - Branch: master
