@@ -35,7 +35,7 @@
     }
   },
   "dependencies": {
-    "@lichess-org/chessground": "^10.4.0",
+    "@lichess-org/chessground": "^10.4.2",
     "chessops": "^0.15.1",
     "snabbdom": "3.5.1"
   },
