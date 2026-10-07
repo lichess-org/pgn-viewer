@@ -34,16 +34,18 @@ class State {
 }
 
 export const parseComments = (strings: string[]): Comments => {
-  const comments = strings.map(parseComment);
+  const comments = strings.map(comment => parseComment(comment.replace(/\[%anno(?:\s+[^\]]*)?\]\s*/g, '')));
   const reduceTimes = (times: Array<number | undefined>) =>
     times.reduce<number | undefined>((last, time) => (typeof time === 'undefined' ? last : time), undefined);
   return {
-    texts: comments.map(c => c.text).filter(t => !!t),
+    texts: comments.map(c => eraseTagsFromCommentText(c.text)).filter(t => !!t),
     shapes: comments.flatMap(c => c.shapes),
     clock: reduceTimes(comments.map(c => c.clock)),
     emt: reduceTimes(comments.map(c => c.emt)),
   };
 };
+
+const eraseTagsFromCommentText = (text: string): string => text.replace(/\s?\[%[^\]]+\]/g, '').trim();
 
 export const makeGame = (pgn: string, lichess: Lichess = false): Game => {
   const game = parsePgn(pgn)[0] || parsePgn('*')[0];

@@ -1,7 +1,7 @@
 import { isNormal, parseSquare } from 'chessops';
 import { expect, test } from 'vitest';
 
-import { makeGame } from '../src/pgn';
+import { makeGame, parseComments } from '../src/pgn';
 
 test('single move pgn', () => {
   const lastMove = makeGame('e4')!.moves.children[0].data;
@@ -58,6 +58,19 @@ test('question mark player names', () => {
 `;
   expect(makeGame(pgn).hasPlayerName()).toBe(false);
 });
+
+test('filters Lichess author annotations from displayed comments', () => {
+  const game = makeGame('1. e4 { [%anno "Bobby", bobby] The London System } e5 *');
+
+  expect(game.moves.children[0].data.comments).toEqual(['The London System']);
+});
+
+test('keeps supported PGN commands while filtering author annotations', () => {
+  const game = makeGame('1. e4 { [%anno "Bobby", bobby] [%cal Ge2e4] note } e5 *');
+
+  expect(game.moves.children[0].data.comments).toEqual(['note']);
+  expect(game.moves.children[0].data.shapes).toHaveLength(1);
+});
 test('empty player rating', () => {
   const pgn = `[Event "Import"]
 `;
@@ -83,6 +96,10 @@ test('starting comments before moves in variations are preserved', () => {
   expect(variation?.data.comments).toContain(
     "in quite detail, but here, let's explore another knight jump that has gained some popularity recently.",
   );
+  expect(parseComments(['first comment', '[%anno "id" name] second comment']).texts).toEqual([
+    'first comment',
+    'second comment',
+  ]);
 });
 
 test('threefold repetition is marked on the final position occurrences', () => {
