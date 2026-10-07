@@ -143,7 +143,7 @@ More? Please make a pull request to include it here.
 ## Release procedure
 
 ```sh
-gh release create v2.7.0
+gh workflow run release --field version=vX.Y.Z
 ```
 
 or
