@@ -43,11 +43,11 @@
     "@types/node": "^24.12.0",
     "esbuild": "^0.28.2",
     "http-server": "^14.1.1",
-    "oxfmt": "0.61.0",
-    "oxlint": "1.79.0",
+    "oxfmt": "0.68.0",
+    "oxlint": "1.85.0",
     "oxlint-plugin-golden": "^0.1.2",
     "oxlint-tsgolint": "7.0.2001",
-    "sass": "^1.104.1",
+    "sasso": "^0.21.0",
     "typescript": "^7.0.2",
     "vitest": "^4.1.11"
   },
@@ -60,8 +60,8 @@
     "bundle": "esbuild src/main.ts --bundle --format=esm --platform=browser",
     "bundle-dev": "pnpm run bundle --outfile=demo/lichess-pgn-viewer.js",
     "bundle-prod": "pnpm run bundle --minify --outfile=dist/lichess-pgn-viewer.min.js",
-    "sass-dev": "sass --no-source-map --update --style=expanded scss:demo",
-    "sass-prod": "sass --no-source-map --silence-deprecation=import --style=compressed scss:dist",
+    "sass-dev": "sasso --no-source-map --update --style=expanded scss:demo",
+    "sass-prod": "sasso --no-source-map --silence-deprecation=import --style=compressed scss:dist",
     "prod": "pnpm run sass-prod && pnpm run bundle-prod",
     "demo": "pnpm run sass-dev && pnpm run bundle-dev && http-server demo",
     "test": "vitest run",
@@ -72,7 +72,7 @@
     "dist/*",
     "scss/*"
   ],
-  "packageManager": "pnpm@12.3.4",
+  "packageManager": "pnpm@12.9.0",
   "engines": {
     "node": ">=24",
     "pnpm": ">=12"
