@@ -145,7 +145,12 @@ const dirButton = (ctrl: PgnViewer, to: GoTo, icon: string) => {
   const isDisabled = ctrl.pane === 'board' && !ctrl.canGoTo(to);
   return h(`button.lpv__controls__goto.lpv__controls__goto--${to}.lpv__fbt.lpv__icon.lpv__icon-${icon}`, {
     class: { disabled: isDisabled },
-    hook: onInsert(el => bindMobileMousedown(el, e => eventRepeater(() => ctrl.goTo(to), e))),
+    hook: onInsert(el => {
+      bindMobileMousedown(el, e => eventRepeater(() => ctrl.goTo(to), e));
+      el.addEventListener('click', e => {
+        if (!e.detail) ctrl.goTo(to);
+      });
+    }),
     attrs: {
       'aria-label': ctrl.translate(`aria.${to}`),
       'aria-disabled': String(isDisabled),
