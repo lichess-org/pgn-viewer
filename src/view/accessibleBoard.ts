@@ -9,7 +9,7 @@ import type PgnViewer from '../pgnViewer';
 import { formatSquareForScreenReader } from './util';
 
 export const renderAccessibleBoard = (ctrl: PgnViewer): VNode => {
-  const flipped = ctrl.flipped;
+  const flipped = ctrl.orientation() === 'black';
 
   return h(
     'div.lpv__sr-only',
